@@ -43,11 +43,11 @@ repository:
   allow_rebase_merge: false
   allow_squash_merge: false
   default_branch: master
-  description: "GitHub repository template for a PHP package"
+  description: "Shared PHP utility functions of MLL"
   has_downloads: true
   has_issues: true
   has_pages: false
   has_projects: false
   has_wiki: false
-  name: php-package-template
+  name: php-utils
   private: false

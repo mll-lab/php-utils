@@ -1,8 +1,8 @@
 {
-  "name": "spawnia/php-package-template",
+  "name": "mll-lab/php-utils",
   "type": "library",
-  "description": "GitHub repository template for a PHP package",
-  "homepage": "https://github.com/spawnia/php-package-template",
+  "description": "Shared PHP utility functions of MLL",
+  "homepage": "https://github.com/mll-lab/php-utils",
   "license": "MIT",
   "authors": [
     {
@@ -12,21 +12,22 @@
   ],
   "require": {
     "php": "^7.4 || ^8",
+    "illuminate/support": "^8.73",
     "thecodingmachine/safe": "^1"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2",
     "infection/infection": "~0.25",
-    "jangregor/phpstan-prophecy": "~0.8",
+    "jangregor/phpstan-prophecy": "^1",
     "mll-lab/php-cs-fixer-config": "^4.3",
     "phpstan/extension-installer": "^1",
-    "phpstan/phpstan": "~0.12",
-    "phpstan/phpstan-deprecation-rules": "~0.12",
-    "phpstan/phpstan-phpunit": "~0.12",
-    "phpstan/phpstan-strict-rules": "~0.12",
+    "phpstan/phpstan": "^1",
+    "phpstan/phpstan-deprecation-rules": "^1",
+    "phpstan/phpstan-phpunit": "^1",
+    "phpstan/phpstan-strict-rules": "^1",
     "phpunit/phpunit": "^9",
     "symfony/var-dumper": "^5",
-    "thecodingmachine/phpstan-safe-rule": "^1"
+    "thecodingmachine/phpstan-safe-rule": "^1.1"
   },
   "config": {
     "platform": {
@@ -37,19 +38,19 @@
   },
   "autoload": {
     "psr-4": {
-      "Spawnia\\PhpPackageTemplate\\": "src/"
+      "MLL\\Utils\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Spawnia\\PhpPackageTemplate\\Tests\\": "tests/"
+      "MLL\\Utils\\Tests\\": "tests/"
     },
     "files": [
       "vendor/symfony/var-dumper/Resources/functions/dump.php"
     ]
   },
   "support": {
-    "issues": "https://github.com/spawnia/php-package-template/issues",
-    "source": "https://github.com/spawnia/php-package-template"
+    "issues": "https://github.com/mll-lab/php-utils/issues",
+    "source": "https://github.com/mll-lab/php-utils"
   }
 }

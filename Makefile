@@ -13,8 +13,7 @@ coverage: vendor ## Collects coverage from running unit tests with phpunit
 
 .PHONY: fix
 fix: vendor
-	mkdir -p .build/php-cs-fixer
-	vendor/bin/php-cs-fixer --cache-file=.build/php-cs-fixer/cache.php
+	vendor/bin/php-cs-fixer fix
 
 .PHONY: infection
 infection: vendor ## Runs mutation tests with infection
