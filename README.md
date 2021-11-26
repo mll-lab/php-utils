@@ -8,14 +8,6 @@
 
 Shared PHP utility functions of MLL
 
-# Remove this section after cloning
-
-Link the package at https://packagist.org
-
-Enable code coverage at https://codecov.io
-
-# Remove this section after cloning
-
 ## Installation
 
 Install through composer
