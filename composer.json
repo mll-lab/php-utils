@@ -13,6 +13,7 @@
   "require": {
     "php": "^7.4 || ^8",
     "illuminate/support": "^8.73",
+    "mll-lab/str_putcsv": "^1.0",
     "thecodingmachine/safe": "^1"
   },
   "require-dev": {
@@ -26,6 +27,7 @@
     "phpstan/phpstan-phpunit": "^1",
     "phpstan/phpstan-strict-rules": "^1",
     "phpunit/phpunit": "^9",
+    "rector/rector": "^0.12.15",
     "symfony/var-dumper": "^5",
     "thecodingmachine/phpstan-safe-rule": "^1.1"
   },
