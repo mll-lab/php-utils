@@ -57,7 +57,7 @@ class CSVArray
 
         // Use the keys of the array as the headers of the CSV
         $headerLine = Arr::first($data);
-        if (!is_array($headerLine)) {
+        if (! is_array($headerLine)) {
             throw new Exception('Missing column headers.');
         }
 
