@@ -57,7 +57,10 @@ class CSVArray
 
         // Use the keys of the array as the headers of the CSV
         $headerLine = Arr::first($data);
-        assert(is_array($headerLine));
+        if (!is_array($headerLine)) {
+            throw new Exception('Missing column headers.');
+        }
+
         $content = str_putcsv(
             array_keys($headerLine),
             $delimiter
