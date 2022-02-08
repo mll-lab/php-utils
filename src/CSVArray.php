@@ -35,7 +35,7 @@ class CSVArray
 
             $entries = str_getcsv($line, $delimiter);
             if (count($entries) !== count($columnHeaders)) {
-                throw new Exception("The number of columns in row $index does not match the headers in CSV: " . $firstLine);
+                throw new Exception("The number of columns in row {$index} does not match the headers in CSV: {$firstLine}");
             }
 
             foreach ($columnHeaders as $columnIndex => $columnName) {
@@ -59,9 +59,7 @@ class CSVArray
         $headerLine = Arr::first($data);
         assert(is_array($headerLine));
         $content = str_putcsv(
-            array_keys(
-                $headerLine
-            ),
+            array_keys($headerLine),
             $delimiter
         )
         . "\r\n";

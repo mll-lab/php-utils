@@ -17,7 +17,7 @@
   "require": {
     "php": "^7.4 || ^8",
     "illuminate/support": "^8.73",
-    "mll-lab/str_putcsv": "^1.0",
+    "mll-lab/str_putcsv": "^1",
     "thecodingmachine/safe": "^1"
   },
   "require-dev": {
