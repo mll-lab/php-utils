@@ -49,15 +49,15 @@
     ]
   },
   "config": {
-    "platform": {
-      "php": "7.4.24"
-    },
-    "preferred-install": "dist",
-    "sort-packages": true,
     "allow-plugins": {
       "phpstan/extension-installer": true,
       "ergebnis/composer-normalize": true,
       "infection/extension-installer": true
-    }
+    },
+    "platform": {
+      "php": "7.4.24"
+    },
+    "preferred-install": "dist",
+    "sort-packages": true
   }
 }
