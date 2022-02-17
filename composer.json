@@ -49,6 +49,11 @@
     ]
   },
   "config": {
+    "allow-plugins": {
+      "phpstan/extension-installer": true,
+      "ergebnis/composer-normalize": true,
+      "infection/extension-installer": true
+    },
     "platform": {
       "php": "7.4.24"
     },
