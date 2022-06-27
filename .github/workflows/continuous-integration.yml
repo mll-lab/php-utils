@@ -109,7 +109,7 @@ jobs:
         run: vendor/bin/phpstan analyse --configuration=phpstan.neon
 
   tests:
-    name: "Tests"
+    name: "Tests - PHP ${{ matrix.php-version }}, Illuminate ${{ matrix.illuminate }}, ${{ matrix.dependencies }}"
 
     runs-on: ubuntu-latest
 
@@ -124,6 +124,11 @@ jobs:
           - locked
           - highest
 
+        illuminate:
+          - ^7
+          - ^8
+          - ^9
+
     steps:
       - name: "Checkout"
         uses: actions/checkout@master
@@ -134,6 +139,9 @@ jobs:
           coverage: none
           extensions: mbstring
           php-version: ${{ matrix.php-version }}
+
+      - name: "Install illuminate"
+        run: composer require "illuminate/support:${{ matrix.illuminate }}" --no-interaction --no-update
 
       - name: "Install lowest dependencies with composer"
         if: matrix.dependencies == 'lowest'
