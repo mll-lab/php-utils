@@ -12,7 +12,7 @@ class CSVArray
      *
      * @return array<int, array<string, mixed>>
      */
-    public static function toArray(string $csv, string $delimiter = ';'): array
+    public static function toArray(string $csv, string $delimiter = ';', string $enclosure = '"', string $escape = '\\'): array
     {
         $result = [];
 
@@ -26,14 +26,14 @@ class CSVArray
         }
 
         /** @var array<int, string> $columnHeaders */
-        $columnHeaders = str_getcsv($firstLine, $delimiter);
+        $columnHeaders = str_getcsv($firstLine, $delimiter, $enclosure, $escape);
 
         foreach ($lines as $index => $line) {
             if (! StringUtil::hasContent($line)) {
                 continue;
             }
 
-            $entries = str_getcsv($line, $delimiter);
+            $entries = str_getcsv($line, $delimiter, $enclosure, $escape);
             if (count($entries) !== count($columnHeaders)) {
                 throw new Exception("The number of columns in row {$index} does not match the headers in CSV: {$firstLine}");
             }
