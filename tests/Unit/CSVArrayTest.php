@@ -79,15 +79,15 @@ class CSVArrayTest extends TestCase
     public function testToArrayOptionalParameters(): void
     {
         self::assertSame(
-                [
-                    1 => [
-                        'foo' => 'bar,baz',
-                        'bar' => 'ba\\',
-                    ],
+            [
+                1 => [
+                    'foo' => 'bar,baz',
+                    'bar' => 'ba\\',
                 ],
+            ],
             CSVArray::toArray(
-            "foo,bar\r\n"
-            . "%bar,baz%,ba\\\r\n",
+                "foo,bar\r\n"
+                . "%bar,baz%,ba\\\r\n",
                 ',',
                 '%',
                 '~'
