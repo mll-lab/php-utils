@@ -55,10 +55,10 @@
       "ergebnis/composer-normalize": true,
       "infection/extension-installer": true
     },
-    "preferred-install": "dist",
-    "sort-packages": true,
     "platform": {
       "php": "7.4.32"
-    }
+    },
+    "preferred-install": "dist",
+    "sort-packages": true
   }
 }
