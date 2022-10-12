@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- added parameters enclosure and escape to `CSVArray::toArray`
+- Add parameters `$enclosure` and `$escape` to `CSVArray::toArray`
 
 ## v1.2.0
 
