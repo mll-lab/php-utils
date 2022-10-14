@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v1.4.0
+
+### Added
+
+- Add `Number::clamp()`
+
 ## v1.3.0
 
 ### Added
