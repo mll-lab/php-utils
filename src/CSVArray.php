@@ -5,7 +5,7 @@ namespace MLL\Utils;
 use Exception;
 use Illuminate\Support\Arr;
 
-class CSVArray
+final class CSVArray
 {
     /**
      * TODO: fix parsing multiline-content in csv.
