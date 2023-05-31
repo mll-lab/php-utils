@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v1.5.0
+
+### Added
+
+- Support `thecodingmachine/safe:^2`
+
 ## v1.4.0
 
 ### Added
