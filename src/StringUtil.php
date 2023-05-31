@@ -3,7 +3,6 @@
 namespace MLL\Utils;
 
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 
 final class StringUtil
 {
@@ -80,7 +79,7 @@ final class StringUtil
     public static function leftPadNumber($number, int $length): string
     {
         if (is_string($number) && ! is_numeric($number)) {
-            throw new InvalidArgumentException("Expected numeric string, got: {$number}");
+            throw new \InvalidArgumentException("Expected numeric string, got: {$number}");
         }
 
         return str_pad((string) $number, $length, '0', STR_PAD_LEFT);

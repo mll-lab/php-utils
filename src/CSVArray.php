@@ -2,7 +2,6 @@
 
 namespace MLL\Utils;
 
-use Exception;
 use Illuminate\Support\Arr;
 
 final class CSVArray
@@ -22,7 +21,7 @@ final class CSVArray
         // We remove it so it does not show up in the result
         $firstLine = array_shift($lines);
         if (is_null($firstLine)) {
-            throw new Exception('Missing column headers.');
+            throw new \Exception('Missing column headers.');
         }
 
         /** @var array<int, string> $columnHeaders */
@@ -35,7 +34,7 @@ final class CSVArray
 
             $entries = str_getcsv($line, $delimiter, $enclosure, $escape);
             if (count($entries) !== count($columnHeaders)) {
-                throw new Exception("The number of columns in row {$index} does not match the headers in CSV: {$firstLine}");
+                throw new \Exception("The number of columns in row {$index} does not match the headers in CSV: {$firstLine}");
             }
 
             foreach ($columnHeaders as $columnIndex => $columnName) {
@@ -52,13 +51,13 @@ final class CSVArray
     public static function toCSV(array $data, string $delimiter = ';'): string
     {
         if ([] === $data) {
-            throw new Exception('Array is empty');
+            throw new \Exception('Array is empty');
         }
 
         // Use the keys of the array as the headers of the CSV
         $headerLine = Arr::first($data);
         if (! is_array($headerLine)) {
-            throw new Exception('Missing column headers.');
+            throw new \Exception('Missing column headers.');
         }
 
         $content = str_putcsv(
