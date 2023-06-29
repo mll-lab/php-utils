@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v1.6.1
+
+### Fixed
+
+- `CSVArray::toArray()` returns `array<int, array<string, string>>`
+
 ## v1.6.0
 
 ### Added
