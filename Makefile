@@ -13,8 +13,8 @@ coverage: vendor ## Collects coverage from running unit tests with phpunit
 
 .PHONY: fix
 fix: vendor
-	vendor/bin/php-cs-fixer fix
 	vendor/bin/rector process
+	vendor/bin/php-cs-fixer fix
 
 .PHONY: infection
 infection: vendor ## Runs mutation tests with infection

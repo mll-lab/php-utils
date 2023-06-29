@@ -16,6 +16,7 @@ final class CSVArray
      */
     public static function toArray(string $csv, string $delimiter = ';', string $enclosure = '"', string $escape = '\\'): array
     {
+        /** @var array<int, array<string, string>> $result */
         $result = [];
 
         $lines = StringUtil::splitLines($csv);
@@ -35,6 +36,7 @@ final class CSVArray
                 continue;
             }
 
+            /** @var array<int, string> $entries */
             $entries = str_getcsv($line, $delimiter, $enclosure, $escape);
             if (count($entries) !== count($columnHeaders)) {
                 throw new \Exception("The number of columns in row {$index} does not match the headers in CSV: {$firstLine}");
@@ -44,8 +46,6 @@ final class CSVArray
                 $result[$index + 1][$columnName] = $entries[$columnIndex];
             }
         }
-
-        dump($result);
 
         return $result;
     }

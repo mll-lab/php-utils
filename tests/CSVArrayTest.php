@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CSVArrayTest extends TestCase
 {
-    /**
-     * @return iterable<array{string, array<int, array<string, string>>}>
-     */
+    /** @return iterable<array{string, array<int, array<string, string>>}> */
     public static function csvAndArrayStringValues(): iterable
     {
         yield [
