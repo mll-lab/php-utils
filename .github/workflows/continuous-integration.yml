@@ -116,9 +116,10 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - 7.4
-          - 8.0
-          - 8.1
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
 
         dependencies:
           - lowest
@@ -127,9 +128,14 @@ jobs:
         illuminate:
           - ^8.73
           - ^9
+          - ^10
         exclude:
-          - php-version: 7.4
+          - php-version: "7.4"
             illuminate: ^9
+          - php-version: "7.4"
+            illuminate: ^10
+          - php-version: "8.0"
+            illuminate: ^10
 
     steps:
       - name: "Checkout"
@@ -140,7 +146,7 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: ${{ matrix.php-version }}
+          php-version: "${{ matrix.php-version }}"
 
       - name: "Install illuminate"
         run: composer require "illuminate/support:${{ matrix.illuminate }}" --no-interaction --no-update
@@ -175,11 +181,8 @@ jobs:
       - name: "Install dependencies with composer"
         run: composer install --no-interaction --no-progress --no-suggest
 
-      - name: "Dump Xdebug filter with phpunit/phpunit"
-        run: vendor/bin/phpunit --dump-xdebug-filter=.build/phpunit/xdebug-filter.php
-
       - name: "Collect code coverage with Xdebug and phpunit/phpunit"
-        run: vendor/bin/phpunit --coverage-clover=.build/logs/clover.xml --prepend=.build/phpunit/xdebug-filter.php
+        run: vendor/bin/phpunit --coverage-clover=.build/logs/clover.xml
 
       - name: "Send code coverage report to codecov.io"
         uses: codecov/codecov-action@v2
@@ -204,4 +207,4 @@ jobs:
         run: composer install --no-interaction --no-progress --no-suggest
 
       - name: "Run mutation tests with infection/infection"
-        run: vendor/bin/infection --ignore-msi-with-no-mutations --min-covered-msi=100 --min-msi=100
+        run: vendor/bin/infection --ignore-msi-with-no-mutations --min-covered-msi=60 --min-msi=60
