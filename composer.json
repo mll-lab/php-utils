@@ -16,23 +16,23 @@
   },
   "require": {
     "php": "^7.4 || ^8",
-    "illuminate/support": "^8.73 || ^9",
+    "illuminate/support": "^8.73 || ^9 || ^10",
     "mll-lab/str_putcsv": "^1",
     "thecodingmachine/safe": "^1 || ^2"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2",
-    "infection/infection": "~0.26.6",
+    "infection/infection": "^0.26 || ^0.27",
     "jangregor/phpstan-prophecy": "^1",
-    "mll-lab/php-cs-fixer-config": "^4.3",
+    "mll-lab/php-cs-fixer-config": "^5",
     "phpstan/extension-installer": "^1",
     "phpstan/phpstan": "^1",
     "phpstan/phpstan-deprecation-rules": "^1",
     "phpstan/phpstan-phpunit": "^1",
     "phpstan/phpstan-strict-rules": "^1",
-    "phpunit/phpunit": "^9",
-    "rector/rector": "^0.16",
-    "symfony/var-dumper": "^5",
+    "phpunit/phpunit": "^9 || ^10",
+    "rector/rector": "^0.17",
+    "symfony/var-dumper": "^5 || ^6",
     "thecodingmachine/phpstan-safe-rule": "^1.2"
   },
   "autoload": {
@@ -55,7 +55,6 @@
       "ergebnis/composer-normalize": true,
       "infection/extension-installer": true
     },
-    "preferred-install": "dist",
     "sort-packages": true
   }
 }

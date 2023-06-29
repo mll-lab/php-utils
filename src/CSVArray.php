@@ -4,12 +4,15 @@ namespace MLL\Utils;
 
 use Illuminate\Support\Arr;
 
+/**
+ * @phpstan-type CSVPrimitive bool|float|int|string|\Stringable|null
+ */
 final class CSVArray
 {
     /**
      * TODO: fix parsing multiline-content in csv.
      *
-     * @return array<int, array<string, mixed>>
+     * @return array<int, array<string, CSVPrimitive>>
      */
     public static function toArray(string $csv, string $delimiter = ';', string $enclosure = '"', string $escape = '\\'): array
     {
@@ -45,12 +48,10 @@ final class CSVArray
         return $result;
     }
 
-    /**
-     * @param array<int, array<string, mixed>> $data
-     */
+    /** @param array<int, array<string, CSVPrimitive>> $data */
     public static function toCSV(array $data, string $delimiter = ';'): string
     {
-        if ([] === $data) {
+        if ($data === []) {
             throw new \Exception('Array is empty');
         }
 

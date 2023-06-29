@@ -27,7 +27,7 @@ final class StringUtil
         }
 
         $amountOfDots = strspn($firstname, '.');
-        if (2 === $amountOfDots) {
+        if ($amountOfDots === 2) {
             /** @var int $dotPosition guaranteed because we know there are two dots */
             $dotPosition = strpos($firstname, '.');
 
@@ -85,9 +85,7 @@ final class StringUtil
         return str_pad((string) $number, $length, '0', STR_PAD_LEFT);
     }
 
-    /**
-     * Remove forbidden chars (<,>,:,",/,\,|,?,*) from file name.
-     */
+    /** Remove forbidden chars (<,>,:,",/,\,|,?,*) from file name. */
     public static function sanitizeFilename(string $fileName): string
     {
         return str_replace(
@@ -107,15 +105,13 @@ final class StringUtil
         );
     }
 
-    /**
-     * Does the given string have non-whitespace content?
-     */
+    /** Does the given string have non-whitespace content? */
     public static function hasContent(?string $maybeString): bool
     {
-        if (null === $maybeString) {
+        if ($maybeString === null) {
             return false;
         }
 
-        return '' !== trim($maybeString);
+        return trim($maybeString) !== '';
     }
 }

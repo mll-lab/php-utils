@@ -20,10 +20,8 @@ final class NumberTest extends TestCase
         self::assertSame($expected, Number::clamp($min, $max, $current));
     }
 
-    /**
-     * @return iterable<array{int|float, int|float, int|float, int|float}>
-     */
-    public function clampProvider(): iterable
+    /** @return iterable<array{int|float, int|float, int|float, int|float}> */
+    public static function clampProvider(): iterable
     {
         yield [1, 2, 3, 2];
         yield [1, 2, 0, 1];
