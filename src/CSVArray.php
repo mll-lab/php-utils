@@ -12,7 +12,7 @@ final class CSVArray
     /**
      * TODO: fix parsing multiline-content in csv.
      *
-     * @return array<int, array<string, CSVPrimitive>>
+     * @return array<int, array<string, string>>
      */
     public static function toArray(string $csv, string $delimiter = ';', string $enclosure = '"', string $escape = '\\'): array
     {
@@ -44,6 +44,8 @@ final class CSVArray
                 $result[$index + 1][$columnName] = $entries[$columnIndex];
             }
         }
+
+        dump($result);
 
         return $result;
     }
