@@ -7,9 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class StringUtilTest extends TestCase
 {
-    /**
-     * @dataProvider shortenFirstname
-     */
+    /** @dataProvider shortenFirstname */
     public function testShortenFirstname(string $expectedShortened, string $input): void
     {
         self::assertSame(
@@ -18,10 +16,8 @@ final class StringUtilTest extends TestCase
         );
     }
 
-    /**
-     * @return iterable<array{string, string}>
-     */
-    public function shortenFirstname(): iterable
+    /** @return iterable<array{string, string}> */
+    public static function shortenFirstname(): iterable
     {
         yield ['F.B.', 'Foo Bar'];
         yield ['F.X.', 'Fred-Xaver'];
@@ -40,10 +36,8 @@ final class StringUtilTest extends TestCase
         self::assertSame($expectedLines, StringUtil::splitLines($input));
     }
 
-    /**
-     * @return iterable<array{array<int, string>, string}>
-     */
-    public function splitLines(): iterable
+    /** @return iterable<array{array<int, string>, string}> */
+    public static function splitLines(): iterable
     {
         yield [[''], ''];
         yield [['foo'], 'foo'];
