@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\Tests\Unit;
+namespace MLL\Utils\Tests;
 
 use MLL\Utils\CSVArray;
 use PHPUnit\Framework\TestCase;
