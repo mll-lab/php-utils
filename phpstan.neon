@@ -1,6 +1,9 @@
 parameters:
-	level: max
-	paths:
-	- src
-	- tests
-	tmpDir: .build/phpstan/
+  level: max
+  paths:
+  - src
+  - tests
+  tmpDir: .build/phpstan
+  # Install https://plugins.jetbrains.com/plugin/7677-awesome-console to make those links clickable
+  editorUrl: '%%relFile%%:%%line%%'
+  editorUrlTitle: '%%relFile%%:%%line%%'
