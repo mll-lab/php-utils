@@ -29,7 +29,6 @@ CSV
         );
 
         return $header . $microplate->sortedWells(FlowDirection::ROW())
-
             ->map(
                 /** @param FilledWell|null $well */
                 function ($well, string $coordinateString) use ($microplate): string {

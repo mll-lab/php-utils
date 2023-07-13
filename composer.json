@@ -26,6 +26,7 @@
     "infection/infection": "^0.26 || ^0.27",
     "jangregor/phpstan-prophecy": "^1",
     "mll-lab/php-cs-fixer-config": "^5",
+    "nesbot/carbon": "^2.62.1",
     "phpstan/extension-installer": "^1",
     "phpstan/phpstan": "^1",
     "phpstan/phpstan-deprecation-rules": "^1",

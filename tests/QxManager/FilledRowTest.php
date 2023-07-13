@@ -5,7 +5,7 @@ namespace MLL\Utils\Tests\Unit\QxManager;
 use MLL\Utils\QxManager\FilledRow;
 use PHPUnit\Framework\TestCase;
 
-class FilledRowTest extends TestCase
+final class FilledRowTest extends TestCase
 {
     public function testToString(): void
     {
@@ -30,7 +30,7 @@ class FilledRowTest extends TestCase
 
         $expectedString = 'Yes,Experiment Type,Sample 1,Sample 2,,,Sample Type,Supermix Name,Assay Type,Target Name,Target Type,Signal Ch1,Signal Ch2,1000,Well Notes,Plot,RDQ Conversion Factor';
 
-        self::assertEquals($expectedString, $filledRow->toString());
+        self::assertSame($expectedString, $filledRow->toString());
     }
 
     public function testToStringWithNullValues(): void
@@ -53,6 +53,6 @@ class FilledRowTest extends TestCase
 
         $expectedString = 'Yes,Experiment Type,Sample 1,,,,Sample Type,Supermix Name,Assay Type,Target Name,Target Type,Signal Ch1,Signal Ch2,,,Plot,';
 
-        self::assertEquals($expectedString, $filledRow->toString());
+        self::assertSame($expectedString, $filledRow->toString());
     }
 }

@@ -8,7 +8,7 @@ use MLL\Utils\QxManager\FilledRow;
 use MLL\Utils\QxManager\FilledWell;
 use PHPUnit\Framework\TestCase;
 
-class FilledWellTest extends TestCase
+final class FilledWellTest extends TestCase
 {
     public function testToString(): void
     {
@@ -26,6 +26,6 @@ class FilledWellTest extends TestCase
 
         $filledWell = new FilledWell($famRowMock, $hexRowMock);
 
-        self::assertEquals("C09,FAM Row String\r\nC09,HEX Row String", $filledWell->toString($coordinates));
+        self::assertSame("C09,FAM Row String\r\nC09,HEX Row String", $filledWell->toString($coordinates));
     }
 }

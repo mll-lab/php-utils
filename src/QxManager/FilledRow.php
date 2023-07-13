@@ -30,8 +30,6 @@ class FilledRow
 
     private string $sampleType;
 
-    private string $performDropletReading = 'Yes';
-
     private ?int $referenceCopies;
 
     private ?string $wellNotes;
@@ -77,7 +75,7 @@ class FilledRow
     public function toString(): string
     {
         return implode(QxManagerSampleSheet::DELIMITER, [
-            $this->performDropletReading,
+            'Yes',
             $this->experimentType,
             $this->sampleDescription1,
             $this->sampleDescription2,

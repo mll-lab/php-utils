@@ -12,7 +12,7 @@ use MLL\Utils\QxManager\QxManagerSampleSheet;
 use MLL\Utils\StringUtil;
 use PHPUnit\Framework\TestCase;
 
-class QxManagerSampleSheetTest extends TestCase
+final class QxManagerSampleSheetTest extends TestCase
 {
     public function testToCsvString(): void
     {
@@ -151,6 +151,6 @@ H12,HEX Row String
 
 CSV;
 
-        self::assertEquals(StringUtil::normalizeLineEndings($expectedCsvString), $csvString);
+        self::assertSame(StringUtil::normalizeLineEndings($expectedCsvString), $csvString);
     }
 }

@@ -8,22 +8,7 @@ class EmptyRow
     {
         return implode(QxManagerSampleSheet::DELIMITER, [
             'No',
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
+            ...array_fill(0, 16, null),
         ]);
     }
 }
