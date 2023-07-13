@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v1.7.0
+
+### Added
+
+- Add `QxManagerSampleSheet::toCsvString(...)`
+
 ## v1.6.1
 
 ### Fixed

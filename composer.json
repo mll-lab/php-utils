@@ -17,6 +17,7 @@
   "require": {
     "php": "^7.4 || ^8",
     "illuminate/support": "^8.73 || ^9 || ^10",
+    "mll-lab/microplate": "^6",
     "mll-lab/str_putcsv": "^1",
     "thecodingmachine/safe": "^1 || ^2"
   },
@@ -25,6 +26,7 @@
     "infection/infection": "^0.26 || ^0.27",
     "jangregor/phpstan-prophecy": "^1",
     "mll-lab/php-cs-fixer-config": "^5",
+    "nesbot/carbon": "^2.62.1",
     "phpstan/extension-installer": "^1",
     "phpstan/phpstan": "^1",
     "phpstan/phpstan-deprecation-rules": "^1",
