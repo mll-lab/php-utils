@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v1.8.0
+
+### Added
+
+- Add PHPStan extension with `NoAssignmentInIfRule`
+
 ## v1.7.0
 
 ### Added

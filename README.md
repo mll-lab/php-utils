@@ -20,6 +20,16 @@ composer require mll-lab/php-utils
 
 See [tests](tests).
 
+### PHPStan extension
+
+This library provides a PHPStan extension that is either registered through [PHPStan Extension Installer](https://github.com/phpstan/extension-installer)
+or registered manually by adding the following to your `phpstan.neon`:
+
+```diff
+includes:
++- vendor/mll-lab/php-utils/phpstan-extension.neon
+```
+
 ## Changelog
 
 See [`CHANGELOG.md`](CHANGELOG.md).

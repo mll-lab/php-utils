@@ -1,0 +1,3 @@
+services:
+- class: MLL\Utils\PHPStan\Rules\NoAssignmentInIfRule
+  tags: [ phpstan.rules.rule ]
