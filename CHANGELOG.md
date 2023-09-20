@@ -9,6 +9,10 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v1.8.1
+
+- Exclude `NoAssignmentInIfRule` by default
+
 ## v1.8.0
 
 ### Added
