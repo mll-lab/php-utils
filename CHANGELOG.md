@@ -11,6 +11,8 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## v1.8.1
 
+### Changed
+
 - Exclude `NoAssignmentInIfRule` by default
 
 ## v1.8.0
