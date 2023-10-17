@@ -6,6 +6,19 @@ use Illuminate\Support\Str;
 
 final class StringUtil
 {
+    /** @param iterable<string|null> $parts */
+    public static function joinNonEmpty(string $glue, iterable $parts): string
+    {
+        $nonEmptyParts = [];
+        foreach ($parts as $part) {
+            if ($part !== '' && $part !== null) {
+                $nonEmptyParts[] = $part;
+            }
+        }
+
+        return implode($glue, $nonEmptyParts);
+    }
+
     /**
      * The intention is to limit the length of a name.
      *

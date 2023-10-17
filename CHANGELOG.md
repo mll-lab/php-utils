@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v1.9.0
+
+### Added
+
+- Add `StringUtil::joinNonEmpty()`
+
 ## v1.8.1
 
 ### Changed
