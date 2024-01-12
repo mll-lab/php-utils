@@ -2,11 +2,33 @@
 
 namespace MLL\Utils\Tests;
 
+use Illuminate\Support\Collection;
 use MLL\Utils\StringUtil;
 use PHPUnit\Framework\TestCase;
 
 final class StringUtilTest extends TestCase
 {
+    /**
+     * @dataProvider joinNonEmpty
+     *
+     * @param iterable<string|null> $parts
+     */
+    public function testJoinNonEmpty(string $expectedJoined, string $glue, iterable $parts): void
+    {
+        self::assertSame(
+            $expectedJoined,
+            StringUtil::joinNonEmpty($glue, $parts)
+        );
+    }
+
+    /** @return iterable<array{string, string, iterable<string|null>}> */
+    public static function joinNonEmpty(): iterable
+    {
+        yield ['a b', ' ', ['a', null, '', 'b']];
+        yield ['ab', '', ['a', null, '', 'b']];
+        yield ['a,b', ',', new Collection(['a', null, '', 'b'])];
+    }
+
     /** @dataProvider shortenFirstname */
     public function testShortenFirstname(string $expectedShortened, string $input): void
     {
