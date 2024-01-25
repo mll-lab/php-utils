@@ -69,6 +69,27 @@ final class CSVArrayTest extends TestCase
         );
     }
 
+    public function testUnixLike(): void
+    {
+        self::assertSame(
+            <<<CSV
+            foo,bar
+            1,2
+
+            CSV,
+            CSVArray::toCSV(
+                [
+                    [
+                        'foo' => 1,
+                        'bar' => 2,
+                    ],
+                ],
+                ',',
+                "\n"
+            )
+        );
+    }
+
     public function testPrimitives(): void
     {
         self::assertSame(
