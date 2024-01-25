@@ -51,26 +51,23 @@ final class CSVArray
     }
 
     /** @param array<int, array<string, CSVPrimitive>> $data */
-    public static function toCSV(array $data, string $delimiter = ';'): string
+    public static function toCSV(array $data, string $delimiter = ';', string $lineSeparator = "\r\n"): string
     {
         if ($data === []) {
             throw new \Exception('Array is empty');
         }
 
         // Use the keys of the array as the headers of the CSV
-        $headerLine = Arr::first($data);
-        if (! is_array($headerLine)) {
+        $headerItem = Arr::first($data);
+        if (! is_array($headerItem)) {
             throw new \Exception('Missing column headers.');
         }
+        $headerKeys = array_keys($headerItem);
 
-        $content = str_putcsv(
-            array_keys($headerLine),
-            $delimiter
-        )
-        . "\r\n";
+        $content = str_putcsv($headerKeys, $delimiter) . $lineSeparator;
 
         foreach ($data as $line) {
-            $content .= str_putcsv($line, $delimiter) . "\r\n";
+            $content .= str_putcsv($line, $delimiter) . $lineSeparator;
         }
 
         return $content;

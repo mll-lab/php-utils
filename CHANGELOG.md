@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v1.10.0
+
+### Added
+
+- Allow custom line separator in `CSVArray::toCSV()`
+
 ## v1.9.0
 
 ### Added
