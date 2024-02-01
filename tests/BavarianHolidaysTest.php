@@ -121,19 +121,20 @@ final class BavarianHolidaysTest extends TestCase
 
     public function testLoadUserDefinedHolidays(): void
     {
-        $dayOfTheTentacle = Carbon::createStrict(2019, 8, 22);
+        $yearOfTheTentacle = 2019;
+        $dayOfTheTentacle = Carbon::createStrict($yearOfTheTentacle, 8, 22);
 
         self::assertNull(BavarianHolidays::nameHoliday($dayOfTheTentacle));
         self::assertFalse(BavarianHolidays::isHoliday($dayOfTheTentacle));
         self::assertTrue(BavarianHolidays::isBusinessDay($dayOfTheTentacle));
 
         $name = 'Day of the Tentacle';
-        BavarianHolidays::$loadUserDefinedHolidays = static function (int $year) use ($dayOfTheTentacle, $name): array {
+        BavarianHolidays::$loadUserDefinedHolidays = static function (int $year) use ($yearOfTheTentacle, $dayOfTheTentacle, $name): array {
             switch ($year) {
-                case 2019:
+                case $yearOfTheTentacle:
                     return [BavarianHolidays::dayOfTheYear($dayOfTheTentacle) => $name];
                 default:
-                    self::fail('Expected the year of the passed in date to be passed');
+                    self::fail("Expected the year of the passed in date to be passed, got {$year}.");
             }
         };
 
