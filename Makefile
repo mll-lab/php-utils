@@ -7,28 +7,35 @@ help: ## Displays this list of targets with descriptions
 
 .PHONY: coverage
 coverage: vendor ## Collects coverage from running unit tests with phpunit
-	mkdir -p .build/phpunit
+	mkdir --parents .build/phpunit
 	vendor/bin/phpunit --dump-xdebug-filter=.build/phpunit/xdebug-filter.php
 	vendor/bin/phpunit --coverage-text --prepend=.build/phpunit/xdebug-filter.php
 
 .PHONY: fix
-fix: vendor
+fix: rector php-cs-fixer
+
+.PHONY: rector
+rector: vendor
 	vendor/bin/rector process
-	vendor/bin/php-cs-fixer fix
+
+.PHONY: php-cs-fixer
+php-cs-fixer:
+	mkdir --parents .build/php-cs-fixer
+	vendor/bin/php-cs-fixer fix --cache-file=.build/php-cs-fixer/cache
 
 .PHONY: infection
 infection: vendor ## Runs mutation tests with infection
-	mkdir -p .build/infection
+	mkdir --parents .build/infection
 	vendor/bin/infection --ignore-msi-with-no-mutations --min-covered-msi=60 --min-msi=60
 
 .PHONY: stan
 stan: vendor ## Runs a static analysis with phpstan
-	mkdir -p .build/phpstan
+	mkdir --parents .build/phpstan
 	vendor/bin/phpstan analyse --configuration=phpstan.neon
 
 .PHONY: test
 test: vendor ## Runs auto-review, unit, and integration tests with phpunit
-	mkdir -p .build/phpunit
+	mkdir --parents .build/phpunit
 	vendor/bin/phpunit --cache-result-file=.build/phpunit/result.cache
 
 vendor: composer.json
