@@ -104,6 +104,7 @@ class BavarianHolidays
         $year = $date->year;
 
         // dynamic holidays
+        // easter_days avoids issues with timezones and is not limited to UNIX timestamps, see https://github.com/briannesbitt/Carbon/pull/1052#issuecomment-381178494
         $easter = Carbon::createMidnightDate($year, 3, 21)
             ->addDays(easter_days($year));
         $holidays[self::dateFromEaster($easter, -2)] = self::KARFREITAG;
