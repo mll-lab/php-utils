@@ -45,7 +45,7 @@ jobs:
 
       - run: composer install --no-interaction --no-progress --no-suggest
 
-      - run: vendor/bin/php-cs-fixer fix
+      - run: vendor/bin/php-cs-fixer fix --using-cache=no
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
