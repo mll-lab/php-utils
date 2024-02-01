@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v1.11.0
+
+### Added
+
+- Integrate `mll-lab/holidays`
+
 ## v1.10.0
 
 ### Added
