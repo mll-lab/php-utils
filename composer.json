@@ -20,7 +20,7 @@
     "illuminate/support": "^8.73 || ^9 || ^10",
     "mll-lab/microplate": "^6",
     "mll-lab/str_putcsv": "^1",
-    "nesbot/carbon": "^2.62",
+    "nesbot/carbon": "^2.62.1",
     "thecodingmachine/safe": "^1 || ^2"
   },
   "require-dev": {
