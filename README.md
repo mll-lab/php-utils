@@ -20,6 +20,26 @@ composer require mll-lab/php-utils
 
 See [tests](tests).
 
+### Holidays
+
+You can add custom holidays by registering a method that returns a map of holidays for a given year.
+Set this up in a central place that always runs before your application, e.g. a bootstrap method.
+
+```php
+use MLL\Holidays\BavarianHolidays;
+
+BavarianHolidays::$loadUserDefinedHolidays = static function (int $year): array {
+    switch ($year) {
+        case 2019:
+            return ['22.03' => 'Day of the Tentacle'];
+        default:
+            return [];
+    }
+};
+```
+
+Custom holidays have precedence over the holidays inherent to this library.
+
 ### PHPStan extension
 
 This library provides a PHPStan extension that is either registered through [PHPStan Extension Installer](https://github.com/phpstan/extension-installer)
