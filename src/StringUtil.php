@@ -6,6 +6,21 @@ use Illuminate\Support\Str;
 
 final class StringUtil
 {
+    /** https://en.wikipedia.org/wiki/Byte_order_mark#UTF-8 */
+    public const UTF_8_BOM = "\xEF\xBB\xBF";
+
+    /** https://en.wikipedia.org/wiki/Byte_order_mark#UTF-16 */
+    public const UTF_16_BIG_ENDIAN_BOM = "\xFE\xFF";
+
+    /** https://en.wikipedia.org/wiki/Byte_order_mark#UTF-16 */
+    public const UTF_16_LITTLE_ENDIAN_BOM = "\xFF\xFE";
+
+    /** https://en.wikipedia.org/wiki/Byte_order_mark#UTF-32 */
+    public const UTF_32_BIG_ENDIAN_BOM = "\x00\x00\xFE\xFF";
+
+    /** https://en.wikipedia.org/wiki/Byte_order_mark#UTF-32 */
+    public const UTF_32_LITTLE_ENDIAN_BOM = "\xFF\xFE\x00\x00";
+
     /** @param iterable<string|null> $parts */
     public static function joinNonEmpty(string $glue, iterable $parts): string
     {
@@ -80,6 +95,62 @@ final class StringUtil
     public static function normalizeLineEndings(string $input, string $to = "\r\n"): string
     {
         return \Safe\preg_replace("/\r\n|\r|\n/", $to, $input);
+    }
+
+    /** Convert string that could be in different UTF encodings (UTF-8, UTF-16BE, ...) to UTF-8. */
+    public static function toUTF8(string $string): string
+    {
+        $encoding = mb_detect_encoding($string, null, true);
+
+        if ($encoding === false) {
+            $encoding = self::guessEncoding($string);
+        }
+
+        $converted = \Safe\mb_convert_encoding($string, 'UTF-8', $encoding);
+        assert(is_string($converted), 'because a string was passed to mb_convert_encoding');
+
+        return $converted;
+    }
+
+    private static function guessEncoding(string $text): string
+    {
+        // @see https://www.php.net/manual/en/function.mb-detect-encoding.php#91051
+        $first3 = substr($text, 0, 3);
+        if ($first3 === self::UTF_8_BOM) {
+            return 'UTF-8';
+        }
+
+        $first4 = substr($text, 0, 3);
+        if ($first4 === self::UTF_32_BIG_ENDIAN_BOM) {
+            return 'UTF-32BE';
+        }
+        if ($first4 === self::UTF_32_LITTLE_ENDIAN_BOM) {
+            return 'UTF-32LE';
+        }
+
+        $first2 = substr($text, 0, 2);
+        if ($first2 === self::UTF_16_BIG_ENDIAN_BOM) {
+            return 'UTF-16BE';
+        }
+        if ($first2 === self::UTF_16_LITTLE_ENDIAN_BOM) {
+            return 'UTF-16LE';
+        }
+
+        // https://kence.org/2019/11/27/detecting-windows-1252-encoding
+        // If the string contains characters in ranges that are either control characters
+        // or invalid for ISO-8859-1 or CP-1252, we are unable to reliably guess.
+        if (\Safe\preg_match('/[\x00-\x08\x0E-\x1F\x81\x8D\x8F\x90\x9D]/', $text, $matches) !== 0) {
+            throw new \Exception("Can not determine UTF encoding of text: {$text}");
+        }
+
+        // If we get here, we're going to assume it's either Windows-1252 or ISO-8859-1.
+        // If the string contains characters in the ISO-8859-1 reserved range, that's probably Windows-1252.
+        if (\Safe\preg_match('/[\x80-\x9F]/', $text) !== 0) {
+            return 'Windows-1252';
+        }
+
+        // Give up and return ISO-8859-1.
+        return 'ISO-8859-1';
     }
 
     /**

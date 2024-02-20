@@ -9,6 +9,10 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+### Added
+
+- Add `StringUtil::toUTF8()`
+
 ## v1.11.0
 
 ### Added
