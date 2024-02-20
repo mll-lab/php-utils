@@ -106,8 +106,15 @@ final class StringUtil
             $encoding = self::guessEncoding($string);
         }
 
-        $converted = \Safe\mb_convert_encoding($string, 'UTF-8', $encoding);
-        assert(is_string($converted), 'because a string was passed to mb_convert_encoding');
+        error_clear_last();
+        // @phpstan-ignore-next-line \Safe\mb_convert_encoding is not available in older PHP versions
+        $converted = mb_convert_encoding($string, 'UTF-8', $encoding);
+        // @phpstan-ignore-next-line mb_convert_encoding can return false in older PHP versions
+        if (! is_string($converted)) {
+            $error = error_get_last();
+            $notString = gettype($converted);
+            throw new \ErrorException($error['message'] ?? "Expected mb_convert_encoding to return string, got {$notString}.", 0, $error['type'] ?? 1);
+        }
 
         return $converted;
     }

@@ -50,11 +50,9 @@ jobs:
           - "8.1"
           - "8.2"
           - "8.3"
-
         dependencies:
           - lowest
           - highest
-
         illuminate:
           - ^8.73
           - ^9
