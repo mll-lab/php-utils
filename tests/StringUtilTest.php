@@ -85,6 +85,47 @@ final class StringUtilTest extends TestCase
         );
     }
 
+    public function testUTF8(): void
+    {
+        $expectedUTF8 = 'test';
+
+        $string = \Safe\file_get_contents(__DIR__ . '/StringUtilTestData/UTF-8.csv');
+
+        self::assertSame($expectedUTF8, $string);
+        self::assertSame($expectedUTF8, StringUtil::toUTF8($string));
+    }
+
+    public function testUTF16LE(): void
+    {
+        // The zero width no-break space (ZWNBSP) is a deprecated use of the Unicode character at code point U+FEFF.
+        // Character U+FEFF is intended for use as a Byte Order Mark (BOM) at the start of a file
+        // -> https://unicode-explorer.com/c/FEFF
+        $expectedUTF8 = '﻿test';
+
+        $string = \Safe\file_get_contents(__DIR__ . '/StringUtilTestData/UTF-16LE.csv');
+        self::assertNotSame($expectedUTF8, $string);
+        self::assertSame($expectedUTF8, StringUtil::toUTF8($string));
+    }
+
+    public function testWindows1252(): void
+    {
+        $expectedUTF8 = <<<CSV
+        FileName,WellId,Sample Description,From [bp],To [bp],Average Size [bp],Conc. [ng/µl],Region Molarity [nmol/l],% of Total,Region Comment
+        2023-05-16 - 13.01.27.D1000,A12,RNA_191_23-049780_A1,170,550,312,23.7,121,95.50,IDT
+        2023-05-16 - 13.01.27.D1000,B12,RNA_191_23-049782_B1,170,550,308,16.1,82.5,92.27,IDT
+        2023-05-16 - 13.01.27.D1000,C12,RNA_191_23-049776_C1,170,550,310,16.7,85.3,93.76,IDT
+        2023-05-16 - 13.01.27.D1000,D12,RNA_191_23-049778_D1,170,550,307,11.4,58.6,91.65,IDT
+        2023-05-16 - 13.01.27.D1000,E12,RNA_191_NTC_E1,170,550,304,9.63,50.0,90.88,IDT
+
+        CSV;
+
+        $string = \Safe\file_get_contents(__DIR__ . '/StringUtilTestData/windows-1252.csv');
+        self::assertNotSame($expectedUTF8, $string);
+
+        $utf8String = StringUtil::toUTF8($string);
+        self::assertSame(StringUtil::normalizeLineEndings($expectedUTF8), StringUtil::normalizeLineEndings($utf8String));
+    }
+
     public function testLeftPadNumber(): void
     {
         self::assertSame(

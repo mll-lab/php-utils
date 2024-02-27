@@ -50,9 +50,9 @@ class FilledRow
         string $targetName,
         string $signalCh1,
         string $signalCh2,
-        int $referenceCopies = null,
-        string $wellNotes = null,
-        string $rdqConversionFactor = null
+        ?int $referenceCopies = null,
+        ?string $wellNotes = null,
+        ?string $rdqConversionFactor = null
     ) {
         $this->targetName = $targetName;
         $this->signalCh1 = $signalCh1;
