@@ -2,6 +2,9 @@
 
 namespace MLL\Utils;
 
+/**
+ * @see \MLL\Utils\Tests\NumberTest
+ */
 final class Number
 {
     /**

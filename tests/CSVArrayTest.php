@@ -56,76 +56,64 @@ final class CSVArrayTest extends TestCase
 
     public function testEscapesDelimiter(): void
     {
-        self::assertSame(
-            "foo\r\n"
-            . "\"bar;baz\"\r\n",
-            CSVArray::toCSV(
-                [
-                    1 => [
-                        'foo' => 'bar;baz',
-                    ],
-                ]
-            )
-        );
+        self::assertSame("foo\r\n"
+        . "\"bar;baz\"\r\n", CSVArray::toCSV(
+            [
+                1 => [
+                    'foo' => 'bar;baz',
+                ],
+            ]
+        ));
     }
 
     public function testUnixLike(): void
     {
-        self::assertSame(
-            <<<CSV
+        self::assertSame(<<<CSV
             foo,bar
             1,2
 
-            CSV,
-            CSVArray::toCSV(
+            CSV, CSVArray::toCSV(
+            [
                 [
-                    [
-                        'foo' => 1,
-                        'bar' => 2,
-                    ],
+                    'foo' => 1,
+                    'bar' => 2,
                 ],
-                ',',
-                "\n"
-            )
-        );
+            ],
+            ',',
+            "\n"
+        ));
     }
 
     public function testPrimitives(): void
     {
-        self::assertSame(
-            "empty;int;float;bool;null\r\n"
-            . ";1;2.3;1;\r\n",
-            CSVArray::toCSV(
-                [
-                    1 => [
-                        'empty' => '',
-                        'int' => 1,
-                        'float' => 2.3,
-                        'bool' => true,
-                        'null' => null,
-                    ],
+        self::assertSame("empty;int;float;bool;null\r\n"
+        . ";1;2.3;1;\r\n", CSVArray::toCSV(
+            [
+                1 => [
+                    'empty' => '',
+                    'int' => 1,
+                    'float' => 2.3,
+                    'bool' => true,
+                    'null' => null,
                 ],
-            ),
-        );
+            ],
+        ));
     }
 
     public function testToArrayOptionalParameters(): void
     {
-        self::assertSame(
-            [
-                1 => [
-                    'foo' => 'bar,baz',
-                    'bar' => 'ba\\',
-                ],
+        self::assertSame([
+            1 => [
+                'foo' => 'bar,baz',
+                'bar' => 'ba\\',
             ],
-            CSVArray::toArray(
-                "foo,bar\r\n"
-                . "%bar,baz%,ba\\\r\n",
-                ',',
-                '%',
-                '~'
-            )
-        );
+        ], CSVArray::toArray(
+            "foo,bar\r\n"
+            . "%bar,baz%,ba\\\r\n",
+            ',',
+            '%',
+            '~'
+        ));
     }
 
     public function testHandlesMultilineStrings(): void

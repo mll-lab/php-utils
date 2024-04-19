@@ -4,6 +4,9 @@ namespace MLL\Utils;
 
 use Illuminate\Support\Str;
 
+/**
+ * @see \MLL\Utils\Tests\StringUtilTest
+ */
 final class StringUtil
 {
     /** https://en.wikipedia.org/wiki/Byte_order_mark#UTF-8 */

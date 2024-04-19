@@ -41,30 +41,18 @@ final class BavarianHolidaysTest extends TestCase
         $saturday = self::saturday();
         $mondayAfter = self::saturday()->addDays(2);
 
-        self::assertTrue(
-            BavarianHolidays::addBusinessDays($saturday, 1)
-                ->isSameDay($mondayAfter),
-            'Skips over sunday'
-        );
-        self::assertTrue(
-            $saturday->isSameDay(self::saturday()),
-            'Should not mutate the original date'
-        );
+        self::assertTrue(BavarianHolidays::addBusinessDays($saturday, 1)
+            ->isSameDay($mondayAfter), 'Skips over sunday');
+        self::assertTrue($saturday->isSameDay(self::saturday()), 'Should not mutate the original date');
     }
 
     public function testSubBusinessDays(): void
     {
         $sunday = self::sunday();
         $thursdayBeforeAllSaints = self::sunday()->subDays(3);
-        self::assertTrue(
-            BavarianHolidays::subBusinessDays($sunday, 1)
-                ->isSameDay($thursdayBeforeAllSaints),
-            'Skips over saturday and all saints holiday (01.01.2019)'
-        );
-        self::assertTrue(
-            $sunday->isSameDay(self::sunday()),
-            'Should not mutate the original date'
-        );
+        self::assertTrue(BavarianHolidays::subBusinessDays($sunday, 1)
+            ->isSameDay($thursdayBeforeAllSaints), 'Skips over saturday and all saints holiday (01.01.2019)');
+        self::assertTrue($sunday->isSameDay(self::sunday()), 'Should not mutate the original date');
     }
 
     protected static function businessDayWednesday(): Carbon

@@ -9,6 +9,8 @@ use Carbon\Carbon;
  * Holiday: special occasions on a mostly fixed date where there is no work
  * Weekend Day: Saturday and Sunday
  * Business Day: any day that is neither a Holiday nor a Weekend Day.
+ *
+ * @see \MLL\Utils\Tests\BavarianHolidaysTest
  */
 class BavarianHolidays
 {

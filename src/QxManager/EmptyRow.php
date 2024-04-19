@@ -2,6 +2,9 @@
 
 namespace MLL\Utils\QxManager;
 
+/**
+ * @see \MLL\Utils\Tests\QxManager\EmptyRowTest
+ */
 class EmptyRow
 {
     public function toString(): string

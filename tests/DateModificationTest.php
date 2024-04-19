@@ -13,10 +13,8 @@ final class DateModificationTest extends TestCase
     {
         $sunday = self::sunday();
         $tuesdayAfter = self::sunday()->addDays(2);
-        self::assertTrue(
-            DateModification::addDays($sunday, 1, fn (Carbon $date): bool => $date->dayOfWeek !== CarbonInterface::MONDAY)
-                ->isSameDay($tuesdayAfter)
-        );
+        self::assertTrue(DateModification::addDays($sunday, 1, fn (Carbon $date): bool => $date->dayOfWeek !== CarbonInterface::MONDAY)
+            ->isSameDay($tuesdayAfter));
     }
 
     protected static function sunday(): Carbon

@@ -6,6 +6,8 @@ use Illuminate\Support\Arr;
 
 /**
  * @phpstan-type CSVPrimitive bool|float|int|string|\Stringable|null
+ *
+ * @see \MLL\Utils\Tests\CSVArrayTest
  */
 final class CSVArray
 {

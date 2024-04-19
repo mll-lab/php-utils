@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v1.13.0
+
+### Added
+
+- Add `mll-lab/rector-config`
+
 ## v1.12.0
 
 ### Added

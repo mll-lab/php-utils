@@ -15,10 +15,7 @@ final class StringUtilTest extends TestCase
      */
     public function testJoinNonEmpty(string $expectedJoined, string $glue, iterable $parts): void
     {
-        self::assertSame(
-            $expectedJoined,
-            StringUtil::joinNonEmpty($glue, $parts)
-        );
+        self::assertSame($expectedJoined, StringUtil::joinNonEmpty($glue, $parts));
     }
 
     /** @return iterable<array{string, string, iterable<string|null>}> */
@@ -32,10 +29,7 @@ final class StringUtilTest extends TestCase
     /** @dataProvider shortenFirstname */
     public function testShortenFirstname(string $expectedShortened, string $input): void
     {
-        self::assertSame(
-            $expectedShortened,
-            StringUtil::shortenFirstname($input)
-        );
+        self::assertSame($expectedShortened, StringUtil::shortenFirstname($input));
     }
 
     /** @return iterable<array{string, string}> */
@@ -71,18 +65,9 @@ final class StringUtilTest extends TestCase
     public function testNormalizeLineEndings(): void
     {
         $allPossibleEndings = "1 \r\n 2 \r 3 \n";
-        self::assertSame(
-            "1 \r\n 2 \r\n 3 \r\n",
-            StringUtil::normalizeLineEndings($allPossibleEndings)
-        );
-        self::assertSame(
-            "1 \n 2 \n 3 \n",
-            StringUtil::normalizeLineEndings($allPossibleEndings, "\n")
-        );
-        self::assertSame(
-            "1 \r 2 \r 3 \r",
-            StringUtil::normalizeLineEndings($allPossibleEndings, "\r")
-        );
+        self::assertSame("1 \r\n 2 \r\n 3 \r\n", StringUtil::normalizeLineEndings($allPossibleEndings));
+        self::assertSame("1 \n 2 \n 3 \n", StringUtil::normalizeLineEndings($allPossibleEndings, "\n"));
+        self::assertSame("1 \r 2 \r 3 \r", StringUtil::normalizeLineEndings($allPossibleEndings, "\r"));
     }
 
     public function testUTF8(): void
@@ -128,26 +113,11 @@ final class StringUtilTest extends TestCase
 
     public function testLeftPadNumber(): void
     {
-        self::assertSame(
-            '00023',
-            StringUtil::leftPadNumber(23, 5)
-        );
-        self::assertSame(
-            '0',
-            StringUtil::leftPadNumber(0, 1)
-        );
-        self::assertSame(
-            '5',
-            StringUtil::leftPadNumber(5, 1)
-        );
-        self::assertSame(
-            '00',
-            StringUtil::leftPadNumber(null, 2)
-        );
-        self::assertSame(
-            '0034',
-            StringUtil::leftPadNumber('34', 4)
-        );
+        self::assertSame('00023', StringUtil::leftPadNumber(23, 5));
+        self::assertSame('0', StringUtil::leftPadNumber(0, 1));
+        self::assertSame('5', StringUtil::leftPadNumber(5, 1));
+        self::assertSame('00', StringUtil::leftPadNumber(null, 2));
+        self::assertSame('0034', StringUtil::leftPadNumber('34', 4));
 
         self::expectException(\InvalidArgumentException::class);
         StringUtil::leftPadNumber('foo', 3);
