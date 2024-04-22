@@ -2,6 +2,7 @@
 
 use Rector\CodeQuality\Rector\Concat\JoinStringConcatRector;
 use Rector\Config\RectorConfig;
+use Rector\PHPUnit\Rector\Class_\PreferPHPUnitSelfCallRector;
 use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -17,6 +18,9 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__ . '/tests/CSVArrayTest.php', // keep `\r\n` for readability
         ],
     ]);
+
+    $rectorConfig->rule(PreferPHPUnitSelfCallRector::class);
+
     $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
     $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
 };
