@@ -48,9 +48,7 @@ abstract class AbstractMicroplate
     public function sortedWells(FlowDirection $flowDirection): Collection
     {
         return $this->wells()->sortBy(
-            /**
-             * @param TWell $content
-             */
+            /** @param TWell $content */
             function ($content, string $key) use ($flowDirection): string {
                 switch ($flowDirection->value) {
                     case FlowDirection::ROW:
@@ -73,9 +71,7 @@ abstract class AbstractMicroplate
     public function freeWells(): Collection
     {
         return $this->wells()->filter(
-            /**
-             * @param TWell $content
-             */
+            /** @param TWell $content */
             static fn ($content): bool => $content === self::EMPTY_WELL
         );
     }
@@ -84,9 +80,7 @@ abstract class AbstractMicroplate
     public function filledWells(): Collection
     {
         return $this->wells()->filter(
-            /**
-             * @param TWell $content
-             */
+            /** @param TWell $content */
             static fn ($content): bool => $content !== self::EMPTY_WELL
         );
     }

@@ -81,10 +81,8 @@ final class Microplate extends AbstractMicroplate
     /** Clearing the wells will reinitialize all well position of the coordinate system. */
     public function clearWells(): void
     {
-        /**
-         * Flow direction is irrelevant during initialization, it is not a property of
-         * a plate but rather a property of the access to the plate.
-         */
+        // Flow direction is irrelevant during initialization, it is not a property of
+        // plate but rather a property of the access to the plate.
 
         /** @var array<string, TWell|null> $wells */
         $wells = [];
@@ -98,7 +96,7 @@ final class Microplate extends AbstractMicroplate
     /**
      * @param TWell $content
      *
-     *@throws MicroplateIsFullException
+     * @throws MicroplateIsFullException
      *
      * @return Coordinates<TCoordinateSystem>
      */
@@ -111,7 +109,7 @@ final class Microplate extends AbstractMicroplate
     }
 
     /**
-     *@throws MicroplateIsFullException
+     * @throws MicroplateIsFullException
      *
      * @return Coordinates<TCoordinateSystem>
      */

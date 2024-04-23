@@ -4,9 +4,7 @@ namespace MLL\Utils;
 
 use Illuminate\Support\Arr;
 
-/**
- * @phpstan-type CSVPrimitive bool|float|int|string|\Stringable|null
- */
+/** @phpstan-type CSVPrimitive bool|float|int|string|\Stringable|null */
 final class CSVArray
 {
     /**

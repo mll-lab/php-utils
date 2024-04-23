@@ -6,8 +6,9 @@ use MLL\Utils\Microplate\Exceptions\MicroplateIsFullException;
 use MLL\Utils\Microplate\Exceptions\SectionIsFullException;
 
 /**
- * A Section that occupies all wells of a column if one sample exists in this column. Samples of other sections are
- * not allowed in this occupied wells. Occupied wells can still be filled with samples of the same type.
+ * A section that occupies all wells of a column if one sample exists in this column.
+ * Samples of other sections are not allowed in this occupied wells.
+ * Occupied wells can still be filled with samples of the same type.
  *
  * @template TSectionWell
  *

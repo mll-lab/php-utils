@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem96Well;
 
-/**
- * @implements CastsAttributes<Coordinates<CoordinateSystem96Well>, Coordinates<CoordinateSystem96Well>>
- */
+/** @implements CastsAttributes<Coordinates<CoordinateSystem96Well>, Coordinates<CoordinateSystem96Well>> */
 final class Coordinates96Well implements CastsAttributes
 {
     /**
