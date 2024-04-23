@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\FluidXPlate;
 
-final class InvalidTubeBarcodeException extends FluidXPlateException
+class InvalidTubeBarcodeException extends FluidXPlateException
 {
     public function __construct(string $tubeBarcode)
     {

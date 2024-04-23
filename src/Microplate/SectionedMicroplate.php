@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
  *
  * @phpstan-extends AbstractMicroplate<TWell, TCoordinateSystem>
  */
-final class SectionedMicroplate extends AbstractMicroplate
+class SectionedMicroplate extends AbstractMicroplate
 {
     /** @var Collection<string, TSection> */
     public Collection $sections;

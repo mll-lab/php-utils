@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\LiquidClass;
 
-final class CustomLiquidClass implements LiquidClass
+class CustomLiquidClass implements LiquidClass
 {
     private string $name;
 

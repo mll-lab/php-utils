@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\BasicCommands;
 
-final class BreakCommand extends Command
+class BreakCommand extends Command
 {
     public function toString(): string
     {

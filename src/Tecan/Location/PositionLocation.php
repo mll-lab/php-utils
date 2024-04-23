@@ -4,7 +4,7 @@ namespace MLL\Utils\Tecan\Location;
 
 use MLL\Utils\Tecan\Rack\Rack;
 
-final class PositionLocation implements Location
+class PositionLocation implements Location
 {
     private int $position;
 

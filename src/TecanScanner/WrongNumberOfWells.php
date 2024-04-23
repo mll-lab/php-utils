@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\TecanScanner;
 
-final class WrongNumberOfWells extends TecanScanException
+class WrongNumberOfWells extends TecanScanException
 {
     public function __construct(int $expectedCount, int $actualCount)
     {

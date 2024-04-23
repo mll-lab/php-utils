@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Microplate;
 
-final class CoordinateSystem12Well extends CoordinateSystem
+class CoordinateSystem12Well extends CoordinateSystem
 {
     /** Duplicates @see CoordinateSystem::positionsCount() for static contexts. */
     public const POSITIONS_COUNT = 12;

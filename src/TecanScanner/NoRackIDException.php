@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\TecanScanner;
 
-final class NoRackIDException extends TecanScanException
+class NoRackIDException extends TecanScanException
 {
     public function __construct()
     {

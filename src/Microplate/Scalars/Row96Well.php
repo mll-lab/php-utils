@@ -4,7 +4,7 @@ namespace MLL\Utils\Microplate\Scalars;
 
 use MLL\GraphQLScalars\Regex;
 
-final class Row96Well extends Regex
+class Row96Well extends Regex
 {
     public ?string $description = 'Checks if the given row is of the format 96-well row';
 

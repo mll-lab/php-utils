@@ -9,7 +9,7 @@ use MLL\Utils\Microplate\Exceptions\MicroplateIsFullException;
  *
  * @extends AbstractSection<TSectionWell>
  */
-final class Section extends AbstractSection
+class Section extends AbstractSection
 {
     /**
      * @param TSectionWell $content

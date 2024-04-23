@@ -13,7 +13,7 @@ use MLL\Utils\Tecan\BasicCommands\Comment;
 use MLL\Utils\Tecan\BasicCommands\UsesTipMask;
 use MLL\Utils\Tecan\TipMask\TipMask;
 
-final class TecanProtocol
+class TecanProtocol
 {
     /** Tecan software runs on Windows. */
     public const WINDOWS_NEW_LINE = "\r\n";

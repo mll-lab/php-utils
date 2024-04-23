@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Microplate\Enums;
 
-final class FlowDirection
+class FlowDirection
 {
     public const ROW = 'ROW';
     public const COLUMN = 'COLUMN';

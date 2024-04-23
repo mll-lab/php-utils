@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\BasicCommands;
 
-final class Wash extends Command
+class Wash extends Command
 {
     public function toString(): string
     {

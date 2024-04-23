@@ -11,7 +11,7 @@ use MLL\Utils\Tecan\LiquidClass\LiquidClass;
 use MLL\Utils\Tecan\Location\Location;
 use MLL\Utils\Tecan\TecanProtocol;
 
-final class TransferWithAutoWash extends Command implements UsesTipMask
+class TransferWithAutoWash extends Command implements UsesTipMask
 {
     private Aspirate $aspirate;
 

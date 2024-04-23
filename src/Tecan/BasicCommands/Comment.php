@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\BasicCommands;
 
-final class Comment extends Command
+class Comment extends Command
 {
     private string $comment;
 

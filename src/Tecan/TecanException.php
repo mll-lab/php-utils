@@ -2,4 +2,4 @@
 
 namespace MLL\Utils\Tecan;
 
-final class TecanException extends \Exception {}
+class TecanException extends \Exception {}

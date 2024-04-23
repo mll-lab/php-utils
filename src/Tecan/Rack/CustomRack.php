@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-final class CustomRack implements Rack
+class CustomRack implements Rack
 {
     private string $name;
 

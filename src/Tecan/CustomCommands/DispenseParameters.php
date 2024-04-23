@@ -5,7 +5,7 @@ namespace MLL\Utils\Tecan\CustomCommands;
 use MLL\Utils\Tecan\BasicCommands\AspirateAndDispenseParameters;
 use MLL\Utils\Tecan\Rack\Rack;
 
-final class DispenseParameters
+class DispenseParameters
 {
     public Rack $rack;
 

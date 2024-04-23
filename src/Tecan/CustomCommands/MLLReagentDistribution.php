@@ -7,7 +7,7 @@ use MLL\Utils\Tecan\BasicCommands\ReagentDistribution;
 use MLL\Utils\Tecan\LiquidClass\LiquidClass;
 use MLL\Utils\Tecan\ReagentDistribution\ReagentDistributionDirection;
 
-final class MLLReagentDistribution extends Command
+class MLLReagentDistribution extends Command
 {
     public const NUMBER_OF_DITI_REUSES = 6;
     public const NUMBER_OF_MULTI_DISP = 1;

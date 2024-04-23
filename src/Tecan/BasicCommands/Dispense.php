@@ -5,7 +5,7 @@ namespace MLL\Utils\Tecan\BasicCommands;
 use MLL\Utils\Tecan\LiquidClass\LiquidClass;
 use MLL\Utils\Tecan\Location\Location;
 
-final class Dispense extends BasicPipettingActionCommand
+class Dispense extends BasicPipettingActionCommand
 {
     /**
      * @param float $volume Floating point values are accepted and do not cause an error,

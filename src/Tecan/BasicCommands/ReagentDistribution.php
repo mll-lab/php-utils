@@ -5,7 +5,7 @@ namespace MLL\Utils\Tecan\BasicCommands;
 use MLL\Utils\Tecan\LiquidClass\LiquidClass;
 use MLL\Utils\Tecan\ReagentDistribution\ReagentDistributionDirection;
 
-final class ReagentDistribution extends Command
+class ReagentDistribution extends Command
 {
     private AspirateAndDispenseParameters $source;
 

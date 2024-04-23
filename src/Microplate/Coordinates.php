@@ -9,7 +9,7 @@ use MLL\Utils\Microplate\Exceptions\UnexpectedFlowDirection;
 use function Safe\preg_match;
 
 /** @template TCoordinateSystem of CoordinateSystem */
-final class Coordinates
+class Coordinates
 {
     public const MIN_POSITION = 1;
 

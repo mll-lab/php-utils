@@ -9,7 +9,7 @@ use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\StringUtil;
 
 /** The plate scanner on a tecan worktable. */
-final class TecanScanner
+class TecanScanner
 {
     public const NO_READ = 'NO READ';
     public const RACKID_IDENTIFIER = 'rackid,';

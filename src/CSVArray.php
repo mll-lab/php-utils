@@ -5,7 +5,7 @@ namespace MLL\Utils;
 use Illuminate\Support\Arr;
 
 /** @phpstan-type CSVPrimitive bool|float|int|string|\Stringable|null */
-final class CSVArray
+class CSVArray
 {
     /**
      * TODO: fix parsing multiline-content in csv.

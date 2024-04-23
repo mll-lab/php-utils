@@ -5,7 +5,7 @@ namespace MLL\Utils\FluidXPlate\Scalars;
 use MLL\GraphQLScalars\Regex;
 use MLL\Utils\FluidXPlate\FluidXPlate;
 
-final class FluidXBarcode extends Regex
+class FluidXBarcode extends Regex
 {
     public ?string $description = 'A valid barcode for FluidX-Tubes or FluidX-Plates represented as a string, e.g. `XR12345678`.';
 

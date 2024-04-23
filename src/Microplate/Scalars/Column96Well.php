@@ -9,7 +9,7 @@ use GraphQL\Language\Printer;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils;
 
-final class Column96Well extends ScalarType
+class Column96Well extends ScalarType
 {
     public const MAX_INT = 12;
     public const MIN_INT = 1;

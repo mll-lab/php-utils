@@ -6,7 +6,7 @@ namespace MLL\Utils\Microplate;
  * @template TWell
  * @template TCoordinateSystem of CoordinateSystem
  */
-final class WellWithCoordinates
+class WellWithCoordinates
 {
     /** @var TWell */
     public $content;

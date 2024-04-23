@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Microplate\Exceptions;
 
-final class MicroplateIsFullException extends \UnexpectedValueException
+class MicroplateIsFullException extends \UnexpectedValueException
 {
     public function __construct()
     {

@@ -4,7 +4,7 @@ namespace MLL\Utils\FluidXPlate\Scalars;
 
 use MLL\GraphQLScalars\Regex;
 
-final class FrameStarBarcode extends Regex
+class FrameStarBarcode extends Regex
 {
     public const FRAME_STAR_BARCODE_REGEX = /* @lang RegExp */ '/[A-Z]{2}(\d){6}/';
 

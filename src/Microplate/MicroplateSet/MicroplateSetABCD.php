@@ -9,7 +9,7 @@ use MLL\Utils\Microplate\CoordinateSystem;
  *
  * @phpstan-extends MicroplateSet<TCoordinateSystem>
  */
-final class MicroplateSetABCD extends MicroplateSet
+class MicroplateSetABCD extends MicroplateSet
 {
     /** Duplicates @see MicroplateSet::plateCount() for static contexts. */
     public const PLATE_COUNT = 4;

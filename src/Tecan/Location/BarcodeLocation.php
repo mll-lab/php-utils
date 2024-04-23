@@ -4,7 +4,7 @@ namespace MLL\Utils\Tecan\Location;
 
 use MLL\Utils\Tecan\Rack\Rack;
 
-final class BarcodeLocation implements Location
+class BarcodeLocation implements Location
 {
     private string $barcode;
 

@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\TecanScanner;
 
-final class TecanScanEmptyException extends TecanScanException
+class TecanScanEmptyException extends TecanScanException
 {
     public function __construct()
     {
