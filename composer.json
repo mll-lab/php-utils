@@ -18,16 +18,19 @@
     "php": "^7.4 || ^8",
     "ext-calendar": "*",
     "illuminate/support": "^8.73 || ^9 || ^10",
-    "mll-lab/microplate": "^6",
     "mll-lab/str_putcsv": "^1",
     "nesbot/carbon": "^2.62.1",
     "thecodingmachine/safe": "^1 || ^2"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2",
+    "illuminate/database": "^8.73 || ^9 || ^10",
     "infection/infection": "^0.26 || ^0.27",
     "jangregor/phpstan-prophecy": "^1",
+    "mll-lab/graphql-php-scalars": "^6",
     "mll-lab/php-cs-fixer-config": "^5",
+    "nunomaduro/larastan": "^1 || ^2",
+    "orchestra/testbench": "^5 || ^6 || ^7 || ^8",
     "phpstan/extension-installer": "^1",
     "phpstan/phpstan": "^1",
     "phpstan/phpstan-deprecation-rules": "^1",
@@ -36,6 +39,9 @@
     "phpunit/phpunit": "^9 || ^10",
     "rector/rector": "^0.17",
     "thecodingmachine/phpstan-safe-rule": "^1.2"
+  },
+  "suggest": {
+    "mll-lab/graphql-php-scalars": "To use the provided scalar types for GraphQL servers, requires version ^6"
   },
   "autoload": {
     "psr-4": {

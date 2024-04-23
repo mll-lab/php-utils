@@ -9,6 +9,10 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+### Added
+
+- Integrate `mll-lab/microplate`
+
 ## v1.12.0
 
 ### Added
