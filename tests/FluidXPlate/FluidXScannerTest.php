@@ -12,7 +12,7 @@ final class FluidXScannerTest extends TestCase
         $fluidXScanner = new FluidXScanner();
         $fluidXPlate = $fluidXScanner->scanPlate(FluidXScanner::LOCALHOST);
 
-        self::assertSame('SA00826894', $fluidXPlate->rackId);
+        self::assertSame('SA00826894', $fluidXPlate->rackID);
         $filledWells = $fluidXPlate->filledWells();
         self::assertCount(3, $filledWells);
         self::assertSame('FD20024619', $filledWells->get('A1'));

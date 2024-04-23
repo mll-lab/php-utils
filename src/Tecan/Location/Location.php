@@ -4,7 +4,7 @@ namespace MLL\Utils\Tecan\Location;
 
 interface Location
 {
-    public function tubeId(): ?string;
+    public function tubeID(): ?string;
 
     public function position(): ?string;
 
@@ -12,7 +12,7 @@ interface Location
 
     public function rackType(): string;
 
-    public function rackId(): ?string;
+    public function rackID(): ?string;
 
     /** Serializes the location parameters as part of a pipetting instruction according the gwl file format. */
     public function toString(): string;

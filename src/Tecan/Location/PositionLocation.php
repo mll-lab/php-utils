@@ -16,7 +16,7 @@ final class PositionLocation implements Location
         $this->rack = $rack;
     }
 
-    public function tubeId(): ?string
+    public function tubeID(): ?string
     {
         return null;
     }
@@ -36,7 +36,7 @@ final class PositionLocation implements Location
         return $this->rack->type();
     }
 
-    public function rackId(): ?string
+    public function rackID(): ?string
     {
         return null;
     }
@@ -47,10 +47,10 @@ final class PositionLocation implements Location
             ';',
             [
                 $this->rackName(),
-                $this->rackId(),
+                $this->rackID(),
                 $this->rackType(),
                 $this->position(),
-                $this->tubeId(),
+                $this->tubeID(),
             ]
         );
     }

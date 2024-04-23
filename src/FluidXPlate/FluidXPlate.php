@@ -13,17 +13,17 @@ final class FluidXPlate
     public const FLUIDX_BARCODE_REGEX = /* @lang RegExp */ '/' . self::FLUIDX_BARCODE_REGEX_WITHOUT_DELIMITER . '/';
     public const FLUIDX_BARCODE_REGEX_WITHOUT_DELIMITER = '[A-Z]{2}(\d){8}';
 
-    public string $rackId;
+    public string $rackID;
 
     /** @var Microplate<string, CoordinateSystem96Well> */
     private Microplate $microplate;
 
-    public function __construct(string $rackId)
+    public function __construct(string $rackID)
     {
-        if (\Safe\preg_match(self::FLUIDX_BARCODE_REGEX, $rackId) === 0) {
-            throw new InvalidRackIdException($rackId);
+        if (\Safe\preg_match(self::FLUIDX_BARCODE_REGEX, $rackID) === 0) {
+            throw new InvalidRackIDException($rackID);
         }
-        $this->rackId = $rackId;
+        $this->rackID = $rackID;
         $this->microplate = new Microplate(self::coordinateSystem());
     }
 

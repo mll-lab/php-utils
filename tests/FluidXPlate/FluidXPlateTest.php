@@ -3,7 +3,7 @@
 namespace MLL\Utils\Tests\FluidXPlate;
 
 use MLL\Utils\FluidXPlate\FluidXPlate;
-use MLL\Utils\FluidXPlate\InvalidRackIdException;
+use MLL\Utils\FluidXPlate\InvalidRackIDException;
 use MLL\Utils\FluidXPlate\InvalidTubeBarcodeException;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem96Well;
@@ -14,23 +14,23 @@ final class FluidXPlateTest extends TestCase
 {
     public function testCreateFromStringEmpty(): void
     {
-        $rackId = '';
-        $this->expectExceptionObject(new InvalidRackIdException($rackId));
-        new FluidXPlate($rackId);
+        $rackID = '';
+        $this->expectExceptionObject(new InvalidRackIDException($rackID));
+        new FluidXPlate($rackID);
     }
 
     public function testCreateWithRandomNameAndReturnsIt(): void
     {
-        $rackId = 'testInvalidRackId';
-        $this->expectExceptionObject(new InvalidRackIdException($rackId));
-        new FluidXPlate($rackId);
+        $rackID = 'testInvalidRackID';
+        $this->expectExceptionObject(new InvalidRackIDException($rackID));
+        new FluidXPlate($rackID);
     }
 
     public function testCreatesSuccessfulWithValidBarCode(): void
     {
-        $rackId = 'AB12345678';
-        $fluidXPlate = new FluidXPlate($rackId);
-        self::assertSame($rackId, $fluidXPlate->rackId);
+        $rackID = 'AB12345678';
+        $fluidXPlate = new FluidXPlate($rackID);
+        self::assertSame($rackID, $fluidXPlate->rackID);
         self::assertCount(96, $fluidXPlate->wells());
         self::assertCount(96, $fluidXPlate->freeWells());
         self::assertCount(0, $fluidXPlate->filledWells());
@@ -39,8 +39,8 @@ final class FluidXPlateTest extends TestCase
     public function testCanNotAddInvalidBarcode(): void
     {
         $barcode = 'testWrongBarcode';
-        $rackId = 'AB12345678';
-        $fluidXPlate = new FluidXPlate($rackId);
+        $rackID = 'AB12345678';
+        $fluidXPlate = new FluidXPlate($rackID);
         $coordinates = Coordinates::fromString('A1', new CoordinateSystem96Well());
 
         $this->expectExceptionObject(new InvalidTubeBarcodeException($barcode));
@@ -49,8 +49,8 @@ final class FluidXPlateTest extends TestCase
 
     public function testCanOnlyAddStringAsBarcode(): void
     {
-        $rackId = 'AB12345678';
-        $fluidXPlate = new FluidXPlate($rackId);
+        $rackID = 'AB12345678';
+        $fluidXPlate = new FluidXPlate($rackID);
         $coordinates = Coordinates::fromString('A1', new CoordinateSystem96Well());
 
         $this->expectException(\TypeError::class);
@@ -60,8 +60,8 @@ final class FluidXPlateTest extends TestCase
 
     public function testCanAddToNextFreeWell(): void
     {
-        $rackId = 'AB12345678';
-        $fluidXPlate = new FluidXPlate($rackId);
+        $rackID = 'AB12345678';
+        $fluidXPlate = new FluidXPlate($rackID);
         $expectedCoordinates = Coordinates::fromString('A1', new CoordinateSystem96Well());
         $addToNextFreeWell = $fluidXPlate->addToNextFreeWell('test', FlowDirection::COLUMN());
         self::assertEquals($expectedCoordinates, $addToNextFreeWell);

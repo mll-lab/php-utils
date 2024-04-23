@@ -24,12 +24,12 @@ final class TecanScanner
 
         $lines = new Collection(StringUtil::splitLines($rawContent));
 
-        $firstLineWithRackId = $lines->shift();
+        $firstLineWithRackID = $lines->shift();
 
-        if (! is_string($firstLineWithRackId) || ! Str::startsWith($firstLineWithRackId, self::RACKID_IDENTIFIER)) {
-            throw new NoRackIdException();
+        if (! is_string($firstLineWithRackID) || ! Str::startsWith($firstLineWithRackID, self::RACKID_IDENTIFIER)) {
+            throw new NoRackIDException();
         }
-        $rackId = Str::substr($firstLineWithRackId, strlen(self::RACKID_IDENTIFIER));
+        $rackID = Str::substr($firstLineWithRackID, strlen(self::RACKID_IDENTIFIER));
 
         $expectedCount = FluidXPlate::coordinateSystem()->positionsCount();
         $actualCount = $lines->count();
@@ -37,7 +37,7 @@ final class TecanScanner
             throw new WrongNumberOfWells($expectedCount, $actualCount);
         }
 
-        $plate = new FluidXPlate($rackId);
+        $plate = new FluidXPlate($rackID);
 
         foreach ($lines as $line) {
             $barcode = Str::after($line, ',');
