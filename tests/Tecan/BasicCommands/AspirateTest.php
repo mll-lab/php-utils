@@ -4,11 +4,11 @@ namespace MLL\Utils\Tests\Tecan\BasicCommands;
 
 use MLL\Utils\Tecan\BasicCommands\Aspirate;
 use MLL\Utils\Tecan\LiquidClass\CustomLiquidClass;
-use MLL\Utils\Tecan\LiquidClass\MllLiquidClass;
+use MLL\Utils\Tecan\LiquidClass\MLLLiquidClass;
 use MLL\Utils\Tecan\Location\BarcodeLocation;
 use MLL\Utils\Tecan\Location\PositionLocation;
 use MLL\Utils\Tecan\Rack\CustomRack;
-use MLL\Utils\Tecan\Rack\MllLabWareRack;
+use MLL\Utils\Tecan\Rack\MLLLabWareRack;
 use PHPUnit\Framework\TestCase;
 
 final class AspirateTest extends TestCase
@@ -26,7 +26,7 @@ final class AspirateTest extends TestCase
     {
         $position = 7;
         $volume = 2.2;
-        $aspirate = new Aspirate($volume, new PositionLocation($position, MllLabWareRack::DEST_PCR()), MllLiquidClass::TRANSFER_TEMPLATE());
+        $aspirate = new Aspirate($volume, new PositionLocation($position, MLLLabWareRack::DEST_PCR()), MLLLiquidClass::TRANSFER_TEMPLATE());
         self::assertNull($aspirate->location->tubeID());
         self::assertSame((string) $position, $aspirate->location->position());
         self::assertSame('A;DestPCR;;96 Well PCR ABI semi-skirted;' . $position . ';;2.2;Transfer_Template;;', $aspirate->toString());

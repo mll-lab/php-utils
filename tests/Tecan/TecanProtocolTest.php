@@ -12,13 +12,13 @@ use MLL\Utils\Tecan\BasicCommands\Dispense;
 use MLL\Utils\Tecan\BasicCommands\Wash;
 use MLL\Utils\Tecan\CustomCommands\AspirateParameters;
 use MLL\Utils\Tecan\CustomCommands\DispenseParameters;
-use MLL\Utils\Tecan\CustomCommands\MllReagentDistribution;
+use MLL\Utils\Tecan\CustomCommands\MLLReagentDistribution;
 use MLL\Utils\Tecan\CustomCommands\TransferWithAutoWash;
 use MLL\Utils\Tecan\LiquidClass\CustomLiquidClass;
-use MLL\Utils\Tecan\LiquidClass\MllLiquidClass;
+use MLL\Utils\Tecan\LiquidClass\MLLLiquidClass;
 use MLL\Utils\Tecan\Location\BarcodeLocation;
 use MLL\Utils\Tecan\Rack\CustomRack;
-use MLL\Utils\Tecan\Rack\MllLabWareRack;
+use MLL\Utils\Tecan\Rack\MLLLabWareRack;
 use MLL\Utils\Tecan\TecanProtocol;
 use MLL\Utils\Tecan\TipMask\TipMask;
 use PHPUnit\Framework\TestCase;
@@ -212,16 +212,16 @@ CSV
 
     public function testReagentDistributionProtocol(): void
     {
-        $sourceRack = MllLabWareRack::MM();
-        $targetRack = MllLabWareRack::DEST_PCR();
+        $sourceRack = MLLLabWareRack::MM();
+        $targetRack = MLLLabWareRack::DEST_PCR();
         $dispenseVolume = 24;
-        $liquidClass = MllLiquidClass::TRANSFER_MASTERMIX_MP();
+        $liquidClass = MLLLiquidClass::TRANSFER_MASTERMIX_MP();
 
         $tecanProtocol = new TecanProtocol(TipMask::FOUR_TIPS());
 
         $dispensePositions = [1, 2, 3, 4, 5, 57];
         $tecanProtocol->addCommand(
-            new MllReagentDistribution(
+            new MLLReagentDistribution(
                 new AspirateParameters($sourceRack, 1),
                 new DispenseParameters($targetRack, $dispensePositions),
                 $dispenseVolume,
@@ -231,7 +231,7 @@ CSV
 
         $dispensePositions1 = [6, 7, 50, 58, 74, 75];
         $tecanProtocol->addCommand(
-            new MllReagentDistribution(
+            new MLLReagentDistribution(
                 new AspirateParameters($sourceRack, 2),
                 new DispenseParameters($targetRack, $dispensePositions1),
                 $dispenseVolume,
@@ -241,7 +241,7 @@ CSV
 
         $dispensePositions2 = [8, 10, 51, 59];
         $tecanProtocol->addCommand(
-            new MllReagentDistribution(
+            new MLLReagentDistribution(
                 new AspirateParameters($sourceRack, 3),
                 new DispenseParameters($targetRack, $dispensePositions2),
                 $dispenseVolume,
@@ -251,7 +251,7 @@ CSV
 
         $dispensePositions3 = [11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 52, 60];
         $tecanProtocol->addCommand(
-            new MllReagentDistribution(
+            new MLLReagentDistribution(
                 new AspirateParameters($sourceRack, 4),
                 new DispenseParameters($targetRack, $dispensePositions3),
                 $dispenseVolume,
@@ -261,7 +261,7 @@ CSV
 
         $dispensePositions4 = [24, 25, 26, 27, 28, 29, 30, 53, 61];
         $tecanProtocol->addCommand(
-            new MllReagentDistribution(
+            new MLLReagentDistribution(
                 new AspirateParameters($sourceRack, 5),
                 new DispenseParameters($targetRack, $dispensePositions4),
                 $dispenseVolume,
@@ -270,7 +270,7 @@ CSV
         );
         $dispensePositions5 = [1, 2, 3, 4, 5];
         $tecanProtocol->addCommand(
-            new MllReagentDistribution(
+            new MLLReagentDistribution(
                 new AspirateParameters($sourceRack, 5),
                 new DispenseParameters($targetRack, $dispensePositions5),
                 $dispenseVolume,
