@@ -2,6 +2,7 @@
 
 namespace MLL\Utils\Tests\FluidXPlate\Scalars;
 
+use Composer\InstalledVersions;
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use MLL\Utils\FluidXPlate\Scalars\FrameStarBarcode;
@@ -9,6 +10,15 @@ use PHPUnit\Framework\TestCase;
 
 final class FrameStarBarcodeTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        if (! InstalledVersions::isInstalled('mll-lab/graphql-php-scalars')) {
+            self::markTestSkipped('This test requires mll-lab/graphql-php-scalars to be installed.');
+        }
+
+        parent::setUp();
+    }
+
     public function testSerializeThrowsIfIsInvalid(): void
     {
         $this->expectException(InvariantViolation::class);
