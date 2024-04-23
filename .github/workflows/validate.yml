@@ -75,9 +75,6 @@ jobs:
           extensions: mbstring
           php-version: "${{ matrix.php-version }}"
 
-      - if: "! startsWith(matrix.php-version, 8)"
-        run: composer remove --dev --no-update mll-lab/graphql-php-scalars
-
       - run: composer require "illuminate/support:${{ matrix.illuminate }}" --no-interaction --no-update
 
       - if: matrix.dependencies == 'lowest'
