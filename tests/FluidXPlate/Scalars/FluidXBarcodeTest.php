@@ -5,9 +5,9 @@ namespace MLL\Utils\Tests\FluidXPlate\Scalars;
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use MLL\Utils\FluidXPlate\Scalars\FluidXBarcode;
-use PHPUnit\Framework\TestCase;
+use MLL\Utils\Tests\ScalarTestCase;
 
-final class FluidXBarcodeTest extends TestCase
+final class FluidXBarcodeTest extends ScalarTestCase
 {
     public function testSerializeThrowsIfIsInvalid(): void
     {
