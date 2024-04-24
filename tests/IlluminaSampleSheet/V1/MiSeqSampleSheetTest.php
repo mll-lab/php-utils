@@ -3,11 +3,11 @@
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V1;
 
 use Carbon\Carbon;
-use MLL\Utils\IlluminaSampleSheet\V1\MiSeqDataSection;
+use MLL\Utils\IlluminaSampleSheet\V1\DataSection;
 use MLL\Utils\IlluminaSampleSheet\V1\MiSeqHeaderSection;
-use MLL\Utils\IlluminaSampleSheet\V1\MiSeqSample;
 use MLL\Utils\IlluminaSampleSheet\V1\MiSeqSampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V1\ReadsSection;
+use MLL\Utils\IlluminaSampleSheet\V1\SampleSheetData;
 use PHPUnit\Framework\TestCase;
 
 class MiSeqSampleSheetTest extends TestCase
@@ -16,7 +16,7 @@ class MiSeqSampleSheetTest extends TestCase
     {
         $headerSection = $this->createMock(MiSeqHeaderSection::class);
         $readsSection = $this->createMock(ReadsSection::class);
-        $dataSection = $this->createMock(MiSeqDataSection::class);
+        $dataSection = $this->createMock(DataSection::class);
 
         $miSeqSampleSheet = new MiSeqSampleSheet($headerSection, $readsSection, $dataSection);
 
@@ -40,11 +40,16 @@ class MiSeqSampleSheetTest extends TestCase
 
         $readsSection = new ReadsSection(150, 150);
 
-        $dataSection = new MiSeqDataSection();
+        $columns = ['Sample_ID', 'Sample_Name', 'Sample_Plate', 'Sample_Well', 'Sample_Project', 'I7_Index_ID', 'Index', 'I5_Index_ID', 'Index2'];
+        $rows = [
+            ['1', 'Sample-001-M001', 'RunXXXX-PLATE', '', 'RunXXXX-PROJECT', 'R701', 'ATCACG', 'A501', 'TGAACCTT'],
+            ['2', 'Sample-002-M002', 'RunXXXX-PLATE', '', 'RunXXXX-PROJECT', 'R701', 'ATCACG', 'A502', 'TGCTAAGT'],
+            ['3', 'Sample-003-M003', 'RunXXXX-PLATE', '', 'RunXXXX-PROJECT', 'R701', 'ATCACG', 'A503', 'TGTTCTCT'],
+        ];
 
-        $dataSection->addSample(new MiSeqSample('1', 'Sample-001-M001', 'RunXXXX-PLATE', '', 'RunXXXX-PROJECT', 'R701', 'ATCACG', 'A501', 'TGAACCTT'));
-        $dataSection->addSample(new MiSeqSample('2', 'Sample-002-M002', 'RunXXXX-PLATE', '', 'RunXXXX-PROJECT', 'R701', 'ATCACG', 'A502', 'TGCTAAGT'));
-        $dataSection->addSample(new MiSeqSample('3', 'Sample-003-M003', 'RunXXXX-PLATE', '', 'RunXXXX-PROJECT', 'R701', 'ATCACG', 'A503', 'TGTTCTCT'));
+        $sampleSheetData = new SampleSheetData($columns, $rows);
+
+        $dataSection = new DataSection($sampleSheetData);
 
         $miSeqSampleSheet = new MiSeqSampleSheet($headerSection, $readsSection, $dataSection);
 

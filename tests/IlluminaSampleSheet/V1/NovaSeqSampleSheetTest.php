@@ -2,11 +2,11 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V1;
 
-use MLL\Utils\IlluminaSampleSheet\V1\NovaSeqDataSection;
+use MLL\Utils\IlluminaSampleSheet\V1\DataSection;
 use MLL\Utils\IlluminaSampleSheet\V1\NovaSeqHeaderSection;
 use MLL\Utils\IlluminaSampleSheet\V1\NovaSeqSampleSheet;
-use MLL\Utils\IlluminaSampleSheet\V1\NovaSeqXpSample;
 use MLL\Utils\IlluminaSampleSheet\V1\ReadsSection;
+use MLL\Utils\IlluminaSampleSheet\V1\SampleSheetData;
 use MLL\Utils\IlluminaSampleSheet\V1\SettingsSection;
 use PHPUnit\Framework\TestCase;
 
@@ -17,7 +17,7 @@ class NovaSeqSampleSheetTest extends TestCase
         $headerSection = $this->createMock(NovaSeqHeaderSection::class);
         $readsSection = $this->createMock(ReadsSection::class);
         $settingsSection = $this->createMock(SettingsSection::class);
-        $dataSection = $this->createMock(NovaSeqDataSection::class);
+        $dataSection = $this->createMock(DataSection::class);
 
         $novaSeqSampleSheet = new NovaSeqSampleSheet($headerSection, $readsSection, $settingsSection, $dataSection);
 
@@ -43,11 +43,15 @@ class NovaSeqSampleSheetTest extends TestCase
 
         $readsSection = new ReadsSection(101, 101);
 
-        $dataSection = new NovaSeqDataSection();
+        $columns = ['Sample_ID', 'Sample_Name', 'Sample_Plate', 'Sample_Well', 'I7_Index_ID', 'Index', 'I5_Index_ID', 'Index2', 'Sample_Project', 'Description'];
+        $rows = [
+            ['1', 'Sample-001-M001', 'RunXXXX-PLATE', '', 'UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG', 'RunXXXX-PROJECT', 'description'],
+            ['2',  'Sample-002-M002', 'RunXXXX-PLATE', '', 'UDP0091', 'CCTTGTAG', 'UDP0091', 'CCTTGGAA', 'RunXXXX-PROJECT', 'description'],
+            ['3', 'Sample-003-M003', 'RunXXXX-PLATE', '', 'UDP0092', 'GAACATCG', 'UDP0092', 'TCGACAAG', 'RunXXXX-PROJECT', 'description'],
+        ];
 
-        $dataSection->addSample(new NovaSeqXpSample(1, '1', 'Sample-001-M001', 'RunXXXX-PLATE', '', 'UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG', 'RunXXXX-PROJECT', 'description'));
-        $dataSection->addSample(new NovaSeqXpSample(1, '2', 'Sample-002-M002', 'RunXXXX-PLATE', '', 'UDP0091', 'CCTTGTAG', 'UDP0091', 'CCTTGGAA', 'RunXXXX-PROJECT', 'description'));
-        $dataSection->addSample(new NovaSeqXpSample(1, '3', 'Sample-003-M003', 'RunXXXX-PLATE', '', 'UDP0092', 'GAACATCG', 'UDP0092', 'TCGACAAG', 'RunXXXX-PROJECT', 'description'));
+        $sampleSheetData = new SampleSheetData($columns, $rows);
+        $dataSection = new DataSection($sampleSheetData);
 
         $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');
         $miSeqSampleSheet = new NovaSeqSampleSheet($headerSection, $readsSection, $settings, $dataSection);
@@ -93,11 +97,15 @@ Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Ind
 
         $readsSection = new ReadsSection(101, 101);
 
-        $dataSection = new NovaSeqDataSection();
+        $columns = ['Lane', 'Sample_ID', 'Sample_Name', 'Sample_Plate', 'Sample_Well', 'I7_Index_ID', 'Index', 'I5_Index_ID', 'Index2', 'Sample_Project', 'Description'];
+        $rows = [
+            [2, '1', 'Sample-001-M001', 'RunXXXX-PLATE', '', 'UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG', 'RunXXXX-PROJECT', 'description'],
+            [1, '2', 'Sample-002-M002', 'RunXXXX-PLATE', '', 'UDP0091', 'CCTTGTAG', 'UDP0091', 'CCTTGGAA', 'RunXXXX-PROJECT', 'description'],
+            [4, '3', 'Sample-003-M003', 'RunXXXX-PLATE', '', 'UDP0092', 'GAACATCG', 'UDP0092', 'TCGACAAG', 'RunXXXX-PROJECT', 'description'],
+        ];
 
-        $dataSection->addSample(new NovaSeqXpSample(2, '1', 'Sample-001-M001', 'RunXXXX-PLATE', '', 'UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG', 'RunXXXX-PROJECT', 'description'));
-        $dataSection->addSample(new NovaSeqXpSample(1, '2', 'Sample-002-M002', 'RunXXXX-PLATE', '', 'UDP0091', 'CCTTGTAG', 'UDP0091', 'CCTTGGAA', 'RunXXXX-PROJECT', 'description'));
-        $dataSection->addSample(new NovaSeqXpSample(4, '3', 'Sample-003-M003', 'RunXXXX-PLATE', '', 'UDP0092', 'GAACATCG', 'UDP0092', 'TCGACAAG', 'RunXXXX-PROJECT', 'description'));
+        $sampleSheetData = new SampleSheetData($columns, $rows);
+        $dataSection = new DataSection($sampleSheetData);
 
         $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');
         $miSeqSampleSheet = new NovaSeqSampleSheet($headerSection, $readsSection, $settings, $dataSection);

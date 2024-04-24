@@ -9,7 +9,7 @@ class MiSeqSampleSheet extends SampleSheet
     public function __construct(
         MiSeqHeaderSection $header,
         ReadsSection $reads,
-        MiSeqDataSection $data
+        DataSection $data
     ) {
         $this->addSection($header);
         $this->addSection($reads);
