@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\Tests\Unit\QxManager;
+namespace MLL\Utils\Tests\QxManager;
 
 use MLL\Utils\QxManager\FilledRow;
 use PHPUnit\Framework\TestCase;

@@ -9,11 +9,18 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v1.14.0
+
+### Added
+
+- Add support for creating different Illumina NovaSeq Sample Sheets (V1 & V2), including specific sections (Header, Reads, Data, Settings etc.).
+
 ## v1.13.0
 
 ### Added
 
-- Add support for creating different Illumina NovaSeq Sample Sheets, including specific sections (Header, Reads, Data, Settings etc.).
+- Integrate `mll-lab/microplate` and `mll-lab/liquid-handling-robotics`
+- Support Laravel 11
 
 ## v1.12.0
 

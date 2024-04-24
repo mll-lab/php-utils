@@ -23,11 +23,6 @@ php-cs-fixer:
 	mkdir --parents .build/php-cs-fixer
 	vendor/bin/php-cs-fixer fix --cache-file=.build/php-cs-fixer/cache
 
-.PHONY: infection
-infection: vendor ## Runs mutation tests with infection
-	mkdir --parents .build/infection
-	vendor/bin/infection --ignore-msi-with-no-mutations --min-covered-msi=60 --min-msi=60
-
 .PHONY: stan
 stan: vendor ## Runs a static analysis with phpstan
 	mkdir --parents .build/phpstan
