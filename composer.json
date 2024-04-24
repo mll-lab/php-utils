@@ -25,7 +25,6 @@
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2",
-    "infection/infection": "^0.26 || ^0.27",
     "jangregor/phpstan-prophecy": "^1",
     "mll-lab/graphql-php-scalars": "^6",
     "mll-lab/php-cs-fixer-config": "^5",
