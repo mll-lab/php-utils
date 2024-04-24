@@ -14,6 +14,7 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 ### Added
 
 - Integrate `mll-lab/microplate` and `mll-lab/liquid-handling-robotics`
+- Support Laravel 11
 
 ## v1.12.0
 
