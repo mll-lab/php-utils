@@ -8,11 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 final class StringUtilTest extends TestCase
 {
-    /**
-     * @dataProvider joinNonEmpty
-     *
-     * @param iterable<string|null> $parts
-     */
+    /** @param iterable<string|null> $parts */
+    #[\PHPUnit\Framework\Attributes\DataProvider('joinNonEmpty')]
     public function testJoinNonEmpty(string $expectedJoined, string $glue, iterable $parts): void
     {
         self::assertSame(
@@ -29,7 +26,7 @@ final class StringUtilTest extends TestCase
         yield ['a,b', ',', new Collection(['a', null, '', 'b'])];
     }
 
-    /** @dataProvider shortenFirstname */
+    #[\PHPUnit\Framework\Attributes\DataProvider('shortenFirstname')]
     public function testShortenFirstname(string $expectedShortened, string $input): void
     {
         self::assertSame(
@@ -48,11 +45,8 @@ final class StringUtilTest extends TestCase
         yield ['', ''];
     }
 
-    /**
-     * @dataProvider splitLines
-     *
-     * @param array<int, string> $expectedLines
-     */
+    /** @param array<int, string> $expectedLines */
+    #[\PHPUnit\Framework\Attributes\DataProvider('splitLines')]
     public function testSplitLines(array $expectedLines, string $input): void
     {
         self::assertSame($expectedLines, StringUtil::splitLines($input));

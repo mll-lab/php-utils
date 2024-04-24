@@ -46,7 +46,7 @@ final class MicroplateSetABCDTest extends TestCase
         $microplateSet->locationFromPosition($setPositionLowerThanMin, FlowDirection::COLUMN());
     }
 
-    /** @dataProvider dataProvider12Well */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider12Well')]
     public function testSetLocationFromSetPositionFor12Wells(int $position, string $coordinatesString, string $plateID): void
     {
         $microplateSet = new MicroplateSetABCD(new CoordinateSystem12Well());
@@ -91,7 +91,7 @@ final class MicroplateSetABCDTest extends TestCase
         ];
     }
 
-    /** @dataProvider dataProvider96Well */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider96Well')]
     public function testSetLocationFromSetPositionFor96Wells(int $position, string $coordinatesString, string $plateID): void
     {
         $microplateSet = new MicroplateSetABCD(new CoordinateSystem96Well());

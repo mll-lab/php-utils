@@ -41,11 +41,8 @@ final class CSVArrayTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider csvAndArrayStringValues
-     *
-     * @param array<int, array<string, string>> $array
-     */
+    /** @param array<int, array<string, string>> $array */
+    #[\PHPUnit\Framework\Attributes\DataProvider('csvAndArrayStringValues')]
     public function testStringValues(string $csv, array $array): void
     {
         self::assertSame($array, CSVArray::toArray($csv));
