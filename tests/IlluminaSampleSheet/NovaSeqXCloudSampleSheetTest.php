@@ -3,9 +3,9 @@
 namespace MLL\Utils\Tests\IlluminaSampleSheet;
 
 use MLL\Utils\IlluminaSampleSheet\V2\HeaderSection;
-use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudReadsSection;
 use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudSampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudSequencingSettingsSection;
+use MLL\Utils\IlluminaSampleSheet\V2\ReadsSection;
 use PHPUnit\Framework\TestCase;
 
 class NovaSeqXCloudSampleSheetTest extends TestCase
@@ -18,7 +18,7 @@ class NovaSeqXCloudSampleSheetTest extends TestCase
         );
         $headerSection->addCustomParam('IndexOrientation', 'Orientation1');
 
-        $readsSection = new NovaSeqXCloudReadsSection(
+        $readsSection = new ReadsSection(
             100,
             101,
             10,

@@ -6,9 +6,9 @@ use MLL\Utils\IlluminaSampleSheet\SectionInterface;
 
 class HeaderSection implements SectionInterface
 {
-    private string $runName;
+    private const FILE_FORMAT_VERSION = '2';
 
-    private string $fileFormatVersion = '2';
+    private string $runName;
 
     private ?string $runDescription;
 
@@ -46,7 +46,7 @@ class HeaderSection implements SectionInterface
     {
         $headerLines = [
             '[Header]',
-            "FileFormatVersion,{$this->fileFormatVersion}",
+            'FileFormatVersion,' . self::FILE_FORMAT_VERSION . '',
             "RunName,{$this->runName}",
         ];
         if ($this->runDescription !== null) {
@@ -61,8 +61,7 @@ class HeaderSection implements SectionInterface
         foreach ($this->customParams as $paramName => $paramValue) {
             $headerLines[] = "{$paramName},{$paramValue}";
         }
-        $headerLines[] = ''; // blank line at the end
 
-        return implode("\n", $headerLines);
+        return implode("\n", $headerLines) . "\n";
     }
 }
