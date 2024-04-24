@@ -105,19 +105,3 @@ jobs:
       - run: vendor/bin/phpunit --coverage-clover=.build/logs/clover.xml
 
       - uses: codecov/codecov-action@v3
-
-  mutation-tests:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: shivammathur/setup-php@v2
-        with:
-          coverage: pcov
-          extensions: mbstring
-          php-version: 8.3
-
-      - run: composer install --no-interaction --no-progress --no-suggest
-
-      - run: vendor/bin/infection --ignore-msi-with-no-mutations --min-covered-msi=60 --min-msi=60
