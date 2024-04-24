@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\IlluminaSampleSheet;
+namespace MLL\Utils\IlluminaSampleSheet\V1;
+
+use MLL\Utils\IlluminaSampleSheet\SampleSheet;
 
 class NovaSeqSampleSheet extends SampleSheet
 {

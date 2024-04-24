@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet;
 
-use MLL\Utils\IlluminaSampleSheet\CloudDataSample;
+use MLL\Utils\IlluminaSampleSheet\V2\CloudDataSample;
 use PHPUnit\Framework\TestCase;
 
 class CloudDataSampleTest extends TestCase

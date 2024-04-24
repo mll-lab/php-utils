@@ -2,14 +2,10 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet;
 
-use MLL\Utils\IlluminaSampleSheet\DataSection;
-use MLL\Utils\IlluminaSampleSheet\NovaSeqHeaderSection;
-use MLL\Utils\IlluminaSampleSheet\NovaSeqSampleSheet;
-use MLL\Utils\IlluminaSampleSheet\NovaSeqXpDataSection;
-use MLL\Utils\IlluminaSampleSheet\NovaSeqXpSample;
-use MLL\Utils\IlluminaSampleSheet\NovaSeqXpSampleSheet;
-use MLL\Utils\IlluminaSampleSheet\ReadsSection;
-use MLL\Utils\IlluminaSampleSheet\SettingsSection;
+use MLL\Utils\IlluminaSampleSheet\V1\NovaSeqHeaderSection;
+use MLL\Utils\IlluminaSampleSheet\V1\NovaSeqXpDataSection;
+use MLL\Utils\IlluminaSampleSheet\V1\NovaSeqXpSample;
+use MLL\Utils\IlluminaSampleSheet\V1\SettingsSection;
 use PHPUnit\Framework\TestCase;
 
 class NovaSeqXpSampleSheetTest extends TestCase
@@ -17,11 +13,11 @@ class NovaSeqXpSampleSheetTest extends TestCase
     public function testNovaSeqSampleSheetAddsSectionsOnConstruction(): void
     {
         $headerSection = $this->createMock(NovaSeqHeaderSection::class);
-        $readsSection = $this->createMock(ReadsSection::class);
+        $readsSection = $this->createMock(\MLL\Utils\IlluminaSampleSheet\V1\ReadsSection::class);
         $settingsSection = $this->createMock(SettingsSection::class);
-        $dataSection = $this->createMock(DataSection::class);
+        $dataSection = $this->createMock(\MLL\Utils\IlluminaSampleSheet\V1\DataSection::class);
 
-        $novaSeqSampleSheet = new NovaSeqXpSampleSheet($headerSection, $readsSection, $settingsSection, $dataSection);
+        $novaSeqSampleSheet = new \MLL\Utils\IlluminaSampleSheet\V1\NovaSeqXpSampleSheet($headerSection, $readsSection, $settingsSection, $dataSection);
 
         self::assertContains($headerSection, $novaSeqSampleSheet->getSections());
         self::assertContains($readsSection, $novaSeqSampleSheet->getSections());
@@ -43,7 +39,7 @@ class NovaSeqXpSampleSheetTest extends TestCase
             'MyChemistry',
         );
 
-        $readsSection = new ReadsSection(101, 101);
+        $readsSection = new \MLL\Utils\IlluminaSampleSheet\V1\ReadsSection(101, 101);
 
         $dataSection = new NovaSeqXpDataSection();
 
@@ -52,7 +48,7 @@ class NovaSeqXpSampleSheetTest extends TestCase
         $dataSection->addSample(new NovaSeqXpSample('4', '3', 'Sample-003-M003', 'RunXXXX-PLATE', '', 'UDP0092', 'GAACATCG', 'UDP0092', 'TCGACAAG', 'RunXXXX-PROJECT', 'description'));
 
         $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');
-        $miSeqSampleSheet = new NovaSeqSampleSheet($headerSection, $readsSection, $settings, $dataSection);
+        $miSeqSampleSheet = new \MLL\Utils\IlluminaSampleSheet\V1\NovaSeqSampleSheet($headerSection, $readsSection, $settings, $dataSection);
 
         $expected = '[Header]
 IEMFileVersion,4

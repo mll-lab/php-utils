@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\IlluminaSampleSheet;
+namespace MLL\Utils\IlluminaSampleSheet\V2;
+
+use MLL\Utils\IlluminaSampleSheet\SectionInterface;
 
 class CloudDataSection implements SectionInterface
 {

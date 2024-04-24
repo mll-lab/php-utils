@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet;
 
-use MLL\Utils\IlluminaSampleSheet\CloudSettingsSection;
+use MLL\Utils\IlluminaSampleSheet\V2\CloudSettingsSection;
 use PHPUnit\Framework\TestCase;
 
 class CloudSettingsSectionTest extends TestCase

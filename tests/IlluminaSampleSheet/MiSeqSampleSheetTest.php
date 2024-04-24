@@ -2,21 +2,18 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet;
 
-use MLL\Utils\IlluminaSampleSheet\DataSection;
-use MLL\Utils\IlluminaSampleSheet\MiSeqDataSection;
-use MLL\Utils\IlluminaSampleSheet\MiSeqHeaderSection;
-use MLL\Utils\IlluminaSampleSheet\MiSeqSample;
-use MLL\Utils\IlluminaSampleSheet\MiSeqSampleSheet;
-use MLL\Utils\IlluminaSampleSheet\ReadsSection;
+use MLL\Utils\IlluminaSampleSheet\V1\MiSeqSample;
+use MLL\Utils\IlluminaSampleSheet\V1\MiSeqSampleSheet;
+use MLL\Utils\IlluminaSampleSheet\V1\ReadsSection;
 use PHPUnit\Framework\TestCase;
 
 class MiSeqSampleSheetTest extends TestCase
 {
     public function testMiSeqSampleSheetToStringReturnsCorrectFormat(): void
     {
-        $headerSection = $this->createMock(MiSeqHeaderSection::class);
+        $headerSection = $this->createMock(\MLL\Utils\IlluminaSampleSheet\V1\MiSeqHeaderSection::class);
         $readsSection = $this->createMock(ReadsSection::class);
-        $dataSection = $this->createMock(DataSection::class);
+        $dataSection = $this->createMock(\MLL\Utils\IlluminaSampleSheet\V1\DataSection::class);
 
         $miSeqSampleSheet = new MiSeqSampleSheet($headerSection, $readsSection, $dataSection);
 
@@ -27,7 +24,7 @@ class MiSeqSampleSheetTest extends TestCase
 
     public function testMiSeqSampleSheetToStringReturnsExpectedResult(): void
     {
-        $headerSection = new MiSeqHeaderSection(
+        $headerSection = new \MLL\Utils\IlluminaSampleSheet\V1\MiSeqHeaderSection(
             'Run7906-ROUTINE',
             '03.04.2024',
             'GenerateFASTQ - 3.0.1',
@@ -40,11 +37,11 @@ class MiSeqSampleSheetTest extends TestCase
 
         $readsSection = new ReadsSection(150, 150);
 
-        $dataSection = new MiSeqDataSection();
+        $dataSection = new \MLL\Utils\IlluminaSampleSheet\V1\MiSeqDataSection();
 
         $dataSection->addSample(new MiSeqSample('1', 'Sample-001-M001', 'RunXXXX-PLATE', '', 'RunXXXX-PROJECT', 'R701', 'ATCACG', 'A501', 'TGAACCTT'));
         $dataSection->addSample(new MiSeqSample('2', 'Sample-002-M002', 'RunXXXX-PLATE', '', 'RunXXXX-PROJECT', 'R701', 'ATCACG', 'A502', 'TGCTAAGT'));
-        $dataSection->addSample(new MiSeqSample('3', 'Sample-003-M003', 'RunXXXX-PLATE', '', 'RunXXXX-PROJECT', 'R701', 'ATCACG', 'A503', 'TGTTCTCT'));
+        $dataSection->addSample(new \MLL\Utils\IlluminaSampleSheet\V1\MiSeqSample('3', 'Sample-003-M003', 'RunXXXX-PLATE', '', 'RunXXXX-PROJECT', 'R701', 'ATCACG', 'A503', 'TGTTCTCT'));
 
         $miSeqSampleSheet = new MiSeqSampleSheet($headerSection, $readsSection, $dataSection);
 

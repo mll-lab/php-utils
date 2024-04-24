@@ -2,14 +2,13 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet;
 
-use MLL\Utils\IlluminaSampleSheet\NovaSeqHeaderSection;
 use PHPUnit\Framework\TestCase;
 
 class NovaSeqHeaderSectionTest extends TestCase
 {
     public function testHeaderSectionToStringReturnsCorrectFormat(): void
     {
-        $headerSection = new NovaSeqHeaderSection(
+        $headerSection = new \MLL\Utils\IlluminaSampleSheet\V1\NovaSeqHeaderSection(
             '4',
             'Investigator1',
             'Experiment1',

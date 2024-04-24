@@ -2,14 +2,10 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet;
 
-use MLL\Utils\IlluminaSampleSheet\BclConvertDataSection;
-use MLL\Utils\IlluminaSampleSheet\BclConvertSettingsSection;
-use MLL\Utils\IlluminaSampleSheet\CloudDataSection;
-use MLL\Utils\IlluminaSampleSheet\CloudSettingsSection;
-use MLL\Utils\IlluminaSampleSheet\NovaSeqXCloudHeaderSection;
-use MLL\Utils\IlluminaSampleSheet\NovaSeqXCloudReadsSection;
-use MLL\Utils\IlluminaSampleSheet\NovaSeqXCloudSampleSheet;
-use MLL\Utils\IlluminaSampleSheet\NovaSeqXCloudSequencingSettingsSection;
+use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudHeaderSection;
+use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudReadsSection;
+use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudSampleSheet;
+use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudSequencingSettingsSection;
 use PHPUnit\Framework\TestCase;
 
 class NovaSeqXCloudSampleSheetTest extends TestCase
@@ -31,16 +27,16 @@ class NovaSeqXCloudSampleSheetTest extends TestCase
         );
         $sequenceSettingsSection = new NovaSeqXCloudSequencingSettingsSection('Settings1');
 
-        $bclConvertSettingsSection = new BclConvertSettingsSection('1.0.0', '0', 'gzip');
+        $bclConvertSettingsSection = new \MLL\Utils\IlluminaSampleSheet\V2\BclConvertSettingsSection('1.0.0', '0', 'gzip');
 
-        $bclConvertDataSection = new BclConvertDataSection();
+        $bclConvertDataSection = new \MLL\Utils\IlluminaSampleSheet\V2\BclConvertDataSection();
         $bclConvertDataSection->addSample(1, 'Sample1', 'Index1', 'Index2', 'Cycles1', 'Adapter1', 'Adapter2');
         $bclConvertDataSection->addSample(2, 'Sample2', 'Index3', 'Index4', 'Cycles2', 'Adapter3', 'Adapter4');
         $bclConvertDataSection->addSample(3, 'Sample3', 'Index5', 'Index6', 'Cycles3', 'Adapter5', 'Adapter6');
 
-        $cloudSettingsSection = new CloudSettingsSection('1.0.0', 'Workflow1', 'Pipeline1');
+        $cloudSettingsSection = new \MLL\Utils\IlluminaSampleSheet\V2\CloudSettingsSection('1.0.0', 'Workflow1', 'Pipeline1');
 
-        $cloudDataSection = new CloudDataSection();
+        $cloudDataSection = new \MLL\Utils\IlluminaSampleSheet\V2\CloudDataSection();
         $cloudDataSection->addSample('Sample4', 'Project1', 'Library1', 'Kit1', 'AdapterKit1');
         $cloudDataSection->addSample('Sample5', 'Project2', 'Library2', 'Kit2', 'AdapterKit2');
         $cloudDataSection->addSample('Sample6', 'Project3', 'Library3', 'Kit3', 'AdapterKit3');
