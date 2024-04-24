@@ -4,7 +4,7 @@ namespace MLL\Utils\IlluminaSampleSheet\V1;
 
 class NovaSeqXpSample extends Sample
 {
-    public string $lane;
+    public int $lane;
 
     public string $sampleId;
 
@@ -27,7 +27,7 @@ class NovaSeqXpSample extends Sample
     public string $description;
 
     public function __construct(
-        string $lane,
+        int $lane,
         string $sampleId,
         string $sampleName,
         string $samplePlate,
@@ -56,6 +56,22 @@ class NovaSeqXpSample extends Sample
     {
         return implode(',', [
             $this->lane,
+            $this->sampleId,
+            $this->sampleName,
+            $this->samplePlate,
+            $this->sampleWell,
+            $this->i7IndexId,
+            $this->index,
+            $this->i5IndexId,
+            $this->index2,
+            $this->sampleProject,
+            $this->description,
+        ]);
+    }
+
+    public function toStringWithoutLane(): string
+    {
+        return implode(',', [
             $this->sampleId,
             $this->sampleName,
             $this->samplePlate,

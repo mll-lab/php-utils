@@ -10,7 +10,7 @@ class NovaSeqSampleSheet extends SampleSheet
         NovaSeqHeaderSection $header,
         ReadsSection $reads,
         SettingsSection $settings,
-        DataSection $data
+        NovaSeqDataSection $data
     ) {
         $this->addSection($header);
         $this->addSection($reads);
