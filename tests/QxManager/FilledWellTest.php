@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\Tests\Unit\QxManager;
+namespace MLL\Utils\Tests\QxManager;
 
-use Mll\Microplate\Coordinates;
-use Mll\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\Coordinates;
+use MLL\Utils\Microplate\CoordinateSystem96Well;
 use MLL\Utils\QxManager\FilledRow;
 use MLL\Utils\QxManager\FilledWell;
 use PHPUnit\Framework\TestCase;

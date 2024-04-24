@@ -43,6 +43,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         php-version:
           - "7.4"
@@ -73,6 +74,9 @@ jobs:
           coverage: none
           extensions: mbstring
           php-version: "${{ matrix.php-version }}"
+
+      - if: "! startsWith(matrix.php-version, 8)"
+        run: composer remove --dev --no-update mll-lab/graphql-php-scalars
 
       - run: composer require "illuminate/support:${{ matrix.illuminate }}" --no-interaction --no-update
 

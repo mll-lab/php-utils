@@ -110,7 +110,7 @@ final class StringUtilTest extends TestCase
     public function testWindows1252(): void
     {
         $expectedUTF8 = <<<CSV
-        FileName,WellId,Sample Description,From [bp],To [bp],Average Size [bp],Conc. [ng/µl],Region Molarity [nmol/l],% of Total,Region Comment
+        FileName,WellID,Sample Description,From [bp],To [bp],Average Size [bp],Conc. [ng/µl],Region Molarity [nmol/l],% of Total,Region Comment
         2023-05-16 - 13.01.27.D1000,A12,RNA_191_23-049780_A1,170,550,312,23.7,121,95.50,IDT
         2023-05-16 - 13.01.27.D1000,B12,RNA_191_23-049782_B1,170,550,308,16.1,82.5,92.27,IDT
         2023-05-16 - 13.01.27.D1000,C12,RNA_191_23-049776_C1,170,550,310,16.7,85.3,93.76,IDT

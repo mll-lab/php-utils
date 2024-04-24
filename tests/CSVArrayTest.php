@@ -5,9 +5,7 @@ namespace MLL\Utils\Tests;
 use MLL\Utils\CSVArray;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @phpstan-import-type CSVPrimitive from CSVArray
- */
+/** @phpstan-import-type CSVPrimitive from CSVArray */
 final class CSVArrayTest extends TestCase
 {
     /** @return iterable<array{string, array<int, array<string, string>>}> */
