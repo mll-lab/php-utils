@@ -2,6 +2,7 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V1;
 
+use Carbon\Carbon;
 use MLL\Utils\IlluminaSampleSheet\V1\MiSeqDataSection;
 use MLL\Utils\IlluminaSampleSheet\V1\MiSeqHeaderSection;
 use MLL\Utils\IlluminaSampleSheet\V1\MiSeqSample;
@@ -28,7 +29,7 @@ class MiSeqSampleSheetTest extends TestCase
     {
         $headerSection = new MiSeqHeaderSection(
             'Run7906-ROUTINE',
-            '03.04.2024',
+            Carbon::createStrict(2024, 4, 3, 12, 1, 1),
             'GenerateFASTQ - 3.0.1',
             'GenerateFASTQ',
             'Illumina DNA Prep',

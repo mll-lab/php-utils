@@ -2,59 +2,96 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V1;
 
+use Carbon\Carbon;
 use MLL\Utils\IlluminaSampleSheet\SectionInterface;
 
 class MiSeqHeaderSection implements SectionInterface
 {
-    public string $experimentName;
+    public ?string $experimentName;
 
-    public string $date;
+    public ?Carbon $date;
 
-    public string $module;
+    public ?string $module;
 
-    public string $workflow;
+    public ?string $workflow;
 
-    public string $libraryPrepKit;
+    public ?string $libraryPrepKit;
 
-    public string $indexKit;
+    public ?string $indexKit;
 
-    public string $description;
+    public ?string $description;
 
-    public string $chemistry;
+    public ?string $chemistry;
 
     public function __construct(
-        string $experimentName,
-        string $date,
-        string $module,
-        string $workflow,
-        string $libraryPrepKit,
-        string $indexKit,
-        string $description,
-        string $chemistry
+        ?string $experimentName,
+        ?Carbon $date,
+        ?string $module,
+        ?string $workflow,
+        ?string $libraryPrepKit,
+        ?string $indexKit,
+        ?string $description,
+        ?string $chemistry
     ) {
-        $this->experimentName = $experimentName;
+        $this->experimentName = $this->validateString($experimentName, 'Experiment Name');
         $this->date = $date;
-        $this->module = $module;
-        $this->workflow = $workflow;
-        $this->libraryPrepKit = $libraryPrepKit;
-        $this->indexKit = $indexKit;
-        $this->description = $description;
-        $this->chemistry = $chemistry;
+        $this->module = $this->validateString($module, 'Module');
+        $this->workflow = $this->validateString($workflow, 'Workflow');
+        $this->libraryPrepKit = $this->validateString($libraryPrepKit, 'Library Prep Kit');
+        $this->indexKit = $this->validateString($indexKit, 'Index Kit');
+        $this->description = $this->validateString($description, 'Description');
+        $this->chemistry = $this->validateString($chemistry, 'Chemistry');
+    }
+
+    private function validateString(?string $value, string $fieldName): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        $trimmedValue = trim($value);
+        if ($trimmedValue === '') {
+            throw new \InvalidArgumentException("{$fieldName} cannot be empty.");
+        }
+
+        return $trimmedValue;
     }
 
     public function convertSectionToString(): string
     {
-        $headerLines = [
-            '[Header]',
-            "Experiment Name,{$this->experimentName}",
-            "Date,{$this->date}",
-            "Module,{$this->module}",
-            "Workflow,{$this->workflow}",
-            "Library Prep Kit,{$this->libraryPrepKit}",
-            "Index Kit,{$this->indexKit}",
-            "Description,{$this->description}",
-            "Chemistry,{$this->chemistry}",
-        ];
+        $headerLines = ['[Header]'];
+
+        if ($this->experimentName !== null) {
+            $headerLines[] = "Experiment Name,{$this->experimentName}";
+        }
+
+        if ($this->date instanceof Carbon) {
+            $headerLines[] = "Date,{$this->date->format('d.m.Y')}";
+        }
+
+        if ($this->module !== null) {
+            $headerLines[] = "Module,{$this->module}";
+        }
+
+        if ($this->workflow !== null) {
+            $headerLines[] = "Workflow,{$this->workflow}";
+        }
+
+        if ($this->libraryPrepKit !== null) {
+            $headerLines[] = "Library Prep Kit,{$this->libraryPrepKit}";
+        }
+
+        if ($this->indexKit !== null) {
+            $headerLines[] = "Index Kit,{$this->indexKit}";
+        }
+
+        if ($this->description !== null) {
+            $headerLines[] = "Description,{$this->description}";
+        }
+
+        if ($this->chemistry !== null) {
+            $headerLines[] = "Chemistry,{$this->chemistry}";
+        }
 
         return implode("\n", $headerLines);
     }
