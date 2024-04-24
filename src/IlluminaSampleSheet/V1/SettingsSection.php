@@ -16,7 +16,7 @@ class SettingsSection implements SectionInterface
         $this->adapterRead2 = $adapterRead2;
     }
 
-    public function toString(): string
+    public function convertSectionToString(): string
     {
         $settingsLines = ['[Settings]'];
 

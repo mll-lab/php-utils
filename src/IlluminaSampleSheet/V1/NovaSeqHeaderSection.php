@@ -46,7 +46,7 @@ class NovaSeqHeaderSection implements SectionInterface
         $this->iemFileVersion = $iemFileVersion;
     }
 
-    public function toString(): string
+    public function convertSectionToString(): string
     {
         $headerLines = [
             '[Header]',

@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet;
 
-use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudHeaderSection;
+use MLL\Utils\IlluminaSampleSheet\V2\HeaderSection;
 use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudReadsSection;
 use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudSampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudSequencingSettingsSection;
@@ -12,12 +12,11 @@ class NovaSeqXCloudSampleSheetTest extends TestCase
 {
     public function testNovaSeqXCloudSampleSheetToStringReturnsExpectedResult(): void
     {
-        $headerSection = new NovaSeqXCloudHeaderSection(
-            '1',
+        $headerSection = new HeaderSection(
             'Run1',
-            'Platform1',
-            'Orientation1'
+            'NovaSeqXSeries',
         );
+        $headerSection->addCustomParam('IndexOrientation', 'Orientation1');
 
         $readsSection = new NovaSeqXCloudReadsSection(
             100,
@@ -52,9 +51,9 @@ class NovaSeqXCloudSampleSheetTest extends TestCase
         );
 
         $expected = '[Header]
-FileFormatVersion,1
+FileFormatVersion,2
 RunName,Run1
-InstrumentPlatform,Platform1
+InstrumentPlatform,NovaSeqXSeries
 IndexOrientation,Orientation1
 
 [Reads]

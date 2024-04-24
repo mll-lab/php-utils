@@ -25,7 +25,7 @@ class CloudDataSection implements SectionInterface
         );
     }
 
-    public function toString(): string
+    public function convertSectionToString(): string
     {
         $dataLines = ["[Cloud_Data]\nSample_ID,ProjectName,LibraryName,LibraryPrepKitName,IndexAdapterKitName"];
         foreach ($this->samples as $sample) {

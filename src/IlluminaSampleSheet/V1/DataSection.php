@@ -14,7 +14,7 @@ abstract class DataSection implements SectionInterface
         $this->samples[] = $sample;
     }
 
-    public function toString(): string
+    public function convertSectionToString(): string
     {
         $dataLines = ["[Data]\n{$this->dataSectionHeader()}"];
         foreach ($this->samples as $sample) {

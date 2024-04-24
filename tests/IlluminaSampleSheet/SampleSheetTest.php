@@ -11,10 +11,10 @@ class SampleSheetTest extends TestCase
     public function testSampleSheetToStringReturnsCorrectFormat(): void
     {
         $sectionMock1 = $this->createMock(SectionInterface::class);
-        $sectionMock1->method('toString')->willReturn('section1');
+        $sectionMock1->method('convertSectionToString')->willReturn('section1');
 
         $sectionMock2 = $this->createMock(SectionInterface::class);
-        $sectionMock2->method('toString')->willReturn('section2');
+        $sectionMock2->method('convertSectionToString')->willReturn('section2');
 
         $sampleSheet = $this->createPartialMock(SampleSheet::class, []);
         $sampleSheet->addSection($sectionMock1);

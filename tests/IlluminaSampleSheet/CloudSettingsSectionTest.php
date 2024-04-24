@@ -13,6 +13,6 @@ class CloudSettingsSectionTest extends TestCase
 
         $expectedString = "[Cloud_Settings]\nGeneratedVersion,1.0\nCloud_Workflow,Workflow1\nBCLConvert_Pipeline,Pipeline1\n";
 
-        self::assertSame($expectedString, $cloudSettingsSection->toString());
+        self::assertSame($expectedString, $cloudSettingsSection->convertSectionToString());
     }
 }

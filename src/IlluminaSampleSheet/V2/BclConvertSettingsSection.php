@@ -22,7 +22,7 @@ class BclConvertSettingsSection implements SectionInterface
         $this->fastqCompressionFormat = $fastqCompressionFormat;
     }
 
-    public function toString(): string
+    public function convertSectionToString(): string
     {
         $bclConvertSettingsLines = [
             '[BCLConvert_Settings]',

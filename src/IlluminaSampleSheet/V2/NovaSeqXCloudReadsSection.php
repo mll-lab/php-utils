@@ -26,7 +26,7 @@ class NovaSeqXCloudReadsSection implements SectionInterface
         $this->index2Cycles = $index2Cycles;
     }
 
-    public function toString(): string
+    public function convertSectionToString(): string
     {
         $readsLines = [
             '[Reads]',

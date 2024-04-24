@@ -14,7 +14,7 @@ class NovaSeqXCloudSequencingSettingsSection implements SectionInterface
         $this->libraryPrepKits = $libraryPrepKits;
     }
 
-    public function toString(): string
+    public function convertSectionToString(): string
     {
         $sequencingSettingsLines = [
             '[Sequencing_Settings]',

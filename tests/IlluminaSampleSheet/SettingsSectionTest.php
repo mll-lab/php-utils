@@ -10,6 +10,6 @@ class SettingsSectionTest extends TestCase
     {
         $settingsSection = new \MLL\Utils\IlluminaSampleSheet\V1\SettingsSection('AGATCG', 'TCG');
 
-        self::assertSame("[Settings]\nAdapter,AGATCG\nAdapterRead2,TCG", $settingsSection->toString());
+        self::assertSame("[Settings]\nAdapter,AGATCG\nAdapterRead2,TCG", $settingsSection->convertSectionToString());
     }
 }

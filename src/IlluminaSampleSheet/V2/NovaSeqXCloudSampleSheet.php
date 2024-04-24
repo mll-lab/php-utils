@@ -9,7 +9,7 @@ class NovaSeqXCloudSampleSheet extends SampleSheet
     public BclConvertSettingsSection $bclConvertSettingsSection;
 
     public function __construct(
-        NovaSeqXCloudHeaderSection $header,
+        HeaderSection $header,
         NovaSeqXCloudReadsSection $reads,
         NovaSeqXCloudSequencingSettingsSection $sequencingSettingsSection,
         BclConvertSettingsSection $bclConvertSettingsSection,

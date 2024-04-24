@@ -29,7 +29,7 @@ class BclConvertDataSection implements SectionInterface
         );
     }
 
-    public function toString(): string
+    public function convertSectionToString(): string
     {
         $bclConvertDataLines = [
             '[BCLConvert_Data]',

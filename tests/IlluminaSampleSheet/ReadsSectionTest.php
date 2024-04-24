@@ -10,6 +10,6 @@ class ReadsSectionTest extends TestCase
     {
         $readsSection = new \MLL\Utils\IlluminaSampleSheet\V1\ReadsSection(150, 50);
 
-        self::assertSame("[Reads]\n150\n50", $readsSection->toString());
+        self::assertSame("[Reads]\n150\n50", $readsSection->convertSectionToString());
     }
 }

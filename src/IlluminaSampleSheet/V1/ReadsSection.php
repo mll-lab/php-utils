@@ -16,7 +16,7 @@ class ReadsSection implements SectionInterface
         $this->read2Cycles = $read2Cycles;
     }
 
-    public function toString(): string
+    public function convertSectionToString(): string
     {
         return "[Reads]\n" . $this->read1Cycles . "\n" . $this->read2Cycles;
     }

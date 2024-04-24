@@ -42,7 +42,7 @@ class MiSeqHeaderSection implements SectionInterface
         $this->chemistry = $chemistry;
     }
 
-    public function toString(): string
+    public function convertSectionToString(): string
     {
         $headerLines = [
             '[Header]',

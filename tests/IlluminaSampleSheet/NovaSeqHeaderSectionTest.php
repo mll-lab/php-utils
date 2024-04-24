@@ -22,6 +22,6 @@ class NovaSeqHeaderSectionTest extends TestCase
 
         $expectedString = "[Header]\nIEMFileVersion,4\nInvestigator Name,Investigator1\nExperiment Name,Experiment1\nDate,2022-01-01\nWorkflow,Workflow1\nApplication,Application1\nAssay,Assay1\nDescription,Description1\nChemistry,Chemistry1";
 
-        self::assertSame($expectedString, $headerSection->toString());
+        self::assertSame($expectedString, $headerSection->convertSectionToString());
     }
 }

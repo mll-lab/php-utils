@@ -4,5 +4,5 @@ namespace MLL\Utils\IlluminaSampleSheet;
 
 interface SectionInterface
 {
-    public function toString(): string;
+    public function convertSectionToString(): string;
 }

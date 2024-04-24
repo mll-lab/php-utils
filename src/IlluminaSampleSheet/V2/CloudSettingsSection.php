@@ -22,7 +22,7 @@ class CloudSettingsSection implements SectionInterface
         $this->bclConvertPipeline = $bclConvertPipeline;
     }
 
-    public function toString(): string
+    public function convertSectionToString(): string
     {
         return '[Cloud_Settings]
 GeneratedVersion,' . $this->generatedVersion . "\n"
