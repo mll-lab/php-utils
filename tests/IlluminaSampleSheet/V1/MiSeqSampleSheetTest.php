@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\Tests\IlluminaSampleSheet;
+namespace MLL\Utils\Tests\IlluminaSampleSheet\V1;
 
 use MLL\Utils\IlluminaSampleSheet\V1\MiSeqSample;
 use MLL\Utils\IlluminaSampleSheet\V1\MiSeqSampleSheet;

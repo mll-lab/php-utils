@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\Tests\IlluminaSampleSheet;
+namespace MLL\Utils\Tests\IlluminaSampleSheet\V2;
 
 use MLL\Utils\IlluminaSampleSheet\V2\CloudSettingsSection;
 use PHPUnit\Framework\TestCase;
