@@ -2,7 +2,7 @@
 
 namespace MLL\Utils;
 
-final class Number
+class Number
 {
     /**
      * Return number as long as its clamped between min and max.

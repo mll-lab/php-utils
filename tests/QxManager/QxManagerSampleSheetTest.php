@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\Tests\Unit\QxManager;
+namespace MLL\Utils\Tests\QxManager;
 
 use Carbon\Carbon;
-use Mll\Microplate\Coordinates;
-use Mll\Microplate\CoordinateSystem96Well;
-use Mll\Microplate\Microplate;
+use MLL\Utils\Microplate\Coordinates;
+use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\Microplate;
 use MLL\Utils\QxManager\FilledRow;
 use MLL\Utils\QxManager\FilledWell;
 use MLL\Utils\QxManager\QxManagerSampleSheet;

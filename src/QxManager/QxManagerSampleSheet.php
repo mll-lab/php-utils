@@ -3,10 +3,10 @@
 namespace MLL\Utils\QxManager;
 
 use Carbon\CarbonInterface;
-use Mll\Microplate\Coordinates;
-use Mll\Microplate\CoordinateSystem96Well;
-use Mll\Microplate\Enums\FlowDirection;
-use Mll\Microplate\Microplate;
+use MLL\Utils\Microplate\Coordinates;
+use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\Enums\FlowDirection;
+use MLL\Utils\Microplate\Microplate;
 use MLL\Utils\StringUtil;
 
 class QxManagerSampleSheet

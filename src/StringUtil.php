@@ -4,7 +4,7 @@ namespace MLL\Utils;
 
 use Illuminate\Support\Str;
 
-final class StringUtil
+class StringUtil
 {
     /** https://en.wikipedia.org/wiki/Byte_order_mark#UTF-8 */
     public const UTF_8_BOM = "\xEF\xBB\xBF";
