@@ -3,6 +3,7 @@
 namespace MLL\Utils\IlluminaSampleSheet\V2;
 
 use MLL\Utils\IlluminaSampleSheet\SectionInterface;
+use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
 
 class BclConvertSettingsSection implements SectionInterface
 {

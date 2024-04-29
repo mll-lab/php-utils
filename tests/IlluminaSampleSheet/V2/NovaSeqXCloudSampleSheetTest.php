@@ -4,9 +4,7 @@ namespace MLL\Utils\Tests\IlluminaSampleSheet\V2;
 
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvertDataSection;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvertSettingsSection;
-use MLL\Utils\IlluminaSampleSheet\V2\FastQCompressionFormat;
 use MLL\Utils\IlluminaSampleSheet\V2\HeaderSection;
-use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudSequencingSettingsSection;
 use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXSampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V2\ReadsSection;
 use PHPUnit\Framework\TestCase;
@@ -27,9 +25,8 @@ class NovaSeqXCloudSampleSheetTest extends TestCase
             10,
             11
         );
-        $sequenceSettingsSection = new NovaSeqXCloudSequencingSettingsSection('Settings1');
 
-        $bclConvertSettingsSection = new BclConvertSettingsSection('1.0.0', FastQCompressionFormat::GZIP());
+        $bclConvertSettingsSection = new BclConvertSettingsSection('1.0.0', \MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat::GZIP());
         $bclConvertSettingsSection->setTrimUMI(false);
 
         $bclConvertDataSection = new BclConvertDataSection();
