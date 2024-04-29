@@ -3,6 +3,8 @@
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V2;
 
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclConvertSection;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclSample;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\DataSection;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\SettingsSection;
 use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
 use MLL\Utils\IlluminaSampleSheet\V2\HeaderSection;
@@ -30,10 +32,29 @@ class NovaSeqXCloudSampleSheetTest extends TestCase
         $bclConvertSettingsSection = new SettingsSection('1.0.0', FastQCompressionFormat::GZIP());
         $bclConvertSettingsSection->setTrimUMI(false);
 
-        $bclConvertDataSection = new \MLL\Utils\IlluminaSampleSheet\V2\BclConvert\DataSection();
-        $bclConvertDataSection->addSample(1, 'Sample1', 'Index1', 'Index2', 'Cycles1', 'Adapter1', 'Adapter2');
-        $bclConvertDataSection->addSample(2, 'Sample2', 'Index3', 'Index4', 'Cycles2', 'Adapter3', 'Adapter4');
-        $bclConvertDataSection->addSample(3, 'Sample3', 'Index5', 'Index6', 'Cycles3', 'Adapter5', 'Adapter6');
+        $bclConvertDataSection = new DataSection();
+
+        $bclConvertDataSection->addSample(
+            (new BclSample(1, 'Sample1', 'Index1'))
+                ->setIndex2('Index2')
+                ->setOverrideCycles('Cycles1')
+                ->setAdapterRead1('Adapter1')
+                ->setAdapterRead2('Adapter2')
+        );
+        $bclConvertDataSection->addSample(
+            (new BclSample(2, 'Sample2', 'Index3'))
+                ->setIndex2('Index4')
+                ->setOverrideCycles('Cycles2')
+                ->setAdapterRead1('Adapter3')
+                ->setAdapterRead2('Adapter4')
+        );
+        $bclConvertDataSection->addSample(
+            (new BclSample(3, 'Sample3', 'Index5'))
+                ->setIndex2('Index6')
+                ->setOverrideCycles('Cycles3')
+                ->setAdapterRead1('Adapter5')
+                ->setAdapterRead2('Adapter6')
+        );
 
         $bclConvertSection = new BclConvertSection($bclConvertSettingsSection, $bclConvertDataSection);
 
