@@ -8,17 +8,15 @@ class BclConvertSettingsSection implements SectionInterface
 {
     public string $softwareVersion;
 
-    public string $trimUMI;
+    public FastQCompressionFormat $fastqCompressionFormat;
 
-    public string $fastqCompressionFormat;
+    public ?bool $trimUMI = null;
 
     public function __construct(
         string $softwareVersion,
-        string $trimUMI,
-        string $fastqCompressionFormat
+        FastQCompressionFormat $fastqCompressionFormat
     ) {
         $this->softwareVersion = $softwareVersion;
-        $this->trimUMI = $trimUMI;
         $this->fastqCompressionFormat = $fastqCompressionFormat;
     }
 
@@ -27,11 +25,24 @@ class BclConvertSettingsSection implements SectionInterface
         $bclConvertSettingsLines = [
             '[BCLConvert_Settings]',
             "SoftwareVersion,{$this->softwareVersion}",
-            "TrimUMI,{$this->trimUMI}",
-            "FastqCompressionFormat,{$this->fastqCompressionFormat}",
-            '',
+            "FastqCompressionFormat,{$this->fastqCompressionFormat->value}",
         ];
 
-        return implode("\n", $bclConvertSettingsLines);
+        if (! is_null($this->trimUMI)) {
+            $booleanToString = $this->trimUMI
+                ? '1'
+                : '0';
+
+            $bclConvertSettingsLines[] = "TrimUMI,{$booleanToString}";
+        }
+
+        return implode("\n", $bclConvertSettingsLines) . "\n";
+    }
+
+    public function setTrimUMI(bool $trimUMI): BclConvertSettingsSection
+    {
+        $this->trimUMI = $trimUMI;
+
+        return $this;
     }
 }

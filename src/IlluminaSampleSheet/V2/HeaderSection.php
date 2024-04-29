@@ -8,54 +8,64 @@ class HeaderSection implements SectionInterface
 {
     private const FILE_FORMAT_VERSION = '2';
 
+    private string $fileFormatVersion = self::FILE_FORMAT_VERSION;
+
     private string $runName;
 
-    private ?string $runDescription;
+    private ?string $runDescription = null;
 
-    private ?string $instrumentType;
+    private ?string $instrumentType = null;
 
-    private ?string $instrumentPlatform;
+    private ?string $instrumentPlatform = null;
 
     /** @var array<string, string> */
     private array $customParams = [];
 
-    /**
-     * @param string $runName - Required. Name of the run.
-     * @param string|null $instrumentPlatform - Optional. Platform of the instrument.
-     * @param string|null $runDescription - Optional. Description of the run.
-     * @param string|null $instrumentType - Optional. Type of the instrument.
-     */
-    public function __construct(string $runName, ?string $instrumentPlatform = null, ?string $runDescription = null, ?string $instrumentType = null)
+    public function __construct(string $runName)
     {
         $this->runName = $runName;
-        $this->runDescription = $runDescription;
-        $this->instrumentType = $instrumentType;
-        $this->instrumentPlatform = $instrumentPlatform;
     }
 
-    /**
-     * @param string $paramName - Name of the parameter
-     * @param string $paramValue - Value of the parameter
-     */
-    public function addCustomParam(string $paramName, string $paramValue): void
+    public function setRunDescription(string $runDescription): HeaderSection
     {
-        $this->customParams[$paramName] = $paramValue;
+        $this->runDescription = $runDescription;
+
+        return $this;
+    }
+
+    public function setInstrumentType(string $instrumentType): HeaderSection
+    {
+        $this->instrumentType = $instrumentType;
+
+        return $this;
+    }
+
+    public function setInstrumentPlatform(string $instrumentPlatform): HeaderSection
+    {
+        $this->instrumentPlatform = $instrumentPlatform;
+
+        return $this;
+    }
+
+    public function setCustomParam(string $paramName, string $paramValue): void
+    {
+        $this->customParams['Custom_' . $paramName] = $paramValue;
     }
 
     public function convertSectionToString(): string
     {
         $headerLines = [
             '[Header]',
-            'FileFormatVersion,' . self::FILE_FORMAT_VERSION . '',
+            'FileFormatVersion,' . $this->fileFormatVersion,
             "RunName,{$this->runName}",
         ];
-        if ($this->runDescription !== null) {
+        if (! is_null($this->runDescription)) {
             $headerLines[] = "RunDescription,{$this->runDescription}";
         }
-        if ($this->instrumentType !== null) {
+        if (! is_null($this->instrumentType)) {
             $headerLines[] = "InstrumentType,{$this->instrumentType}";
         }
-        if ($this->instrumentPlatform !== null) {
+        if (! is_null($this->instrumentPlatform)) {
             $headerLines[] = "InstrumentPlatform,{$this->instrumentPlatform}";
         }
         foreach ($this->customParams as $paramName => $paramValue) {
