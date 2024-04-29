@@ -2,8 +2,9 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V2;
 
-use MLL\Utils\IlluminaSampleSheet\V2\BclConvertDataSection;
-use MLL\Utils\IlluminaSampleSheet\V2\BclConvertSettingsSection;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclConvertSection;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\SettingsSection;
+use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
 use MLL\Utils\IlluminaSampleSheet\V2\HeaderSection;
 use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXSampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V2\ReadsSection;
@@ -26,19 +27,20 @@ class NovaSeqXCloudSampleSheetTest extends TestCase
             11
         );
 
-        $bclConvertSettingsSection = new BclConvertSettingsSection('1.0.0', \MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat::GZIP());
+        $bclConvertSettingsSection = new SettingsSection('1.0.0', FastQCompressionFormat::GZIP());
         $bclConvertSettingsSection->setTrimUMI(false);
 
-        $bclConvertDataSection = new BclConvertDataSection();
+        $bclConvertDataSection = new \MLL\Utils\IlluminaSampleSheet\V2\BclConvert\DataSection();
         $bclConvertDataSection->addSample(1, 'Sample1', 'Index1', 'Index2', 'Cycles1', 'Adapter1', 'Adapter2');
         $bclConvertDataSection->addSample(2, 'Sample2', 'Index3', 'Index4', 'Cycles2', 'Adapter3', 'Adapter4');
         $bclConvertDataSection->addSample(3, 'Sample3', 'Index5', 'Index6', 'Cycles3', 'Adapter5', 'Adapter6');
 
+        $bclConvertSection = new BclConvertSection($bclConvertSettingsSection, $bclConvertDataSection);
+
         $novaSeqXCloudSampleSheet = new NovaSeqXSampleSheet(
             $headerSection,
             $readsSection,
-            $bclConvertSettingsSection,
-            $bclConvertDataSection,
+            $bclConvertSection,
         );
 
         $expected = '[Header]

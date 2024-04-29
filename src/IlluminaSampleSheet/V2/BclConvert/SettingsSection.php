@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\IlluminaSampleSheet\V2;
+namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 use MLL\Utils\IlluminaSampleSheet\SectionInterface;
 use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
 
-class BclConvertSettingsSection implements SectionInterface
+class SettingsSection implements SectionInterface
 {
     public string $softwareVersion;
 
@@ -40,7 +40,7 @@ class BclConvertSettingsSection implements SectionInterface
         return implode("\n", $bclConvertSettingsLines) . "\n";
     }
 
-    public function setTrimUMI(bool $trimUMI): BclConvertSettingsSection
+    public function setTrimUMI(bool $trimUMI): SettingsSection
     {
         $this->trimUMI = $trimUMI;
 

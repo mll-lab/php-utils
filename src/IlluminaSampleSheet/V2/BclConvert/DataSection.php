@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\IlluminaSampleSheet\V2;
+namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 use MLL\Utils\IlluminaSampleSheet\SectionInterface;
 
-class BclConvertDataSection implements SectionInterface
+class DataSection implements SectionInterface
 {
     /** @var array<BclConvertDataRow> */
     private array $dataRows = [];

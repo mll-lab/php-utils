@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\IlluminaSampleSheet\V2;
+namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 class BclConvertDataRow
 {
