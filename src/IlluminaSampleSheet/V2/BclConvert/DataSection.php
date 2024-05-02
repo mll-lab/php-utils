@@ -39,9 +39,7 @@ class DataSection implements SectionInterface
         return implode("\n", $bclConvertDataLines) . "\n";
     }
 
-    /**
-     * @param array<string> $samplePropertiesOfFirstSample
-     */
+    /** @param array<string> $samplePropertiesOfFirstSample */
     private function generateDataHeaderByProperites(array $samplePropertiesOfFirstSample): string
     {
         $samplePropertiesOfFirstSample = array_filter($samplePropertiesOfFirstSample, fn ($value) // @phpstan-ignore-next-line Variable property access on a non-object required here
