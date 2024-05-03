@@ -2,10 +2,10 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
-use MLL\Utils\IlluminaSampleSheet\SectionInterface;
+use MLL\Utils\IlluminaSampleSheet\Section;
 use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
 
-class SettingsSection implements SectionInterface
+class SettingsSection implements Section
 {
     public string $softwareVersion;
 

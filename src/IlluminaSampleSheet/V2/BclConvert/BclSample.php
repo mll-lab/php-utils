@@ -28,7 +28,7 @@ class BclSample
         string $index
     ) {
         $this->lane = $lane;
-        $this->sample_ID = $sampleId;
+        $this->sample_ID = $sampleID;
         $this->index = $index;
     }
 

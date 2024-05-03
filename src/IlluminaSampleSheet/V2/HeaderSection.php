@@ -2,9 +2,9 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2;
 
-use MLL\Utils\IlluminaSampleSheet\SectionInterface;
+use MLL\Utils\IlluminaSampleSheet\Section;
 
-class HeaderSection implements SectionInterface
+class HeaderSection implements Section
 {
     private const FILE_FORMAT_VERSION = '2';
 

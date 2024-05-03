@@ -2,9 +2,9 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
-use MLL\Utils\IlluminaSampleSheet\SectionInterface;
+use MLL\Utils\IlluminaSampleSheet\Section;
 
-class BclConvertSection implements SectionInterface
+class BclConvertSection implements Section
 {
     private SettingsSection $settingsSection;
 
