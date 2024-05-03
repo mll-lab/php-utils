@@ -6,7 +6,7 @@ use MLL\Utils\IlluminaSampleSheet\SampleSheet;
 use MLL\Utils\IlluminaSampleSheet\SectionInterface;
 use PHPUnit\Framework\TestCase;
 
-class SampleSheetTest extends TestCase
+final class SampleSheetTest extends TestCase
 {
     public function testSampleSheetToStringReturnsCorrectFormat(): void
     {

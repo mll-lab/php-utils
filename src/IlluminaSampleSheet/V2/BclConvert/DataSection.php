@@ -9,9 +9,8 @@ class DataSection implements SectionInterface
     /** @var array<BclSample> */
     private array $dataRows = [];
 
-    public function addSample(
-        BclSample $bclSample
-    ): void {
+    public function addSample(BclSample $bclSample): void
+    {
         $this->dataRows[] = $bclSample;
     }
 

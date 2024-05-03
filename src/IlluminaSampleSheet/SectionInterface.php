@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\IlluminaSampleSheet;
 
-interface SectionInterface
+interface Section
 {
     public function convertSectionToString(): string;
 }

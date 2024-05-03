@@ -56,7 +56,7 @@ class HeaderSection implements SectionInterface
     {
         $headerLines = [
             '[Header]',
-            'FileFormatVersion,' . $this->fileFormatVersion,
+            "FileFormatVersion,{$this->fileFormatVersion}",
             "RunName,{$this->runName}",
         ];
         if (! is_null($this->runDescription)) {

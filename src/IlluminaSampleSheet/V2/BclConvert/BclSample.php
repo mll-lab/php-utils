@@ -24,7 +24,7 @@ class BclSample
 
     public function __construct(
         int $lane,
-        string $sampleId,
+        string $sampleID,
         string $index
     ) {
         $this->lane = $lane;

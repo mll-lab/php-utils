@@ -12,13 +12,11 @@ use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXSampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V2\ReadsSection;
 use PHPUnit\Framework\TestCase;
 
-class NovaSeqXCloudSampleSheetTest extends TestCase
+final class NovaSeqXCloudSampleSheetTest extends TestCase
 {
     public function testNovaSeqXCloudSampleSheetToStringReturnsExpectedResult(): void
     {
-        $headerSection = new HeaderSection(
-            'Run1',
-        );
+        $headerSection = new HeaderSection('Run1');
         $headerSection->setInstrumentPlatform('NovaSeqXSeries');
         $headerSection->setCustomParam('IndexOrientation', 'Orientation1');
 
@@ -88,6 +86,6 @@ Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2
 3,Sample3,Index5,Index6,Cycles3,Adapter5,Adapter6
 ';
 
-        self::assertEquals($expected, $novaSeqXCloudSampleSheet->toString());
+        self::assertSame($expected, $novaSeqXCloudSampleSheet->toString());
     }
 }
