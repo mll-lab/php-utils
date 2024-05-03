@@ -93,6 +93,7 @@ final class CoordinatesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider96Well')]
+    /** @dataProvider dataProvider96Well */
     public function testPosition96Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
         $coordinates = new Coordinates($row, $column, new CoordinateSystem96Well());
