@@ -21,10 +21,4 @@ abstract class SampleSheet
 
         return implode("\n", $sectionStrings);
     }
-
-    /** @return array<Section> */
-    public function getSections(): array
-    {
-        return $this->sections;
-    }
 }

@@ -77,36 +77,16 @@ class BclSample
     /** @return array<int|string> */
     public function toArray(): array
     {
-        $data = [
+        return array_filter([
             $this->lane,
             $this->sample_ID,
             $this->index,
-        ];
-
-        if (! is_null($this->index2)) {
-            $data[] = $this->index2;
-        }
-
-        if (! is_null($this->overrideCycles)) {
-            $data[] = $this->overrideCycles;
-        }
-
-        if (! is_null($this->adapterRead1)) {
-            $data[] = $this->adapterRead1;
-        }
-
-        if (! is_null($this->adapterRead2)) {
-            $data[] = $this->adapterRead2;
-        }
-
-        if (! is_null($this->barcodeMismatchesIndex1)) {
-            $data[] = $this->barcodeMismatchesIndex1;
-        }
-
-        if (! is_null($this->barcodeMismatchesIndex2)) {
-            $data[] = $this->barcodeMismatchesIndex2;
-        }
-
-        return $data;
+            $this->index2,
+            $this->overrideCycles,
+            $this->adapterRead1,
+            $this->adapterRead2,
+            $this->barcodeMismatchesIndex1,
+            $this->barcodeMismatchesIndex2,
+        ]);
     }
 }

@@ -19,16 +19,17 @@ class DataSection implements Section
         /** @var array<string> $samplePropertiesOfFirstSample */
         $samplePropertiesOfFirstSample = array_keys(get_object_vars($this->dataRows[0]));
         foreach ($this->dataRows as $sample) {
-            if ($samplePropertiesOfFirstSample !== array_keys(get_object_vars($sample))) {
-                throw new \Exception('All samples must have the same properties');
+            $actualProperties = array_keys(get_object_vars($sample));
+            if ($samplePropertiesOfFirstSample !== $actualProperties) {
+                throw new \Exception('All samples must have the same properties. Expected: ' . \Safe\json_encode($samplePropertiesOfFirstSample) . ', Actual: ' . \Safe\json_encode($actualProperties));
             }
         }
 
-        $bclConvertDataLines = $this->generateDataHeaderByProperites($samplePropertiesOfFirstSample);
+        $bclConvertDataHeaderLines = $this->generateDataHeaderByProperties($samplePropertiesOfFirstSample);
 
         $bclConvertDataLines = [
             '[BCLConvert_Data]',
-            $bclConvertDataLines,
+            $bclConvertDataHeaderLines,
         ];
 
         foreach ($this->dataRows as $dataRow) {
@@ -39,12 +40,12 @@ class DataSection implements Section
     }
 
     /** @param array<string> $samplePropertiesOfFirstSample */
-    private function generateDataHeaderByProperites(array $samplePropertiesOfFirstSample): string
+    private function generateDataHeaderByProperties(array $samplePropertiesOfFirstSample): string
     {
-        $samplePropertiesOfFirstSample = array_filter($samplePropertiesOfFirstSample, fn ($value) // @phpstan-ignore-next-line Variable property access on a non-object required here
+        $samplePropertiesOfFirstSample = array_filter($samplePropertiesOfFirstSample, fn (string $value) // @phpstan-ignore-next-line Variable property access on a non-object required here
         => $this->dataRows[0]->$value !== null);
 
-        $samplePropertiesOfFirstSample = array_map(fn ($value) => ucfirst($value), $samplePropertiesOfFirstSample);
+        $samplePropertiesOfFirstSample = array_map(fn (string $value) => ucfirst($value), $samplePropertiesOfFirstSample);
 
         return implode(',', $samplePropertiesOfFirstSample);
     }

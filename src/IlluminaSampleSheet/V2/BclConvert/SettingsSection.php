@@ -30,11 +30,11 @@ class SettingsSection implements Section
         ];
 
         if (! is_null($this->trimUMI)) {
-            $booleanToString = $this->trimUMI
+            $trimUMIAsString = $this->trimUMI
                 ? '1'
                 : '0';
 
-            $bclConvertSettingsLines[] = "TrimUMI,{$booleanToString}";
+            $bclConvertSettingsLines[] = "TrimUMI,{$trimUMIAsString}";
         }
 
         return implode("\n", $bclConvertSettingsLines) . "\n";
