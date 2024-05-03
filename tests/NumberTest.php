@@ -8,6 +8,8 @@ use PHPUnit\Framework\TestCase;
 final class NumberTest extends TestCase
 {
     /**
+     * @dataProvider clampProvider
+     *
      * @param float|int $min
      * @param float|int $max
      * @param float|int $current
