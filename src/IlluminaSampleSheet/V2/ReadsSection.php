@@ -38,17 +38,15 @@ class ReadsSection implements Section
     public function convertSectionToString(): string
     {
         $readsLines = ['[Reads]'];
+        $readsLines[] = "Read1Cycles,{$this->read1Cycles}";
 
-        if (isset($this->read1Cycles)) {
-            $readsLines[] = "Read1Cycles,{$this->read1Cycles}";
-        }
-        if (isset($this->read2Cycles)) {
+        if ($this->read2Cycles !== null) {
             $readsLines[] = "Read2Cycles,{$this->read2Cycles}";
         }
-        if (isset($this->index1Cycles)) {
+        if ($this->index1Cycles !== null) {
             $readsLines[] = "Index1Cycles,{$this->index1Cycles}";
         }
-        if (isset($this->index2Cycles)) {
+        if ($this->index2Cycles !== null) {
             $readsLines[] = "Index2Cycles,{$this->index2Cycles}";
         }
 

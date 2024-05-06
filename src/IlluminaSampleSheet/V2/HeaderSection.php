@@ -10,13 +10,13 @@ class HeaderSection implements Section
 
     protected string $fileFormatVersion = self::FILE_FORMAT_VERSION;
 
-    protected string $runName;
+    public string $runName;
 
-    protected ?string $runDescription = null;
+    public ?string $runDescription = null;
 
-    protected ?string $instrumentType = null;
+    public ?string $instrumentType = null;
 
-    protected ?string $instrumentPlatform = null;
+    public ?string $instrumentPlatform = null;
 
     /** @var array<string, string> */
     protected array $customParams = [];
@@ -24,27 +24,6 @@ class HeaderSection implements Section
     public function __construct(string $runName)
     {
         $this->runName = $runName;
-    }
-
-    public function setRunDescription(string $runDescription): HeaderSection
-    {
-        $this->runDescription = $runDescription;
-
-        return $this;
-    }
-
-    public function setInstrumentType(string $instrumentType): HeaderSection
-    {
-        $this->instrumentType = $instrumentType;
-
-        return $this;
-    }
-
-    public function setInstrumentPlatform(string $instrumentPlatform): HeaderSection
-    {
-        $this->instrumentPlatform = $instrumentPlatform;
-
-        return $this;
     }
 
     public function setCustomParam(string $paramName, string $paramValue): void

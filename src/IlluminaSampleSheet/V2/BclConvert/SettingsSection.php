@@ -39,11 +39,4 @@ class SettingsSection implements Section
 
         return implode("\n", $bclConvertSettingsLines) . "\n";
     }
-
-    public function setTrimUMI(bool $trimUMI): SettingsSection
-    {
-        $this->trimUMI = $trimUMI;
-
-        return $this;
-    }
 }

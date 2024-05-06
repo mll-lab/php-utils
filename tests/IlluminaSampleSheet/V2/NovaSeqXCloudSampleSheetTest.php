@@ -17,7 +17,7 @@ final class NovaSeqXCloudSampleSheetTest extends TestCase
     public function testNovaSeqXCloudSampleSheetToStringReturnsExpectedResult(): void
     {
         $headerSection = new HeaderSection('Run1');
-        $headerSection->setInstrumentPlatform('NovaSeqXSeries');
+        $headerSection->instrumentPlatform = 'NovaSeqXSeries';
         $headerSection->setCustomParam('IndexOrientation', 'Orientation1');
 
         $readsSection = new ReadsSection(
@@ -28,31 +28,31 @@ final class NovaSeqXCloudSampleSheetTest extends TestCase
         );
 
         $bclConvertSettingsSection = new SettingsSection('1.0.0', FastQCompressionFormat::GZIP());
-        $bclConvertSettingsSection->setTrimUMI(false);
+        $bclConvertSettingsSection->trimUMI = false;
 
         $bclConvertDataSection = new DataSection();
 
-        $bclConvertDataSection->addSample(
-            (new BclSample(1, 'Sample1', 'Index1'))
-                ->setIndex2('Index2')
-                ->setOverrideCycles('Cycles1')
-                ->setAdapterRead1('Adapter1')
-                ->setAdapterRead2('Adapter2')
-        );
-        $bclConvertDataSection->addSample(
-            (new BclSample(2, 'Sample2', 'Index3'))
-                ->setIndex2('Index4')
-                ->setOverrideCycles('Cycles2')
-                ->setAdapterRead1('Adapter3')
-                ->setAdapterRead2('Adapter4')
-        );
-        $bclConvertDataSection->addSample(
-            (new BclSample(3, 'Sample3', 'Index5'))
-                ->setIndex2('Index6')
-                ->setOverrideCycles('Cycles3')
-                ->setAdapterRead1('Adapter5')
-                ->setAdapterRead2('Adapter6')
-        );
+        $bclSample = new BclSample(1, 'Sample1', 'Index1');
+        $bclSample->index2 = 'Index2';
+        $bclSample->overrideCycles = 'Cycles1';
+        $bclSample->adapterRead1 = 'Adapter1';
+        $bclSample->adapterRead2 = 'Adapter2';
+
+        $bclSample1 = new BclSample(2, 'Sample2', 'Index3');
+        $bclSample1->index2 = 'Index4';
+        $bclSample1->overrideCycles = 'Cycles2';
+        $bclSample1->adapterRead1 = 'Adapter3';
+        $bclSample1->adapterRead2 = 'Adapter4';
+
+        $bclSample2 = new BclSample(3, 'Sample3', 'Index5');
+        $bclSample2->index2 = 'Index6';
+        $bclSample2->overrideCycles = 'Cycles3';
+        $bclSample2->adapterRead1 = 'Adapter5';
+        $bclSample2->adapterRead2 = 'Adapter6';
+
+        $bclConvertDataSection->addSample($bclSample);
+        $bclConvertDataSection->addSample($bclSample1);
+        $bclConvertDataSection->addSample($bclSample2);
 
         $bclConvertSection = new BclConvertSection($bclConvertSettingsSection, $bclConvertDataSection);
 

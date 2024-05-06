@@ -32,48 +32,6 @@ class BclSample
         $this->index = $index;
     }
 
-    public function setIndex2(string $index2): BclSample
-    {
-        $this->index2 = $index2;
-
-        return $this;
-    }
-
-    public function setOverrideCycles(string $overrideCycles): BclSample
-    {
-        $this->overrideCycles = $overrideCycles;
-
-        return $this;
-    }
-
-    public function setAdapterRead1(string $adapterRead1): BclSample
-    {
-        $this->adapterRead1 = $adapterRead1;
-
-        return $this;
-    }
-
-    public function setAdapterRead2(string $adapterRead2): BclSample
-    {
-        $this->adapterRead2 = $adapterRead2;
-
-        return $this;
-    }
-
-    public function setBarcodeMismatchesIndex1(string $barcodeMismatchesIndex1): BclSample
-    {
-        $this->barcodeMismatchesIndex1 = $barcodeMismatchesIndex1;
-
-        return $this;
-    }
-
-    public function setBarcodeMismatchesIndex2(string $barcodeMismatchesIndex2): BclSample
-    {
-        $this->barcodeMismatchesIndex2 = $barcodeMismatchesIndex2;
-
-        return $this;
-    }
-
     /** @return array<int|string> */
     public function toArray(): array
     {
