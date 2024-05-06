@@ -6,9 +6,9 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 
 class BclConvertSection implements Section
 {
-    private SettingsSection $settingsSection;
+    protected SettingsSection $settingsSection;
 
-    private DataSection $dataSection;
+    protected DataSection $dataSection;
 
     public function __construct(SettingsSection $settingsSection, DataSection $dataSection)
     {

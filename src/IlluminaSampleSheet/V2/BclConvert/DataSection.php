@@ -7,7 +7,7 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 class DataSection implements Section
 {
     /** @var array<BclSample> */
-    private array $dataRows = [];
+    protected array $dataRows = [];
 
     public function addSample(BclSample $bclSample): void
     {
@@ -40,7 +40,7 @@ class DataSection implements Section
     }
 
     /** @param array<string> $samplePropertiesOfFirstSample */
-    private function generateDataHeaderByProperties(array $samplePropertiesOfFirstSample): string
+    protected function generateDataHeaderByProperties(array $samplePropertiesOfFirstSample): string
     {
         $samplePropertiesOfFirstSample = array_filter($samplePropertiesOfFirstSample, fn (string $value) // @phpstan-ignore-next-line Variable property access on a non-object required here
         => $this->dataRows[0]->$value !== null);

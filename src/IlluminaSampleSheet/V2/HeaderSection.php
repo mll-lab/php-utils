@@ -6,20 +6,20 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 
 class HeaderSection implements Section
 {
-    private const FILE_FORMAT_VERSION = '2';
+    protected const FILE_FORMAT_VERSION = '2';
 
-    private string $fileFormatVersion = self::FILE_FORMAT_VERSION;
+    protected string $fileFormatVersion = self::FILE_FORMAT_VERSION;
 
-    private string $runName;
+    protected string $runName;
 
-    private ?string $runDescription = null;
+    protected ?string $runDescription = null;
 
-    private ?string $instrumentType = null;
+    protected ?string $instrumentType = null;
 
-    private ?string $instrumentPlatform = null;
+    protected ?string $instrumentPlatform = null;
 
     /** @var array<string, string> */
-    private array $customParams = [];
+    protected array $customParams = [];
 
     public function __construct(string $runName)
     {

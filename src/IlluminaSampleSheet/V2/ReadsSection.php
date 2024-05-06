@@ -7,13 +7,13 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 
 class ReadsSection implements Section
 {
-    private int $read1Cycles;
+    protected int $read1Cycles;
 
-    private ?int $read2Cycles;
+    protected ?int $read2Cycles;
 
-    private ?int $index1Cycles;
+    protected ?int $index1Cycles;
 
-    private ?int $index2Cycles;
+    protected ?int $index2Cycles;
 
     public function __construct(int $read1Cycles, ?int $read2Cycles = null, ?int $index1Cycles = null, ?int $index2Cycles = null)
     {
