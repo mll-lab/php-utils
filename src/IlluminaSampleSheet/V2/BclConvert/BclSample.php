@@ -24,7 +24,7 @@ class BclSample
     public ?string $barcodeMismatchesIndex2 = null;
 
     public function __construct(
-        int    $lane,
+        int $lane,
         string $sample_ID,
         string $index
     ) {
