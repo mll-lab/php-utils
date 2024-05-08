@@ -31,7 +31,7 @@ stan: vendor ## Runs a static analysis with phpstan
 .PHONY: test
 test: vendor ## Runs auto-review, unit, and integration tests with phpunit
 	mkdir --parents .build/phpunit
-	vendor/bin/phpunit --cache-result-file=.build/phpunit/result.cache
+	vendor/bin/phpunit --cache-directory=.build/phpunit
 
 vendor: composer.json
 	composer validate --strict

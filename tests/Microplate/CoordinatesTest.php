@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CoordinatesTest extends TestCase
 {
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider96Well')]
     /** @dataProvider dataProvider96Well */
     public function testCanConstructFromRowAndColumn(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
@@ -18,6 +19,7 @@ final class CoordinatesTest extends TestCase
         self::assertSame($row . $column, $coordinates96Well->toString());
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider96Well')]
     /** @dataProvider dataProvider96Well */
     public function testCanConstructFromPosition(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
@@ -40,6 +42,7 @@ final class CoordinatesTest extends TestCase
         self::assertSame($column, $coordinates->column);
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider96Well')]
     /** @dataProvider dataProvider96Well */
     public function testFromCoordinatesString(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
@@ -48,6 +51,7 @@ final class CoordinatesTest extends TestCase
         self::assertSame($column, $coordinates->column);
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderPadded96Well')]
     /** @dataProvider dataProviderPadded96Well */
     public function testFromPaddedCoordinatesString(string $paddedCoordinates, string $row, int $column): void
     {
@@ -88,6 +92,7 @@ final class CoordinatesTest extends TestCase
         ];
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider96Well')]
     /** @dataProvider dataProvider96Well */
     public function testPosition96Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
@@ -684,6 +689,7 @@ final class CoordinatesTest extends TestCase
         ];
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider12Well')]
     /** @dataProvider dataProvider12Well */
     public function testPosition12Well(string $row, int $column, int $rowFlowPosition, int $columnFlowPosition): void
     {
@@ -771,6 +777,7 @@ final class CoordinatesTest extends TestCase
         ];
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidRowsOrColumns')]
     /** @dataProvider invalidRowsOrColumns */
     public function testThrowsOnInvalidRowsOrColumns(string $row, int $column): void
     {
@@ -789,6 +796,7 @@ final class CoordinatesTest extends TestCase
         yield ['rolf', 2];
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidPositions')]
     /** @dataProvider invalidPositions */
     public function testThrowsOnInvalidPositions(int $position): void
     {
@@ -805,6 +813,7 @@ final class CoordinatesTest extends TestCase
         yield [10000];
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidCoordinates')]
     /** @dataProvider invalidCoordinates */
     public function testThrowsOnInvalidCoordinates(string $coordinatesString): void
     {

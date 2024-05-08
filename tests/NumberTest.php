@@ -15,6 +15,7 @@ final class NumberTest extends TestCase
      * @param float|int $current
      * @param float|int $expected
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('clampProvider')]
     public function testClamp($min, $max, $current, $expected): void
     {
         self::assertSame($expected, Number::clamp($min, $max, $current));

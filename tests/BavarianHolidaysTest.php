@@ -15,6 +15,7 @@ final class BavarianHolidaysTest extends TestCase
         self::assertSame(BavarianHolidays::OSTERSONNTAG, BavarianHolidays::nameHoliday(self::easterSunday2019()));
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('businessDays')]
     /** @dataProvider businessDays */
     public function testBusinessDays(Carbon $businessDay): void
     {
@@ -22,6 +23,7 @@ final class BavarianHolidaysTest extends TestCase
         self::assertFalse(BavarianHolidays::isHoliday($businessDay));
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('holidays')]
     /** @dataProvider holidays */
     public function testHolidays(Carbon $holiday): void
     {
@@ -29,6 +31,7 @@ final class BavarianHolidaysTest extends TestCase
         self::assertTrue(BavarianHolidays::isHoliday($holiday));
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('weekend')]
     /** @dataProvider weekend */
     public function testWeekend(Carbon $weekend): void
     {
