@@ -6,7 +6,7 @@ class BclSample
 {
     public int $lane;
 
-    // Keep the name "$sample_ID" as it is, because the property-name is used to generate the csv header line for the BCL-Sample-Section
+    /** Not using camelCase because the property names of this class must match the CSV file. */
     public string $sample_ID;
 
     public string $index;
