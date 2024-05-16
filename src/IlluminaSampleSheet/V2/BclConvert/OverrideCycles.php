@@ -48,10 +48,11 @@ class OverrideCycles
             throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have at least 1 part: {$cycleString}.");
         }
 
-        foreach ($matches as $match) {
-            $result[] = new CycleTypeWithCount(new CycleType($match[1]), (int) $match[2]);
-        }
-
-        return new OverrideCycle($result);
+        return new OverrideCycle(
+            array_map(
+                fn ($match) => new CycleTypeWithCount(new CycleType($match[1]), (int) $match[2]),
+                $matches
+            )
+        );
     }
 }
