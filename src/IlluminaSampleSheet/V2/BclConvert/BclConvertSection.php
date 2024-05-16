@@ -32,25 +32,25 @@ class BclConvertSection implements Section
     {
         $dataRows = new Collection($this->dataSection->dataRows);
 
-        $countFromCycleTypeWithCount = fn (CycleTypeWithCount $cycleTypeWithCount) => $cycleTypeWithCount->count;
+        $countFromCycleTypeWithCount = fn (CycleTypeWithCount $cycleTypeWithCount): int => $cycleTypeWithCount->count;
 
         $read1Cycles = $dataRows->max(
-            fn (BclSample $dataRow) => (new Collection($dataRow->overrideCycles->read1->cycles)
-            )->sum($countFromCycleTypeWithCount)
+            fn (BclSample $dataRow): int => (new Collection($dataRow->overrideCycles->read1->cycles))
+                ->sum($countFromCycleTypeWithCount)
         );
         $index1Cycles = $dataRows->max(
-            fn (BclSample $dataRow) => (new Collection($dataRow->overrideCycles->index1->cycles)
-            )->sum($countFromCycleTypeWithCount)
+            fn (BclSample $dataRow): int => (new Collection($dataRow->overrideCycles->index1->cycles))
+                ->sum($countFromCycleTypeWithCount)
         );
 
         $index2Cycles = $dataRows->max(
-            fn (BclSample $dataRow) => $dataRow->overrideCycles->index2 instanceof OverrideCycle
+            fn (BclSample $dataRow): ?int => $dataRow->overrideCycles->index2 instanceof OverrideCycle
                 ? (new Collection($dataRow->overrideCycles->index2->cycles))
                     ->sum($countFromCycleTypeWithCount)
                 : null
         );
         $read2Cycles = $dataRows->max(
-            fn (BclSample $dataRow) => $dataRow->overrideCycles->read2 instanceof OverrideCycle
+            fn (BclSample $dataRow): ?int => $dataRow->overrideCycles->read2 instanceof OverrideCycle
                 ? (new Collection($dataRow->overrideCycles->read2->cycles))
                     ->sum($countFromCycleTypeWithCount)
                 : null

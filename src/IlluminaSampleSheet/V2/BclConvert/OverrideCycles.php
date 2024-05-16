@@ -41,11 +41,11 @@ class OverrideCycles
         \Safe\preg_match_all('/([YNUI]+)(\d+)/', $cycleString, $matches, PREG_SET_ORDER);
         $result = [];
         if (count($matches) > 3) {
-            throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have less than 4 parts :{$cycleString}");
+            throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have less than 4 parts: {$cycleString}.");
         }
 
         if (count($matches) === 0) {
-            throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have at least 1 part :{$cycleString}");
+            throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have at least 1 part: {$cycleString}.");
         }
 
         foreach ($matches as $match) {

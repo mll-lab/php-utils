@@ -16,7 +16,7 @@ class OverrideCycle
     public function toString(): string
     {
         return implode('', array_map(
-            fn (CycleTypeWithCount $cycle) => $cycle->toString(),
+            fn (CycleTypeWithCount $cycle): string => $cycle->toString(),
             $this->cycles
         ));
     }
