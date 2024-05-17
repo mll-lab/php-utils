@@ -39,7 +39,7 @@ class OverrideCycles
     public function makeOverrideCycle(string $cycleString): OverrideCycle
     {
         \Safe\preg_match_all('/([YNUI]+)(\d+)/', $cycleString, $matches, PREG_SET_ORDER);
-        $result = [];
+
         if (count($matches) > 3) {
             throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have less than 4 parts: {$cycleString}.");
         }
@@ -50,7 +50,7 @@ class OverrideCycles
 
         return new OverrideCycle(
             array_map(
-                fn ($match) => new CycleTypeWithCount(new CycleType($match[1]), (int) $match[2]),
+                fn (array $match) => new CycleTypeWithCount(new CycleType($match[1]), (int) $match[2]),
                 $matches
             )
         );
