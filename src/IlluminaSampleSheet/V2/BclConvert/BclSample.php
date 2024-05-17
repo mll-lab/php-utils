@@ -26,11 +26,13 @@ class BclSample
     public function __construct(
         int $lane,
         string $sample_ID,
-        string $index
+        string $index,
+        OverrideCycles $overrideCycles
     ) {
         $this->lane = $lane;
         $this->sample_ID = $sample_ID;
         $this->index = $index;
+        $this->overrideCycles = $overrideCycles;
     }
 
     /** @return array<int|string> */
