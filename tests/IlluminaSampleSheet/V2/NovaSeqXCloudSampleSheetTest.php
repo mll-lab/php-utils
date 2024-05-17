@@ -25,23 +25,23 @@ final class NovaSeqXCloudSampleSheetTest extends TestCase
 
         $bclConvertDataSection = new DataSection();
 
-        $bclSample = new BclSample(1, 'Sample1', 'Index1');
+        $overrideCycles = new OverrideCycles('U7N1Y143', 'I8', 'I8', 'U7N1Y143');
+        $bclSample = new BclSample(1, 'Sample1', 'Index1', $overrideCycles);
         $bclSample->index2 = 'Index2';
-        $bclSample->overrideCycles = new OverrideCycles('U7N1Y143', 'I8', 'I8', 'U7N1Y143');
 
         $bclSample->adapterRead1 = 'Adapter1';
         $bclSample->adapterRead2 = 'Adapter2';
 
-        $bclSample1 = new BclSample(2, 'Sample2', 'Index3');
+        $overrideCycles1 = new OverrideCycles('Y151', 'I8', 'U10', 'Y151');
+        $bclSample1 = new BclSample(2, 'Sample2', 'Index3', $overrideCycles1);
         $bclSample1->index2 = 'Index4';
-        $bclSample1->overrideCycles = new OverrideCycles('Y151', 'I8', 'U10', 'Y151');
 
         $bclSample1->adapterRead1 = 'Adapter3';
         $bclSample1->adapterRead2 = 'Adapter4';
 
-        $bclSample2 = new BclSample(3, 'Sample3', 'Index5');
+        $overrideCycles2 = new OverrideCycles('Y151', 'I8', 'I8', 'U10N12Y127');
+        $bclSample2 = new BclSample(3, 'Sample3', 'Index5', $overrideCycles2);
         $bclSample2->index2 = 'Index6';
-        $bclSample2->overrideCycles = new OverrideCycles('Y151', 'I8', 'I8', 'U10N12Y127');
 
         $bclSample2->adapterRead1 = 'Adapter5';
         $bclSample2->adapterRead2 = 'Adapter6';

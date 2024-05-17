@@ -11,9 +11,9 @@ class BclSample
 
     public string $index;
 
-    public OverrideCycles $overrideCycles;
-
     public ?string $index2 = null;
+
+    public OverrideCycles $overrideCycles;
 
     public ?string $adapterRead1 = null;
 
