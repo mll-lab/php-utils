@@ -9,12 +9,12 @@ class NovaSeqXSampleSheet extends SampleSheet
 {
     public function __construct(
         HeaderSection $header,
-        ReadsSection $reads,
         ?BclConvertSection $bclConvertSection
     ) {
         $this->addSection($header);
-        $this->addSection($reads);
+
         if (! is_null($bclConvertSection)) {
+            $this->addSection($bclConvertSection->makeReadsSection());
             $this->addSection($bclConvertSection);
         }
     }

@@ -13,7 +13,7 @@ class BclSample
 
     public ?string $index2 = null;
 
-    public ?string $overrideCycles = null;
+    public OverrideCycles $overrideCycles;
 
     public ?string $adapterRead1 = null;
 
@@ -26,11 +26,13 @@ class BclSample
     public function __construct(
         int $lane,
         string $sample_ID,
-        string $index
+        string $index,
+        OverrideCycles $overrideCycles
     ) {
         $this->lane = $lane;
         $this->sample_ID = $sample_ID;
         $this->index = $index;
+        $this->overrideCycles = $overrideCycles;
     }
 
     /** @return array<int|string> */
@@ -41,7 +43,7 @@ class BclSample
             $this->sample_ID,
             $this->index,
             $this->index2,
-            $this->overrideCycles,
+            $this->overrideCycles->toString(),
             $this->adapterRead1,
             $this->adapterRead2,
             $this->barcodeMismatchesIndex1,

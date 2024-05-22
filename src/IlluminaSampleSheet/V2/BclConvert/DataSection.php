@@ -7,7 +7,7 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 class DataSection implements Section
 {
     /** @var array<BclSample> */
-    protected array $dataRows = [];
+    public array $dataRows = [];
 
     public function addSample(BclSample $bclSample): void
     {
