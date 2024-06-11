@@ -9,11 +9,18 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v2.0.0
+
+### Changed
+
+- Generate the Reads-Sections dynamically from the OverrideCycles-part of the Samples-Section for Illumina NovaSeq Sample Sheets (V2)
+- OverrideCycles on BclSample not nullable
+
 ## v1.14.0
 
 ### Added
 
-- Add support for creating different Illumina NovaSeq Sample Sheets (V1 & V2), including specific sections (Header, Reads, Data, Settings etc.).
+- Support creating Illumina NovaSeq Sample Sheets (V2) for NovaSeqX
 
 ## v1.13.0
 

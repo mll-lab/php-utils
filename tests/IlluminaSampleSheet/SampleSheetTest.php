@@ -3,17 +3,17 @@
 namespace MLL\Utils\Tests\IlluminaSampleSheet;
 
 use MLL\Utils\IlluminaSampleSheet\SampleSheet;
-use MLL\Utils\IlluminaSampleSheet\SectionInterface;
+use MLL\Utils\IlluminaSampleSheet\Section;
 use PHPUnit\Framework\TestCase;
 
-class SampleSheetTest extends TestCase
+final class SampleSheetTest extends TestCase
 {
     public function testSampleSheetToStringReturnsCorrectFormat(): void
     {
-        $sectionMock1 = $this->createMock(SectionInterface::class);
+        $sectionMock1 = $this->createMock(Section::class);
         $sectionMock1->method('convertSectionToString')->willReturn('section1');
 
-        $sectionMock2 = $this->createMock(SectionInterface::class);
+        $sectionMock2 = $this->createMock(Section::class);
         $sectionMock2->method('convertSectionToString')->willReturn('section2');
 
         $sampleSheet = $this->createPartialMock(SampleSheet::class, []);

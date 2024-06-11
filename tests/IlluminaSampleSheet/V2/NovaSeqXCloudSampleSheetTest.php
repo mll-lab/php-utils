@@ -2,96 +2,85 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V2;
 
-use MLL\Utils\IlluminaSampleSheet\V2\BclConvertDataSection;
-use MLL\Utils\IlluminaSampleSheet\V2\BclConvertSettingsSection;
-use MLL\Utils\IlluminaSampleSheet\V2\CloudDataSection;
-use MLL\Utils\IlluminaSampleSheet\V2\CloudSettingsSection;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclConvertSection;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclSample;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\DataSection;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycles;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\SettingsSection;
+use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
 use MLL\Utils\IlluminaSampleSheet\V2\HeaderSection;
-use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudSampleSheet;
-use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXCloudSequencingSettingsSection;
-use MLL\Utils\IlluminaSampleSheet\V2\ReadsSection;
+use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXSampleSheet;
 use PHPUnit\Framework\TestCase;
 
-class NovaSeqXCloudSampleSheetTest extends TestCase
+final class NovaSeqXCloudSampleSheetTest extends TestCase
 {
     public function testNovaSeqXCloudSampleSheetToStringReturnsExpectedResult(): void
     {
-        $headerSection = new HeaderSection(
-            'Run1',
-            'NovaSeqXSeries',
-        );
-        $headerSection->addCustomParam('IndexOrientation', 'Orientation1');
+        $headerSection = new HeaderSection('Run1');
+        $headerSection->instrumentPlatform = 'NovaSeqXSeries';
+        $headerSection->setCustomParam('IndexOrientation', 'Orientation1');
 
-        $readsSection = new ReadsSection(
-            100,
-            101,
-            10,
-            11
-        );
-        $sequenceSettingsSection = new NovaSeqXCloudSequencingSettingsSection('Settings1');
+        $bclConvertSettingsSection = new SettingsSection('1.0.0', FastQCompressionFormat::GZIP());
+        $bclConvertSettingsSection->trimUMI = false;
 
-        $bclConvertSettingsSection = new BclConvertSettingsSection('1.0.0', '0', 'gzip');
+        $bclConvertDataSection = new DataSection();
 
-        $bclConvertDataSection = new BclConvertDataSection();
-        $bclConvertDataSection->addSample(1, 'Sample1', 'Index1', 'Index2', 'Cycles1', 'Adapter1', 'Adapter2');
-        $bclConvertDataSection->addSample(2, 'Sample2', 'Index3', 'Index4', 'Cycles2', 'Adapter3', 'Adapter4');
-        $bclConvertDataSection->addSample(3, 'Sample3', 'Index5', 'Index6', 'Cycles3', 'Adapter5', 'Adapter6');
+        $overrideCycles = new OverrideCycles('U7N1Y143', 'I8', 'I8', 'U7N1Y143');
+        $bclSample = new BclSample(1, 'Sample1', 'Index1', $overrideCycles);
+        $bclSample->index2 = 'Index2';
 
-        $cloudSettingsSection = new CloudSettingsSection('1.0.0', 'Workflow1', 'Pipeline1');
+        $bclSample->adapterRead1 = 'Adapter1';
+        $bclSample->adapterRead2 = 'Adapter2';
 
-        $cloudDataSection = new CloudDataSection();
-        $cloudDataSection->addSample('Sample4', 'Project1', 'Library1', 'Kit1', 'AdapterKit1');
-        $cloudDataSection->addSample('Sample5', 'Project2', 'Library2', 'Kit2', 'AdapterKit2');
-        $cloudDataSection->addSample('Sample6', 'Project3', 'Library3', 'Kit3', 'AdapterKit3');
+        $overrideCycles1 = new OverrideCycles('Y151', 'I8', 'U10', 'Y151');
+        $bclSample1 = new BclSample(2, 'Sample2', 'Index3', $overrideCycles1);
+        $bclSample1->index2 = 'Index4';
 
-        $novaSeqXCloudSampleSheet = new NovaSeqXCloudSampleSheet(
+        $bclSample1->adapterRead1 = 'Adapter3';
+        $bclSample1->adapterRead2 = 'Adapter4';
+
+        $overrideCycles2 = new OverrideCycles('Y151', 'I8', 'I8', 'U10N12Y127');
+        $bclSample2 = new BclSample(3, 'Sample3', 'Index5', $overrideCycles2);
+        $bclSample2->index2 = 'Index6';
+
+        $bclSample2->adapterRead1 = 'Adapter5';
+        $bclSample2->adapterRead2 = 'Adapter6';
+
+        $bclConvertDataSection->addSample($bclSample);
+        $bclConvertDataSection->addSample($bclSample1);
+        $bclConvertDataSection->addSample($bclSample2);
+
+        $bclConvertSection = new BclConvertSection($bclConvertSettingsSection, $bclConvertDataSection);
+
+        $novaSeqXCloudSampleSheet = new NovaSeqXSampleSheet(
             $headerSection,
-            $readsSection,
-            $sequenceSettingsSection,
-            $bclConvertSettingsSection,
-            $bclConvertDataSection,
-            $cloudSettingsSection,
-            $cloudDataSection
+            $bclConvertSection,
         );
 
         $expected = '[Header]
 FileFormatVersion,2
 RunName,Run1
 InstrumentPlatform,NovaSeqXSeries
-IndexOrientation,Orientation1
+Custom_IndexOrientation,Orientation1
 
 [Reads]
-Read1Cycles,100
-Read2Cycles,101
-Index1Cycles,10
-Index2Cycles,11
-
-[Sequencing_Settings]
-LibraryPrepKits,Settings1
+Read1Cycles,151
+Read2Cycles,151
+Index1Cycles,8
+Index2Cycles,10
 
 [BCLConvert_Settings]
 SoftwareVersion,1.0.0
-TrimUMI,0
 FastqCompressionFormat,gzip
+TrimUMI,0
 
 [BCLConvert_Data]
 Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2
-1,Sample1,Index1,Index2,Cycles1,Adapter1,Adapter2
-2,Sample2,Index3,Index4,Cycles2,Adapter3,Adapter4
-3,Sample3,Index5,Index6,Cycles3,Adapter5,Adapter6
-
-[Cloud_Settings]
-GeneratedVersion,1.0.0
-Cloud_Workflow,Workflow1
-BCLConvert_Pipeline,Pipeline1
-
-[Cloud_Data]
-Sample_ID,ProjectName,LibraryName,LibraryPrepKitName,IndexAdapterKitName
-Sample4,Project1,Library1,Kit1,AdapterKit1
-Sample5,Project2,Library2,Kit2,AdapterKit2
-Sample6,Project3,Library3,Kit3,AdapterKit3
+1,Sample1,Index1,Index2,U7N1Y143;I8;I8;U7N1Y143,Adapter1,Adapter2
+2,Sample2,Index3,Index4,Y151;I8;U10;Y151,Adapter3,Adapter4
+3,Sample3,Index5,Index6,Y151;I8;I8;U10N12Y127,Adapter5,Adapter6
 ';
 
-        self::assertEquals($expected, $novaSeqXCloudSampleSheet->toString());
+        self::assertSame($expected, $novaSeqXCloudSampleSheet->toString());
     }
 }
