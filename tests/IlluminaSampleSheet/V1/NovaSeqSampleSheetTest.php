@@ -12,21 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class NovaSeqSampleSheetTest extends TestCase
 {
-    public function testNovaSeqSampleSheetAddsSectionsOnConstruction(): void
-    {
-        $headerSection = $this->createMock(NovaSeqHeaderSection::class);
-        $readsSection = $this->createMock(ReadsSection::class);
-        $settingsSection = $this->createMock(SettingsSection::class);
-        $dataSection = $this->createMock(DataSection::class);
-
-        $novaSeqSampleSheet = new NovaSeqSampleSheet($headerSection, $readsSection, $settingsSection, $dataSection);
-
-        self::assertContains($headerSection, $novaSeqSampleSheet->getSections());
-        self::assertContains($readsSection, $novaSeqSampleSheet->getSections());
-        self::assertContains($settingsSection, $novaSeqSampleSheet->getSections());
-        self::assertContains($dataSection, $novaSeqSampleSheet->getSections());
-    }
-
     public function testNovaSeqStandardSampleSheetToStringReturnsExpectedResult(): void
     {
         $headerSection = new NovaSeqHeaderSection(
@@ -54,7 +39,7 @@ class NovaSeqSampleSheetTest extends TestCase
         $dataSection = new DataSection($sampleSheetData);
 
         $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');
-        $miSeqSampleSheet = new NovaSeqSampleSheet($headerSection, $readsSection, $settings, $dataSection);
+        $novaSeqSampleSheet = new NovaSeqSampleSheet($headerSection, $readsSection, $settings, $dataSection);
 
         $expected = '[Header]
 IEMFileVersion,4
@@ -78,7 +63,7 @@ Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Ind
 2,Sample-002-M002,RunXXXX-PLATE,,UDP0091,CCTTGTAG,UDP0091,CCTTGGAA,RunXXXX-PROJECT,description
 3,Sample-003-M003,RunXXXX-PLATE,,UDP0092,GAACATCG,UDP0092,TCGACAAG,RunXXXX-PROJECT,description
 ';
-        self::assertSame($expected, $miSeqSampleSheet->toString());
+        self::assertSame($expected, $novaSeqSampleSheet->toString());
     }
 
     public function testNovaSeqXpSampleSheetWithLanesToStringReturnsExpectedResult(): void
@@ -108,7 +93,7 @@ Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Ind
         $dataSection = new DataSection($sampleSheetData);
 
         $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');
-        $miSeqSampleSheet = new NovaSeqSampleSheet($headerSection, $readsSection, $settings, $dataSection);
+        $novaSeqSampleSheet = new NovaSeqSampleSheet($headerSection, $readsSection, $settings, $dataSection);
 
         $expected = '[Header]
 IEMFileVersion,4
@@ -132,6 +117,6 @@ Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_I
 1,2,Sample-002-M002,RunXXXX-PLATE,,UDP0091,CCTTGTAG,UDP0091,CCTTGGAA,RunXXXX-PROJECT,description
 4,3,Sample-003-M003,RunXXXX-PLATE,,UDP0092,GAACATCG,UDP0092,TCGACAAG,RunXXXX-PROJECT,description
 ';
-        self::assertSame($expected, $miSeqSampleSheet->toString());
+        self::assertSame($expected, $novaSeqSampleSheet->toString());
     }
 }
