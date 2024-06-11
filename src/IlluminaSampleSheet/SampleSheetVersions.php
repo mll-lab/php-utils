@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MLL\Utils\IlluminaSampleSheet;
 
@@ -13,20 +13,21 @@ class SampleSheetVersions
     public const XP = 'CP'; // SampleSheet_NovaSeq6000_XpWorkflow.csv
     public const MI = 'MI'; // SampleSheet_MiSeq.csv
 
-    public static function getVersions(): array {
+    public static function getVersions(): array
+    {
         return [
             self::V1,
             self::V2,
             self::TCR,
             self::XP,
-            self::MI
+            self::MI,
         ];
     }
 
-
-    public static function createSampleSheet($version) {
-        if (!in_array($version, self::getVersions())) {
-            throw new \Exception("Invalid version: $version");
+    public static function createSampleSheet($version)
+    {
+        if (! in_array($version, self::getVersions())) {
+            throw new \Exception("Invalid version: {$version}");
         }
 
         switch ($version) {

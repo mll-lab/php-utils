@@ -13,7 +13,6 @@ use PHPUnit\Framework\TestCase;
 
 class NovaSeqSampleSheetTest extends TestCase
 {
-
     public function testSomething(): void
     {
         $sampleSheet = SampleSheetVersions::createSampleSheet(SampleSheetVersions::V1);
@@ -45,8 +44,6 @@ class NovaSeqSampleSheetTest extends TestCase
             )
             ->setData($columns, $rows);
 
-
-
         $expected = '[Header]
 IEMFileVersion,4
 Investigator Name,DonalDuck
@@ -70,9 +67,8 @@ Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Ind
 3,Sample-003-M003,RunXXXX-PLATE,,UDP0092,GAACATCG,UDP0092,TCGACAAG,RunXXXX-PROJECT,description
 ';
         self::assertSame($expected, $sampleSheet->toString());
-
-
     }
+
     public function testNovaSeqStandardSampleSheetToStringReturnsExpectedResult(): void
     {
         $headerSection = new NovaSeqHeaderSection(

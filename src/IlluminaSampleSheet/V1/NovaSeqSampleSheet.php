@@ -8,14 +8,14 @@ class NovaSeqSampleSheet extends SampleSheet
 {
     public function setHeaderData(
         string $iemFileVersion,
-         string $investigatorName,
-         string $experimentName,
-         string $date,
-         string $workflow,
-         string $application,
-         string $assay,
-         string $description,
-         string $chemistry
+        string $investigatorName,
+        string $experimentName,
+        string $date,
+        string $workflow,
+        string $application,
+        string $assay,
+        string $description,
+        string $chemistry
     ): self {
         $headerSection = new NovaSeqHeaderSection(
             $iemFileVersion,
