@@ -15,9 +15,7 @@ class Field
     /** @var callable */
     public $validator;
 
-    /**
-     * @param string|int|null $defaultValue
-     */
+    /** @param string|int|null $defaultValue */
     public function __construct(string $name, bool $required, string $fileName, $defaultValue, ?callable $validator = null)
     {
         $this->name = $name;

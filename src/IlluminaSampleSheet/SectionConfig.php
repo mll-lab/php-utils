@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MLL\Utils\IlluminaSampleSheet;
 
@@ -8,10 +8,6 @@ class SectionConfig
 
     public string $className;
 
-    /**
-     * @param int $index
-     * @param string $className
-     */
     public function __construct(int $index, string $className)
     {
         $this->index = $index;

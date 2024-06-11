@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace MLL\Utils\IlluminaSampleSheet\V1;
 
@@ -9,9 +8,7 @@ use MLL\Utils\IlluminaSampleSheet\SectionConfig;
 
 class ConfigV1
 {
-    /**
-     * @return Collection<SectionConfig>
-     */
+    /** @return Collection<SectionConfig> */
     public static function getSectionConfig(): Collection
     {
         return new Collection([
@@ -39,8 +36,7 @@ class ConfigV1
             'MLL\Utils\IlluminaSampleSheet\V1\NovaSeqDataSection' => [
                 new Field('sampleID', true, 'Sample_ID', null),
                 new Field('sampleName', true, 'Sample_Name', null),
-            ]
+            ],
         ];
-
     }
 }
