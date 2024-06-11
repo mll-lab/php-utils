@@ -29,7 +29,7 @@ class NovaSeqSampleSheet extends SampleSheet
             $chemistry
         );
 
-        $this->addSection($headerSection);
+        $this->addSection($headerSection, ConfigV1::getSectionIndex(NovaSeqHeaderSection::class));
 
         return $this;
     }
@@ -40,7 +40,7 @@ class NovaSeqSampleSheet extends SampleSheet
     ): self {
         $readsSection = new ReadsSection($read1, $read2);
 
-        $this->addSection($readsSection);
+        $this->addSection($readsSection, ConfigV1::getSectionIndex(ReadsSection::class));
 
         return $this;
     }
@@ -51,7 +51,7 @@ class NovaSeqSampleSheet extends SampleSheet
     ): self {
         $settingsSection = new SettingsSection($adapter, $adapterRead2);
 
-        $this->addSection($settingsSection);
+        $this->addSection($settingsSection, ConfigV1::getSectionIndex(SettingsSection::class));
 
         return $this;
     }
@@ -60,7 +60,7 @@ class NovaSeqSampleSheet extends SampleSheet
     {
         $dataSection = new DataSection(new SampleSheetData($columns, $rows));
 
-        $this->addSection($dataSection);
+        $this->addSection($dataSection, ConfigV1::getSectionIndex(DataSection::class));
 
         return $this;
     }

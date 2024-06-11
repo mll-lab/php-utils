@@ -26,6 +26,7 @@ class NovaSeqSampleSheetTest extends TestCase
         ];
 
         $sampleSheet
+            ->setReadsData(101, 101)
             ->setHeaderData(
                 '4',
                 'DonalDuck',
@@ -37,7 +38,6 @@ class NovaSeqSampleSheetTest extends TestCase
                 'MyDescription',
                 'MyChemistry',
             )
-            ->setReadsData(101, 101)
             ->setSettingsData(
                 'AGATCGGAAGAGCACACGTCTGAACTCCAGTCA',
                 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT'

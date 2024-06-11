@@ -2,23 +2,30 @@
 
 namespace MLL\Utils\IlluminaSampleSheet;
 
+use Illuminate\Support\Collection;
+
 abstract class SampleSheet
 {
-    /** @var array<Section> */
-    protected array $sections = [];
+    /** @var Collection<Section> */
+    protected Collection $sections;
 
-    public function addSection(Section $section): void
+    public function __construct()
     {
-        $this->sections[] = $section;
+        $this->sections = new Collection([]);
+    }
+
+    public function addSection(Section $section, $order): void
+    {
+        $this->sections->put($order, $section);
     }
 
     public function toString(): string
     {
-        $sectionStrings = array_map(
-            fn (Section $section): string => $section->convertSectionToString(),
-            $this->sections
-        );
-
-        return implode("\n", $sectionStrings);
+        return $this->sections
+            ->sortKeys()
+            ->map(
+                fn (Section $section): string => $section->convertSectionToString(),
+            )
+            ->implode("\n");
     }
 }
