@@ -2,9 +2,9 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V1;
 
-use MLL\Utils\IlluminaSampleSheet\SectionInterface;
+use MLL\Utils\IlluminaSampleSheet\Section;
 
-class ReadsSection implements SectionInterface
+class ReadsSection implements Section
 {
     private int $read1Cycles;
 

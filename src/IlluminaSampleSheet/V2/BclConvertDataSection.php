@@ -2,9 +2,9 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2;
 
-use MLL\Utils\IlluminaSampleSheet\SectionInterface;
+use MLL\Utils\IlluminaSampleSheet\Section;
 
-class BclConvertDataSection implements SectionInterface
+class BclConvertDataSection implements Section
 {
     /** @var array<BclConvertDataRow> */
     private array $dataRows = [];

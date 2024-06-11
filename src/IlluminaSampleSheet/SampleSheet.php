@@ -4,20 +4,20 @@ namespace MLL\Utils\IlluminaSampleSheet;
 
 abstract class SampleSheet
 {
-    /** @var array<SectionInterface> */
+    /** @var array<Section> */
     protected array $sections = [];
 
-    public function addSection(SectionInterface $section): void
+    public function addSection(Section $section): void
     {
         $this->sections[] = $section;
     }
 
     public function toString(): string
     {
-        return implode("\n", array_map(fn (SectionInterface $section) => $section->convertSectionToString(), $this->sections));
+        return implode("\n", array_map(fn (Section $section) => $section->convertSectionToString(), $this->sections));
     }
 
-    /** @return array<SectionInterface> */
+    /** @return array<Section> */
     public function getSections(): array
     {
         return $this->sections;

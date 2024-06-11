@@ -2,9 +2,9 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2;
 
-use MLL\Utils\IlluminaSampleSheet\SectionInterface;
+use MLL\Utils\IlluminaSampleSheet\Section;
 
-class NovaSeqXCloudSequencingSettingsSection implements SectionInterface
+class NovaSeqXCloudSequencingSettingsSection implements Section
 {
     public string $libraryPrepKits;
 

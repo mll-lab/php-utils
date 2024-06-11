@@ -4,14 +4,14 @@ namespace MLL\Utils\IlluminaSampleSheet\V1;
 
 use MLL\Utils\CSVArray;
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
-use MLL\Utils\IlluminaSampleSheet\SectionInterface;
+use MLL\Utils\IlluminaSampleSheet\Section;
 
 use function Safe\preg_match;
 
 /**
  * @phpstan-import-type CSVPrimitive from CSVArray
  */
-class DataSection implements SectionInterface
+class DataSection implements Section
 {
     private DataInterface $data;
 
