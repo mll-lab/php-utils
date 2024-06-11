@@ -14,12 +14,11 @@ abstract class SampleSheet
 
     public function toString(): string
     {
-        return implode("\n", array_map(fn (Section $section) => $section->convertSectionToString(), $this->sections));
-    }
+        $sectionStrings = array_map(
+            fn (Section $section): string => $section->convertSectionToString(),
+            $this->sections
+        );
 
-    /** @return array<Section> */
-    public function getSections(): array
-    {
-        return $this->sections;
+        return implode("\n", $sectionStrings);
     }
 }
