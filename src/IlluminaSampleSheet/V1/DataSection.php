@@ -23,14 +23,7 @@ abstract class DataSection implements Section
 
     public function validate(): void
     {
-        $hasUniqueSampleIDs = $this->rows
-                ->map(fn ($row) => $row[$this::SAMPLE_ID_INDEX])
-                ->unique()
-                ->count() === $this->rows->count();
-
-        if (! $hasUniqueSampleIDs) {
-            throw new IlluminaSampleSheetException('Sample_ID values must be distinct.');
-        }
+        $this->validateDuplicatedSampleIDs();
     }
 
     public function convertSectionToString(): string
@@ -41,5 +34,17 @@ abstract class DataSection implements Section
         $rowsData = $this->rows->map(fn ($row) => implode(',', $row))->implode("\n");
 
         return "[Data]\n{$header}\n" . $rowsData . "\n";
+    }
+
+    protected function validateDuplicatedSampleIDs(): void
+    {
+        $hasUniqueSampleIDs = $this->rows
+                ->map(fn ($row) => $row[$this::SAMPLE_ID_INDEX])
+                ->unique()
+                ->count() === $this->rows->count();
+
+        if (! $hasUniqueSampleIDs) {
+            throw new IlluminaSampleSheetException('Sample_ID values must be distinct.');
+        }
     }
 }
