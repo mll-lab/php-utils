@@ -6,7 +6,7 @@ use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 
 use function Safe\preg_match;
 
-class DualIndex
+class DualIndex extends Index
 {
     public string $i7IndexID;
 
@@ -30,16 +30,5 @@ class DualIndex
     {
         $this->validateIndex($this->index);
         $this->validateIndex($this->index2);
-    }
-
-    private function validateIndex(string $index): void
-    {
-        if ($index === '') {
-            throw new IlluminaSampleSheetException('Index must not be an empty string.');
-        }
-
-        if (! (bool) preg_match('/^[ATCGN]+$/', $index)) {
-            throw new IlluminaSampleSheetException("Index '{$index}' contains invalid characters. Only A, T, C, G, N are allowed.");
-        }
     }
 }
