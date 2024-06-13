@@ -9,9 +9,7 @@ use MLL\Utils\IlluminaSampleSheet\BaseSampleSheet;
  */
 class SampleSheet extends BaseSampleSheet
 {
-    /**
-     * @param DataSection<TRow> $data
-     */
+    /** @param DataSection<TRow> $data */
     public function __construct(
         HeaderSection $header,
         ReadsSection $reads,
