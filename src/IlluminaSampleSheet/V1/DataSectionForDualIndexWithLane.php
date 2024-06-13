@@ -4,6 +4,8 @@ namespace MLL\Utils\IlluminaSampleSheet\V1;
 
 class DataSectionForDualIndexWithLane extends DataSection
 {
+    protected const SAMPLE_ID_INDEX = 1;
+
     /** @return string[] */
     public function getColumns(): array
     {
@@ -32,7 +34,7 @@ class DataSectionForDualIndexWithLane extends DataSection
         string $sampleProject,
         string $description
     ): void {
-        $this->rows[] = [
+        $this->rows->add([
             $lane,
             $sampleID,
             $sampleName,
@@ -44,6 +46,6 @@ class DataSectionForDualIndexWithLane extends DataSection
             $dualIndex->index2,
             $sampleProject,
             $description,
-        ];
+        ]);
     }
 }

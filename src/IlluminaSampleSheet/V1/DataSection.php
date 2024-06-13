@@ -2,26 +2,33 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V1;
 
+use Illuminate\Support\Collection;
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 use MLL\Utils\IlluminaSampleSheet\Section;
 
 abstract class DataSection implements Section
 {
-    /** @var array<array<string|int>> */
-    public array $rows;
+    /** @var Collection<int, array<int, string|int>> */
+    public Collection $rows;
+
+    protected const SAMPLE_ID_INDEX = 0;
+
+    public function __construct()
+    {
+        $this->rows = new Collection([]);
+    }
 
     /** @return array<string> */
     abstract public function getColumns(): array;
 
     public function validate(): void
     {
-        $columns = $this->getColumns();
+        $hasUniqueSampleIDs = $this->rows
+                ->map(fn ($row) => $row[$this::SAMPLE_ID_INDEX])
+                ->unique()
+                ->count() === $this->rows->count();
 
-        $columnKey = array_search('Sample_ID', $columns, true);
-        assert($columnKey !== false);
-
-        $sampleIDs = array_column($this->rows, $columnKey);
-        if (count($sampleIDs) !== count(array_unique($sampleIDs))) {
+        if (! $hasUniqueSampleIDs) {
             throw new IlluminaSampleSheetException('Sample_ID values must be distinct.');
         }
     }
@@ -31,11 +38,8 @@ abstract class DataSection implements Section
         $this->validate();
 
         $header = implode(',', $this->getColumns());
-        $rows = [];
-        foreach ($this->rows as $rowData) {
-            $rows[] = implode(',', $rowData);
-        }
+        $rowsData = $this->rows->map(fn ($row) => implode(',', $row))->implode("\n");
 
-        return "[Data]\n{$header}\n" . implode("\n", $rows) . "\n";
+        return "[Data]\n{$header}\n" . $rowsData . "\n";
     }
 }
