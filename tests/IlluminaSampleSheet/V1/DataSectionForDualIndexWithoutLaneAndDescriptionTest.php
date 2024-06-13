@@ -3,7 +3,6 @@
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V1;
 
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
-use MLL\Utils\IlluminaSampleSheet\V1\DataSectionForDualIndexWithoutLane;
 use MLL\Utils\IlluminaSampleSheet\V1\DataSectionForDualIndexWithoutLaneAndDescription;
 use MLL\Utils\IlluminaSampleSheet\V1\DualIndex;
 use MLL\Utils\IlluminaSampleSheet\V1\HeaderSection;
@@ -83,8 +82,8 @@ Sample_ID,Sample_Name,Sample_Plate,Sample_Well,Sample_Project,I7_Index_ID,Index,
     {
         $this->markTestIncomplete();
 
-//        $this->expectException(IlluminaSampleSheetException::class);
-//        $this->expectExceptionMessage('Sample_ID values must be distinct');
-//        $novaSeqSampleSheet->toString();
+        //        $this->expectException(IlluminaSampleSheetException::class);
+        //        $this->expectExceptionMessage('Sample_ID values must be distinct');
+        //        $novaSeqSampleSheet->toString();
     }
 }
