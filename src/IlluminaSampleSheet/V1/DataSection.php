@@ -24,6 +24,7 @@ abstract class DataSection implements Section
     public function validate(): void
     {
         $this->validateDuplicatedSampleIDs();
+        $this->validateDuplicatedIndices();
     }
 
     public function convertSectionToString(): string
@@ -46,5 +47,10 @@ abstract class DataSection implements Section
         if (! $hasUniqueSampleIDs) {
             throw new IlluminaSampleSheetException('Sample_ID values must be distinct.');
         }
+    }
+
+    protected function validateDuplicatedIndices(): void
+    {
+        // TODO validate indices ?
     }
 }
