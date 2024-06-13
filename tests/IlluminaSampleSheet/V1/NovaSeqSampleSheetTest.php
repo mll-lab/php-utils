@@ -2,13 +2,12 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V1;
 
-use MLL\Utils\IlluminaSampleSheet\V1\DataSection;
+use MLL\Utils\IlluminaSampleSheet\V1\DataSectionForDualIndexWithLane;
+use MLL\Utils\IlluminaSampleSheet\V1\DataSectionForDualIndexWithoutLane;
 use MLL\Utils\IlluminaSampleSheet\V1\DualIndex;
-use MLL\Utils\IlluminaSampleSheet\V1\NovaSeqHeaderSection;
-use MLL\Utils\IlluminaSampleSheet\V1\NovaSeqSampleSheet;
+use MLL\Utils\IlluminaSampleSheet\V1\HeaderSection;
 use MLL\Utils\IlluminaSampleSheet\V1\ReadsSection;
-use MLL\Utils\IlluminaSampleSheet\V1\SampleSheetDataForDualIndexWithLane;
-use MLL\Utils\IlluminaSampleSheet\V1\SampleSheetDataForDualIndexWithoutLane;
+use MLL\Utils\IlluminaSampleSheet\V1\SampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V1\SettingsSection;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +15,7 @@ class NovaSeqSampleSheetTest extends TestCase
 {
     public function testNovaSeqStandardSampleSheetToStringReturnsExpectedResult(): void
     {
-        $headerSection = new NovaSeqHeaderSection(
+        $headerSection = new HeaderSection(
             '4',
             'DonalDuck',
             'MyExperiment',
@@ -30,10 +29,10 @@ class NovaSeqSampleSheetTest extends TestCase
 
         $readsSection = new ReadsSection(101, 101);
 
-        $sampleSheetData = new SampleSheetDataForDualIndexWithoutLane();
+        $sampleSheetDataSection = new DataSectionForDualIndexWithoutLane();
         $dualIndex1 = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
 
-        $sampleSheetData->addRow(
+        $sampleSheetDataSection->addRow(
             $dualIndex1,
             '1',
             'Sample-001-M001',
@@ -44,7 +43,7 @@ class NovaSeqSampleSheetTest extends TestCase
         );
         $dualIndex2 = new DualIndex('UDP0091', 'CCTTGTAG', 'UDP0091', 'CCTTGGAA');
 
-        $sampleSheetData->addRow(
+        $sampleSheetDataSection->addRow(
             $dualIndex2,
             '2',
             'Sample-002-M002',
@@ -55,7 +54,7 @@ class NovaSeqSampleSheetTest extends TestCase
         );
         $dualIndex3 = new DualIndex('UDP0092', 'GAACATCG', 'UDP0092', 'TCGACAAG');
 
-        $sampleSheetData->addRow(
+        $sampleSheetDataSection->addRow(
             $dualIndex3,
             '3',
             'Sample-003-M003',
@@ -65,10 +64,8 @@ class NovaSeqSampleSheetTest extends TestCase
             'description'
         );
 
-        $dataSection = new DataSection($sampleSheetData);
-
         $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');
-        $novaSeqSampleSheet = new NovaSeqSampleSheet($headerSection, $readsSection, $settings, $dataSection);
+        $novaSeqSampleSheet = new SampleSheet($headerSection, $readsSection, $settings, $sampleSheetDataSection);
 
         $expected = '[Header]
 IEMFileVersion,4
@@ -97,7 +94,7 @@ Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Ind
 
     public function testNovaSeqXpSampleSheetWithLanesToStringReturnsExpectedResult(): void
     {
-        $headerSection = new NovaSeqHeaderSection(
+        $headerSection = new HeaderSection(
             '4',
             'DonalDuck',
             'MyExperiment',
@@ -111,7 +108,7 @@ Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Ind
 
         $readsSection = new ReadsSection(101, 101);
 
-        $sampleSheetData = new SampleSheetDataForDualIndexWithLane();
+        $sampleSheetData = new DataSectionForDualIndexWithLane();
         $sampleSheetData->addRow(
             new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG'),
             2,
@@ -143,10 +140,8 @@ Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Ind
             'description'
         );
 
-        $dataSection = new DataSection($sampleSheetData);
-
         $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');
-        $novaSeqSampleSheet = new NovaSeqSampleSheet($headerSection, $readsSection, $settings, $dataSection);
+        $novaSeqSampleSheet = new SampleSheet($headerSection, $readsSection, $settings, $sampleSheetData);
 
         $expected = '[Header]
 IEMFileVersion,4

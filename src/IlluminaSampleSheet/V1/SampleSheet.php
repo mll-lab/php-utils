@@ -2,12 +2,12 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V1;
 
-use MLL\Utils\IlluminaSampleSheet\SampleSheet;
+use MLL\Utils\IlluminaSampleSheet\BaseSampleSheet;
 
-class NovaSeqSampleSheet extends SampleSheet
+class SampleSheet extends BaseSampleSheet
 {
     public function __construct(
-        NovaSeqHeaderSection $header,
+        HeaderSection $header,
         ReadsSection $reads,
         SettingsSection $settings,
         DataSection $data

@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet;
 
-use MLL\Utils\IlluminaSampleSheet\SampleSheet;
+use MLL\Utils\IlluminaSampleSheet\BaseSampleSheet;
 use MLL\Utils\IlluminaSampleSheet\Section;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +16,7 @@ final class SampleSheetTest extends TestCase
         $sectionMock2 = $this->createMock(Section::class);
         $sectionMock2->method('convertSectionToString')->willReturn('section2');
 
-        $sampleSheet = $this->createPartialMock(SampleSheet::class, []);
+        $sampleSheet = $this->createPartialMock(BaseSampleSheet::class, []);
         $sampleSheet->addSection($sectionMock1);
         $sampleSheet->addSection($sectionMock2);
 

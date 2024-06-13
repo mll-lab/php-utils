@@ -2,13 +2,12 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V1;
 
-class SampleSheetDataForDualIndexWithLane extends AbstractSampleSheetData
+class DataSectionForDualIndexWithoutLane extends DataSection
 {
     /** @return string[] */
     public function getColumns(): array
     {
         return [
-            'Lane',
             'Sample_ID',
             'Sample_Name',
             'Sample_Plate',
@@ -24,7 +23,6 @@ class SampleSheetDataForDualIndexWithLane extends AbstractSampleSheetData
 
     public function addRow(
         DualIndex $dualIndex,
-        int $lane,
         string $sampleID,
         string $sampleName,
         string $samplePlate,
@@ -33,7 +31,6 @@ class SampleSheetDataForDualIndexWithLane extends AbstractSampleSheetData
         string $description
     ): void {
         $this->rows[] = [
-            $lane,
             $sampleID,
             $sampleName,
             $samplePlate,

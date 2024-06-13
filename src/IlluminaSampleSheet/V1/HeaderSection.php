@@ -4,7 +4,7 @@ namespace MLL\Utils\IlluminaSampleSheet\V1;
 
 use MLL\Utils\IlluminaSampleSheet\Section;
 
-class NovaSeqHeaderSection implements Section
+class HeaderSection implements Section
 {
     public ?string $iemFileVersion;
 
