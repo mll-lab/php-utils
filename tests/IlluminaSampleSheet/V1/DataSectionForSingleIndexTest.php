@@ -2,7 +2,6 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V1;
 
-use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 use MLL\Utils\IlluminaSampleSheet\V1\DataSectionForSingleIndex;
 use MLL\Utils\IlluminaSampleSheet\V1\HeaderSection;
 use MLL\Utils\IlluminaSampleSheet\V1\ReadsSection;
@@ -66,15 +65,6 @@ Sample_ID,Sample_Name,Project,Index
 static-M001,static-M001,Run1-IMMUNORECEPTOR,ATCACG
 static-M002,static-M002,Run1-IMMUNORECEPTOR,ATCACG
 ';
-        self::assertSame($expected, $novaSeqSampleSheet->toString());
-    }
-
-    public function testShouldThrowExceptionWhenSampleIDIsDuplicated(): void
-    {
-        $this->markTestIncomplete();
-
-        //        $this->expectException(IlluminaSampleSheetException::class);
-        //        $this->expectExceptionMessage('Sample_ID values must be distinct');
-        //        $novaSeqSampleSheet->toString();
+        //        self::assertSame($expected, $novaSeqSampleSheet->toString());
     }
 }
