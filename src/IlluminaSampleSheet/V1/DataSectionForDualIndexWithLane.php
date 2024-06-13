@@ -2,14 +2,14 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V1;
 
+use Illuminate\Support\Collection;
+
 class DataSectionForDualIndexWithLane extends DataSection
 {
-    protected const SAMPLE_ID_INDEX = 1;
-
-    /** @return string[] */
-    public function getColumns(): array
+    /** @return Collection<int, string> */
+    public function getColumns(): Collection
     {
-        return [
+        return new Collection([
             'Lane',
             'Sample_ID',
             'Sample_Name',
@@ -21,7 +21,7 @@ class DataSectionForDualIndexWithLane extends DataSection
             'Index2',
             'Sample_Project',
             'Description',
-        ];
+        ]);
     }
 
     public function addRow(

@@ -11,15 +11,13 @@ abstract class DataSection implements Section
     /** @var Collection<int, array<int, string|int>> */
     public Collection $rows;
 
-    protected const SAMPLE_ID_INDEX = 0;
-
     public function __construct()
     {
         $this->rows = new Collection([]);
     }
 
-    /** @return array<string> */
-    abstract public function getColumns(): array;
+    /** @return Collection<int, string> */
+    abstract public function getColumns(): Collection;
 
     public function validate(): void
     {
@@ -31,7 +29,7 @@ abstract class DataSection implements Section
     {
         $this->validate();
 
-        $header = implode(',', $this->getColumns());
+        $header = $this->getColumns()->implode(',');
         $rowsData = $this->rows->map(fn ($row) => implode(',', $row))->implode("\n");
 
         return "[Data]\n{$header}\n" . $rowsData . "\n";
@@ -39,8 +37,9 @@ abstract class DataSection implements Section
 
     protected function validateDuplicatedSampleIDs(): void
     {
+        $sampleIdIndex = $this->getColumns()->search('Sample_ID');
         $hasUniqueSampleIDs = $this->rows
-                ->map(fn ($row) => $row[$this::SAMPLE_ID_INDEX])
+                ->map(fn ($row) => $row[$sampleIdIndex])
                 ->unique()
                 ->count() === $this->rows->count();
 
