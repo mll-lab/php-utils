@@ -2,10 +2,6 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V1;
 
-use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
-
-use function Safe\preg_match;
-
 class DualIndex extends Index
 {
     public string $i7IndexID;

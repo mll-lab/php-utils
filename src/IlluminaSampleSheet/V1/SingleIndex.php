@@ -2,10 +2,6 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V1;
 
-use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
-
-use function Safe\preg_match;
-
 class SingleIndex extends Index
 {
     public string $index;

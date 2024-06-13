@@ -3,9 +3,7 @@
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V1;
 
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
-use MLL\Utils\IlluminaSampleSheet\V1\DataSectionForDualIndexWithLane;
 use MLL\Utils\IlluminaSampleSheet\V1\DataSectionForSingleIndex;
-use MLL\Utils\IlluminaSampleSheet\V1\DualIndex;
 use MLL\Utils\IlluminaSampleSheet\V1\HeaderSection;
 use MLL\Utils\IlluminaSampleSheet\V1\ReadsSection;
 use MLL\Utils\IlluminaSampleSheet\V1\SampleSheet;
@@ -75,9 +73,8 @@ static-M002,static-M002,Run1-IMMUNORECEPTOR,ATCACG
     {
         $this->markTestIncomplete();
 
-
-//        $this->expectException(IlluminaSampleSheetException::class);
-//        $this->expectExceptionMessage('Sample_ID values must be distinct');
-//        $novaSeqSampleSheet->toString();
+        //        $this->expectException(IlluminaSampleSheetException::class);
+        //        $this->expectExceptionMessage('Sample_ID values must be distinct');
+        //        $novaSeqSampleSheet->toString();
     }
 }
