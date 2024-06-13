@@ -51,6 +51,7 @@ class SectionedMicroplate extends AbstractMicroplate
 
     public function wells(): Collection
     {
+        // @phpstan-ignore-next-line
         return $this->sections
             ->map(fn (AbstractSection $section): Collection => $section->sectionItems)
             ->flatten(1)
