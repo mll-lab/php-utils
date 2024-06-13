@@ -24,16 +24,17 @@ class HeaderSection implements Section
 
     public string $chemistry;
 
+    // one format has also Module, library prep kit, Index Kit
     public function __construct(
-        string $iemFileVersion,
-        string $investigatorName,
+        string $iemFileVersion, //sometimes nullable
+        string $investigatorName, //sometimes nullable
         string $experimentName,
         string $date,
         string $workflow,
-        string $application,
-        string $assay,
+        string $application, //sometimes nullable
+        string $assay, //sometimes nullable
         string $description,
-        string $chemistry
+        string $chemistry //sometimes nullable
     ) {
         $this->chemistry = $chemistry;
         $this->description = $description;

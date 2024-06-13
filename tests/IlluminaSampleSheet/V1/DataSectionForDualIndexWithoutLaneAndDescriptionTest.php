@@ -52,8 +52,7 @@ class DataSectionForDualIndexWithoutLaneAndDescriptionTest extends TestCase
             'Run7906-ROUTINE',
         );
 
-        // TODO settings should be empty
-        $settings = new SettingsSection('', '');
+        $settings = new SettingsSection();
         $novaSeqSampleSheet = new SampleSheet($headerSection, $readsSection, $settings, $sampleSheetDataSection);
 
         $expected = '[Header]
