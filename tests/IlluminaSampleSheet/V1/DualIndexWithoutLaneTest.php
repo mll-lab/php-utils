@@ -3,15 +3,16 @@
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V1;
 
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
-use MLL\Utils\IlluminaSampleSheet\V1\DataSectionForDualIndexWithoutLane;
+use MLL\Utils\IlluminaSampleSheet\V1\DataSection;
 use MLL\Utils\IlluminaSampleSheet\V1\DualIndex;
 use MLL\Utils\IlluminaSampleSheet\V1\HeaderSection;
 use MLL\Utils\IlluminaSampleSheet\V1\ReadsSection;
+use MLL\Utils\IlluminaSampleSheet\V1\RowForDualIndexWithoutLane;
 use MLL\Utils\IlluminaSampleSheet\V1\SampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V1\SettingsSection;
 use PHPUnit\Framework\TestCase;
 
-class DataSectionForDualIndexWithoutLaneTest extends TestCase
+class DualIndexWithoutLaneTest extends TestCase
 {
     public function testShouldReturnExpectedResult(): void
     {
@@ -28,40 +29,46 @@ class DataSectionForDualIndexWithoutLaneTest extends TestCase
         );
 
         $readsSection = new ReadsSection(101, 101);
-
-        $sampleSheetDataSection = new DataSectionForDualIndexWithoutLane();
+        /** @var DataSection<RowForDualIndexWithoutLane> $sampleSheetDataSection */
+        $sampleSheetDataSection = new DataSection();
         $dualIndex1 = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
 
         $sampleSheetDataSection->addRow(
-            $dualIndex1,
-            '1',
-            'Sample-001-M001',
-            'RunXXXX-PLATE',
-            '',
-            'RunXXXX-PROJECT',
-            'description'
+            new RowForDualIndexWithoutLane(
+                $dualIndex1,
+                '1',
+                'Sample-001-M001',
+                'RunXXXX-PLATE',
+                '',
+                'RunXXXX-PROJECT',
+                'description'
+            )
         );
         $dualIndex2 = new DualIndex('UDP0091', 'CCTTGTAG', 'UDP0091', 'CCTTGGAA');
 
         $sampleSheetDataSection->addRow(
-            $dualIndex2,
-            '2',
-            'Sample-002-M002',
-            'RunXXXX-PLATE',
-            '',
-            'RunXXXX-PROJECT',
-            'description'
+            new RowForDualIndexWithoutLane(
+                $dualIndex2,
+                '2',
+                'Sample-002-M002',
+                'RunXXXX-PLATE',
+                '',
+                'RunXXXX-PROJECT',
+                'description'
+            )
         );
         $dualIndex3 = new DualIndex('UDP0092', 'GAACATCG', 'UDP0092', 'TCGACAAG');
 
         $sampleSheetDataSection->addRow(
-            $dualIndex3,
-            '3',
-            'Sample-003-M003',
-            'RunXXXX-PLATE',
-            '',
-            'RunXXXX-PROJECT',
-            'description'
+            new RowForDualIndexWithoutLane(
+                $dualIndex3,
+                '3',
+                'Sample-003-M003',
+                'RunXXXX-PLATE',
+                '',
+                'RunXXXX-PROJECT',
+                'description'
+            )
         );
 
         $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');
@@ -108,28 +115,32 @@ Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Ind
 
         $readsSection = new ReadsSection(101, 101);
 
-        $sampleSheetDataSection = new DataSectionForDualIndexWithoutLane();
+        $sampleSheetDataSection = new DataSection();
         $dualIndex1 = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
 
         $sampleSheetDataSection->addRow(
-            $dualIndex1,
-            '1',
-            'Sample-001-M001',
-            'RunXXXX-PLATE',
-            '',
-            'RunXXXX-PROJECT',
-            'description'
+            new RowForDualIndexWithoutLane(
+                $dualIndex1,
+                '1',
+                'Sample-001-M001',
+                'RunXXXX-PLATE',
+                '',
+                'RunXXXX-PROJECT',
+                'description'
+            )
         );
         $dualIndex2 = new DualIndex('UDP0091', 'CCTTGTAG', 'UDP0091', 'CCTTGGAA');
 
         $sampleSheetDataSection->addRow(
-            $dualIndex2,
-            '1',
-            'Sample-002-M002',
-            'RunXXXX-PLATE',
-            '',
-            'RunXXXX-PROJECT',
-            'description'
+            new RowForDualIndexWithoutLane(
+                $dualIndex2,
+                '1',
+                'Sample-002-M002',
+                'RunXXXX-PLATE',
+                '',
+                'RunXXXX-PROJECT',
+                'description'
+            )
         );
 
         $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');

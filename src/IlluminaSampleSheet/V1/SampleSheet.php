@@ -4,8 +4,14 @@ namespace MLL\Utils\IlluminaSampleSheet\V1;
 
 use MLL\Utils\IlluminaSampleSheet\BaseSampleSheet;
 
+/**
+ * @template TRow of Row
+ */
 class SampleSheet extends BaseSampleSheet
 {
+    /**
+     * @param DataSection<TRow> $data
+     */
     public function __construct(
         HeaderSection $header,
         ReadsSection $reads,
