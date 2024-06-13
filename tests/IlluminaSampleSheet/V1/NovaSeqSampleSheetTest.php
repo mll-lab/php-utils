@@ -2,6 +2,7 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V1;
 
+use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 use MLL\Utils\IlluminaSampleSheet\V1\DataSectionForDualIndexWithLane;
 use MLL\Utils\IlluminaSampleSheet\V1\DataSectionForDualIndexWithoutLane;
 use MLL\Utils\IlluminaSampleSheet\V1\DualIndex;
@@ -166,5 +167,53 @@ Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_I
 4,3,Sample-003-M003,RunXXXX-PLATE,,UDP0092,GAACATCG,UDP0092,TCGACAAG,RunXXXX-PROJECT,description
 ';
         self::assertSame($expected, $novaSeqSampleSheet->toString());
+    }
+
+    public function testShouldThrowExceptionWhenSampleIDIsDuplicated(): void
+    {
+        $headerSection = new HeaderSection(
+            '4',
+            'DonalDuck',
+            'MyExperiment',
+            '19.04.2024',
+            'MyWorkflow',
+            'MyApplication',
+            'MyAssay',
+            'MyDescription',
+            'MyChemistry',
+        );
+
+        $readsSection = new ReadsSection(101, 101);
+
+        $sampleSheetDataSection = new DataSectionForDualIndexWithoutLane();
+        $dualIndex1 = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
+
+        $sampleSheetDataSection->addRow(
+            $dualIndex1,
+            '1',
+            'Sample-001-M001',
+            'RunXXXX-PLATE',
+            '',
+            'RunXXXX-PROJECT',
+            'description'
+        );
+        $dualIndex2 = new DualIndex('UDP0091', 'CCTTGTAG', 'UDP0091', 'CCTTGGAA');
+
+        $sampleSheetDataSection->addRow(
+            $dualIndex2,
+            '1',
+            'Sample-002-M002',
+            'RunXXXX-PLATE',
+            '',
+            'RunXXXX-PROJECT',
+            'description'
+        );
+
+        $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');
+        $novaSeqSampleSheet = new SampleSheet($headerSection, $readsSection, $settings, $sampleSheetDataSection);
+
+        $this->expectException(IlluminaSampleSheetException::class);
+        $this->expectExceptionMessage('Sample_ID values must be distinct');
+        $novaSeqSampleSheet->toString();
     }
 }
