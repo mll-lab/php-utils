@@ -12,8 +12,12 @@ class RowForSingleIndex extends Row
 
     public string $project;
 
-    public function __construct(SingleIndex $singleIndex, string $sampleID, string $sampleName, string $project)
-    {
+    public function __construct(
+        SingleIndex $singleIndex,
+        string $sampleID,
+        string $sampleName,
+        string $project
+    ) {
         $this->sampleID = $sampleID;
         $this->singleIndex = $singleIndex;
         $this->sampleName = $sampleName;
@@ -34,7 +38,10 @@ class RowForSingleIndex extends Row
     public function getColumns(): Collection
     {
         return new Collection([
-            'Sample_ID', 'Sample_Name', 'Project', 'Index',
+            'Sample_ID',
+            'Sample_Name',
+            'Project',
+            'Index',
         ]);
     }
 }

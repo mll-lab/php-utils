@@ -12,7 +12,8 @@ class DataSection implements Section
     /** @var Collection<int, TRow> */
     public Collection $rows;
 
-    public function __construct()
+    /** @param class-string<TRow> $rowClass As of now, this parameter is only used to enforce generic type instantiation. */
+    public function __construct(string $rowClass)
     {
         $this->rows = new Collection([]);
     }
@@ -32,23 +33,27 @@ class DataSection implements Section
     {
         $this->validate();
 
-        if ($this->rows->first() === null) {
+        $firstRow = $this->rows->first();
+        if ($firstRow === null) {
             throw new IlluminaSampleSheetException('Data section must contain at least one row.');
         }
-        $header = $this->rows->first()->getColumns()->implode(',');
-        $rowsData = $this->rows->map(fn (Row $row) => $row->toString())->implode("\n");
+        $header = $firstRow->getColumns()
+            ->implode(',');
 
-        return "[Data]\n{$header}\n" . $rowsData . "\n";
+        $rowsData = $this->rows
+            ->map(fn (Row $row): string => $row->toString())
+            ->implode("\n");
+
+        return "[Data]\n{$header}\n{$rowsData}\n";
     }
 
     protected function validateDuplicatedSampleIDs(): void
     {
-        $hasUniqueSampleIDs = $this->rows
-                ->map(fn (Row $row) => $row->sampleID)
-                ->unique()
-                ->count() === $this->rows->count();
-
-        if (! $hasUniqueSampleIDs) {
+        $uniqueSampleIDs = $this->rows
+            ->map(fn (Row $row) => $row->sampleID)
+            ->unique()
+            ->count();
+        if ($uniqueSampleIDs !== $this->rows->count()) {
             throw new IlluminaSampleSheetException('Sample_ID values must be distinct.');
         }
     }

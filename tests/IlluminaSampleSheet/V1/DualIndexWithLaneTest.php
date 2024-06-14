@@ -155,10 +155,9 @@ Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_I
 
     public function testWorksIfDataSectionIsReturnedByMethod(): void
     {
-        /** @var DataSection<RowForDualIndexWithLane> $sampleSheetDataSection */
-        $sampleSheetDataSection = $this->returnBla();
-        $dualIndex = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
+        $sampleSheetDataSection = new DataSection(RowForDualIndexWithLane::class);
 
+        $dualIndex = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
         $sampleSheetDataSection->addRow(
             new RowForDualIndexWithLane(
                 $dualIndex,
@@ -171,8 +170,8 @@ Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_I
                 'description'
             )
         );
-        $singleIndex = new SingleIndex('ACGT');
 
+        $singleIndex = new SingleIndex('ACGT');
         $sampleSheetDataSection->addRow(
             // @phpstan-ignore-next-line expecting a type error due to mismatching coordinates
             new RowForSingleIndex(
@@ -185,22 +184,11 @@ Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_I
         $this->expectNotToPerformAssertions();
     }
 
-    /** @return DataSection<RowForDualIndexWithLane> */
-    public function returnBla(): DataSection
-    {
-        /** @var DataSection<RowForDualIndexWithLane> $dataSection */
-        $dataSection = new DataSection();
-
-        return $dataSection;
-    }
-
     public function testWorksNotIfDataSectionIsCreatedBecauseWeAreNotForcedToSpecifyConcreteType(): void
     {
-        // TODO how to enfore that this type is written
-        /** @var DataSection<RowForDualIndexWithLane> $sampleSheetDataSection */
-        $sampleSheetDataSection = new DataSection();
-        $dualIndex = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
+        $sampleSheetDataSection = new DataSection(RowForDualIndexWithLane::class);
 
+        $dualIndex = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
         $sampleSheetDataSection->addRow(
             new RowForDualIndexWithLane(
                 $dualIndex,
@@ -213,10 +201,10 @@ Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_I
                 'description'
             )
         );
-        $singleIndex = new SingleIndex('ACGT');
 
+        $singleIndex = new SingleIndex('ACGT');
         $sampleSheetDataSection->addRow(
-            // @phpstan-ignore-next-line expecting a type error due to mismatching row types
+            // @phpstan-ignore-next-line expecting a type error due to mismatching coordinates
             new RowForSingleIndex(
                 $singleIndex,
                 '1',

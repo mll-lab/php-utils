@@ -51,7 +51,7 @@ class SectionedMicroplate extends AbstractMicroplate
 
     public function wells(): Collection
     {
-        // @phpstan-ignore-next-line
+        // @phpstan-ignore-next-line generic type is not recognized correctly
         return $this->sections
             ->map(fn (AbstractSection $section): Collection => $section->sectionItems)
             ->flatten(1)
