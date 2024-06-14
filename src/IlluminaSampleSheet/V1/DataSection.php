@@ -37,28 +37,31 @@ class DataSection implements Section
     {
         $this->validate();
 
-        $firstRow = $this->rows->first();
-        if ($firstRow === null) {
+        if ($this->rows->isEmpty()) {
             throw new IlluminaSampleSheetException('Data section must contain at least one row.');
         }
-        $header = $firstRow->getColumns()
-            ->implode(',');
+        /** @var Row $firstRow */
+        $firstRow = $this->rows->first();
 
         $rowsData = $this->rows
             ->map(fn (Row $row): string => $row->toString())
             ->implode("\n");
 
-        return "[Data]\n{$header}\n{$rowsData}\n";
+        return "[Data]\n{$firstRow->headerLine()}\n{$rowsData}\n";
     }
 
     protected function validateDuplicatedSampleIDs(): void
     {
-        $uniqueSampleIDs = $this->rows
-            ->map(fn (Row $row) => $row->sampleID)
-            ->unique()
-            ->count();
-        if ($uniqueSampleIDs !== $this->rows->count()) {
-            throw new IlluminaSampleSheetException('Sample_ID values must be distinct.');
+        $groups = $this->rows
+            ->groupBy(fn (Row $row) => $row->sampleID);
+
+        $duplicates = $groups
+            ->filter(fn ($group) => count($group) > 1)
+            ->keys();
+        $duplicateIDsAsString = $duplicates->implode(', ');
+
+        if ($duplicates->isNotEmpty()) {
+            throw new IlluminaSampleSheetException("Sample_ID values must be distinct. Duplicated SampleIDs: {$duplicateIDsAsString}");
         }
     }
 }

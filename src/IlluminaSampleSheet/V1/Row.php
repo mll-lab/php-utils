@@ -2,14 +2,11 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V1;
 
-use Illuminate\Support\Collection;
-
 abstract class Row
 {
     public string $sampleID;
 
     abstract public function toString(): string;
 
-    /** @return Collection<int, string> */
-    abstract public function getColumns(): Collection;
+    abstract public function headerLine(): string;
 }
