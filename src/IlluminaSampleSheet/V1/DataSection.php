@@ -12,7 +12,11 @@ class DataSection implements Section
     /** @var Collection<int, TRow> */
     public Collection $rows;
 
-    /** @param class-string<TRow> $rowClass As of now, this parameter is only used to enforce generic type instantiation. */
+    /**
+     * @param class-string<TRow> $rowClass
+     *
+     * @phpstan-ignore-next-line As of now, $rowClass is only used to enforce generic type instantiation.
+     */
     public function __construct(string $rowClass)
     {
         $this->rows = new Collection([]);

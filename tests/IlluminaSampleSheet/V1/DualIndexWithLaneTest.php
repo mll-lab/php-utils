@@ -8,10 +8,9 @@ use MLL\Utils\IlluminaSampleSheet\V1\DualIndex;
 use MLL\Utils\IlluminaSampleSheet\V1\HeaderSection;
 use MLL\Utils\IlluminaSampleSheet\V1\ReadsSection;
 use MLL\Utils\IlluminaSampleSheet\V1\RowForDualIndexWithLane;
-use MLL\Utils\IlluminaSampleSheet\V1\RowForSingleIndex;
+use MLL\Utils\IlluminaSampleSheet\V1\RowForDualIndexWithoutLane;
 use MLL\Utils\IlluminaSampleSheet\V1\SampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V1\SettingsSection;
-use MLL\Utils\IlluminaSampleSheet\V1\SingleIndex;
 use PHPUnit\Framework\TestCase;
 
 class DualIndexWithLaneTest extends TestCase
@@ -32,7 +31,7 @@ class DualIndexWithLaneTest extends TestCase
 
         $readsSection = new ReadsSection(101, 101);
 
-        $sampleSheetData = new DataSection();
+        $sampleSheetData = new DataSection(RowForDualIndexWithLane::class);
         $sampleSheetData->addRow(
             new RowForDualIndexWithLane(
                 new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG'),
@@ -115,7 +114,7 @@ Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_I
         $readsSection = new ReadsSection(101, 101);
 
         /** @var DataSection<RowForDualIndexWithLane> $sampleSheetDataSection */
-        $sampleSheetDataSection = new DataSection();
+        $sampleSheetDataSection = new DataSection(RowForDualIndexWithLane::class);
         $dualIndex1 = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
 
         $sampleSheetDataSection->addRow(
@@ -153,15 +152,15 @@ Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_I
         $novaSeqSampleSheet->toString();
     }
 
-    public function testWorksIfDataSectionIsReturnedByMethod(): void
+    public function testWorksNotWhenRowWithWrongTypeIsAdded(): void
     {
         $sampleSheetDataSection = new DataSection(RowForDualIndexWithLane::class);
 
         $dualIndex = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
         $sampleSheetDataSection->addRow(
-            new RowForDualIndexWithLane(
+            // @phpstan-ignore-next-line expecting a type error due to mismatching row types
+            new RowForDualIndexWithoutLane(
                 $dualIndex,
-                1,
                 '1',
                 'Sample-001-M001',
                 'RunXXXX-PLATE',
@@ -171,47 +170,6 @@ Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_I
             )
         );
 
-        $singleIndex = new SingleIndex('ACGT');
-        $sampleSheetDataSection->addRow(
-            // @phpstan-ignore-next-line expecting a type error due to mismatching coordinates
-            new RowForSingleIndex(
-                $singleIndex,
-                '1',
-                'Sample-002-M002',
-                'RunXXXX-PLATE',
-            )
-        );
-        $this->expectNotToPerformAssertions();
-    }
-
-    public function testWorksNotIfDataSectionIsCreatedBecauseWeAreNotForcedToSpecifyConcreteType(): void
-    {
-        $sampleSheetDataSection = new DataSection(RowForDualIndexWithLane::class);
-
-        $dualIndex = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
-        $sampleSheetDataSection->addRow(
-            new RowForDualIndexWithLane(
-                $dualIndex,
-                1,
-                '1',
-                'Sample-001-M001',
-                'RunXXXX-PLATE',
-                '',
-                'RunXXXX-PROJECT',
-                'description'
-            )
-        );
-
-        $singleIndex = new SingleIndex('ACGT');
-        $sampleSheetDataSection->addRow(
-            // @phpstan-ignore-next-line expecting a type error due to mismatching coordinates
-            new RowForSingleIndex(
-                $singleIndex,
-                '1',
-                'Sample-002-M002',
-                'RunXXXX-PLATE',
-            )
-        );
         $this->expectNotToPerformAssertions();
     }
 }

@@ -7,6 +7,7 @@ use MLL\Utils\IlluminaSampleSheet\V1\DataSection;
 use MLL\Utils\IlluminaSampleSheet\V1\DualIndex;
 use MLL\Utils\IlluminaSampleSheet\V1\HeaderSection;
 use MLL\Utils\IlluminaSampleSheet\V1\ReadsSection;
+use MLL\Utils\IlluminaSampleSheet\V1\RowForDualIndexWithLane;
 use MLL\Utils\IlluminaSampleSheet\V1\RowForDualIndexWithoutLane;
 use MLL\Utils\IlluminaSampleSheet\V1\SampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V1\SettingsSection;
@@ -30,7 +31,7 @@ class DualIndexWithoutLaneTest extends TestCase
 
         $readsSection = new ReadsSection(101, 101);
         /** @var DataSection<RowForDualIndexWithoutLane> $sampleSheetDataSection */
-        $sampleSheetDataSection = new DataSection();
+        $sampleSheetDataSection = new DataSection(RowForDualIndexWithoutLane::class);
         $dualIndex1 = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
 
         $sampleSheetDataSection->addRow(
@@ -115,7 +116,7 @@ Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Ind
 
         $readsSection = new ReadsSection(101, 101);
 
-        $sampleSheetDataSection = new DataSection();
+        $sampleSheetDataSection = new DataSection(RowForDualIndexWithoutLane::class);
         $dualIndex1 = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
 
         $sampleSheetDataSection->addRow(
@@ -149,5 +150,27 @@ Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Ind
         $this->expectException(IlluminaSampleSheetException::class);
         $this->expectExceptionMessage('Sample_ID values must be distinct');
         $novaSeqSampleSheet->toString();
+    }
+
+    public function testWorksNotWhenRowWithWrongTypeIsAdded(): void
+    {
+        $sampleSheetDataSection = new DataSection(RowForDualIndexWithoutLane::class);
+
+        $dualIndex = new DualIndex('UDP0090', 'TCAGGCTT', 'UDP0090', 'ATCATGCG');
+        $sampleSheetDataSection->addRow(
+            // @phpstan-ignore-next-line expecting a type error due to mismatching row types
+            new RowForDualIndexWithLane(
+                $dualIndex,
+                1,
+                '1',
+                'Sample-001-M001',
+                'RunXXXX-PLATE',
+                '',
+                'RunXXXX-PROJECT',
+                'description'
+            )
+        );
+
+        $this->expectNotToPerformAssertions();
     }
 }
