@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v2.2.0
+
+### Added
+
+- add `DnaSequence`-class
+
 ## v2.1.0
 
 ### Added
