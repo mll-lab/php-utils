@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\IlluminaSampleSheet;
 
-abstract class SampleSheet
+abstract class BaseSampleSheet
 {
     /** @var array<Section> */
     protected array $sections = [];

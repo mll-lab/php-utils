@@ -2,10 +2,10 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2;
 
-use MLL\Utils\IlluminaSampleSheet\SampleSheet;
+use MLL\Utils\IlluminaSampleSheet\BaseSampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclConvertSection;
 
-class NovaSeqXSampleSheet extends SampleSheet
+class NovaSeqXSampleSheet extends BaseSampleSheet
 {
     public function __construct(
         HeaderSection $header,

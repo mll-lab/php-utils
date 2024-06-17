@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v2.1.0
+
+### Added
+
+- Support creating Illumina Sample Sheets (V1) for NovaSeq
+
 ## v2.0.0
 
 ### Changed
