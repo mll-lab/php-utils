@@ -13,7 +13,7 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ### Added
 
-- add `DnaSequence`-class
+- Add class `DnaSequence`
 
 ## v2.1.0
 
