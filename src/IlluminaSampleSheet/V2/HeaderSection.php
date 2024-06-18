@@ -27,6 +27,12 @@ class HeaderSection implements Section
         $this->runName = $runName;
     }
 
+    public static function isForwardIndexOrientation(): bool
+    {
+        // Added this static method to explicitly display that this flag influences Index2 in OverrideCycles.
+        return HeaderSection::indexOrientation() === HeaderSection::INDEX_ORIENTATION_FORWARD;
+    }
+
     public function setCustomParam(string $paramName, string $paramValue): void
     {
         $this->customParams['Custom_' . $paramName] = $paramValue;
@@ -60,7 +66,6 @@ class HeaderSection implements Section
     public static function indexOrientation(): string
     {
         // Only support the default IndexOrientation (Forward) for now.
-        // Added method to explicitly display that this flag influences Index2 in OverrideCycles.
         return self::INDEX_ORIENTATION_FORWARD;
     }
 }

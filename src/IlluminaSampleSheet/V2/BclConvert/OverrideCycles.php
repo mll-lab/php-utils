@@ -28,8 +28,6 @@ class OverrideCycles
 
     public function toString(): string
     {
-        $secondIndexIsForward = HeaderSection::indexOrientation() === HeaderSection::INDEX_ORIENTATION_FORWARD;
-
         $dataSection = $this->dataSection;
 
         if ($this->index2 instanceof OverrideCycle) {
@@ -38,7 +36,7 @@ class OverrideCycles
                 throw new IlluminaSampleSheetException('MaxIndex2Cycles is required when Index2 is set.');
             }
 
-            $index2 = $this->index2->toString($maxIndex2Cycles, $secondIndexIsForward);
+            $index2 = $this->index2->toString($maxIndex2Cycles, HeaderSection::isForwardIndexOrientation());
         } else {
             $index2 = null;
         }
@@ -72,4 +70,5 @@ class OverrideCycles
             )
         );
     }
+
 }
