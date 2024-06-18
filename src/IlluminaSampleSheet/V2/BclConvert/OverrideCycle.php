@@ -37,6 +37,11 @@ class OverrideCycle
 
     public function sumCountOfAllCycles(): int
     {
-        return array_sum(array_map(fn (CycleTypeWithCount $cycleTypeWithCount): int => $cycleTypeWithCount->count, $this->cycles));
+        return array_sum(
+            array_map(
+                fn (CycleTypeWithCount $cycleTypeWithCount): int => $cycleTypeWithCount->count,
+                $this->cycles
+            )
+        );
     }
 }

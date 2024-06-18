@@ -70,7 +70,10 @@ class DataSection implements Section
     public function maxRead1Cycles(): int
     {
         $max = $this->dataRows
-            ->max(fn (BclSample $dataRow) => $dataRow->overrideCycles->read1->sumCountOfAllCycles());
+            ->max(fn (BclSample $dataRow): int => $dataRow
+                ->overrideCycles
+                ->read1
+                ->sumCountOfAllCycles());
         assert(is_int($max));
 
         return $max;
@@ -79,11 +82,10 @@ class DataSection implements Section
     public function maxRead2Cycles(): ?int
     {
         $max = $this->dataRows->max(
-            fn (BclSample $dataRow) => $dataRow->overrideCycles->read2 instanceof OverrideCycle
+            fn (BclSample $dataRow): ?int => $dataRow->overrideCycles->read2 instanceof OverrideCycle
                 ? $dataRow->overrideCycles->read2->sumCountOfAllCycles()
                 : null
         );
-
         assert(is_int($max) || is_null($max));
 
         return $max;
@@ -92,7 +94,10 @@ class DataSection implements Section
     public function maxIndex1Cycles(): int
     {
         $index1Cycles = $this->dataRows
-            ->max(fn (BclSample $dataRow) => $dataRow->overrideCycles->index1->sumCountOfAllCycles());
+            ->max(fn (BclSample $dataRow): int => $dataRow
+                ->overrideCycles
+                ->index1
+                ->sumCountOfAllCycles());
         assert(is_int($index1Cycles));
 
         return $index1Cycles;
@@ -101,11 +106,10 @@ class DataSection implements Section
     public function maxIndex2Cycles(): ?int
     {
         $index2Cycles = $this->dataRows->max(
-            fn (BclSample $dataRow) => $dataRow->overrideCycles->index2 instanceof OverrideCycle
+            fn (BclSample $dataRow): ?int => $dataRow->overrideCycles->index2 instanceof OverrideCycle
                 ? $dataRow->overrideCycles->index2->sumCountOfAllCycles()
                 : null
         );
-
         assert(is_int($index2Cycles) || is_null($index2Cycles));
 
         return $index2Cycles;
