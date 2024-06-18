@@ -2,8 +2,6 @@
 
 namespace MLL\Utils;
 
-use Illuminate\Support\Str;
-
 class DnaSequence
 {
     protected string $sequence;
@@ -33,11 +31,11 @@ class DnaSequence
 
     private function complementSequence(string $sequence): string
     {
-        return Str::swap([
+        return strtr($sequence, [
             'A' => 'T',
             'T' => 'A',
             'G' => 'C',
             'C' => 'G',
-        ], $sequence);
+        ]);
     }
 }
