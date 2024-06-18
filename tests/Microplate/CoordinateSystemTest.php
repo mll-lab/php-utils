@@ -6,12 +6,13 @@ use MLL\Utils\Microplate\CoordinateSystem;
 use MLL\Utils\Microplate\CoordinateSystem12Well;
 use MLL\Utils\Microplate\CoordinateSystem48Well;
 use MLL\Utils\Microplate\CoordinateSystem96Well;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class CoordinateSystemTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('firstLast')]
     /** @dataProvider firstLast */
+    #[DataProvider('firstLast')]
     public function testFirstLast(CoordinateSystem $coordinateSystem, string $expectedFirst, string $expectedLast): void
     {
         $actualFirst = $coordinateSystem->first();

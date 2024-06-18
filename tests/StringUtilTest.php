@@ -4,6 +4,7 @@ namespace MLL\Utils\Tests;
 
 use Illuminate\Support\Collection;
 use MLL\Utils\StringUtil;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class StringUtilTest extends TestCase
@@ -13,7 +14,7 @@ final class StringUtilTest extends TestCase
      *
      * @param iterable<string|null> $parts
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('joinNonEmpty')]
+    #[DataProvider('joinNonEmpty')]
     public function testJoinNonEmpty(string $expectedJoined, string $glue, iterable $parts): void
     {
         self::assertSame(
@@ -30,8 +31,8 @@ final class StringUtilTest extends TestCase
         yield ['a,b', ',', new Collection(['a', null, '', 'b'])];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('shortenFirstname')]
     /** @dataProvider shortenFirstname */
+    #[DataProvider('shortenFirstname')]
     public function testShortenFirstname(string $expectedShortened, string $input): void
     {
         self::assertSame(
@@ -55,7 +56,7 @@ final class StringUtilTest extends TestCase
      *
      * @param array<int, string> $expectedLines
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('splitLines')]
+    #[DataProvider('splitLines')]
     public function testSplitLines(array $expectedLines, string $input): void
     {
         self::assertSame($expectedLines, StringUtil::splitLines($input));

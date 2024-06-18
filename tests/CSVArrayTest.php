@@ -3,6 +3,7 @@
 namespace MLL\Utils\Tests;
 
 use MLL\Utils\CSVArray;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /** @phpstan-import-type CSVPrimitive from CSVArray */
@@ -46,7 +47,7 @@ final class CSVArrayTest extends TestCase
      *
      * @param array<int, array<string, string>> $array
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('csvAndArrayStringValues')]
+    #[DataProvider('csvAndArrayStringValues')]
     public function testStringValues(string $csv, array $array): void
     {
         self::assertSame($array, CSVArray::toArray($csv));

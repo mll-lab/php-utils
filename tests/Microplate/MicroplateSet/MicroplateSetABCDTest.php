@@ -6,6 +6,7 @@ use MLL\Utils\Microplate\CoordinateSystem12Well;
 use MLL\Utils\Microplate\CoordinateSystem96Well;
 use MLL\Utils\Microplate\Enums\FlowDirection;
 use MLL\Utils\Microplate\MicroplateSet\MicroplateSetABCD;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class MicroplateSetABCDTest extends TestCase
@@ -46,8 +47,8 @@ final class MicroplateSetABCDTest extends TestCase
         $microplateSet->locationFromPosition($setPositionLowerThanMin, FlowDirection::COLUMN());
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider12Well')]
     /** @dataProvider dataProvider12Well */
+    #[DataProvider('dataProvider12Well')]
     public function testSetLocationFromSetPositionFor12Wells(int $position, string $coordinatesString, string $plateID): void
     {
         $microplateSet = new MicroplateSetABCD(new CoordinateSystem12Well());
@@ -92,8 +93,8 @@ final class MicroplateSetABCDTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider96Well')]
     /** @dataProvider dataProvider96Well */
+    #[DataProvider('dataProvider96Well')]
     public function testSetLocationFromSetPositionFor96Wells(int $position, string $coordinatesString, string $plateID): void
     {
         $microplateSet = new MicroplateSetABCD(new CoordinateSystem96Well());
