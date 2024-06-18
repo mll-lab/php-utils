@@ -59,9 +59,8 @@ class HeaderSection implements Section
 
     public static function indexOrientation(): string
     {
-        // only support the default IndexOrientation,Forward for now.
-        // Added method to explicitly display than this flag
-        // influences the Index2 in the OverrideCycles
+        // Only support the default IndexOrientation (Forward) for now.
+        // Added method to explicitly display that this flag influences Index2 in OverrideCycles.
         return self::INDEX_ORIENTATION_FORWARD;
     }
 }
