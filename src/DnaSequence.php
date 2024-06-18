@@ -18,7 +18,7 @@ class DnaSequence
 
     public function reverse(): string
     {
-        return Str::reverse($this->sequence);
+        return implode(array_reverse(mb_str_split($this->sequence)));
     }
 
     public function complement(): string
