@@ -53,7 +53,7 @@ final class NovaSeqXCloudSampleSheetTest extends TestCase
         $bclSample3->adapterRead1 = 'Adapter5';
         $bclSample3->adapterRead2 = 'Adapter6';
 
-        $overrideCycles4 = new OverrideCycles($bclConvertDataSection, 'U5N2Y94', 'I8', 'I8', 'U5N2Y94');
+        $overrideCycles4 = new OverrideCycles($bclConvertDataSection, 'U5N2Y94', 'I6', 'I8', 'U5N2Y94');
         $bclSample4 = new BclSample(6, 'Sample5', 'Index5', $overrideCycles4);
         $bclSample4->index2 = 'Index6';
 
@@ -97,7 +97,7 @@ Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2
 2,Sample2,Index3,Index4,Y151;I8;U10;Y151,Adapter3,Adapter4
 3,Sample3,Index5,Index6,Y151;I8;N2I8;U10N12Y127N2,Adapter5,Adapter6
 8,Sample4,Index5,Index6,Y101N50;I8;N2I8;Y101N50,Adapter5,Adapter6
-6,Sample5,Index5,Index6,U5N2Y94N50;I8;N2I8;U5N2Y94N50,Adapter5,Adapter6
+6,Sample5,Index5,Index6,U5N2Y94N50;I6N2;N2I8;U5N2Y94N50,Adapter5,Adapter6
 ';
 
         self::assertSame($expected, $novaSeqXCloudSampleSheet->toString());
