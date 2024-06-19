@@ -7,6 +7,7 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 class HeaderSection implements Section
 {
     protected const FILE_FORMAT_VERSION = '2';
+    public const INDEX_ORIENTATION_FORWARD = 'Forward';
 
     protected string $fileFormatVersion = self::FILE_FORMAT_VERSION;
 
@@ -26,6 +27,12 @@ class HeaderSection implements Section
         $this->runName = $runName;
     }
 
+    public static function isForwardIndexOrientation(): bool
+    {
+        // Added this static method to explicitly display that this flag influences Index2 in OverrideCycles.
+        return HeaderSection::indexOrientation() === HeaderSection::INDEX_ORIENTATION_FORWARD;
+    }
+
     public function setCustomParam(string $paramName, string $paramValue): void
     {
         $this->customParams['Custom_' . $paramName] = $paramValue;
@@ -33,10 +40,12 @@ class HeaderSection implements Section
 
     public function convertSectionToString(): string
     {
+        $indexOrientation = self::indexOrientation();
         $headerLines = [
             '[Header]',
             "FileFormatVersion,{$this->fileFormatVersion}",
             "RunName,{$this->runName}",
+            "IndexOrientation,{$indexOrientation}",
         ];
         if (! is_null($this->runDescription)) {
             $headerLines[] = "RunDescription,{$this->runDescription}";
@@ -52,5 +61,11 @@ class HeaderSection implements Section
         }
 
         return implode("\n", $headerLines) . "\n";
+    }
+
+    public static function indexOrientation(): string
+    {
+        // Only support the default IndexOrientation (Forward) for now.
+        return self::INDEX_ORIENTATION_FORWARD;
     }
 }

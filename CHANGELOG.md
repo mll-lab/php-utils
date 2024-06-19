@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v2.2.1
+
+### Changed
+
+- All OverrideCycle total counts on DataSection must grow to the Reads-Sections maximum value by adding the N-tag
+
 ## v2.2.0
 
 ### Added

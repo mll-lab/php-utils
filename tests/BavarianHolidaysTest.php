@@ -4,6 +4,7 @@ namespace MLL\Utils\Tests;
 
 use Carbon\Carbon;
 use MLL\Utils\BavarianHolidays;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class BavarianHolidaysTest extends TestCase
@@ -15,24 +16,24 @@ final class BavarianHolidaysTest extends TestCase
         self::assertSame(BavarianHolidays::OSTERSONNTAG, BavarianHolidays::nameHoliday(self::easterSunday2019()));
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('businessDays')]
     /** @dataProvider businessDays */
+    #[DataProvider('businessDays')]
     public function testBusinessDays(Carbon $businessDay): void
     {
         self::assertTrue(BavarianHolidays::isBusinessDay($businessDay));
         self::assertFalse(BavarianHolidays::isHoliday($businessDay));
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('holidays')]
     /** @dataProvider holidays */
+    #[DataProvider('holidays')]
     public function testHolidays(Carbon $holiday): void
     {
         self::assertFalse(BavarianHolidays::isBusinessDay($holiday));
         self::assertTrue(BavarianHolidays::isHoliday($holiday));
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('weekend')]
     /** @dataProvider weekend */
+    #[DataProvider('weekend')]
     public function testWeekend(Carbon $weekend): void
     {
         self::assertFalse(BavarianHolidays::isBusinessDay($weekend));

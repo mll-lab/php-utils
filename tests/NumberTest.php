@@ -3,6 +3,7 @@
 namespace MLL\Utils\Tests;
 
 use MLL\Utils\Number;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class NumberTest extends TestCase
@@ -15,7 +16,7 @@ final class NumberTest extends TestCase
      * @param float|int $current
      * @param float|int $expected
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('clampProvider')]
+    #[DataProvider('clampProvider')]
     public function testClamp($min, $max, $current, $expected): void
     {
         self::assertSame($expected, Number::clamp($min, $max, $current));

@@ -4,11 +4,13 @@ namespace MLL\Utils\Tests\IlluminaSampleSheet\V1;
 
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 use MLL\Utils\IlluminaSampleSheet\V1\DualIndex;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DualIndexTest extends TestCase
 {
     /** @dataProvider provideValidDualIndexes */
+    #[DataProvider('provideValidDualIndexes')]
     public function testValidate(
         string $i7IndexID,
         string $index,
