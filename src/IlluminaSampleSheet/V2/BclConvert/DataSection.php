@@ -24,9 +24,7 @@ class DataSection implements Section
 
     public function convertSectionToString(): string
     {
-        if ($this->dataRows->isEmpty()) {
-            throw new IlluminaSampleSheetException('At least one sample must be added to the DataSection.');
-        }
+        $this->assertNotEmpty();
 
         /** @var array<string> $samplePropertiesOfFirstSample */
         $samplePropertiesOfFirstSample = array_keys(get_object_vars($this->dataRows[0]));
@@ -118,5 +116,12 @@ class DataSection implements Section
         assert(is_int($index2Cycles) || is_null($index2Cycles));
 
         return $index2Cycles;
+    }
+
+    public function assertNotEmpty(): void
+    {
+        if ($this->dataRows->isEmpty()) {
+            throw new IlluminaSampleSheetException('At least one sample must be added to the DataSection.');
+        }
     }
 }

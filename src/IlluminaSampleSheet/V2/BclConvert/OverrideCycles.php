@@ -29,6 +29,7 @@ class OverrideCycles
     public function toString(): string
     {
         $dataSection = $this->dataSection;
+        $dataSection->assertNotEmpty();
 
         return implode(';', array_filter([
             $this->read1->toString($dataSection->maxRead1Cycles(), null),
