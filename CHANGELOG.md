@@ -13,17 +13,10 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ### Changed
 
+- All OverrideCycle total counts on DataSection must grow to the Reads-Sections maximum value by adding the N-tag
 - The `maxRead1Cycles`-method was falsely used for calculating `$fillUpToMax` for read2
 - Handle empty data section by exception
-
-###  Breaking
-- `OverrideCycles`-class requires `DataSection`-class to calculate the maxCycles
-
-## v2.2.1
-
-### Changed
-
-- All OverrideCycle total counts on DataSection must grow to the Reads-Sections maximum value by adding the N-tag
+- Breaking Change:`OverrideCycles`-class requires `DataSection`-class to calculate the maxCycles
 
 ## v2.2.0
 
