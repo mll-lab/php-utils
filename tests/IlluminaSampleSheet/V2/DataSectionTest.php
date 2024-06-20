@@ -19,19 +19,22 @@ final class DataSectionTest extends TestCase
         $overrideCycles = new OverrideCycles($dataSection, 'Y100', 'I11', 'I7', 'Y151');
         $dataSection->addSample(new BclSample(101, 'Sample2', 'Index3', $overrideCycles));
 
-        $expected = '[BCLConvert_Data]
+        $expected = <<<'CSV'
+[BCLConvert_Data]
 Lane,Sample_ID,Index,OverrideCycles
 100,Sample1,Index1,Y130;I8N3;I10;Y100N51
 101,Sample2,Index3,Y100N30;I11;N3I7;Y151
-';
+
+CSV;
         self::assertSame($expected, $dataSection->convertSectionToString());
     }
 
     public function testThrowsExceptionIfDataSectionIsEmpty(): void
     {
+        $dataSection = new DataSection();
+
         $this->expectException(IlluminaSampleSheetException::class);
         $this->expectExceptionMessage('At least one sample must be added to the DataSection.');
-        $dataSection = new DataSection();
         $dataSection->convertSectionToString();
     }
 }
