@@ -2,6 +2,8 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
+use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
+
 class OverrideCycle
 {
     /** @var array<CycleTypeWithCount> */
@@ -17,8 +19,9 @@ class OverrideCycle
     public function toString(int $fillUpToMax, ?bool $isSecondIndexAndForwardDirection): string
     {
         $countOfAllCycleTypes = $this->sumCountOfAllCycles();
-        assert($countOfAllCycleTypes <= $fillUpToMax, 'The sum of all cycle types must be less than or equal to the fill up to max value. $countOfAllCycleTypes: ' . $countOfAllCycleTypes . ' > $fillUpToMax: ' . $fillUpToMax);
-
+        if ($countOfAllCycleTypes > $fillUpToMax) {
+            throw new IlluminaSampleSheetException("The sum of all cycle types must be less than or equal to the fill up to max value. \$countOfAllCycleTypes: {$countOfAllCycleTypes} > \$fillUpToMax: {$fillUpToMax}");
+        }
         $rawOverrideCycle = implode('', array_map(
             fn (CycleTypeWithCount $cycle): string => $cycle->toString(),
             $this->cycles
