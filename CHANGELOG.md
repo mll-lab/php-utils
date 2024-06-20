@@ -13,7 +13,8 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ### Changed
 
--  `maxRead1Cycles`-method is falsely used for calculating `$fillUpToMax` for read2
+- The `maxRead1Cycles`-method was falsely used for calculating `$fillUpToMax` for read2
+- Handle empty data section by exception
 
 ## v2.2.1
 

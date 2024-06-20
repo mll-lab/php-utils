@@ -3,6 +3,7 @@
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 use Illuminate\Support\Collection;
+use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 use MLL\Utils\IlluminaSampleSheet\Section;
 use MLL\Utils\IlluminaSampleSheet\V2\ReadsSection;
 
@@ -23,12 +24,16 @@ class DataSection implements Section
 
     public function convertSectionToString(): string
     {
+        if ($this->dataRows->isEmpty()) {
+            throw new IlluminaSampleSheetException('At least one sample must be added to the DataSection.');
+        }
+
         /** @var array<string> $samplePropertiesOfFirstSample */
         $samplePropertiesOfFirstSample = array_keys(get_object_vars($this->dataRows[0]));
         foreach ($this->dataRows as $sample) {
             $actualProperties = array_keys(get_object_vars($sample));
             if ($samplePropertiesOfFirstSample !== $actualProperties) {
-                throw new \Exception('All samples must have the same properties. Expected: ' . \Safe\json_encode($samplePropertiesOfFirstSample) . ', Actual: ' . \Safe\json_encode($actualProperties));
+                throw new IlluminaSampleSheetException('All samples must have the same properties. Expected: ' . \Safe\json_encode($samplePropertiesOfFirstSample) . ', Actual: ' . \Safe\json_encode($actualProperties));
             }
         }
 

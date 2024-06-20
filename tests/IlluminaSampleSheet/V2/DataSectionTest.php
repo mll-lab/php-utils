@@ -2,6 +2,7 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V2;
 
+use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclSample;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\DataSection;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycles;
@@ -24,5 +25,13 @@ Lane,Sample_ID,Index,OverrideCycles
 101,Sample2,Index3,Y100N30;I11;N3I7;Y151
 ';
         self::assertSame($expected, $dataSection->convertSectionToString());
+    }
+
+    public function testThrowsExceptionIfDataSectionIsEmpty(): void
+    {
+        $this->expectException(IlluminaSampleSheetException::class);
+        $this->expectExceptionMessage('At least one sample must be added to the DataSection.');
+        $dataSection = new DataSection();
+        $dataSection->convertSectionToString();
     }
 }
