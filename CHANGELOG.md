@@ -9,12 +9,15 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
-## v2.2.2
+## v3.0.0
 
 ### Changed
 
 - The `maxRead1Cycles`-method was falsely used for calculating `$fillUpToMax` for read2
 - Handle empty data section by exception
+
+###  Breaking
+- `OverrideCycles`-class requires `DataSection`-class to calculate the maxCycles
 
 ## v2.2.1
 
