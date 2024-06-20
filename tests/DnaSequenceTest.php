@@ -5,7 +5,7 @@ namespace MLL\Utils\Tests;
 use MLL\Utils\DnaSequence;
 use PHPUnit\Framework\TestCase;
 
-class DnaSequenceTest extends TestCase
+final class DnaSequenceTest extends TestCase
 {
     public function testReverse(): void
     {

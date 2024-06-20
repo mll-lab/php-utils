@@ -7,7 +7,7 @@ use MLL\Utils\IlluminaSampleSheet\V1\DualIndex;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class DualIndexTest extends TestCase
+final class DualIndexTest extends TestCase
 {
     /** @dataProvider provideValidDualIndexes */
     #[DataProvider('provideValidDualIndexes')]

@@ -8,7 +8,7 @@ use MLL\Utils\IlluminaSampleSheet\V1\RowForDualIndexWithLane;
 use MLL\Utils\IlluminaSampleSheet\V1\RowForDualIndexWithoutLane;
 use PHPUnit\Framework\TestCase;
 
-class DataSectionTest extends TestCase
+final class DataSectionTest extends TestCase
 {
     public function testDataSectionWithDualIndexWithLaneWorksNotWhenRowWithWrongTypeIsAdded(): void
     {
