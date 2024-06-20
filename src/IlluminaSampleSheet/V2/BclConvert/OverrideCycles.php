@@ -30,24 +30,11 @@ class OverrideCycles
     {
         $dataSection = $this->dataSection;
 
-        if ($this->index2 instanceof OverrideCycle) {
-            $maxIndex2Cycles = $dataSection->maxIndex2Cycles();
-            if ($maxIndex2Cycles === null) {
-                throw new IlluminaSampleSheetException('MaxIndex2Cycles is required when Index2 is set.');
-            }
-
-            $index2 = $this->index2->toString($maxIndex2Cycles, HeaderSection::isForwardIndexOrientation());
-        } else {
-            $index2 = null;
-        }
-
         return implode(';', array_filter([
             $this->read1->toString($dataSection->maxRead1Cycles(), null),
             $this->index1->toString($dataSection->maxIndex1Cycles(), null),
-            $index2,
-            $this->read2 instanceof OverrideCycle
-                ? $this->read2->toString($dataSection->maxRead1Cycles(), null)
-                : null,
+            $this->index2(),
+            $this->read2(),
         ]));
     }
 
@@ -69,5 +56,31 @@ class OverrideCycles
                 $matches
             )
         );
+    }
+
+    private function index2(): ?string
+    {
+        if (! $this->index2 instanceof OverrideCycle) {
+            return null;
+        }
+        $maxIndex2Cycles = $this->dataSection->maxIndex2Cycles();
+        if ($maxIndex2Cycles === null) {
+            throw new IlluminaSampleSheetException('MaxIndex2Cycles is required when Index2 is set.');
+        }
+
+        return $this->index2->toString($maxIndex2Cycles, HeaderSection::isForwardIndexOrientation());
+    }
+
+    private function read2(): ?string
+    {
+        if (! $this->read2 instanceof OverrideCycle) {
+            return null;
+        }
+        $maxIndex2Cycles = $this->dataSection->maxRead2Cycles();
+        if ($maxIndex2Cycles === null) {
+            throw new IlluminaSampleSheetException('MaxRead2Cycles is required when Read2 is set.');
+        }
+
+        return $this->read2->toString($maxIndex2Cycles, null);
     }
 }
