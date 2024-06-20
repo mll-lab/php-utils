@@ -13,7 +13,7 @@ use MLL\Utils\IlluminaSampleSheet\V1\SampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V1\SettingsSection;
 use PHPUnit\Framework\TestCase;
 
-class SampleSheetTest extends TestCase
+final class SampleSheetTest extends TestCase
 {
     public function testDataSectionWithDualIndexWithLaneShouldReturnExpectedResult(): void
     {
