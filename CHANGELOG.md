@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v3.1.0
+
+### Changed
+
+- Add optional column `Project` to Illumina Sample Sheets (V2) for NovaSeq
+
 ## v3.0.0
 
 ### Changed

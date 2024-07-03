@@ -23,6 +23,8 @@ class BclSample
 
     public ?string $barcodeMismatchesIndex2 = null;
 
+    public ?string $project = null;
+
     public function __construct(
         int $lane,
         string $sample_ID,
@@ -48,6 +50,7 @@ class BclSample
             $this->adapterRead2,
             $this->barcodeMismatchesIndex1,
             $this->barcodeMismatchesIndex2,
+            $this->project,
         ]);
     }
 }
