@@ -37,4 +37,22 @@ CSV;
         $this->expectExceptionMessage('At least one sample must be added to the DataSection.');
         $dataSection->convertSectionToString();
     }
+
+    public function testToStringWithProject(): void
+    {
+        $dataSection = new DataSection();
+        $overrideCycles = new OverrideCycles($dataSection, 'Y130', 'I8', 'I10', 'Y100');
+        $bclSample = new BclSample(100, 'Sample1', 'Index1', $overrideCycles);
+        $bclSample->project = 'foo';
+        $dataSection->addSample($bclSample);
+
+        $expected = <<<'CSV'
+[BCLConvert_Data]
+Lane,Sample_ID,Index,OverrideCycles,Project
+100,Sample1,Index1,Y130;I8;I10;Y100,foo
+
+CSV;
+
+        self::assertSame($expected, $dataSection->convertSectionToString());
+    }
 }
