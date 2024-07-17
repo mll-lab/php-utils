@@ -107,4 +107,4 @@ jobs:
 
       - run: vendor/bin/phpunit --coverage-clover=.build/logs/clover.xml
 
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
