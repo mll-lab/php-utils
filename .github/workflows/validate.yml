@@ -55,9 +55,13 @@ jobs:
           - lowest
           - highest
         illuminate:
+          - ^8.73
+          - ^9
           - ^10
           - ^11
         exclude:
+          - php-version: "7.4"
+            illuminate: ^9
           - php-version: "7.4"
             illuminate: ^10
           - php-version: "7.4"
