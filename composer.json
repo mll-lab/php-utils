@@ -19,7 +19,7 @@
     "ext-calendar": "*",
     "illuminate/support": "^8.73 || ^9 || ^10 || ^11",
     "mll-lab/str_putcsv": "^1",
-    "nesbot/carbon": "^2.62.1",
+    "nesbot/carbon": "^2 || ^3",
     "ramsey/uuid": "^3 || ^4",
     "thecodingmachine/safe": "^1 || ^2"
   },
