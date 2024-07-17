@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v3.2.0
+
+### Added
+
+- Support `nesbot/carbon` 3
+
 ## v3.1.0
 
 ### Changed

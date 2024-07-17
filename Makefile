@@ -5,6 +5,8 @@ it: fix stan test ## Run the commonly used targets
 help: ## Displays this list of targets with descriptions
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(firstword $(MAKEFILE_LIST)) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
+setup: vendor ## Set up the repository
+
 .PHONY: coverage
 coverage: vendor ## Collects coverage from running unit tests with phpunit
 	mkdir --parents .build/phpunit
