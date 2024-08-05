@@ -15,4 +15,7 @@ interface Rack
 
     /** Serializes the rack parameters as part of a pipetting instruction according the gwl file format. */
     public function toString(): string;
+
+    /** Number of positions on the rack. */
+    public function positionCount(): int;
 }

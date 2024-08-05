@@ -7,14 +7,59 @@ use MLL\Utils\Tecan\Rack\DestLC;
 use MLL\Utils\Tecan\Rack\DestPCR;
 use MLL\Utils\Tecan\Rack\DestTaqMan;
 use MLL\Utils\Tecan\Rack\FluidXRack;
+use MLL\Utils\Tecan\Rack\InvalidPositionOnRack;
 use MLL\Utils\Tecan\Rack\MasterMixRack;
 use MLL\Utils\Tecan\Rack\MPCDNA;
 use MLL\Utils\Tecan\Rack\MPSample;
 use MLL\Utils\Tecan\Rack\MPWater;
+use MLL\Utils\Tecan\Rack\NoEmptyPositionOnRack;
 use PHPUnit\Framework\TestCase;
 
 final class RackTest extends TestCase
 {
+    public function assignsFirstEmptyPosition(): void
+    {
+        $rack = new MasterMixRack();
+        self::assertSame(32, $rack->positionCount());
+
+        $position = $rack->assignFirstEmptyPosition('Sample');
+        self::assertEquals(1, $position);
+        self::assertEquals('Sample', $rack->positions[1]);
+    }
+
+    public function assignsLastEmptyPosition(): void
+    {
+        $rack = new MasterMixRack();
+        $lastPosition = 32;
+        self::assertSame($lastPosition, $rack->positionCount());
+
+        $position = $rack->assignLastEmptyPosition('Sample');
+        self::assertEquals($lastPosition, $position);
+        self::assertEquals('Sample', $rack->positions[$lastPosition]);
+    }
+
+    public function throwsExceptionWhenNoEmptyPosition(): void
+    {
+        $rack = new MPWater();
+        $lastPosition = 1;
+        self::assertSame($lastPosition, $rack->positionCount());
+
+        $rack->assignFirstEmptyPosition('Sample');
+
+        $this->expectException(NoEmptyPositionOnRack::class);
+        $rack->assignFirstEmptyPosition('AnotherSample');
+    }
+
+    public function throwsExceptionForInvalidPosition(): void
+    {
+        $rack = new MasterMixRack();
+        $lastPosition = 32;
+        self::assertSame($lastPosition, $rack->positionCount());
+
+        $this->expectException(InvalidPositionOnRack::class);
+        $rack->assignPosition('Sample', $lastPosition + 1);
+    }
+
     public function testRackA(): void
     {
         $rack = new AlublockA();

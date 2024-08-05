@@ -16,22 +16,10 @@ abstract class RackBase implements Rack
             ->mapWithKeys(fn (int $item) => [$item => self::EMPTY_POSITION]);
     }
 
-    public function assignFirstEmptyPosition(string $name): int
-    {
-        return $this->assignPosition($name, $this->findFirstEmptyPosition());
-    }
-
-    public function assignLastEmptyPosition(string $name): int
-    {
-        return $this->assignPosition($name, $this->findLastEmptyPosition());
-    }
-
     public function id(): ?string
     {
         return null;
     }
-
-    abstract public function positionCount(): int;
 
     public function toString(): string
     {
@@ -43,6 +31,16 @@ abstract class RackBase implements Rack
                 $this->type(),
             ]
         );
+    }
+
+    public function assignFirstEmptyPosition(string $name): int
+    {
+        return $this->assignPosition($name, $this->findFirstEmptyPosition());
+    }
+
+    public function assignLastEmptyPosition(string $name): int
+    {
+        return $this->assignPosition($name, $this->findLastEmptyPosition());
     }
 
     public function findFirstEmptyPosition(): int
