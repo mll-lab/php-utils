@@ -17,28 +17,24 @@ abstract class RackBase implements Rack
     }
 
     public function assignFirstEmptyPosition(string $name): int
-{
-    $firstEmptyPosition = $this->positions->search(self::EMPTY_POSITION);
-    if ($firstEmptyPosition === false) {
-        throw new NoEmptyPositionOnRack();
+    {
+        $firstEmpty = $this->positions
+            ->filter(fn ($position) => $position === self::EMPTY_POSITION)
+            ->keys()
+            ->first();
+
+        return $this->assignPosition($firstEmpty, $name);
     }
 
-    $this->positions[$firstEmptyPosition] = $name;
+    public function assignLastEmptyPosition(string $name): int
+    {
+        $lastEmpty = $this->positions
+            ->filter(fn ($position) => $position === self::EMPTY_POSITION)
+            ->keys()
+            ->last();
 
-    return $firstEmptyPosition;
-}
-
-public function assignLastEmptyPosition(string $name): int
-{
-    $lastEmptyPosition = $this->positions->reverse()->search(self::EMPTY_POSITION);
-    if ($lastEmptyPosition === false) {
-        throw new NoEmptyPositionOnRack();
+        return $this->assignPosition($lastEmpty, $name);
     }
-
-    $this->positions[$lastEmptyPosition] = $name;
-
-    return $lastEmptyPosition;
-}
 
     public function id(): ?string
     {
@@ -57,5 +53,16 @@ public function assignLastEmptyPosition(string $name): int
                 $this->type(),
             ]
         );
+    }
+
+    private function assignPosition(?int $position, string $name): int
+    {
+        if ($position === null) {
+            throw new NoEmptyPositionOnRack();
+        }
+
+        $this->positions[$position] = $name;
+
+        return $position;
     }
 }
