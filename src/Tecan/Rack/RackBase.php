@@ -75,7 +75,7 @@ abstract class RackBase implements Rack
 
     public function assignPosition(string $name, int $position): int
     {
-        if (! isset($this->positions[$position])) {
+        if (! $this->positions->has($position)) {
             throw new InvalidPositionOnRack($position, $this);
         }
 
