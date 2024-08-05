@@ -2,7 +2,9 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-class NoEmptyPositionOnRack extends \RuntimeException
+use MLL\Utils\Tecan\TecanException;
+
+class NoEmptyPositionOnRack extends TecanException
 {
     public function __construct()
     {
