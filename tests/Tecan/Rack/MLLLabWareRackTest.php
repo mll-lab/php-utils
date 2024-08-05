@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class MLLLabWareRackTest extends TestCase
 {
-    public function testNameOfEnum(): void
+    public function testName(): void
     {
         self::assertSame('A', MLLLabWareRack::A()->name());
         self::assertSame('MPCDNA', MLLLabWareRack::MP_CDNA()->name());
@@ -20,7 +20,7 @@ final class MLLLabWareRackTest extends TestCase
         self::assertSame('DestTaqMan', MLLLabWareRack::DEST_TAQMAN()->name());
     }
 
-    public function testValueOfEnum(): void
+    public function testValue(): void
     {
         self::assertSame('Eppis 24x0.5 ml Cooled', MLLLabWareRack::A()->type());
         self::assertSame('MP cDNA', MLLLabWareRack::MP_CDNA()->type());

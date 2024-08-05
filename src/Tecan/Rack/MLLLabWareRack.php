@@ -2,115 +2,50 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-class MLLLabWareRack implements Rack
+class MLLLabWareRack
 {
-    public const A = 'A';
-    public const MP_CDNA = 'MPCDNA';
-    public const MP_SAMPLE = 'MPSample';
-    public const MP_WATER = 'MPWasser';
-    public const FLUID_X = 'FluidX';
-    public const MM = 'MM';
-    public const DEST_LC = 'DestLC';
-    public const DEST_PCR = 'DestPCR';
-    public const DEST_TAQMAN = 'DestTaqMan';
-
-    public string $value;
-
-    public function __construct(string $value)
+    public static function A(): Rack
     {
-        $this->value = $value;
+        return new A();
     }
 
-    public static function A(): self
+    public static function MP_CDNA(): Rack
     {
-        return new self(self::A);
+        return new MPCDNA();
     }
 
-    public static function MP_CDNA(): self
+    public static function MP_SAMPLE(): Rack
     {
-        return new self(self::MP_CDNA);
+        return new MPSample();
     }
 
-    public static function MP_SAMPLE(): self
+    public static function MP_WATER(): Rack
     {
-        return new self(self::MP_SAMPLE);
+        return new MPWater();
     }
 
-    public static function MP_WATER(): self
+    public static function FLUID_X(): Rack
     {
-        return new self(self::MP_WATER);
+        return new FluidX();
     }
 
-    public static function FLUID_X(): self
+    public static function MM(): Rack
     {
-        return new self(self::FLUID_X);
+        return new MM();
     }
 
-    public static function MM(): self
+    public static function DEST_LC(): Rack
     {
-        return new self(self::MM);
+        return new DestLC();
     }
 
-    public static function DEST_LC(): self
+    public static function DEST_PCR(): Rack
     {
-        return new self(self::DEST_LC);
+        return new DestPCR();
     }
 
-    public static function DEST_PCR(): self
+    public static function DEST_TAQMAN(): Rack
     {
-        return new self(self::DEST_PCR);
-    }
-
-    public static function DEST_TAQMAN(): self
-    {
-        return new self(self::DEST_TAQMAN);
-    }
-
-    public function id(): ?string
-    {
-        return null;
-    }
-
-    public function name(): string
-    {
-        return $this->value;
-    }
-
-    public function type(): string
-    {
-        switch ($this->value) {
-            case self::A:
-                return 'Eppis 24x0.5 ml Cooled';
-            case self::MP_CDNA:
-                return 'MP cDNA';
-            case self::MP_SAMPLE:
-                return 'MP Microplate';
-            case self::MP_WATER:
-                return 'Trough 300ml MCA Portrait';
-            case self::FLUID_X:
-                return '96FluidX';
-            case self::MM:
-                return 'Eppis 32x1.5 ml Cooled';
-            case self::DEST_LC:
-                return '96 Well MP LightCycler480';
-            case self::DEST_PCR:
-                return '96 Well PCR ABI semi-skirted';
-            case self::DEST_TAQMAN:
-                return '96 Well PCR TaqMan';
-            default:
-                throw new \Exception('Type not defined for ' . $this->value);
-        }
-    }
-
-    public function toString(): string
-    {
-        return implode(
-            ';',
-            [
-                $this->name(),
-                $this->id(),
-                $this->type(),
-            ]
-        );
+        return new DestTaqMan();
     }
 }
