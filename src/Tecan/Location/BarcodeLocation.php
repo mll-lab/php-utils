@@ -2,15 +2,15 @@
 
 namespace MLL\Utils\Tecan\Location;
 
-use MLL\Utils\Tecan\Rack\Rack;
+use MLL\Utils\Tecan\Rack\ScannedRack;
 
 class BarcodeLocation implements Location
 {
     private string $barcode;
 
-    private Rack $rack;
+    private ScannedRack $rack;
 
-    public function __construct(string $barcode, Rack $rack)
+    public function __construct(string $barcode, ScannedRack $rack)
     {
         $this->barcode = $barcode;
         $this->rack = $rack;

@@ -2,15 +2,15 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-class FluidX extends RackBase
+class MasterMixRack extends RackBase
 {
     public function type(): string
     {
-        return '96FluidX';
+        return 'Eppis 32x1.5 ml Cooled';
     }
 
     public function name(): string
     {
-        return 'FluidX';
+        return 'MM';
     }
 }

@@ -6,7 +6,7 @@ class MLLLabWareRack
 {
     public static function A(): Rack
     {
-        return new A();
+        return new AlublockA();
     }
 
     public static function MP_CDNA(): Rack
@@ -26,12 +26,12 @@ class MLLLabWareRack
 
     public static function FLUID_X(): Rack
     {
-        return new FluidX();
+        return new FluidXRack();
     }
 
     public static function MM(): Rack
     {
-        return new MM();
+        return new MasterMixRack();
     }
 
     public static function DEST_LC(): Rack

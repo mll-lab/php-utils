@@ -2,15 +2,15 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-class MM extends RackBase
+class FluidXRack extends RackBase implements ScannedRack
 {
     public function type(): string
     {
-        return 'Eppis 32x1.5 ml Cooled';
+        return '96FluidX';
     }
 
     public function name(): string
     {
-        return 'MM';
+        return 'FluidX';
     }
 }
