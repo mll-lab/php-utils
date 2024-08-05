@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v4.0.0
+
+### Changed
+
+- Breaking Change: delete `CustomRack`-class
+
 ## v3.2.0
 
 ### Added

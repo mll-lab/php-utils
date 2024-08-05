@@ -7,7 +7,6 @@ use MLL\Utils\Tecan\LiquidClass\CustomLiquidClass;
 use MLL\Utils\Tecan\LiquidClass\MLLLiquidClass;
 use MLL\Utils\Tecan\Location\BarcodeLocation;
 use MLL\Utils\Tecan\Location\PositionLocation;
-use MLL\Utils\Tecan\Rack\CustomRack;
 use MLL\Utils\Tecan\Rack\MLLLabWareRack;
 use PHPUnit\Framework\TestCase;
 
@@ -16,10 +15,10 @@ final class DispenseTest extends TestCase
     public function testDispenseWithBarcodeLocation(): void
     {
         $barcode = 'barcode';
-        $aspirate = new Dispense(100, new BarcodeLocation($barcode, new CustomRack('TestRackName', 'TestRackType')), new CustomLiquidClass('TestLiquidClassName'));
+        $aspirate = new Dispense(100, new BarcodeLocation($barcode, MLLLabWareRack::DEST_LC()), new CustomLiquidClass('TestLiquidClassName'));
         self::assertSame($barcode, $aspirate->location->tubeID());
         self::assertNull($aspirate->location->position());
-        self::assertSame('D;;;TestRackType;;barcode;100;TestLiquidClassName;;', $aspirate->toString());
+        self::assertSame('D;;;96 Well MP LightCycler480;;barcode;100;TestLiquidClassName;;', $aspirate->toString());
     }
 
     public function testDispenseWithPositionLocation(): void
