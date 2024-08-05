@@ -16,6 +16,30 @@ abstract class RackBase implements Rack
             ->mapWithKeys(fn (int $item) => [$item => self::EMPTY_POSITION]);
     }
 
+    public function assignFirstEmptyPosition(string $name): int
+    {
+        $positionOfWildTypeMixStock = $this->positions->filter(fn ($position) => $position === null)->keys()->first();
+        if ($positionOfWildTypeMixStock === null) {
+            throw new NoEmptyPositionOnRack();
+        }
+
+        $this->positions[$positionOfWildTypeMixStock] = $name;
+
+        return $positionOfWildTypeMixStock;
+    }
+
+    public function assignLastEmptyPosition(string $name): int
+    {
+        $positionOfWildTypeMixStock = $this->positions->filter(fn ($position) => $position === null)->keys()->last();
+        if ($positionOfWildTypeMixStock === null) {
+            throw new NoEmptyPositionOnRack();
+        }
+
+        $this->positions[$positionOfWildTypeMixStock] = $name;
+
+        return $positionOfWildTypeMixStock;
+    }
+
     public function id(): ?string
     {
         return null;
