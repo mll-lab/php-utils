@@ -13,4 +13,9 @@ class MPWater extends RackBase
     {
         return 'MPWasser';
     }
+
+    public function positionCount(): int
+    {
+        return 1;
+    }
 }

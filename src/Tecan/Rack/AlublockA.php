@@ -13,4 +13,9 @@ class AlublockA extends RackBase
     {
         return 'A';
     }
+
+    public function positionCount(): int
+    {
+        return 24;
+    }
 }

@@ -13,4 +13,9 @@ class MPCDNA extends RackBase
     {
         return 'MPCDNA';
     }
+
+    public function positionCount(): int
+    {
+        return 96;
+    }
 }

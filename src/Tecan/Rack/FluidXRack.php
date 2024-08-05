@@ -13,4 +13,9 @@ class FluidXRack extends RackBase implements ScannedRack
     {
         return 'FluidX';
     }
+
+    public function positionCount(): int
+    {
+        return 96;
+    }
 }

@@ -13,4 +13,9 @@ class DestPCR extends RackBase
     {
         return 'DestPCR';
     }
+
+    public function positionCount(): int
+    {
+        return 96;
+    }
 }

@@ -13,4 +13,9 @@ class DestLC extends RackBase
     {
         return 'DestLC';
     }
+
+    public function positionCount(): int
+    {
+        return 96;
+    }
 }

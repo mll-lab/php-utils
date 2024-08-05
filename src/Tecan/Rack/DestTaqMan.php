@@ -13,4 +13,9 @@ class DestTaqMan extends RackBase
     {
         return 'DestTaqMan';
     }
+
+    public function positionCount(): int
+    {
+        return 96;
+    }
 }

@@ -13,4 +13,9 @@ class MasterMixRack extends RackBase
     {
         return 'MM';
     }
+
+    public function positionCount(): int
+    {
+        return 32;
+    }
 }

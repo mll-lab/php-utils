@@ -13,4 +13,9 @@ class MPSample extends RackBase
     {
         return 'MPSample';
     }
+
+    public function positionCount(): int
+    {
+        return 96;
+    }
 }
