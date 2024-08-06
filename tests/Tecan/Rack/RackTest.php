@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RackTest extends TestCase
 {
-    public function assignsFirstEmptyPosition(): void
+    public function testAssignsFirstEmptyPosition(): void
     {
         $rack = new MasterMixRack();
         self::assertSame(32, $rack->positionCount());
@@ -29,7 +29,7 @@ final class RackTest extends TestCase
         self::assertEquals('Sample', $rack->positions[1]);
     }
 
-    public function assignsLastEmptyPosition(): void
+    public function testAssignsLastEmptyPosition(): void
     {
         $rack = new MasterMixRack();
         $lastPosition = 32;
@@ -40,7 +40,7 @@ final class RackTest extends TestCase
         self::assertEquals('Sample', $rack->positions[$lastPosition]);
     }
 
-    public function throwsExceptionWhenNoEmptyPosition(): void
+    public function testThrowsExceptionWhenNoEmptyPosition(): void
     {
         $rack = new MPWater();
         $lastPosition = 1;
@@ -52,7 +52,7 @@ final class RackTest extends TestCase
         $rack->assignFirstEmptyPosition('AnotherSample');
     }
 
-    public function throwsExceptionForInvalidPosition(): void
+    public function testThrowsExceptionForInvalidPosition(): void
     {
         $rack = new MasterMixRack();
         $lastPosition = 32;
