@@ -5,7 +5,8 @@ namespace Tecan\BasicCommands;
 use MLL\Utils\Tecan\BasicCommands\AspirateAndDispenseParameters;
 use MLL\Utils\Tecan\BasicCommands\ReagentDistribution;
 use MLL\Utils\Tecan\LiquidClass\MLLLiquidClass;
-use MLL\Utils\Tecan\Rack\MLLLabWareRack;
+use MLL\Utils\Tecan\Rack\DestPCR;
+use MLL\Utils\Tecan\Rack\MasterMixRack;
 use MLL\Utils\Tecan\ReagentDistribution\ReagentDistributionDirection;
 use PHPUnit\Framework\TestCase;
 
@@ -15,12 +16,12 @@ final class ReagentDistributionTest extends TestCase
     {
         $sourceStartPosition = 13;
         $sourceEndPosition = 13;
-        $sourceRack = MLLLabWareRack::MM();
+        $sourceRack = new MasterMixRack();
         $source = new AspirateAndDispenseParameters($sourceRack, $sourceStartPosition, $sourceEndPosition);
 
         $targetStartPosition = 48;
         $targetEndPosition = 73;
-        $targetRack = MLLLabWareRack::DEST_PCR();
+        $targetRack = new DestPCR();
         $target = new AspirateAndDispenseParameters($targetRack, $targetStartPosition, $targetEndPosition);
 
         $dispenseVolume = 24;

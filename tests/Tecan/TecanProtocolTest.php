@@ -17,8 +17,9 @@ use MLL\Utils\Tecan\CustomCommands\TransferWithAutoWash;
 use MLL\Utils\Tecan\LiquidClass\CustomLiquidClass;
 use MLL\Utils\Tecan\LiquidClass\MLLLiquidClass;
 use MLL\Utils\Tecan\Location\BarcodeLocation;
+use MLL\Utils\Tecan\Rack\DestPCR;
 use MLL\Utils\Tecan\Rack\FluidXRack;
-use MLL\Utils\Tecan\Rack\MLLLabWareRack;
+use MLL\Utils\Tecan\Rack\MasterMixRack;
 use MLL\Utils\Tecan\TecanProtocol;
 use MLL\Utils\Tecan\TipMask\TipMask;
 use PHPUnit\Framework\TestCase;
@@ -212,8 +213,8 @@ CSV
 
     public function testReagentDistributionProtocol(): void
     {
-        $sourceRack = MLLLabWareRack::MM();
-        $targetRack = MLLLabWareRack::DEST_PCR();
+        $sourceRack = new MasterMixRack();
+        $targetRack = new DestPCR();
         $dispenseVolume = 24;
         $liquidClass = MLLLiquidClass::TRANSFER_MASTERMIX_MP();
 

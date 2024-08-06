@@ -7,8 +7,8 @@ use MLL\Utils\Tecan\LiquidClass\CustomLiquidClass;
 use MLL\Utils\Tecan\LiquidClass\MLLLiquidClass;
 use MLL\Utils\Tecan\Location\BarcodeLocation;
 use MLL\Utils\Tecan\Location\PositionLocation;
+use MLL\Utils\Tecan\Rack\DestLC;
 use MLL\Utils\Tecan\Rack\FluidXRack;
-use MLL\Utils\Tecan\Rack\MLLLabWareRack;
 use PHPUnit\Framework\TestCase;
 
 final class DispenseTest extends TestCase
@@ -26,7 +26,7 @@ final class DispenseTest extends TestCase
     {
         $position = 7;
         $volume = 2.2;
-        $aspirate = new Dispense($volume, new PositionLocation($position, MLLLabWareRack::DEST_LC()), MLLLiquidClass::TRANSFER_TEMPLATE());
+        $aspirate = new Dispense($volume, new PositionLocation($position, new DestLC()), MLLLiquidClass::TRANSFER_TEMPLATE());
         self::assertNull($aspirate->location->tubeID());
         self::assertSame((string) $position, $aspirate->location->position());
         self::assertSame("D;DestLC;;96 Well MP LightCycler480;{$position};;{$volume};Transfer_Template;;", $aspirate->toString());
