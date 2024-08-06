@@ -13,7 +13,7 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ### Changed
 
-- add specific class for each `MLLLabWareRack`-type
+- add specific class for each `MLLLabWareRack`-type that includes a `positions`-Collection
 - Breaking Change: delete `MLLLabWareRack`-class
 - Breaking Change: add `positionCount`-method to `Rack`-interface
 - Breaking Change: delete `CustomRack`-class
