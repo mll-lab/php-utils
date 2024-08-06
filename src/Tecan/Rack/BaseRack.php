@@ -23,14 +23,11 @@ abstract class BaseRack implements Rack
 
     public function toString(): string
     {
-        return implode(
-            ';',
-            [
-                $this->name(),
-                $this->id(),
-                $this->type(),
-            ]
-        );
+        return implode(';', [
+            $this->name(),
+            $this->id(),
+            $this->type(),
+        ]);
     }
 
     public function assignFirstEmptyPosition(string $name): int

@@ -52,20 +52,17 @@ class ReagentDistribution extends Command
 
     public function toString(): string
     {
-        return implode(
-            ';',
-            [
-                'R',
-                $this->source->toString(),
-                $this->target->toString(),
-                $this->volume,
-                $this->liquidClass->name(),
-                $this->numberOfDitiReuses,
-                $this->numberOfMultiDisp,
-                $this->direction->value,
-                $this->excludedWells(),
-            ]
-        );
+        return implode(';', [
+            'R',
+            $this->source->toString(),
+            $this->target->toString(),
+            $this->volume,
+            $this->liquidClass->name(),
+            $this->numberOfDitiReuses,
+            $this->numberOfMultiDisp,
+            $this->direction->value,
+            $this->excludedWells(),
+        ]);
     }
 
     private function excludedWells(): string

@@ -19,17 +19,14 @@ abstract class BasicPipettingActionCommand extends Command implements UsesTipMas
 
     public function toString(): string
     {
-        return implode(
-            ';',
-            [
-                static::commandLetter(),
-                $this->location->toString(),
-                $this->volume,
-                $this->liquidClass->name(),
-                null, // tipType
-                $this->getTipMask(),
-            ]
-        );
+        return implode(';', [
+            static::commandLetter(),
+            $this->location->toString(),
+            $this->volume,
+            $this->liquidClass->name(),
+            null, // tipType
+            $this->getTipMask(),
+        ]);
     }
 
     protected function getTipMask(): string

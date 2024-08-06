@@ -43,15 +43,12 @@ class PositionLocation implements Location
 
     public function toString(): string
     {
-        return implode(
-            ';',
-            [
-                $this->rackName(),
-                $this->rackID(),
-                $this->rackType(),
-                $this->position(),
-                $this->tubeID(),
-            ]
-        );
+        return implode(';', [
+            $this->rackName(),
+            $this->rackID(),
+            $this->rackType(),
+            $this->position(),
+            $this->tubeID(),
+        ]);
     }
 }

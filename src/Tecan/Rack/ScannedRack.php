@@ -3,7 +3,8 @@
 namespace MLL\Utils\Tecan\Rack;
 
 /**
- * Interface for racks that have been scanned and the barcode of the tubes is known.
- * For example, @see FluidXRack.
+ * Interface for racks that have been scanned and the barcodes of its tubes are known.
+ *
+ * For example, @see FluidXRack
  */
 interface ScannedRack extends Rack {}

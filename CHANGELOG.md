@@ -11,13 +11,16 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## v4.0.0
 
+### Added
+
+- Add specific class for each `MLLLabWareRack`-type that includes a `positions`-Collection
+
 ### Changed
 
-- add specific class for each `MLLLabWareRack`-type that includes a `positions`-Collection
-- Breaking Change: delete `MLLLabWareRack`-class
-- Breaking Change: add `positionCount`-method to `Rack`-interface
-- Breaking Change: delete `CustomRack`-class
-- Breaking Change: limit the usage of `BarcodeLocation` to `ScannedRack`-objects
+- Breaking Change: delete class `MLLLabWareRack`
+- Breaking Change: delete class `CustomRack`
+- Breaking Change: add method `positionCount` to interface `Rack`
+- Breaking Change: limit the usage of `BarcodeLocation` to objects implementing `ScannedRack`
 
 ## v3.2.0
 
