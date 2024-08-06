@@ -17,10 +17,10 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ### Changed
 
-- Breaking Change: delete class `MLLLabWareRack`
-- Breaking Change: delete class `CustomRack`
-- Breaking Change: add method `positionCount` to interface `Rack`
-- Breaking Change: limit the usage of `BarcodeLocation` to objects implementing `ScannedRack`
+- Breaking Change: Delete class `MLLLabWareRack`
+- Breaking Change: Delete class `CustomRack`
+- Breaking Change: Add method `positionCount` to interface `Rack`
+- Breaking Change: Limit the usage of `BarcodeLocation` to objects implementing `ScannedRack`
 
 ## v3.2.0
 
