@@ -4,7 +4,7 @@ namespace MLL\Utils\Tecan\Rack;
 
 use Illuminate\Support\Collection;
 
-abstract class RackBase implements Rack
+abstract class BaseRack implements Rack
 {
     /** @var Collection<int, mixed|null> */
     public Collection $positions;

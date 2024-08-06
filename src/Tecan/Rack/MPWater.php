@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-class MPWater extends RackBase
+class MPWater extends BaseRack
 {
     public function type(): string
     {

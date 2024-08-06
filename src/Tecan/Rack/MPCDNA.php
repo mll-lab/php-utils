@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-class MPCDNA extends RackBase
+class MPCDNA extends BaseRack
 {
     public function type(): string
     {

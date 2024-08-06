@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-class AlublockA extends RackBase
+class AlublockA extends BaseRack
 {
     public function type(): string
     {

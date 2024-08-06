@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-class MPSample extends RackBase
+class MPSample extends BaseRack
 {
     public function type(): string
     {

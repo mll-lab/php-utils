@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-class FluidXRack extends RackBase implements ScannedRack
+class FluidXRack extends BaseRack implements ScannedRack
 {
     public function type(): string
     {

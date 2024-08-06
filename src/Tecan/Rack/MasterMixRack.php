@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-class MasterMixRack extends RackBase
+class MasterMixRack extends BaseRack
 {
     public function type(): string
     {

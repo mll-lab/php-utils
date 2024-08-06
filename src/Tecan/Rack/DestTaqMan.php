@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-class DestTaqMan extends RackBase
+class DestTaqMan extends BaseRack
 {
     public function type(): string
     {
