@@ -48,7 +48,7 @@ abstract class BaseRack implements Rack
     public function findFirstEmptyPosition(): int
     {
         $firstEmpty = $this->positions
-            ->filter(fn (int $position) => $position === self::EMPTY_POSITION)
+            ->filter(fn ($content) => $content === self::EMPTY_POSITION)
             ->keys()
             ->first();
 
@@ -62,7 +62,7 @@ abstract class BaseRack implements Rack
     public function findLastEmptyPosition(): int
     {
         $lastEmpty = $this->positions
-            ->filter(fn (int $position) => $position === self::EMPTY_POSITION)
+            ->filter(fn ($content) => $content === self::EMPTY_POSITION)
             ->keys()
             ->last();
 
