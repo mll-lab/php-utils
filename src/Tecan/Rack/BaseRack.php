@@ -31,14 +31,16 @@ abstract class BaseRack implements Rack
         ]);
     }
 
-    public function assignFirstEmptyPosition(string $name): int
+    /** @param string|int|object|null $content */
+    public function assignFirstEmptyPosition($content): int
     {
-        return $this->assignPosition($name, $this->findFirstEmptyPosition());
+        return $this->assignPosition($content, $this->findFirstEmptyPosition());
     }
 
-    public function assignLastEmptyPosition(string $name): int
+    /** @param string|int|object|null $content */
+    public function assignLastEmptyPosition($content): int
     {
-        return $this->assignPosition($name, $this->findLastEmptyPosition());
+        return $this->assignPosition($content, $this->findLastEmptyPosition());
     }
 
     public function findFirstEmptyPosition(): int
@@ -69,13 +71,14 @@ abstract class BaseRack implements Rack
         return $lastEmpty;
     }
 
-    public function assignPosition(string $name, int $position): int
+    /** @param string|int|object|null $content */
+    public function assignPosition($content, int $position): int
     {
         if (! $this->positions->has($position)) {
             throw new InvalidPositionOnRack($position, $this);
         }
 
-        $this->positions[$position] = $name;
+        $this->positions[$position] = $content;
 
         return $position;
     }
