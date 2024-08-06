@@ -22,13 +22,10 @@ class AspirateAndDispenseParameters
     /** Serializes the aspirate and dispense parameters as part of a reagent distribution according the gwl file format. */
     public function toString(): string
     {
-        return implode(
-            ';',
-            [
-                $this->rack->toString(),
-                $this->startPosition,
-                $this->endPosition,
-            ]
-        );
+        return implode(';', [
+            $this->rack->toString(),
+            $this->startPosition,
+            $this->endPosition,
+        ]);
     }
 }

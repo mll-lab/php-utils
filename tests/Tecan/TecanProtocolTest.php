@@ -17,8 +17,9 @@ use MLL\Utils\Tecan\CustomCommands\TransferWithAutoWash;
 use MLL\Utils\Tecan\LiquidClass\CustomLiquidClass;
 use MLL\Utils\Tecan\LiquidClass\MLLLiquidClass;
 use MLL\Utils\Tecan\Location\BarcodeLocation;
-use MLL\Utils\Tecan\Rack\CustomRack;
-use MLL\Utils\Tecan\Rack\MLLLabWareRack;
+use MLL\Utils\Tecan\Rack\DestPCR;
+use MLL\Utils\Tecan\Rack\FluidXRack;
+use MLL\Utils\Tecan\Rack\MasterMixRack;
 use MLL\Utils\Tecan\TecanProtocol;
 use MLL\Utils\Tecan\TipMask\TipMask;
 use PHPUnit\Framework\TestCase;
@@ -72,7 +73,7 @@ CSV
         $tecanProtocol = new TecanProtocol(TipMask::FOUR_TIPS());
 
         $liquidClass = new CustomLiquidClass('TestLiquidClassName');
-        $rack = new CustomRack('TestRackName', 'TestRackType');
+        $rack = new FluidXRack();
         $aspirateLocation = new BarcodeLocation('barcode', $rack);
         $dispenseLocation = new BarcodeLocation('barcode1', $rack);
 
@@ -84,21 +85,21 @@ CSV
         self::assertSame(
             StringUtil::normalizeLineEndings(
                 <<<CSV
-{$this->initComment()}A;;;TestRackType;;barcode;100;TestLiquidClassName;;1
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;1
+{$this->initComment()}A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;2
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;2
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;2
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;2
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;4
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;4
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;4
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;4
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;8
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;8
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;8
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;8
 W;
 B;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;1
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;1
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
 W;
 
 CSV
@@ -112,7 +113,7 @@ CSV
         $tecanProtocol = new TecanProtocol(TipMask::FOUR_TIPS());
 
         $liquidClass = new CustomLiquidClass('TestLiquidClassName');
-        $rack = new CustomRack('TestRackName', 'TestRackType');
+        $rack = new FluidXRack();
         $aspirateLocation = new BarcodeLocation('barcode', $rack);
         $dispenseLocation = new BarcodeLocation('barcode1', $rack);
 
@@ -131,21 +132,21 @@ CSV
         self::assertSame(
             StringUtil::normalizeLineEndings(
                 <<<CSV
-{$this->initComment()}A;;;TestRackType;;barcode;100;TestLiquidClassName;;1
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;1
+{$this->initComment()}A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;2
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;2
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;2
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;2
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;4
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;4
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;4
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;4
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;8
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;8
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;8
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;8
 W;
 B;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;1
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;1
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
 W;
 
 CSV
@@ -159,7 +160,7 @@ CSV
         $tecanProtocol = new TecanProtocol(TipMask::EIGHT_TIPS());
 
         $liquidClass = new CustomLiquidClass('TestLiquidClassName');
-        $rack = new CustomRack('TestRackName', 'TestRackType');
+        $rack = new FluidXRack();
         $aspirateLocation = new BarcodeLocation('barcode', $rack);
         $dispenseLocation = new BarcodeLocation('barcode1', $rack);
 
@@ -172,36 +173,36 @@ CSV
         self::assertSame(
             StringUtil::normalizeLineEndings(
                 <<<CSV
-{$this->initComment()}A;;;TestRackType;;barcode;100;TestLiquidClassName;;1
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;1
+{$this->initComment()}A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;2
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;2
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;2
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;2
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;4
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;4
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;4
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;4
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;8
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;8
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;8
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;8
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;16
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;16
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;16
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;16
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;32
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;32
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;32
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;32
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;64
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;64
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;64
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;64
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;128
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;128
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;128
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;128
 W;
 B;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;1
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;1
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
 W;
-A;;;TestRackType;;barcode;100;TestLiquidClassName;;2
-D;;;TestRackType;;barcode1;100;TestLiquidClassName;;2
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;2
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;2
 W;
 
 CSV
@@ -212,8 +213,8 @@ CSV
 
     public function testReagentDistributionProtocol(): void
     {
-        $sourceRack = MLLLabWareRack::MM();
-        $targetRack = MLLLabWareRack::DEST_PCR();
+        $sourceRack = new MasterMixRack();
+        $targetRack = new DestPCR();
         $dispenseVolume = 24;
         $liquidClass = MLLLiquidClass::TRANSFER_MASTERMIX_MP();
 
