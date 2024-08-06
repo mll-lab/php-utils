@@ -12,8 +12,10 @@ abstract class BaseRack implements Rack
 
     public function __construct()
     {
-        $this->positions = (new Collection(range(1, $this->positionCount())))
-            ->mapWithKeys(fn (int $item) => [$item => self::EMPTY_POSITION]);
+        $this->positions = Collection::times(
+            $this->positionCount(),
+            fn (int $position) => [$position => self::EMPTY_POSITION]
+        );
     }
 
     public function id(): ?string
