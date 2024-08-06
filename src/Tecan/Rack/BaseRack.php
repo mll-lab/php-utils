@@ -6,14 +6,15 @@ use Illuminate\Support\Collection;
 
 abstract class BaseRack implements Rack
 {
-    /** @var Collection<int, mixed|null> */
-    public Collection $positions;
     public const EMPTY_POSITION = null;
+
+    /** @var Collection<int, mixed> */
+    public Collection $positions;
 
     public function __construct()
     {
         $this->positions = Collection::times($this->positionCount(), fn () => self::EMPTY_POSITION)
-            ->mapWithKeys(fn ($content, $position) => [$position + 1 => $content]);
+            ->mapWithKeys(fn ($content, int $position): array => [$position + 1 => $content]);
     }
 
     public function id(): ?string
@@ -43,7 +44,7 @@ abstract class BaseRack implements Rack
     public function findFirstEmptyPosition(): int
     {
         $firstEmpty = $this->positions
-            ->filter(fn ($content) => $content === self::EMPTY_POSITION)
+            ->filter(fn ($content): bool => $content === self::EMPTY_POSITION)
             ->keys()
             ->first();
 
@@ -57,7 +58,7 @@ abstract class BaseRack implements Rack
     public function findLastEmptyPosition(): int
     {
         $lastEmpty = $this->positions
-            ->filter(fn ($content) => $content === self::EMPTY_POSITION)
+            ->filter(fn ($content): bool => $content === self::EMPTY_POSITION)
             ->keys()
             ->last();
 
