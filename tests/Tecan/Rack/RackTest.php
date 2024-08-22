@@ -62,7 +62,7 @@ final class RackTest extends TestCase
         $rack->assignPosition('Sample', $lastPosition + 1);
     }
 
-    /** @return iterable<string, array{BaseRack, string, string, int}> */
+    /** @return iterable<string, array{BaseRack<mixed>, string, string, int}> */
     public static function rackDataProvider(): iterable
     {
         yield 'MPCDNA' => [new MPCDNA(), 'MPCDNA', 'MP cDNA', 96];
@@ -76,7 +76,11 @@ final class RackTest extends TestCase
         yield 'MPWater' => [new MPWater(), 'MPWasser', 'Trough 300ml MCA Portrait', 1];
     }
 
-    /** @dataProvider rackDataProvider */
+    /**
+     * @param BaseRack<mixed> $rack
+     *
+     * @dataProvider rackDataProvider
+     */
     #[DataProvider('rackDataProvider')]
     public function testRackProperties(BaseRack $rack, string $expectedName, string $expectedType, int $expectedPositionCount): void
     {

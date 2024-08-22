@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v4.1.0
+
+### Added
+
+- Add generics to `BaseRack` and its children
+
 ## v4.0.0
 
 ### Added

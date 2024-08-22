@@ -4,11 +4,12 @@ namespace MLL\Utils\Tecan\Rack;
 
 use Illuminate\Support\Collection;
 
+/** @template TContent */
 abstract class BaseRack implements Rack
 {
     public const EMPTY_POSITION = null;
 
-    /** @var Collection<int, mixed> */
+    /** @var Collection<int, TContent|null> */
     public Collection $positions;
 
     public function __construct()
@@ -31,13 +32,13 @@ abstract class BaseRack implements Rack
         ]);
     }
 
-    /** @param mixed $content Anything goes, null is considered empty */
+    /** @param TContent|null $content Anything goes, null is considered empty */
     public function assignFirstEmptyPosition($content): int
     {
         return $this->assignPosition($content, $this->findFirstEmptyPosition());
     }
 
-    /** @param mixed $content Anything goes, null is considered empty */
+    /** @param TContent|null $content Anything goes, null is considered empty */
     public function assignLastEmptyPosition($content): int
     {
         return $this->assignPosition($content, $this->findLastEmptyPosition());
@@ -71,7 +72,7 @@ abstract class BaseRack implements Rack
         return $lastEmpty;
     }
 
-    /** @param mixed $content Anything goes, null is considered empty */
+    /** @param TContent|null $content Anything goes, null is considered empty */
     public function assignPosition($content, int $position): int
     {
         if (! $this->positions->has($position)) {

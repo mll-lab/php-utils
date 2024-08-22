@@ -2,6 +2,11 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
+/**
+ * @template TContent
+ *
+ * @extends BaseRack<TContent>
+ */
 class MPCDNA extends BaseRack
 {
     public function type(): string
