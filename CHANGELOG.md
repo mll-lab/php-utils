@@ -13,7 +13,7 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ### Added
 
-- Add CoordinateSystem `CoordinateSystem2x16` for Microplate
+- Add coordinate system `CoordinateSystem2x16`
 
 ### Changed
 
