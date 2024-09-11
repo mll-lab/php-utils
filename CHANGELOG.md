@@ -9,7 +9,7 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
-## v4.2.0
+## v5.0.0
 
 ### Added
 
