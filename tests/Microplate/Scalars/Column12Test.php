@@ -7,7 +7,7 @@ use GraphQL\Type\Definition\ScalarType;
 use MLL\Utils\Microplate\Scalars\Column12;
 use PHPUnit\Framework\TestCase;
 
-final class Column96WellTest extends TestCase
+final class Column12Test extends TestCase
 {
     protected function setUp(): void
     {

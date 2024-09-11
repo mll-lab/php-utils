@@ -8,7 +8,7 @@ use GraphQL\Type\Definition\ScalarType;
 use MLL\Utils\Microplate\Scalars\Row8;
 use PHPUnit\Framework\TestCase;
 
-final class Row96WellTest extends TestCase
+final class Row8Test extends TestCase
 {
     protected function setUp(): void
     {
