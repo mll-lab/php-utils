@@ -30,6 +30,7 @@ class FullColumnSection extends AbstractSection
      */
     public function addWell($content): void
     {
+        // @phpstan-ignore-next-line Only recognized to be correct with larastan
         if ($this->sectionedMicroplate->freeWells()->isEmpty()) {
             throw new MicroplateIsFullException();
         }
