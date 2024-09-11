@@ -4,9 +4,9 @@ namespace MLL\Utils\Microplate\Scalars;
 
 use MLL\GraphQLScalars\Regex;
 
-class Row96Well extends Regex
+class Row8 extends Regex
 {
-    public ?string $description = 'Checks if the given row is of the format 96-well row';
+    public ?string $description = 'Represents a row in a coordinate system with 8 rows. Allowed values range from A-H.';
 
     public static function regex(): string
     {
