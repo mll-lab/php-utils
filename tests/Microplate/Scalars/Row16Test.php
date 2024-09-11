@@ -19,7 +19,7 @@ final class Row16Test extends TestCase
         }
     }
 
-    public function testSerializeThrowsIfRow2x16WellIsInvalid(): void
+    public function testSerializeThrowsIfRow16IsInvalid(): void
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('The given value "W" did not match the regex /^[A-P]$/.');
@@ -27,7 +27,7 @@ final class Row16Test extends TestCase
         (new Row16())->serialize('W');
     }
 
-    public function testSerializeThrowsIfRow2x16WellIsNonCapital(): void
+    public function testSerializeThrowsIfRow16IsNonCapital(): void
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('The given value "b" did not match the regex /^[A-P]$/.');
@@ -35,14 +35,14 @@ final class Row16Test extends TestCase
         (new Row16())->serialize('b');
     }
 
-    public function testSerializePassesWhenRow2x16WellIsValid(): void
+    public function testSerializePassesWhenRow16IsValid(): void
     {
         $serializedResult = (new Row16())->serialize('H');
 
         self::assertSame('H', $serializedResult);
     }
 
-    public function testParseValueThrowsIfRow2x16WellIsInvalid(): void
+    public function testParseValueThrowsIfRow16IsInvalid(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given value "W" did not match the regex /^[A-P]$/.');
@@ -50,7 +50,7 @@ final class Row16Test extends TestCase
         (new Row16())->parseValue('W');
     }
 
-    public function testParseValueThrowsIfRow2x16WellIsNonCapital(): void
+    public function testParseValueThrowsIfRow16IsNonCapital(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given value "h" did not match the regex /^[A-P]$/.');
@@ -58,7 +58,7 @@ final class Row16Test extends TestCase
         (new Row16())->parseValue('h');
     }
 
-    public function testParseValuePassesIfRow2x16WellIsValid(): void
+    public function testParseValuePassesIfRow16IsValid(): void
     {
         self::assertSame(
             'P',
