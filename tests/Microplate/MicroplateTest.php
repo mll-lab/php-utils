@@ -140,7 +140,7 @@ final class MicroplateTest extends TestCase
 
         $microplate = new Microplate($coordinateSystem);
 
-        $data96Wells = iterator_to_array(CoordinatesTest::dataProvider96Well());
+        $data96Wells = CoordinatesTest::data96Wells();
         \Safe\shuffle($data96Wells);
         foreach ($data96Wells as $well) {
             $microplateCoordinates = new Coordinates($well['row'], $well['column'], new CoordinateSystem96Well());
@@ -195,7 +195,7 @@ final class MicroplateTest extends TestCase
         $coordinateSystem = new CoordinateSystem12Well();
         $microplate = new Microplate($coordinateSystem);
 
-        $dataProvider12Well = CoordinatesTest::dataProvider12Well();
+        $dataProvider12Well = CoordinatesTest::data12Wells();
         foreach ($dataProvider12Well as $wellData) {
             $microplateCoordinates = new Coordinates($wellData['row'], $wellData['column'], $coordinateSystem);
             // check that it does not throw before the plate is full
