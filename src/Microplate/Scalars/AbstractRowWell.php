@@ -2,12 +2,11 @@
 
 namespace MLL\Utils\Microplate\Scalars;
 
-class Row96Well extends AbstractRowWell
+use MLL\GraphQLScalars\Regex;
+
+abstract class AbstractRowWell extends Regex
 {
     public ?string $description = 'Checks if the given row is of the format 96-well row';
 
-    public static function regex(): string
-    {
-        return '/^[A-H]$/';
-    }
+    abstract public static function regex(): string;
 }

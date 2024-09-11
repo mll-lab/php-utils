@@ -4,6 +4,7 @@ namespace MLL\Utils\Tests\Microplate;
 
 use MLL\Utils\Microplate\CoordinateSystem;
 use MLL\Utils\Microplate\CoordinateSystem12Well;
+use MLL\Utils\Microplate\CoordinateSystem2x16Well;
 use MLL\Utils\Microplate\CoordinateSystem48Well;
 use MLL\Utils\Microplate\CoordinateSystem96Well;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -30,6 +31,7 @@ final class CoordinateSystemTest extends TestCase
         yield [new CoordinateSystem12Well(), 'A1', 'C4'];
         yield [new CoordinateSystem48Well(), 'A1', 'F8'];
         yield [new CoordinateSystem96Well(), 'A1', 'H12'];
+        yield [new CoordinateSystem2x16Well(), 'A1', 'B16'];
     }
 
     public function testPositionsCount(): void
@@ -37,5 +39,6 @@ final class CoordinateSystemTest extends TestCase
         self::assertSame(CoordinateSystem12Well::POSITIONS_COUNT, (new CoordinateSystem12Well())->positionsCount());
         self::assertSame(CoordinateSystem48Well::POSITIONS_COUNT, (new CoordinateSystem48Well())->positionsCount());
         self::assertSame(CoordinateSystem96Well::POSITIONS_COUNT, (new CoordinateSystem96Well())->positionsCount());
+        self::assertSame(CoordinateSystem2x16Well::POSITIONS_COUNT, (new CoordinateSystem2x16Well())->positionsCount());
     }
 }

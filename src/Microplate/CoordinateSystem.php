@@ -24,6 +24,8 @@ abstract class CoordinateSystem
             $paddedColumns[] = $this->padColumn($column);
         }
 
+        var_dump($paddedColumns);
+
         return $paddedColumns;
     }
 

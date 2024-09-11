@@ -58,6 +58,9 @@ class Coordinates
         ];
         $columnsOptions = \implode('|', $columns);
 
+        var_dump($rowsOptions);
+        var_dump($columnsOptions);
+
         $valid = preg_match(
             "/^({$rowsOptions})({$columnsOptions})\$/",
             $coordinatesString,
