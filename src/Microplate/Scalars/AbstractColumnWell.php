@@ -14,6 +14,7 @@ abstract class AbstractColumnWell extends ScalarType
     public ?string $description;
 
     abstract public function maxInt(): int;
+
     abstract public function minInt(): int;
 
     public function serialize($value)
