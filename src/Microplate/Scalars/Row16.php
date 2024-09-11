@@ -6,7 +6,7 @@ use MLL\GraphQLScalars\Regex;
 
 class Row16 extends Regex
 {
-    public ?string $description = 'Checks if the given row is of the format A-P-well row';
+    public ?string $description = 'Represents a row in a coordinate system with 16 rows. Allowed values range from A-P.';
 
     public static function regex(): string
     {

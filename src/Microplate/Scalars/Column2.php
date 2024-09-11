@@ -6,18 +6,15 @@ use MLL\GraphQLScalars\IntRange;
 
 class Column2 extends IntRange
 {
-    public const MAX_INT = 2;
-    public const MIN_INT = 1;
-
-    public ?string $description = 'Checks if the given column is of the format 2x16-well column';
+    public ?string $description = 'Checks if the given column is between 1 and 2';
 
     protected static function min(): int
     {
-        return self::MIN_INT;
+        return 1;
     }
 
     protected static function max(): int
     {
-        return self::MAX_INT;
+        return 2;
     }
 }
