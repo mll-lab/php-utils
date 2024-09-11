@@ -6,7 +6,7 @@ use MLL\GraphQLScalars\IntRange;
 
 class Column12 extends IntRange
 {
-    public ?string $description = 'Checks if the given column is between 1 and 12';
+    public ?string $description = 'Represents a column in a coordinate system with 12 columns. Allowed values range from 1-12.';
 
     protected static function max(): int
     {

@@ -6,7 +6,7 @@ use MLL\GraphQLScalars\IntRange;
 
 class Column2 extends IntRange
 {
-    public ?string $description = 'Checks if the given column is between 1 and 2';
+    public ?string $description = 'Represents a column in a coordinate system with 2 columns. Allowed values range from 1-2.';
 
     protected static function min(): int
     {
