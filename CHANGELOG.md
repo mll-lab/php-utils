@@ -9,6 +9,17 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v4.2.0
+
+### Added
+
+- Add CoordinateSystem `CoordinateSystem2x16` for Microplate
+
+### Changed
+
+- Breaking Change: Renamed class `Column96Well` to `Column12`
+- Breaking Change: Renamed class `Row96Well` to `Row8`
+-
 ## v4.1.0
 
 ### Added
