@@ -2,17 +2,19 @@
 
 namespace MLL\Utils\Microplate\Scalars;
 
-class Column96Well extends AbstractColumnWell
+use MLL\GraphQLScalars\IntRange;
+
+class Column12 extends IntRange
 {
     public const MAX_INT = 12;
     public const MIN_INT = 1;
 
-    public function maxInt(): int
+    protected static function max(): int
     {
         return self::MAX_INT;
     }
 
-    public function minInt(): int
+    protected static function min(): int
     {
         return self::MIN_INT;
     }

@@ -5,7 +5,7 @@ namespace MLL\Utils\Tests\Microplate\Scalars;
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Type\Definition\ScalarType;
-use MLL\Utils\Microplate\Scalars\Row96Well;
+use MLL\Utils\Microplate\Scalars\Row8;
 use PHPUnit\Framework\TestCase;
 
 final class Row96WellTest extends TestCase
@@ -24,7 +24,7 @@ final class Row96WellTest extends TestCase
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('The given value "I" did not match the regex /^[A-H]$/.');
 
-        (new Row96Well())->serialize('I');
+        (new Row8())->serialize('I');
     }
 
     public function testSerializeThrowsIfRow96WellIsNonCapital(): void
@@ -32,12 +32,12 @@ final class Row96WellTest extends TestCase
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('The given value "h" did not match the regex /^[A-H]$/.');
 
-        (new Row96Well())->serialize('h');
+        (new Row8())->serialize('h');
     }
 
     public function testSerializePassesWhenRow96WellIsValid(): void
     {
-        $serializedResult = (new Row96Well())->serialize('H');
+        $serializedResult = (new Row8())->serialize('H');
 
         self::assertSame('H', $serializedResult);
     }
@@ -47,7 +47,7 @@ final class Row96WellTest extends TestCase
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given value "I" did not match the regex /^[A-H]$/.');
 
-        (new Row96Well())->parseValue('I');
+        (new Row8())->parseValue('I');
     }
 
     public function testParseValueThrowsIfRow96WellIsNonCapital(): void
@@ -55,14 +55,14 @@ final class Row96WellTest extends TestCase
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given value "h" did not match the regex /^[A-H]$/.');
 
-        (new Row96Well())->parseValue('h');
+        (new Row8())->parseValue('h');
     }
 
     public function testParseValuePassesIfRow96WellIsValid(): void
     {
         self::assertSame(
             'H',
-            (new Row96Well())->parseValue('H')
+            (new Row8())->parseValue('H')
         );
     }
 }

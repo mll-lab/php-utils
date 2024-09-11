@@ -5,7 +5,7 @@ namespace MLL\Utils\Tests\Microplate;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem;
 use MLL\Utils\Microplate\CoordinateSystem12Well;
-use MLL\Utils\Microplate\CoordinateSystem2x16Well;
+use MLL\Utils\Microplate\CoordinateSystem2x16;
 use MLL\Utils\Microplate\CoordinateSystem48Well;
 use MLL\Utils\Microplate\CoordinateSystem96Well;
 use MLL\Utils\Microplate\Enums\FlowDirection;
@@ -109,7 +109,7 @@ final class CoordinatesTest extends TestCase
                 ['paddedCoordinates' => 'H12', 'row' => 'H', 'column' => 12,],
                 ['paddedCoordinates' => 'D10','row' => 'D','column' => 10,],
             ],],
-            '2x16Wells' => [ new CoordinateSystem2x16Well(), [
+            '2x16Wells' => [ new CoordinateSystem2x16(), [
                 ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1,],
                 ['paddedCoordinates' => 'B2','row' => 'B','column' => 2,],
                 ['paddedCoordinates' => 'M1', 'row' => 'M', 'column' => 1,],
@@ -130,7 +130,7 @@ final class CoordinatesTest extends TestCase
             '12Wells' => [ new CoordinateSystem12Well(), self::data12Wells(),],
             '48ells' => [ new CoordinateSystem48Well(), self::data48Wells(),],
             '96Wells' => [ new CoordinateSystem96Well(), self::data96Wells(),],
-            '2x16Wells' => [ new CoordinateSystem2x16Well(), self::data2x16Wells(),],
+            '2x16Wells' => [ new CoordinateSystem2x16(), self::data2x16Wells(),],
         ];
     }
 
@@ -151,7 +151,7 @@ final class CoordinatesTest extends TestCase
             '12Wells' => [new CoordinateSystem12Well(), [['X', 2], ['B', 0], ['B', 4], ['B', -1], ['B', 1000],['rolf', 2], ['D', 1]]],
             '48Wells' => [new CoordinateSystem48Well(), [['X', 2], ['B', 0], ['B', 4], ['B', -1], ['B', 1000],['rolf', 2], ['G', 1]]],
             '96Wells' => [new CoordinateSystem96Well(), [['X', 2], ['B', 0], ['B', 13], ['B', -1], ['B', 1000],['rolf', 2]]],
-            '2x16Wells' => [new CoordinateSystem2x16Well(), [['X', 2], ['B', 0], ['B', 3], ['B', -1], ['B', 1000],['rolf', 2]]],
+            '2x16Wells' => [new CoordinateSystem2x16(), [['X', 2], ['B', 0], ['B', 3], ['B', -1], ['B', 1000],['rolf', 2]]],
         ];
     }
 
@@ -172,7 +172,7 @@ final class CoordinatesTest extends TestCase
             '12Wells' => [new CoordinateSystem12Well(), [0, -1, 13, 10000,]],
             '48Wells' => [new CoordinateSystem48Well(), [0, -1, 49, 10000,]],
             '96Wells' => [new CoordinateSystem96Well(), [0, -1, 97, 10000,]],
-            '2x16Wells' => [new CoordinateSystem2x16Well(), [0, -1, 33, 10000,]],
+            '2x16Wells' => [new CoordinateSystem2x16(), [0, -1, 33, 10000,]],
         ];
     }
 
@@ -190,10 +190,10 @@ final class CoordinatesTest extends TestCase
     public static function invalidCoordinates(): array
     {
         return [
-            '12Wells' => [new CoordinateSystem2x16Well(), ['A0', 'A01', 'D3', 'C5', 'rolf', 'a1']],
+            '12Wells' => [new CoordinateSystem2x16(), ['A0', 'A01', 'D3', 'C5', 'rolf', 'a1']],
             '48Wells' => [new CoordinateSystem48Well(), ['A0', 'A01', 'G3', 'C9', 'rolf', 'a1']],
             '96Wells' => [new CoordinateSystem96Well(), ['A0', 'A001', 'X3', 'rolf', 'a1']],
-            '2x16Wells' => [new CoordinateSystem2x16Well(), ['A0', 'A01', 'X3', 'rolf', 'a1']],
+            '2x16Wells' => [new CoordinateSystem2x16(), ['A0', 'A01', 'X3', 'rolf', 'a1']],
         ];
     }
 

@@ -2,9 +2,11 @@
 
 namespace MLL\Utils\Microplate\Scalars;
 
-class Row2x16Well extends AbstractRowWell
+use MLL\GraphQLScalars\Regex;
+
+class Row16 extends Regex
 {
-    public ?string $description = 'Checks if the given row is of the format 2x16-well row';
+    public ?string $description = 'Checks if the given row is of the format A-P-well row';
 
     public static function regex(): string
     {

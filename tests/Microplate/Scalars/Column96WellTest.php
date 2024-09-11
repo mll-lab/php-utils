@@ -4,7 +4,7 @@ namespace MLL\Utils\Tests\Microplate\Scalars;
 
 use GraphQL\Error\Error;
 use GraphQL\Type\Definition\ScalarType;
-use MLL\Utils\Microplate\Scalars\Column96Well;
+use MLL\Utils\Microplate\Scalars\Column12;
 use PHPUnit\Framework\TestCase;
 
 final class Column96WellTest extends TestCase
@@ -23,7 +23,7 @@ final class Column96WellTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Value not in range: "12".');
 
-        (new Column96Well())->serialize('12');
+        (new Column12())->serialize('12');
     }
 
     public function testSerializeThrowsIfColumn96WellIsInvalid(): void
@@ -31,12 +31,12 @@ final class Column96WellTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Value not in range: 13.');
 
-        (new Column96Well())->serialize(13);
+        (new Column12())->serialize(13);
     }
 
     public function testSerializePassesWhenColumn96WellIsValid(): void
     {
-        $serializedResult = (new Column96Well())->serialize(12);
+        $serializedResult = (new Column12())->serialize(12);
 
         self::assertSame(12, $serializedResult);
     }
@@ -46,14 +46,14 @@ final class Column96WellTest extends TestCase
         $this->expectException(Error::class);
         $this->expectExceptionMessage('Value not in range: 13.');
 
-        (new Column96Well())->parseValue(13);
+        (new Column12())->parseValue(13);
     }
 
     public function testParseValuePassesIfColumn96WellIsValid(): void
     {
         self::assertSame(
             12,
-            (new Column96Well())->parseValue(12)
+            (new Column12())->parseValue(12)
         );
     }
 }
