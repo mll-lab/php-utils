@@ -19,7 +19,7 @@ final class Row8Test extends TestCase
         }
     }
 
-    public function testSerializeThrowsIfRow8IsInvalid(): void
+    public function testSerializeThrowsIfInvalid(): void
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('The given value "I" did not match the regex /^[A-H]$/.');
@@ -27,7 +27,7 @@ final class Row8Test extends TestCase
         (new Row8())->serialize('I');
     }
 
-    public function testSerializeThrowsIfRow8IsNonCapital(): void
+    public function testSerializeThrowsIfNonCapital(): void
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('The given value "h" did not match the regex /^[A-H]$/.');
@@ -35,14 +35,14 @@ final class Row8Test extends TestCase
         (new Row8())->serialize('h');
     }
 
-    public function testSerializePassesWhenRow8IsValid(): void
+    public function testSerializePassesWhenValid(): void
     {
         $serializedResult = (new Row8())->serialize('H');
 
         self::assertSame('H', $serializedResult);
     }
 
-    public function testParseValueThrowsIfRow8IsInvalid(): void
+    public function testParseValueThrowsIfInvalid(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given value "I" did not match the regex /^[A-H]$/.');
@@ -50,7 +50,7 @@ final class Row8Test extends TestCase
         (new Row8())->parseValue('I');
     }
 
-    public function testParseValueThrowsIfRow8IsNonCapital(): void
+    public function testParseValueThrowsIfNonCapital(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given value "h" did not match the regex /^[A-H]$/.');
@@ -58,7 +58,7 @@ final class Row8Test extends TestCase
         (new Row8())->parseValue('h');
     }
 
-    public function testParseValuePassesIfRow8IsValid(): void
+    public function testParseValuePassesIfValid(): void
     {
         self::assertSame(
             'H',

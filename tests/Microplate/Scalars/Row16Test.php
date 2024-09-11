@@ -19,7 +19,7 @@ final class Row16Test extends TestCase
         }
     }
 
-    public function testSerializeThrowsIfRow16IsInvalid(): void
+    public function testSerializeThrowsIfInvalid(): void
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('The given value "W" did not match the regex /^[A-P]$/.');
@@ -27,7 +27,7 @@ final class Row16Test extends TestCase
         (new Row16())->serialize('W');
     }
 
-    public function testSerializeThrowsIfRow16IsNonCapital(): void
+    public function testSerializeThrowsIfNonCapital(): void
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('The given value "b" did not match the regex /^[A-P]$/.');
@@ -35,14 +35,14 @@ final class Row16Test extends TestCase
         (new Row16())->serialize('b');
     }
 
-    public function testSerializePassesWhenRow16IsValid(): void
+    public function testSerializePassesWhenValid(): void
     {
         $serializedResult = (new Row16())->serialize('H');
 
         self::assertSame('H', $serializedResult);
     }
 
-    public function testParseValueThrowsIfRow16IsInvalid(): void
+    public function testParseValueThrowsIfInvalid(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given value "W" did not match the regex /^[A-P]$/.');
@@ -50,7 +50,7 @@ final class Row16Test extends TestCase
         (new Row16())->parseValue('W');
     }
 
-    public function testParseValueThrowsIfRow16IsNonCapital(): void
+    public function testParseValueThrowsIfNonCapital(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given value "h" did not match the regex /^[A-P]$/.');
@@ -58,7 +58,7 @@ final class Row16Test extends TestCase
         (new Row16())->parseValue('h');
     }
 
-    public function testParseValuePassesIfRow16IsValid(): void
+    public function testParseValuePassesIfValid(): void
     {
         self::assertSame(
             'P',

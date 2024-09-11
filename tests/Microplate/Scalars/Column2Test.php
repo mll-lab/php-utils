@@ -18,7 +18,7 @@ final class Column2Test extends TestCase
         }
     }
 
-    public function testSerializeThrowsIfColumn2WellIsNotAnInt(): void
+    public function testSerializeThrowsIfNotAnInt(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Value not in range 1-2: "3".');
@@ -26,7 +26,7 @@ final class Column2Test extends TestCase
         (new Column2())->serialize('3');
     }
 
-    public function testSerializeThrowsIfColumn2WellIsInvalid(): void
+    public function testSerializeThrowsIfInvalid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Value not in range 1-2: 3.');
@@ -34,14 +34,14 @@ final class Column2Test extends TestCase
         (new Column2())->serialize(3);
     }
 
-    public function testSerializePassesWhenColumn2WellIsValid(): void
+    public function testSerializePassesWhenValid(): void
     {
         $serializedResult = (new Column2())->serialize(2);
 
         self::assertSame(2, $serializedResult);
     }
 
-    public function testParseValueThrowsIfColumn2WellIsInvalid(): void
+    public function testParseValueThrowsIfInvalid(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('Value not in range 1-2: 3.');
@@ -49,7 +49,7 @@ final class Column2Test extends TestCase
         (new Column2())->parseValue(3);
     }
 
-    public function testParseValuePassesIfColumn2WellIsValid(): void
+    public function testParseValuePassesIfValid(): void
     {
         self::assertSame(
             2,

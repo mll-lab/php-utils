@@ -18,7 +18,7 @@ final class Column12Test extends TestCase
         }
     }
 
-    public function testSerializeThrowsIfColumn12IsNotAnInt(): void
+    public function testSerializeThrowsIfNotAnInt(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Value not in range 1-12: "12".');
@@ -26,7 +26,7 @@ final class Column12Test extends TestCase
         (new Column12())->serialize('12');
     }
 
-    public function testSerializeThrowsIfColumn12IsInvalid(): void
+    public function testSerializeThrowsIfInvalid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Value not in range 1-12: 13.');
@@ -34,14 +34,14 @@ final class Column12Test extends TestCase
         (new Column12())->serialize(13);
     }
 
-    public function testSerializePassesWhenColumn12IsValid(): void
+    public function testSerializePassesValid(): void
     {
         $serializedResult = (new Column12())->serialize(12);
 
         self::assertSame(12, $serializedResult);
     }
 
-    public function testParseValueThrowsIfColumn12IsInvalid(): void
+    public function testParseValueThrowsIfInvalid(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('Value not in range 1-12: 13.');
@@ -49,7 +49,7 @@ final class Column12Test extends TestCase
         (new Column12())->parseValue(13);
     }
 
-    public function testParseValuePassesIfColumn12IsValid(): void
+    public function testParseValuePassesIfValid(): void
     {
         self::assertSame(
             12,
