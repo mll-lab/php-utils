@@ -15,6 +15,7 @@ class MPWater extends BaseRack
     {
         parent::__construct(new CoordinateSystem1x1());
     }
+
     public function type(): string
     {
         return 'Trough 300ml MCA Portrait';

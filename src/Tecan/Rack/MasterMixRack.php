@@ -3,7 +3,6 @@
 namespace MLL\Utils\Tecan\Rack;
 
 use MLL\Utils\Microplate\CoordinateSystem2x16;
-use MLL\Utils\Microplate\CoordinateSystem96Well;
 
 /**
  * @template TContent
