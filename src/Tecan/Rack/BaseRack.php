@@ -3,6 +3,7 @@
 namespace MLL\Utils\Tecan\Rack;
 
 use Illuminate\Support\Collection;
+use MLL\Utils\Microplate\CoordinateSystem;
 
 /** @template TContent */
 abstract class BaseRack implements Rack
@@ -12,8 +13,11 @@ abstract class BaseRack implements Rack
     /** @var Collection<int, TContent|null> */
     public Collection $positions;
 
-    public function __construct()
+    public CoordinateSystem $coordinateSystem;
+
+    public function __construct(CoordinateSystem $coordinateSystem)
     {
+        $this->coordinateSystem = $coordinateSystem;
         $this->positions = Collection::times($this->positionCount(), fn () => self::EMPTY_POSITION)
             ->mapWithKeys(fn ($content, int $position): array => [$position + 1 => $content]);
     }
@@ -82,5 +86,10 @@ abstract class BaseRack implements Rack
         $this->positions[$position] = $content;
 
         return $position;
+    }
+
+    public function positionCount(): int
+    {
+        return $this->coordinateSystem->positionsCount();
     }
 }

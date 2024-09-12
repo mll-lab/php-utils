@@ -2,6 +2,9 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
+use MLL\Utils\Microplate\CoordinateSystem2x16;
+use MLL\Utils\Microplate\CoordinateSystem96Well;
+
 /**
  * @template TContent
  *
@@ -9,6 +12,11 @@ namespace MLL\Utils\Tecan\Rack;
  */
 class MasterMixRack extends BaseRack
 {
+    public function __construct()
+    {
+        parent::__construct(new CoordinateSystem2x16());
+    }
+
     public function type(): string
     {
         return 'Eppis 32x1.5 ml Cooled';
@@ -17,10 +25,5 @@ class MasterMixRack extends BaseRack
     public function name(): string
     {
         return 'MM';
-    }
-
-    public function positionCount(): int
-    {
-        return 32;
     }
 }

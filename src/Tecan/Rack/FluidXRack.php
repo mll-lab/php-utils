@@ -2,6 +2,8 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
+use MLL\Utils\Microplate\CoordinateSystem96Well;
+
 /**
  * @template TContent
  *
@@ -9,6 +11,11 @@ namespace MLL\Utils\Tecan\Rack;
  */
 class FluidXRack extends BaseRack implements ScannedRack
 {
+    public function __construct()
+    {
+        parent::__construct(new CoordinateSystem96Well());
+    }
+
     public function type(): string
     {
         return '96FluidX';
@@ -17,10 +24,5 @@ class FluidXRack extends BaseRack implements ScannedRack
     public function name(): string
     {
         return 'FluidX';
-    }
-
-    public function positionCount(): int
-    {
-        return 96;
     }
 }
