@@ -2,6 +2,8 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
+use MLL\Utils\Microplate\CoordinateSystem1x1;
+
 /**
  * @template TContent
  *
@@ -9,6 +11,11 @@ namespace MLL\Utils\Tecan\Rack;
  */
 class MPWater extends BaseRack
 {
+    public function __construct()
+    {
+        parent::__construct(new CoordinateSystem1x1());
+    }
+
     public function type(): string
     {
         return 'Trough 300ml MCA Portrait';
@@ -17,10 +24,5 @@ class MPWater extends BaseRack
     public function name(): string
     {
         return 'MPWasser';
-    }
-
-    public function positionCount(): int
-    {
-        return 1;
     }
 }

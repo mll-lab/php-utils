@@ -2,6 +2,8 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
+use MLL\Utils\Microplate\CoordinateSystem6x4;
+
 /**
  * @template TContent
  *
@@ -9,6 +11,11 @@ namespace MLL\Utils\Tecan\Rack;
  */
 class AlublockA extends BaseRack
 {
+    public function __construct()
+    {
+        parent::__construct(new CoordinateSystem6x4());
+    }
+
     public function type(): string
     {
         return 'Eppis 24x0.5 ml Cooled';
@@ -17,10 +24,5 @@ class AlublockA extends BaseRack
     public function name(): string
     {
         return 'A';
-    }
-
-    public function positionCount(): int
-    {
-        return 24;
     }
 }

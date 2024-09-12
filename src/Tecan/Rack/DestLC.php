@@ -2,6 +2,8 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
+use MLL\Utils\Microplate\CoordinateSystem96Well;
+
 /**
  * @template TContent
  *
@@ -9,6 +11,11 @@ namespace MLL\Utils\Tecan\Rack;
  */
 class DestLC extends BaseRack
 {
+    public function __construct()
+    {
+        parent::__construct(new CoordinateSystem96Well());
+    }
+
     public function type(): string
     {
         return '96 Well MP LightCycler480';
@@ -17,10 +24,5 @@ class DestLC extends BaseRack
     public function name(): string
     {
         return 'DestLC';
-    }
-
-    public function positionCount(): int
-    {
-        return 96;
     }
 }
