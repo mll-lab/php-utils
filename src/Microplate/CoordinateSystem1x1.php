@@ -9,11 +9,11 @@ class CoordinateSystem1x1 extends CoordinateSystem
 
     public function rows(): array
     {
-        return range('A', 'A');
+        return ['A'];
     }
 
     public function columns(): array
     {
-        return range(1, 1);
+        return [1];
     }
 }
