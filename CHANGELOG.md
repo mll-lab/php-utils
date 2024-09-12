@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.1.0
+
+### Added
+
+- Racks are connected to a `CoordinateSystem`
+
 ## v5.0.0
 
 ### Added
