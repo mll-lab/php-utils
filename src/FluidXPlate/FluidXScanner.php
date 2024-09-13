@@ -4,7 +4,6 @@ namespace MLL\Utils\FluidXPlate;
 
 use Illuminate\Support\Str;
 use MLL\Utils\Microplate\Coordinates;
-use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\StringUtil;
 
 /** Communicates with a FluidX scanner device and fetches results from it. */
