@@ -143,7 +143,7 @@ final class MicroplateTest extends TestCase
         $data12x8 = CoordinatesTest::data12x8();
         \Safe\shuffle($data12x8);
         foreach ($data12x8 as $well) {
-            $microplateCoordinates = new Coordinates($well['row'], $well['column'], new CoordinateSystem12x8());
+            $microplateCoordinates = Coordinates::fromArray($well, new CoordinateSystem12x8());
 
             $randomNumber = rand(1, 100);
             $randomNumberOrNull = $randomNumber > 50 ? $randomNumber : null;
@@ -197,7 +197,7 @@ final class MicroplateTest extends TestCase
 
         $dataProvider12Well = CoordinatesTest::data4x3();
         foreach ($dataProvider12Well as $wellData) {
-            $microplateCoordinates = new Coordinates($wellData['row'], $wellData['column'], $coordinateSystem);
+            $microplateCoordinates = Coordinates::fromArray($wellData, $coordinateSystem);
             // check that it does not throw before the plate is full
             self::assertEquals($microplateCoordinates, $microplate->nextFreeWellCoordinates(FlowDirection::ROW()));
             $microplate->addWell($microplateCoordinates, rand(1, 100));

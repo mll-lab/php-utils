@@ -124,7 +124,7 @@ final class CoordinatesTest extends TestCase
     public function testPosition(CoordinateSystem $coordinateSystem, array $wells): void
     {
         foreach ($wells as $well) {
-            $coordinates = new Coordinates($well['row'], $well['column'], $coordinateSystem);
+            $coordinates = Coordinates::fromArray($well, $coordinateSystem);
             self::assertSame($well['columnFlowPosition'], $coordinates->position(FlowDirection::COLUMN()));
             self::assertSame($well['rowFlowPosition'], $coordinates->position(FlowDirection::ROW()));
         }

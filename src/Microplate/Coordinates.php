@@ -155,9 +155,9 @@ class Coordinates
     /**
      * Determines if the given coordinates have the same row, same column, and an equal coordinate system.
      *
-     * @param Coordinates<covariant CoordinateSystem> $coordinates
+     * @param self<covariant CoordinateSystem> $coordinates
      */
-    public function equals(Coordinates $coordinates): bool
+    public function equals(self $coordinates): bool
     {
         return $coordinates->row === $this->row
             && $coordinates->column === $this->column
