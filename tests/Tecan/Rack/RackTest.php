@@ -62,7 +62,7 @@ final class RackTest extends TestCase
         $rack->assignPosition('Sample', $lastPosition + 1);
     }
 
-    /** @return iterable<string, array{BaseRack<mixed>, string, string, int}> */
+    /** @return iterable<array{BaseRack<mixed>, string, string, int}> */
     public static function rackDataProvider(): iterable
     {
         yield 'MPCDNA' => [new MPCDNA(), 'MPCDNA', 'MP cDNA', 96];

@@ -4,7 +4,7 @@ namespace MLL\Utils\Tests\QxManager;
 
 use Carbon\Carbon;
 use MLL\Utils\Microplate\Coordinates;
-use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\Microplate\Microplate;
 use MLL\Utils\QxManager\FilledRow;
 use MLL\Utils\QxManager\FilledWell;
@@ -28,15 +28,15 @@ final class QxManagerSampleSheetTest extends TestCase
 
         $filledWell = new FilledWell($famRowMock, $hexRowMock);
 
-        /** @var Microplate<FilledWell, CoordinateSystem96Well> $microplate */
-        $microplate = new Microplate(new CoordinateSystem96Well());
+        /** @var Microplate<FilledWell, CoordinateSystem12x8> $microplate */
+        $microplate = new Microplate(new CoordinateSystem12x8());
         $microplate->addWell(
-            Coordinates::fromString('F1', new CoordinateSystem96Well()),
+            Coordinates::fromString('F1', new CoordinateSystem12x8()),
             $filledWell
         );
 
         $microplate->addWell(
-            Coordinates::fromString('H12', new CoordinateSystem96Well()),
+            Coordinates::fromString('H12', new CoordinateSystem12x8()),
             $filledWell
         );
 
@@ -44,7 +44,7 @@ final class QxManagerSampleSheetTest extends TestCase
         $sampleSheet = new QxManagerSampleSheet();
         $csvString = $sampleSheet->toCsvString($microplate, $createdDate);
 
-        $expectedCsvString = <<<CSV
+        self::assertSame(StringUtil::normalizeLineEndings(<<<CSV
 ddplate - DO NOT MODIFY THIS LINE,Version=1,ApplicationName=QX Manager Standard Edition,ApplicationVersion=2.0.0.665,ApplicationEdition=ResearchEmbedded,User=\QX User,CreatedDate={$createdDate->format('n/j/Y g:i:s A')},
 
 PlateSize=GCR96
@@ -149,8 +149,6 @@ H11,No,,,,,,,,,,,,,,,,
 H12,FAM Row String
 H12,HEX Row String
 
-CSV;
-
-        self::assertSame(StringUtil::normalizeLineEndings($expectedCsvString), $csvString);
+CSV), $csvString);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tests\Microplate\SectionedMicroplate;
 
-use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\Microplate\Section;
 use MLL\Utils\Microplate\SectionedMicroplate;
 use PHPUnit\Framework\TestCase;
@@ -11,7 +11,7 @@ final class SectionedMicroplateTest extends TestCase
 {
     public function testCanAddSectionsAndWellsToSectionAndRemoveSections(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
         $sectionedMicroplate = new SectionedMicroplate($coordinateSystem);
         self::assertCount(0, $sectionedMicroplate->sections);
 

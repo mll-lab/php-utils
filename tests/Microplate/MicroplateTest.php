@@ -4,8 +4,8 @@ namespace MLL\Utils\Tests\Microplate;
 
 use Illuminate\Support\Collection;
 use MLL\Utils\Microplate\Coordinates;
-use MLL\Utils\Microplate\CoordinateSystem12Well;
-use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
+use MLL\Utils\Microplate\CoordinateSystem4x3;
 use MLL\Utils\Microplate\Enums\FlowDirection;
 use MLL\Utils\Microplate\Exceptions\MicroplateIsFullException;
 use MLL\Utils\Microplate\Microplate;
@@ -16,7 +16,7 @@ final class MicroplateTest extends TestCase
 {
     public function testCanAddAndRetrieveWellBasedOnCoordinateSystem(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
 
         $microplate = new Microplate($coordinateSystem);
 
@@ -32,14 +32,14 @@ final class MicroplateTest extends TestCase
         self::assertEquals($wellContent1, $microplate->well($microplateCoordinate1));
         self::assertEquals($wellContent2, $microplate->well($microplateCoordinate2));
 
-        $coordinateWithOtherCoordinateSystem = new Coordinates('B', 2, new CoordinateSystem12Well());
+        $coordinateWithOtherCoordinateSystem = new Coordinates('B', 2, new CoordinateSystem4x3());
         // @phpstan-ignore-next-line expecting a type error due to mismatching coordinates
         $microplate->addWell($coordinateWithOtherCoordinateSystem, 'foo');
     }
 
     public function testMatchRow(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
 
         $microplate = new Microplate($coordinateSystem);
 
@@ -66,7 +66,7 @@ final class MicroplateTest extends TestCase
 
     public function testMatchColumn(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
 
         $microplate = new Microplate($coordinateSystem);
 
@@ -80,7 +80,7 @@ final class MicroplateTest extends TestCase
 
     public function testtoWellWithCoordinatesMapper(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
         $microplate = new Microplate($coordinateSystem);
 
         $coordinates = new Coordinates('A', 1, $coordinateSystem);
@@ -133,17 +133,17 @@ final class MicroplateTest extends TestCase
         self::assertNotCount(0, $microplate->freeWells());
     }
 
-    /** @phpstan-return Microplate<mixed, CoordinateSystem96Well> */
+    /** @phpstan-return Microplate<mixed, CoordinateSystem12x8> */
     private function preparePlate(): Microplate
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
 
         $microplate = new Microplate($coordinateSystem);
 
-        $data96Wells = CoordinatesTest::data96Wells();
-        \Safe\shuffle($data96Wells);
-        foreach ($data96Wells as $well) {
-            $microplateCoordinates = new Coordinates($well['row'], $well['column'], new CoordinateSystem96Well());
+        $data12x8 = CoordinatesTest::data12x8();
+        \Safe\shuffle($data12x8);
+        foreach ($data12x8 as $well) {
+            $microplateCoordinates = new Coordinates($well['row'], $well['column'], new CoordinateSystem12x8());
 
             $randomNumber = rand(1, 100);
             $randomNumberOrNull = $randomNumber > 50 ? $randomNumber : null;
@@ -156,7 +156,7 @@ final class MicroplateTest extends TestCase
 
     public function testNextFreeWellAddingAndGetting(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
         $microplate = new Microplate($coordinateSystem);
 
         $wellData = [
@@ -192,10 +192,10 @@ final class MicroplateTest extends TestCase
 
     public function testThrowsPlateFullException(): void
     {
-        $coordinateSystem = new CoordinateSystem12Well();
+        $coordinateSystem = new CoordinateSystem4x3();
         $microplate = new Microplate($coordinateSystem);
 
-        $dataProvider12Well = CoordinatesTest::data12Wells();
+        $dataProvider12Well = CoordinatesTest::data4x3();
         foreach ($dataProvider12Well as $wellData) {
             $microplateCoordinates = new Coordinates($wellData['row'], $wellData['column'], $coordinateSystem);
             // check that it does not throw before the plate is full
@@ -209,7 +209,7 @@ final class MicroplateTest extends TestCase
 
     public function testIsConsecutiveForColumn(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
         $microplate = new Microplate($coordinateSystem);
 
         $data = [
@@ -230,7 +230,7 @@ final class MicroplateTest extends TestCase
 
     public function testIsConsecutiveForRow(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
         $microplate = new Microplate($coordinateSystem);
 
         $data = [
@@ -251,7 +251,7 @@ final class MicroplateTest extends TestCase
 
     public function testIsConsecutiveForEmptyPlate(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
         $microplate = new Microplate($coordinateSystem);
 
         self::assertFalse($microplate->isConsecutive(FlowDirection::ROW()));
@@ -260,7 +260,7 @@ final class MicroplateTest extends TestCase
 
     public function testIsConsecutiveForFullPlate(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
         $microplate = new Microplate($coordinateSystem);
 
         foreach ($coordinateSystem->all() as $coordinates) {

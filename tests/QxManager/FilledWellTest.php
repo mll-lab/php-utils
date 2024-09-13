@@ -3,7 +3,7 @@
 namespace MLL\Utils\Tests\QxManager;
 
 use MLL\Utils\Microplate\Coordinates;
-use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\QxManager\FilledRow;
 use MLL\Utils\QxManager\FilledWell;
 use PHPUnit\Framework\TestCase;
@@ -12,7 +12,7 @@ final class FilledWellTest extends TestCase
 {
     public function testToString(): void
     {
-        $coordinates = Coordinates::fromString('C9', new CoordinateSystem96Well());
+        $coordinates = Coordinates::fromString('C9', new CoordinateSystem12x8());
 
         $famRowMock = $this->createMock(FilledRow::class);
         $famRowMock->expects(self::once())

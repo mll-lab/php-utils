@@ -4,10 +4,10 @@ namespace MLL\Utils\Tests\Microplate;
 
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem;
-use MLL\Utils\Microplate\CoordinateSystem12Well;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\Microplate\CoordinateSystem2x16;
-use MLL\Utils\Microplate\CoordinateSystem48Well;
-use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\CoordinateSystem4x3;
+use MLL\Utils\Microplate\CoordinateSystem8x6;
 use MLL\Utils\Microplate\Enums\FlowDirection;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ final class CoordinatesTest extends TestCase
     /**
      * @dataProvider dataProviderWells
      *
-     * @param WellData[] $wells
+     * @param array<WellData> $wells
      */
     #[DataProvider('dataProviderWells')]
     public function testCanConstructFromRowAndColumn(CoordinateSystem $coordinateSystem, array $wells): void
@@ -39,7 +39,7 @@ final class CoordinatesTest extends TestCase
     /**
      * @dataProvider dataProviderWells
      *
-     * @param WellData[] $wells
+     * @param array<WellData> $wells
      */
     #[DataProvider('dataProviderWells')]
     public function testCanConstructFromPosition(CoordinateSystem $coordinateSystem, array $wells): void
@@ -68,7 +68,7 @@ final class CoordinatesTest extends TestCase
     /**
      * @dataProvider dataProviderWells
      *
-     * @param WellData[] $wells
+     * @param array<WellData> $wells
      */
     #[DataProvider('dataProviderWells')]
     public function testFromCoordinatesString(CoordinateSystem $coordinateSystem, array $wells): void
@@ -103,7 +103,7 @@ final class CoordinatesTest extends TestCase
     /**
      * @dataProvider dataProviderWells
      *
-     * @param WellData[] $wells
+     * @param array<WellData> $wells
      */
     #[DataProvider('dataProviderWells')]
     public function testPositionWells(CoordinateSystem $coordinateSystem, array $wells): void
@@ -116,47 +116,65 @@ final class CoordinatesTest extends TestCase
     }
 
     /**
-     * @return array<string, array{CoordinateSystem, array<array{
-     *  paddedCoordinates: string,
-     *  row: string,
-     *  column: int
-     *  }>}> $paddedWells
-     * */
+     * @return array<
+     *   string,
+     *   array{
+     *     CoordinateSystem,
+     *     array<
+     *       array{
+     *         paddedCoordinates: string,
+     *         row: string,
+     *         column: int,
+     *       }
+     *     >
+     *   }
+     * > $paddedWells
+     */
     public static function dataProviderPaddedWells(): array
     {
         return [
-            '12Wells' => [new CoordinateSystem12Well(), [
-                ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
-                ['paddedCoordinates' => 'C4', 'row' => 'C', 'column' => 4],
-            ], ],
-            '48Wells' => [new CoordinateSystem48Well(), [
-                ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
-                ['paddedCoordinates' => 'F8', 'row' => 'F', 'column' => 8],
-            ], ],
-            '96Wells' => [new CoordinateSystem96Well(), [
-                ['paddedCoordinates' => 'A01', 'row' => 'A', 'column' => 1],
-                ['paddedCoordinates' => 'C05', 'row' => 'C', 'column' => 5],
-                ['paddedCoordinates' => 'H12', 'row' => 'H', 'column' => 12],
-                ['paddedCoordinates' => 'D10', 'row' => 'D', 'column' => 10],
-            ], ],
-            '2x16Wells' => [new CoordinateSystem2x16(), [
-                ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
-                ['paddedCoordinates' => 'B2', 'row' => 'B', 'column' => 2],
-                ['paddedCoordinates' => 'M1', 'row' => 'M', 'column' => 1],
-                ['paddedCoordinates' => 'K2', 'row' => 'K', 'column' => 2],
-            ], ],
+            '12Wells' => [
+                new CoordinateSystem4x3(),
+                [
+                    ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
+                    ['paddedCoordinates' => 'C4', 'row' => 'C', 'column' => 4],
+                ],
+            ],
+            '48Wells' => [
+                new CoordinateSystem8x6(),
+                [
+                    ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
+                    ['paddedCoordinates' => 'F8', 'row' => 'F', 'column' => 8],
+                ],
+            ],
+            '96Wells' => [
+                new CoordinateSystem12x8(),
+                [
+                    ['paddedCoordinates' => 'A01', 'row' => 'A', 'column' => 1],
+                    ['paddedCoordinates' => 'C05', 'row' => 'C', 'column' => 5],
+                    ['paddedCoordinates' => 'H12', 'row' => 'H', 'column' => 12],
+                    ['paddedCoordinates' => 'D10', 'row' => 'D', 'column' => 10],
+                ],
+            ],
+            '2x16Wells' => [
+                new CoordinateSystem2x16(),
+                [
+                    ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
+                    ['paddedCoordinates' => 'B2', 'row' => 'B', 'column' => 2],
+                    ['paddedCoordinates' => 'M1', 'row' => 'M', 'column' => 1],
+                    ['paddedCoordinates' => 'K2', 'row' => 'K', 'column' => 2],
+                ],
+            ],
         ];
     }
 
-    /** @return array<string, array{CoordinateSystem, WellData[]}> */
-    public static function dataProviderWells(): array
+    /** @return iterable<array{CoordinateSystem, array<WellData>}> */
+    public static function dataProviderWells(): iterable
     {
-        return [
-            '12Wells' => [new CoordinateSystem12Well(), self::data12Wells()],
-            '48ells' => [new CoordinateSystem48Well(), self::data48Wells()],
-            '96Wells' => [new CoordinateSystem96Well(), self::data96Wells()],
-            '2x16Wells' => [new CoordinateSystem2x16(), self::data2x16Wells()],
-        ];
+        yield '2x16' => [new CoordinateSystem2x16(), self::data2x16()];
+        yield '4x3' => [new CoordinateSystem4x3(), self::data4x3()];
+        yield '8x6' => [new CoordinateSystem8x6(), self::data8x6()];
+        yield '12x8' => [new CoordinateSystem12x8(), self::data12x8()];
     }
 
     /**
@@ -173,15 +191,13 @@ final class CoordinatesTest extends TestCase
         }
     }
 
-    /** @return array<string, array{CoordinateSystem, array<array{string, int}>}> */
+    /** @return iterable<array{CoordinateSystem, array<array{string, int}>}> */
     public static function invalidRowsOrColumns(): iterable
     {
-        return [
-            '12Wells' => [new CoordinateSystem12Well(), [['X', 2], ['B', 0], ['B', 4], ['B', -1], ['B', 1000], ['rolf', 2], ['D', 1]]],
-            '48Wells' => [new CoordinateSystem48Well(), [['X', 2], ['B', 0], ['B', 4], ['B', -1], ['B', 1000], ['rolf', 2], ['G', 1]]],
-            '96Wells' => [new CoordinateSystem96Well(), [['X', 2], ['B', 0], ['B', 13], ['B', -1], ['B', 1000], ['rolf', 2]]],
-            '2x16Wells' => [new CoordinateSystem2x16(), [['X', 2], ['B', 0], ['B', 3], ['B', -1], ['B', 1000], ['rolf', 2]]],
-        ];
+        yield '2x16' => [new CoordinateSystem2x16(), [['X', 2], ['B', 0], ['B', 3], ['B', -1], ['B', 1000], ['rolf', 2]]];
+        yield '4x3' => [new CoordinateSystem4x3(), [['X', 2], ['B', 0], ['B', 4], ['B', -1], ['B', 1000], ['rolf', 2], ['D', 1]]];
+        yield '8x6' => [new CoordinateSystem8x6(), [['X', 2], ['B', 0], ['B', 4], ['B', -1], ['B', 1000], ['rolf', 2], ['G', 1]]];
+        yield '12x8' => [new CoordinateSystem12x8(), [['X', 2], ['B', 0], ['B', 13], ['B', -1], ['B', 1000], ['rolf', 2]]];
     }
 
     /**
@@ -194,19 +210,17 @@ final class CoordinatesTest extends TestCase
     {
         foreach ($positions as $position) {
             $this->expectException(\InvalidArgumentException::class);
-            Coordinates::fromPosition($position, FlowDirection::COLUMN(), new CoordinateSystem96Well());
+            Coordinates::fromPosition($position, FlowDirection::COLUMN(), new CoordinateSystem12x8());
         }
     }
 
-    /** @return array<string, array{CoordinateSystem, array<int>}> */
+    /** @return iterable<array{CoordinateSystem, array<int>}> */
     public static function invalidPositions(): iterable
     {
-        return [
-            '12Wells' => [new CoordinateSystem12Well(), [0, -1, 13, 10000]],
-            '48Wells' => [new CoordinateSystem48Well(), [0, -1, 49, 10000]],
-            '96Wells' => [new CoordinateSystem96Well(), [0, -1, 97, 10000]],
-            '2x16Wells' => [new CoordinateSystem2x16(), [0, -1, 33, 10000]],
-        ];
+        yield '2x16' => [new CoordinateSystem2x16(), [0, -1, 33, 10000]];
+        yield '4x3' => [new CoordinateSystem4x3(), [0, -1, 13, 10000]];
+        yield '8x6' => [new CoordinateSystem8x6(), [0, -1, 49, 10000]];
+        yield '12x8' => [new CoordinateSystem12x8(), [0, -1, 97, 10000]];
     }
 
     /**
@@ -223,19 +237,16 @@ final class CoordinatesTest extends TestCase
         }
     }
 
-    /** @return array<string, array{CoordinateSystem, array<string>}> */
-    public static function invalidCoordinates(): array
+    /** @return iterable<array{CoordinateSystem, array<string>}> */
+    public static function invalidCoordinates(): iterable
     {
-        return [
-            '12Wells' => [new CoordinateSystem2x16(), ['A0', 'A01', 'D3', 'C5', 'rolf', 'a1']],
-            '48Wells' => [new CoordinateSystem48Well(), ['A0', 'A01', 'G3', 'C9', 'rolf', 'a1']],
-            '96Wells' => [new CoordinateSystem96Well(), ['A0', 'A001', 'X3', 'rolf', 'a1']],
-            '2x16Wells' => [new CoordinateSystem2x16(), ['A0', 'A01', 'X3', 'rolf', 'a1']],
-        ];
+        yield '2x16' => [new CoordinateSystem2x16(), ['A0', 'A01', 'D3', 'C5', 'X3', 'rolf', 'a1']];
+        yield '8x6' => [new CoordinateSystem8x6(), ['A0', 'A01', 'G3', 'C9', 'rolf', 'a1']];
+        yield '12x8' => [new CoordinateSystem12x8(), ['A0', 'A001', 'X3', 'rolf', 'a1']];
     }
 
     /** @return array<WellData> */
-    public static function data2x16Wells(): array
+    public static function data2x16(): array
     {
         return [
             ['row' => 'A', 'column' => 1, 'rowFlowPosition' => 1, 'columnFlowPosition' => 1],
@@ -274,7 +285,7 @@ final class CoordinatesTest extends TestCase
     }
 
     /** @return array<WellData> */
-    public static function data12Wells(): array
+    public static function data4x3(): array
     {
         return [
             ['row' => 'A', 'column' => 1, 'rowFlowPosition' => 1, 'columnFlowPosition' => 1],
@@ -293,7 +304,7 @@ final class CoordinatesTest extends TestCase
     }
 
     /** @return array<WellData> */
-    public static function data48Wells(): array
+    public static function data8x6(): array
     {
         return [
             ['row' => 'A', 'column' => 1, 'rowFlowPosition' => 1, 'columnFlowPosition' => 1],
@@ -348,7 +359,7 @@ final class CoordinatesTest extends TestCase
     }
 
     /** @return array<WellData> */
-    public static function data96Wells(): array
+    public static function data12x8(): array
     {
         return [
             ['row' => 'A', 'column' => 1, 'rowFlowPosition' => 1, 'columnFlowPosition' => 1],
