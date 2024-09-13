@@ -7,6 +7,7 @@ use MLL\Utils\Microplate\CoordinateSystem;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\Microplate\CoordinateSystem2x16;
 use MLL\Utils\Microplate\CoordinateSystem4x3;
+use MLL\Utils\Microplate\CoordinateSystem6x8;
 use MLL\Utils\Microplate\CoordinateSystem8x6;
 use MLL\Utils\Microplate\Enums\FlowDirection;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -28,7 +29,7 @@ final class CoordinatesTest extends TestCase
      * @param array<WellData> $wells
      */
     #[DataProvider('dataProviderWells')]
-    public function testCanConstructFromRowAndColumn(CoordinateSystem $coordinateSystem, array $wells): void
+    public function testConstruct(CoordinateSystem $coordinateSystem, array $wells): void
     {
         foreach ($wells as $well) {
             $coordinates = new Coordinates($well['row'], $well['column'], $coordinateSystem);
@@ -42,7 +43,21 @@ final class CoordinatesTest extends TestCase
      * @param array<WellData> $wells
      */
     #[DataProvider('dataProviderWells')]
-    public function testCanConstructFromPosition(CoordinateSystem $coordinateSystem, array $wells): void
+    public function testFromArray(CoordinateSystem $coordinateSystem, array $wells): void
+    {
+        foreach ($wells as $well) {
+            $coordinates = Coordinates::fromArray($well, $coordinateSystem);
+            self::assertSame($well['row'] . $well['column'], $coordinates->toString());
+        }
+    }
+
+    /**
+     * @dataProvider dataProviderWells
+     *
+     * @param array<WellData> $wells
+     */
+    #[DataProvider('dataProviderWells')]
+    public function testFromPosition(CoordinateSystem $coordinateSystem, array $wells): void
     {
         foreach ($wells as $well) {
             // test for Column-FlowDirection
@@ -71,7 +86,7 @@ final class CoordinatesTest extends TestCase
      * @param array<WellData> $wells
      */
     #[DataProvider('dataProviderWells')]
-    public function testFromCoordinatesString(CoordinateSystem $coordinateSystem, array $wells): void
+    public function testFromString(CoordinateSystem $coordinateSystem, array $wells): void
     {
         foreach ($wells as $well) {
             $coordinates = Coordinates::fromString($well['row'] . $well['column'], $coordinateSystem);
@@ -106,18 +121,39 @@ final class CoordinatesTest extends TestCase
      * @param array<WellData> $wells
      */
     #[DataProvider('dataProviderWells')]
-    public function testPositionWells(CoordinateSystem $coordinateSystem, array $wells): void
+    public function testPosition(CoordinateSystem $coordinateSystem, array $wells): void
     {
         foreach ($wells as $well) {
-            $coordinates = new Coordinates($well['row'], $well['column'], $coordinateSystem);
+            $coordinates = Coordinates::fromArray($well, $coordinateSystem);
             self::assertSame($well['columnFlowPosition'], $coordinates->position(FlowDirection::COLUMN()));
             self::assertSame($well['rowFlowPosition'], $coordinates->position(FlowDirection::ROW()));
         }
     }
 
+    public function testEquals(): void
+    {
+        $a1on6x8 = new Coordinates('A', 1, new CoordinateSystem6x8());
+        self::assertTrue($a1on6x8->equals($a1on6x8));
+
+        $a1on6x8AnotherInstance = new Coordinates('A', 1, new CoordinateSystem6x8());
+        self::assertTrue($a1on6x8->equals($a1on6x8AnotherInstance));
+        self::assertTrue($a1on6x8AnotherInstance->equals($a1on6x8));
+
+        $a1on8x6 = new Coordinates('A', 1, new CoordinateSystem8x6());
+        self::assertFalse($a1on6x8->equals($a1on8x6));
+        self::assertFalse($a1on8x6->equals($a1on6x8));
+
+        $a2on6x8 = new Coordinates('A', 2, new CoordinateSystem8x6());
+        self::assertFalse($a1on6x8->equals($a2on6x8));
+        self::assertFalse($a2on6x8->equals($a1on6x8));
+
+        $b1on6x8 = new Coordinates('B', 1, new CoordinateSystem8x6());
+        self::assertFalse($a1on6x8->equals($b1on6x8));
+        self::assertFalse($b1on6x8->equals($a1on6x8));
+    }
+
     /**
-     * @return array<
-     *   string,
+     * @return iterable<
      *   array{
      *     CoordinateSystem,
      *     array<
@@ -130,40 +166,45 @@ final class CoordinatesTest extends TestCase
      *   }
      * > $paddedWells
      */
-    public static function dataProviderPaddedWells(): array
+    public static function dataProviderPaddedWells(): iterable
     {
-        return [
-            '12Wells' => [
-                new CoordinateSystem4x3(),
-                [
-                    ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
-                    ['paddedCoordinates' => 'C4', 'row' => 'C', 'column' => 4],
-                ],
+        yield '4x3' => [
+            new CoordinateSystem4x3(),
+            [
+                ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
+                ['paddedCoordinates' => 'C4', 'row' => 'C', 'column' => 4],
             ],
-            '48Wells' => [
-                new CoordinateSystem8x6(),
-                [
-                    ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
-                    ['paddedCoordinates' => 'F8', 'row' => 'F', 'column' => 8],
-                ],
+        ];
+        yield '8x6' => [
+            new CoordinateSystem8x6(),
+            [
+                ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
+                ['paddedCoordinates' => 'F8', 'row' => 'F', 'column' => 8],
             ],
-            '96Wells' => [
-                new CoordinateSystem12x8(),
-                [
-                    ['paddedCoordinates' => 'A01', 'row' => 'A', 'column' => 1],
-                    ['paddedCoordinates' => 'C05', 'row' => 'C', 'column' => 5],
-                    ['paddedCoordinates' => 'H12', 'row' => 'H', 'column' => 12],
-                    ['paddedCoordinates' => 'D10', 'row' => 'D', 'column' => 10],
-                ],
+        ];
+        yield '6x8' => [
+            new CoordinateSystem6x8(),
+            [
+                ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
+                ['paddedCoordinates' => 'H6', 'row' => 'H', 'column' => 6],
             ],
-            '2x16Wells' => [
-                new CoordinateSystem2x16(),
-                [
-                    ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
-                    ['paddedCoordinates' => 'B2', 'row' => 'B', 'column' => 2],
-                    ['paddedCoordinates' => 'M1', 'row' => 'M', 'column' => 1],
-                    ['paddedCoordinates' => 'K2', 'row' => 'K', 'column' => 2],
-                ],
+        ];
+        yield '12x8' => [
+            new CoordinateSystem12x8(),
+            [
+                ['paddedCoordinates' => 'A01', 'row' => 'A', 'column' => 1],
+                ['paddedCoordinates' => 'C05', 'row' => 'C', 'column' => 5],
+                ['paddedCoordinates' => 'H12', 'row' => 'H', 'column' => 12],
+                ['paddedCoordinates' => 'D10', 'row' => 'D', 'column' => 10],
+            ],
+        ];
+        yield '2x16' => [
+            new CoordinateSystem2x16(),
+            [
+                ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
+                ['paddedCoordinates' => 'B2', 'row' => 'B', 'column' => 2],
+                ['paddedCoordinates' => 'M1', 'row' => 'M', 'column' => 1],
+                ['paddedCoordinates' => 'K2', 'row' => 'K', 'column' => 2],
             ],
         ];
     }

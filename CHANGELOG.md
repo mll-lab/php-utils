@@ -9,6 +9,14 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.3.0
+
+### Added
+
+- Add methods `CoordinateSystem::equals()` and `Coordinates::equals()`
+- Add coordinate system `CoordinateSystem6x8`
+- Add method `CoordinateSystem::fromArray()`
+
 ## v5.2.0
 
 ### Added

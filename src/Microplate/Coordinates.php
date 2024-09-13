@@ -8,7 +8,11 @@ use MLL\Utils\Microplate\Exceptions\UnexpectedFlowDirection;
 
 use function Safe\preg_match;
 
-/** @template TCoordinateSystem of CoordinateSystem */
+/**
+ * @template TCoordinateSystem of CoordinateSystem
+ *
+ * @phpstan-type CoordinatesArray array{row: string, column: int}
+ */
 class Coordinates
 {
     public const MIN_POSITION = 1;
@@ -38,6 +42,19 @@ class Coordinates
         $this->column = $column;
 
         $this->coordinateSystem = $coordinateSystem;
+    }
+
+    /**
+     * @template TCoord of CoordinateSystem
+     *
+     * @param CoordinatesArray $coordinates
+     * @param TCoord $coordinateSystem
+     *
+     * @return static<TCoord>
+     */
+    public static function fromArray(array $coordinates, CoordinateSystem $coordinateSystem)
+    {
+        return new self($coordinates['row'], $coordinates['column'], $coordinateSystem);
     }
 
     /**
@@ -74,17 +91,6 @@ class Coordinates
         return new self($matches[1], (int) $matches[2], $coordinateSystem);
     }
 
-    public function toString(): string
-    {
-        return $this->row . $this->column;
-    }
-
-    /** Format the coordinates with the column 0-padded so all are the same length. */
-    public function toPaddedString(): string
-    {
-        return $this->row . $this->coordinateSystem->padColumn($this->column);
-    }
-
     /**
      * @param TCoordinateSystem $coordinateSystem
      *
@@ -115,6 +121,17 @@ class Coordinates
         }
     }
 
+    public function toString(): string
+    {
+        return $this->row . $this->column;
+    }
+
+    /** Format the coordinates with the column 0-padded so all are the same length. */
+    public function toPaddedString(): string
+    {
+        return $this->row . $this->coordinateSystem->padColumn($this->column);
+    }
+
     public function position(FlowDirection $direction): int
     {
         /** @var int $rowIndex Must be found, since __construct enforces $this->row is valid */
@@ -133,6 +150,18 @@ class Coordinates
                 throw new UnexpectedFlowDirection($direction);
                 // @codeCoverageIgnoreEnd
         }
+    }
+
+    /**
+     * Determines if the given coordinates have the same row, same column, and an equal coordinate system.
+     *
+     * @param self<covariant CoordinateSystem> $coordinates
+     */
+    public function equals(self $coordinates): bool
+    {
+        return $coordinates->row === $this->row
+            && $coordinates->column === $this->column
+            && $coordinates->coordinateSystem->equals($this->coordinateSystem);
     }
 
     private static function assertPositionInRange(CoordinateSystem $coordinateSystem, int $position): void
