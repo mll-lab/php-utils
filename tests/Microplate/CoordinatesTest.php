@@ -168,21 +168,28 @@ final class CoordinatesTest extends TestCase
      */
     public static function dataProviderPaddedWells(): iterable
     {
-        yield '12Wells' => [
+        yield '4x3' => [
             new CoordinateSystem4x3(),
             [
                 ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
                 ['paddedCoordinates' => 'C4', 'row' => 'C', 'column' => 4],
             ],
         ];
-        yield '48Wells' => [
+        yield '8x6' => [
             new CoordinateSystem8x6(),
             [
                 ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
                 ['paddedCoordinates' => 'F8', 'row' => 'F', 'column' => 8],
             ],
         ];
-        yield '96Wells' => [
+        yield '6x8' => [
+            new CoordinateSystem6x8(),
+            [
+                ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
+                ['paddedCoordinates' => 'H6', 'row' => 'H', 'column' => 6],
+            ],
+        ];
+        yield '12x8' => [
             new CoordinateSystem12x8(),
             [
                 ['paddedCoordinates' => 'A01', 'row' => 'A', 'column' => 1],
@@ -191,7 +198,7 @@ final class CoordinatesTest extends TestCase
                 ['paddedCoordinates' => 'D10', 'row' => 'D', 'column' => 10],
             ],
         ];
-        yield '2x16Wells' => [
+        yield '2x16' => [
             new CoordinateSystem2x16(),
             [
                 ['paddedCoordinates' => 'A1', 'row' => 'A', 'column' => 1],
