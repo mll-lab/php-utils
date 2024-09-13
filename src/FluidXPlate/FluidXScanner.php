@@ -87,8 +87,9 @@ class FluidXScanner
         }
 
         $plate = new FluidXPlate($id);
+        $coordinateSystem = FluidXPlate::coordinateSystem();
         foreach ($barcodes as $coordinates => $barcode) {
-            $plate->addWell(Coordinates::fromString($coordinates, new CoordinateSystem12x8()), $barcode);
+            $plate->addWell(Coordinates::fromString($coordinates, $coordinateSystem), $barcode);
         }
 
         return $plate;
