@@ -83,8 +83,7 @@ CSV
             );
         }
         self::assertSame(
-            StringUtil::normalizeLineEndings(
-                <<<CSV
+            StringUtil::normalizeLineEndings(<<<CSV
 {$this->initComment()}A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
 D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
 W;
@@ -102,8 +101,7 @@ A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
 D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
 W;
 
-CSV
-            ),
+CSV),
             $tecanProtocol->buildProtocol()
         );
     }
@@ -130,8 +128,7 @@ CSV
         }
 
         self::assertSame(
-            StringUtil::normalizeLineEndings(
-                <<<CSV
+            StringUtil::normalizeLineEndings(<<<CSV
 {$this->initComment()}A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
 D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
 W;
@@ -149,8 +146,7 @@ A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
 D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
 W;
 
-CSV
-            ),
+CSV),
             $tecanProtocol->buildProtocol()
         );
     }
@@ -171,8 +167,7 @@ CSV
         }
 
         self::assertSame(
-            StringUtil::normalizeLineEndings(
-                <<<CSV
+            StringUtil::normalizeLineEndings(<<<CSV
 {$this->initComment()}A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
 D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
 W;
@@ -205,8 +200,7 @@ A;;;96FluidX;;barcode;100;TestLiquidClassName;;2
 D;;;96FluidX;;barcode1;100;TestLiquidClassName;;2
 W;
 
-CSV
-            ),
+CSV),
             $tecanProtocol->buildProtocol()
         );
     }
@@ -280,8 +274,7 @@ CSV
         );
 
         self::assertSame(
-            StringUtil::normalizeLineEndings(
-                <<<CSV
+            StringUtil::normalizeLineEndings(<<<CSV
 {$this->initComment()}R;MM;;Eppis 32x1.5 ml Cooled;1;1;DestPCR;;96 Well PCR ABI semi-skirted;1;57;24;Transfer_Mastermix_MP;6;1;0;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;33;34;35;36;37;38;39;40;41;42;43;44;45;46;47;48;49;50;51;52;53;54;55;56
 R;MM;;Eppis 32x1.5 ml Cooled;2;2;DestPCR;;96 Well PCR ABI semi-skirted;6;75;24;Transfer_Mastermix_MP;6;1;0;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;33;34;35;36;37;38;39;40;41;42;43;44;45;46;47;48;49;51;52;53;54;55;56;57;59;60;61;62;63;64;65;66;67;68;69;70;71;72;73
 R;MM;;Eppis 32x1.5 ml Cooled;3;3;DestPCR;;96 Well PCR ABI semi-skirted;8;59;24;Transfer_Mastermix_MP;6;1;0;9;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;33;34;35;36;37;38;39;40;41;42;43;44;45;46;47;48;49;50;52;53;54;55;56;57;58
@@ -289,8 +282,7 @@ R;MM;;Eppis 32x1.5 ml Cooled;4;4;DestPCR;;96 Well PCR ABI semi-skirted;11;60;24;
 R;MM;;Eppis 32x1.5 ml Cooled;5;5;DestPCR;;96 Well PCR ABI semi-skirted;24;61;24;Transfer_Mastermix_MP;6;1;0;31;32;33;34;35;36;37;38;39;40;41;42;43;44;45;46;47;48;49;50;51;52;54;55;56;57;58;59;60
 R;MM;;Eppis 32x1.5 ml Cooled;5;5;DestPCR;;96 Well PCR ABI semi-skirted;1;5;24;Transfer_Mastermix_MP;6;1;0;
 
-CSV
-            ),
+CSV),
             $tecanProtocol->buildProtocol()
         );
     }

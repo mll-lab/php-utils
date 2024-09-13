@@ -3,7 +3,7 @@
 namespace MLL\Utils\Tests\Microplate\SectionedMicroplate;
 
 use MLL\Utils\Microplate\Coordinates;
-use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\Microplate\Exceptions\MicroplateIsFullException;
 use MLL\Utils\Microplate\Exceptions\SectionIsFullException;
 use MLL\Utils\Microplate\FullColumnSection;
@@ -14,7 +14,7 @@ final class FullColumnSectionTest extends TestCase
 {
     public function testFullColumnSectionThrowsWhenFull(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
         $sectionedMicroplate = new SectionedMicroplate($coordinateSystem);
         self::assertCount(0, $sectionedMicroplate->sections);
 
@@ -35,7 +35,7 @@ final class FullColumnSectionTest extends TestCase
 
     public function testCanNotAddFullColumnSectionIfAllColumnsAreReserved(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
         $sectionedMicroplate = new SectionedMicroplate($coordinateSystem);
 
         foreach (range(1, $coordinateSystem->columnsCount()) as $i) {
@@ -48,7 +48,7 @@ final class FullColumnSectionTest extends TestCase
 
     public function testCanNotGrowFullColumnSectionIfNoColumnsAreLeft(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
         $sectionedMicroplate = new SectionedMicroplate($coordinateSystem);
 
         foreach (range(1, $coordinateSystem->columnsCount() - 1) as $i) {
@@ -66,7 +66,7 @@ final class FullColumnSectionTest extends TestCase
 
     public function testFullColumnSection(): void
     {
-        $coordinateSystem = new CoordinateSystem96Well();
+        $coordinateSystem = new CoordinateSystem12x8();
         $sectionedMicroplate = new SectionedMicroplate($coordinateSystem);
         self::assertCount(0, $sectionedMicroplate->sections);
 

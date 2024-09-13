@@ -3,7 +3,7 @@
 namespace MLL\Utils\QxManager;
 
 use MLL\Utils\Microplate\Coordinates;
-use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
 
 class FilledWell
 {
@@ -17,7 +17,7 @@ class FilledWell
         $this->hexRow = $hexRow;
     }
 
-    /** @param Coordinates<CoordinateSystem96Well> $coordinates */
+    /** @param Coordinates<CoordinateSystem12x8> $coordinates */
     public function toString(Coordinates $coordinates): string
     {
         return $coordinates->toPaddedString() . QxManagerSampleSheet::DELIMITER . $this->famRow->toString() . QxManagerSampleSheet::EOL

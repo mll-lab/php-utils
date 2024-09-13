@@ -4,7 +4,7 @@ namespace MLL\Utils\FluidXPlate;
 
 use Illuminate\Support\Collection;
 use MLL\Utils\Microplate\Coordinates;
-use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\Microplate\Enums\FlowDirection;
 use MLL\Utils\Microplate\Microplate;
 
@@ -15,7 +15,7 @@ class FluidXPlate
 
     public string $rackID;
 
-    /** @var Microplate<string, CoordinateSystem96Well> */
+    /** @var Microplate<string, CoordinateSystem12x8> */
     private Microplate $microplate;
 
     public function __construct(string $rackID)
@@ -27,12 +27,12 @@ class FluidXPlate
         $this->microplate = new Microplate(self::coordinateSystem());
     }
 
-    public static function coordinateSystem(): CoordinateSystem96Well
+    public static function coordinateSystem(): CoordinateSystem12x8
     {
-        return new CoordinateSystem96Well();
+        return new CoordinateSystem12x8();
     }
 
-    /** @param Coordinates<CoordinateSystem96Well> $coordinates */
+    /** @param Coordinates<CoordinateSystem12x8> $coordinates */
     public function addWell(Coordinates $coordinates, string $barcode): void
     {
         if (\Safe\preg_match(self::FLUIDX_BARCODE_REGEX, $barcode) === 0) {
@@ -42,7 +42,7 @@ class FluidXPlate
         $this->microplate->addWell($coordinates, $barcode);
     }
 
-    /** @return Coordinates<CoordinateSystem96Well> */
+    /** @return Coordinates<CoordinateSystem12x8> */
     public function addToNextFreeWell(string $content, FlowDirection $flowDirection): Coordinates
     {
         return $this->microplate->addToNextFreeWell($content, $flowDirection);

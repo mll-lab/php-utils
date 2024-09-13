@@ -4,6 +4,7 @@ namespace MLL\Utils\Microplate;
 
 use Illuminate\Support\Arr;
 
+/** Children should be called `CoordinateSystemXxY`, where X is the number of columns and Y is the number of rows. */
 abstract class CoordinateSystem
 {
     /** @return list<string> */

@@ -4,7 +4,7 @@ namespace MLL\Utils\FluidXPlate;
 
 use Illuminate\Support\Str;
 use MLL\Utils\Microplate\Coordinates;
-use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\StringUtil;
 
 /** Communicates with a FluidX scanner device and fetches results from it. */
@@ -88,7 +88,7 @@ class FluidXScanner
 
         $plate = new FluidXPlate($id);
         foreach ($barcodes as $coordinates => $barcode) {
-            $plate->addWell(Coordinates::fromString($coordinates, new CoordinateSystem96Well()), $barcode);
+            $plate->addWell(Coordinates::fromString($coordinates, new CoordinateSystem12x8()), $barcode);
         }
 
         return $plate;

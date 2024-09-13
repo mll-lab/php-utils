@@ -21,11 +21,11 @@ final class TransferWithAutoWashTest extends TestCase
         $transfer = new TransferWithAutoWash(100, $liquidClass, $aspirateLocation, $dispenseLocation);
 
         self::assertSame(
-            StringUtil::normalizeLineEndings(
-                'A;;;96FluidX;;barcode;100;TestLiquidClassName;;
+            StringUtil::normalizeLineEndings(<<<'CSV'
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;
 D;;;96FluidX;;barcode1;100;TestLiquidClassName;;
-W;'
-            ),
+W;
+CSV),
             $transfer->toString()
         );
     }

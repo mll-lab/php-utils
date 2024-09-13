@@ -2,8 +2,8 @@
 
 namespace MLL\Utils\Tests\Microplate\MicroplateSet;
 
-use MLL\Utils\Microplate\CoordinateSystem12Well;
-use MLL\Utils\Microplate\CoordinateSystem96Well;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
+use MLL\Utils\Microplate\CoordinateSystem4x3;
 use MLL\Utils\Microplate\Enums\FlowDirection;
 use MLL\Utils\Microplate\MicroplateSet\MicroplateSetAB;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -11,18 +11,18 @@ use PHPUnit\Framework\TestCase;
 
 final class MicroplateSetABTest extends TestCase
 {
-    public function testSetLocationFromSetPositionFor96WellPlatesOutOfRangeTooHigh(): void
+    public function testSetLocationFromSetPositionFor12x8PlatesOutOfRangeTooHigh(): void
     {
-        $microplateSet = new MicroplateSetAB(new CoordinateSystem96Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem12x8());
 
         $setPositionHigherThanMax = 193;
         self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-192, got: {$setPositionHigherThanMax}"));
         $microplateSet->locationFromPosition($setPositionHigherThanMax, FlowDirection::COLUMN());
     }
 
-    public function testSetLocationFromSetPositionFor96WellPlatesOutOfRangeTooLow(): void
+    public function testSetLocationFromSetPositionFor12x8PlatesOutOfRangeTooLow(): void
     {
-        $microplateSet = new MicroplateSetAB(new CoordinateSystem96Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem12x8());
 
         $setPositionLowerThanMin = 0;
         self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-192, got: {$setPositionLowerThanMin}"));
@@ -31,7 +31,7 @@ final class MicroplateSetABTest extends TestCase
 
     public function testSetLocationFromSetPositionFor12WellPlatesOutOfRangeTooHigh(): void
     {
-        $microplateSet = new MicroplateSetAB(new CoordinateSystem12Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem4x3());
 
         $setPositionHigherThanMax = 25;
         self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-24, got: {$setPositionHigherThanMax}"));
@@ -40,7 +40,7 @@ final class MicroplateSetABTest extends TestCase
 
     public function testSetLocationFromSetPositionFor12WellPlatesOutOfRangeTooLow(): void
     {
-        $microplateSet = new MicroplateSetAB(new CoordinateSystem12Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem4x3());
 
         $setPositionLowerThanMin = 0;
         self::expectExceptionObject(new \OutOfRangeException("Expected a position between 1-24, got: {$setPositionLowerThanMin}"));
@@ -51,7 +51,7 @@ final class MicroplateSetABTest extends TestCase
     #[DataProvider('dataProvider12Well')]
     public function testSetLocationFromSetPositionFor12Wells(int $position, string $coordinatesString, string $plateID): void
     {
-        $microplateSet = new MicroplateSetAB(new CoordinateSystem12Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem4x3());
 
         $location = $microplateSet->locationFromPosition($position, FlowDirection::COLUMN());
         self::assertSame($location->coordinates->toString(), $coordinatesString);
@@ -93,11 +93,11 @@ final class MicroplateSetABTest extends TestCase
         ];
     }
 
-    /** @dataProvider dataProvider96Well */
-    #[DataProvider('dataProvider96Well')]
-    public function testSetLocationFromSetPositionFor96Wells(int $position, string $coordinatesString, string $plateID): void
+    /** @dataProvider dataProvider12x8 */
+    #[DataProvider('dataProvider12x8')]
+    public function testSetLocationFromSetPositionFor12x8(int $position, string $coordinatesString, string $plateID): void
     {
-        $microplateSet = new MicroplateSetAB(new CoordinateSystem96Well());
+        $microplateSet = new MicroplateSetAB(new CoordinateSystem12x8());
 
         $location = $microplateSet->locationFromPosition($position, FlowDirection::COLUMN());
         self::assertSame($coordinatesString, $location->coordinates->toString());
@@ -111,7 +111,7 @@ final class MicroplateSetABTest extends TestCase
      *   plateID: string,
      * }>
      */
-    public static function dataProvider96Well(): iterable
+    public static function dataProvider12x8(): iterable
     {
         yield [
             'position' => 1,

@@ -9,6 +9,16 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.2.0
+
+### Added
+
+- Add coordinate systems `CoordinateSystem4x3`, `CoordinateSystem8x6` and `CoordinateSystem12x8`
+
+### Changed
+
+- Deprecate coordinate systems `CoordinateSystem12Well`, `CoordinateSytem48Well` and `CoordinateSystem96Well`
+
 ## v5.1.0
 
 ### Added
