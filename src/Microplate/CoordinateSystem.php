@@ -4,7 +4,10 @@ namespace MLL\Utils\Microplate;
 
 use Illuminate\Support\Arr;
 
-/** Children should be called `CoordinateSystemXxY`, where X is the number of columns and Y is the number of rows. */
+/**
+ * Children should be called `CoordinateSystemXxY`, where X is the number of columns and Y is the number of rows.
+ * Naming them by the number of positions is insufficient, e.g. it does not allow distinguishing between 3x4 and 4x3.
+ */
 abstract class CoordinateSystem
 {
     /** @return list<string> */
