@@ -131,7 +131,7 @@ abstract class CoordinateSystem
     }
 
     /** Determines if the given coordinate system has the same rows and columns. */
-    public function equals(CoordinateSystem $coordinateSystem): bool
+    public function equals(self $coordinateSystem): bool
     {
         return $coordinateSystem->rows() === $this->rows()
             && $coordinateSystem->columns() === $this->columns();
