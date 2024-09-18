@@ -101,6 +101,14 @@ class TecanProtocol
         return $this->protocolName . self::GEMINI_WORKLIST_FILENAME_SUFFIX;
     }
 
+    public function setCurrentDiTiTypeIndex(int $currentDiTiTypeIndex): void
+    {
+        if (!$this->commands->last() instanceof BreakCommand) {
+            throw new TecanException('Cannot change the DiTi type index if the last command is not a break command.');
+        }
+        $this->currentDiTiTypeIndex = $currentDiTiTypeIndex;
+    }
+
     /** @return Collection<int, Command> */
     private function initHeader(?string $userName, ?string $protocolName): Collection
     {
