@@ -10,6 +10,7 @@ use MLL\Utils\Meta;
 use MLL\Utils\Tecan\BasicCommands\BreakCommand;
 use MLL\Utils\Tecan\BasicCommands\Command;
 use MLL\Utils\Tecan\BasicCommands\Comment;
+use MLL\Utils\Tecan\BasicCommands\SetDiTiType;
 use MLL\Utils\Tecan\BasicCommands\UsesTipMask;
 use MLL\Utils\Tecan\TipMask\TipMask;
 
@@ -27,12 +28,19 @@ class TecanProtocol
 
     private string $protocolName;
 
-    public function __construct(TipMask $tipMask, ?string $protocolName = null, ?string $userName = null)
+    public ?int $defaultDiTiTypeIndex;
+
+    public ?int $currentDiTiTypeIndex;
+
+    public function __construct(TipMask $tipMask, ?string $protocolName = null, ?string $userName = null, ?int $defaultDiTiTypeIndex = null)
     {
         $this->protocolName = $protocolName ?? Str::uuid()->toString();
         $this->tipMask = $tipMask;
 
         $this->commands = $this->initHeader($userName, $protocolName);
+
+        $this->defaultDiTiTypeIndex = $defaultDiTiTypeIndex;
+        $this->currentDiTiTypeIndex = $defaultDiTiTypeIndex;
     }
 
     public function addCommand(Command $command): void
@@ -53,6 +61,9 @@ class TecanProtocol
     {
         if ($this->tipMask->isLastTip()) {
             $this->commands->add(new BreakCommand());
+            if ($this->defaultDiTiTypeIndex && $this->defaultDiTiTypeIndex !== $this->currentDiTiTypeIndex) {
+                $this->commands->add(new SetDiTiType($this->currentDiTiTypeIndex));
+            }
         }
 
         $command->setTipMask($this->tipMask->nextTip());

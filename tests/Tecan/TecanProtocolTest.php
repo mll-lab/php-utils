@@ -106,6 +106,51 @@ CSV),
         );
     }
 
+    public function testProtocolWithChangingCurrentDiTiTypeIndex(): void
+    {
+        $tecanProtocol = new TecanProtocol(TipMask::FOUR_TIPS(), null, null, 1);
+
+        $liquidClass = new CustomLiquidClass('TestLiquidClassName');
+        $rack = new FluidXRack();
+        $aspirateLocation = new BarcodeLocation('barcode', $rack);
+        $dispenseLocation = new BarcodeLocation('barcode1', $rack);
+
+        foreach (range(1, 4) as $_) {
+            $tecanProtocol->addCommandForNextTip(
+                new TransferWithAutoWash(100, $liquidClass, $aspirateLocation, $dispenseLocation)
+            );
+        }
+
+        $tecanProtocol->currentDiTiTypeIndex = 2;
+        $tecanProtocol->addCommandForNextTip(
+            new TransferWithAutoWash(100, $liquidClass, $aspirateLocation, $dispenseLocation)
+        );
+
+        self::assertSame(
+            StringUtil::normalizeLineEndings(<<<CSV
+{$this->initComment()}A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
+W;
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;2
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;2
+W;
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;4
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;4
+W;
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;8
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;8
+W;
+B;
+S;2
+A;;;96FluidX;;barcode;100;TestLiquidClassName;;1
+D;;;96FluidX;;barcode1;100;TestLiquidClassName;;1
+W;
+
+CSV),
+            $tecanProtocol->buildProtocol()
+        );
+    }
+
     public function testProtocolWithForForTipsAndManualWash(): void
     {
         $tecanProtocol = new TecanProtocol(TipMask::FOUR_TIPS());
