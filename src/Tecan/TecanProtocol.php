@@ -82,7 +82,7 @@ class TecanProtocol
         }
 
         if ($this->commands->isEmpty()
-            || $this->commands->reject(fn (Command $command): bool => $command instanceof Comment)->isEmpty()
+            || $this->commandsAreOnlyComments()
             || $this->commands->last() instanceof BreakCommand) {
             $this->commands->add(new SetDiTiType($this->currentDiTiTypeIndex));
         }
@@ -103,10 +103,15 @@ class TecanProtocol
 
     public function setCurrentDiTiTypeIndex(int $currentDiTiTypeIndex): void
     {
-        if (!$this->commands->last() instanceof BreakCommand) {
+        if (!$this->commandsAreOnlyComments() && !$this->commands->last() instanceof BreakCommand) {
             throw new TecanException('Cannot change the DiTi type index if the last command is not a break command.');
         }
         $this->currentDiTiTypeIndex = $currentDiTiTypeIndex;
+    }
+
+    private function commandsAreOnlyComments(): bool
+    {
+        return $this->commands->reject(fn (Command $command): bool => $command instanceof Comment)->isEmpty();
     }
 
     /** @return Collection<int, Command> */
