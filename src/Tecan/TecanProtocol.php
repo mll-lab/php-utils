@@ -51,7 +51,7 @@ class TecanProtocol
     /** @param Command&UsesTipMask $command */
     public function addCommandCurrentTip(Command $command): void
     {
-        $command->setTipMask($this->tipMask->currentTip ?? TipMask::firstTip());
+        $this->setTipMask($command, $this->tipMask->currentTip ?? TipMask::firstTip());
 
         $this->commands->add($command);
     }
@@ -61,14 +61,31 @@ class TecanProtocol
     {
         if ($this->tipMask->isLastTip()) {
             $this->commands->add(new BreakCommand());
-            if ($this->defaultDiTiTypeIndex && $this->defaultDiTiTypeIndex !== $this->currentDiTiTypeIndex) {
-                $this->commands->add(new SetDiTiType($this->currentDiTiTypeIndex));
-            }
         }
 
-        $command->setTipMask($this->tipMask->nextTip());
+        $this->setTipMask($command, $this->tipMask->nextTip());
 
         $this->commands->add($command);
+    }
+
+    private function shouldUseDifferentTipTypeIndex(): bool
+    {
+        return $this->defaultDiTiTypeIndex && $this->defaultDiTiTypeIndex !== $this->currentDiTiTypeIndex;
+    }
+
+    private function setTipMask(Command $command,int $tip): void
+    {
+        $command->setTipMask($tip);
+
+        if (!$this->shouldUseDifferentTipTypeIndex()) {
+            return;
+        }
+
+        if ($this->commands->isEmpty()
+            || $this->commands->reject(fn (Command $command): bool => $command instanceof Comment)->isEmpty()
+            || $this->commands->last() instanceof BreakCommand) {
+            $this->commands->add(new SetDiTiType($this->currentDiTiTypeIndex));
+        }
     }
 
     public function buildProtocol(): string
