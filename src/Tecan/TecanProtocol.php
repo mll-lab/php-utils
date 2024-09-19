@@ -73,11 +73,11 @@ class TecanProtocol
         return $this->defaultDiTiTypeIndex && $this->defaultDiTiTypeIndex !== $this->currentDiTiTypeIndex;
     }
 
-    private function setTipMask(Command $command,int $tip): void
+    private function setTipMask(Command $command, int $tip): void
     {
         $command->setTipMask($tip);
 
-        if (!$this->shouldUseDifferentTipTypeIndex()) {
+        if (! $this->shouldUseDifferentTipTypeIndex()) {
             return;
         }
 
@@ -103,7 +103,7 @@ class TecanProtocol
 
     public function setCurrentDiTiTypeIndex(int $currentDiTiTypeIndex): void
     {
-        if (!$this->commandsAreOnlyComments() && !$this->commands->last() instanceof BreakCommand) {
+        if (! $this->commandsAreOnlyComments() && ! $this->commands->last() instanceof BreakCommand) {
             throw new TecanException('Cannot change the DiTi type index if the last command is not a break command.');
         }
         $this->currentDiTiTypeIndex = $currentDiTiTypeIndex;
