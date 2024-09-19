@@ -21,21 +21,25 @@ class TecanProtocol
 
     public const GEMINI_WORKLIST_FILENAME_SUFFIX = '.gwl';
 
-    /** @var Collection<int, Command> */
-    private Collection $commands;
-
     private TipMask $tipMask;
 
     private string $protocolName;
+
+    /** @var Collection<int, Command> */
+    private Collection $commands;
 
     public ?int $defaultDiTiTypeIndex;
 
     public ?int $currentDiTiTypeIndex;
 
-    public function __construct(TipMask $tipMask, ?string $protocolName = null, ?string $userName = null, ?int $defaultDiTiTypeIndex = null)
-    {
-        $this->protocolName = $protocolName ?? Str::uuid()->toString();
+    public function __construct(
+        TipMask $tipMask,
+        ?string $protocolName = null,
+        ?string $userName = null,
+        ?int $defaultDiTiTypeIndex = null
+    ) {
         $this->tipMask = $tipMask;
+        $this->protocolName = $protocolName ?? Str::uuid()->toString();
 
         $this->commands = $this->initHeader($userName, $protocolName);
 
@@ -70,7 +74,8 @@ class TecanProtocol
 
     private function shouldUseDifferentTipTypeIndex(): bool
     {
-        return $this->defaultDiTiTypeIndex && $this->defaultDiTiTypeIndex !== $this->currentDiTiTypeIndex;
+        return $this->defaultDiTiTypeIndex
+            && $this->defaultDiTiTypeIndex !== $this->currentDiTiTypeIndex;
     }
 
     private function setTipMask(Command $command, int $tip): void
@@ -83,7 +88,8 @@ class TecanProtocol
 
         if ($this->commands->isEmpty()
             || $this->commandsAreOnlyComments()
-            || $this->commands->last() instanceof BreakCommand) {
+            || $this->commands->last() instanceof BreakCommand
+        ) {
             $this->commands->add(new SetDiTiType($this->currentDiTiTypeIndex));
         }
     }
@@ -103,15 +109,20 @@ class TecanProtocol
 
     public function setCurrentDiTiTypeIndex(int $currentDiTiTypeIndex): void
     {
-        if (! $this->commandsAreOnlyComments() && ! $this->commands->last() instanceof BreakCommand) {
+        if (! $this->commandsAreOnlyComments()
+            && ! $this->commands->last() instanceof BreakCommand
+        ) {
             throw new TecanException('Cannot change the DiTi type index if the last command is not a break command.');
         }
+
         $this->currentDiTiTypeIndex = $currentDiTiTypeIndex;
     }
 
     private function commandsAreOnlyComments(): bool
     {
-        return $this->commands->reject(fn (Command $command): bool => $command instanceof Comment)->isEmpty();
+        return $this->commands
+            ->reject(fn (Command $command): bool => $command instanceof Comment)
+            ->isEmpty();
     }
 
     /** @return Collection<int, Command> */
@@ -131,6 +142,7 @@ class TecanProtocol
         if ($userName !== null) {
             $commentCommands->add(new Comment("User: {$userName}"));
         }
+
         if ($protocolName !== null) {
             $commentCommands->add(new Comment("Protocol name: {$protocolName}"));
         }

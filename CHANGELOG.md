@@ -13,7 +13,7 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ### Added
 
-- Add `SetDiTiType`-command to tecan worklist
+- Add command `SetDiTiType` to tecan worklist
 
 ## v5.3.0
 

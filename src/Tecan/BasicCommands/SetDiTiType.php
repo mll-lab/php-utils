@@ -2,8 +2,10 @@
 
 namespace MLL\Utils\Tecan\BasicCommands;
 
-/*
- * The Set DITI Type record can only be used at the very beginning of the worklist or directly after a Break record.
+/**
+ * Can only be used at the very beginning of the worklist or directly after a Break command.
+ *
+ * @see BreakCommand
  */
 class SetDiTiType extends Command
 {
