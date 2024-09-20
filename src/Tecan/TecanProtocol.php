@@ -86,8 +86,8 @@ class TecanProtocol
             return;
         }
 
-        if ($this->currentDiTiTypeIndex !== null &&
-            ($this->commands->isEmpty()
+        if ($this->currentDiTiTypeIndex !== null
+            && ($this->commands->isEmpty()
             || $this->commandsAreOnlyComments()
             || $this->commands->last() instanceof BreakCommand)
         ) {
