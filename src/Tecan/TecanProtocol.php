@@ -40,9 +40,7 @@ class TecanProtocol
     ) {
         $this->tipMask = $tipMask;
         $this->protocolName = $protocolName ?? Str::uuid()->toString();
-
-        $this->commands = $this->initHeader($userName, $protocolName);
-
+        $this->commands = $this->buildHeader($userName, $protocolName);
         $this->defaultDiTiTypeIndex = $defaultDiTiTypeIndex;
         $this->currentDiTiTypeIndex = $defaultDiTiTypeIndex;
     }
@@ -55,7 +53,8 @@ class TecanProtocol
     /** @param Command&UsesTipMask $command */
     public function addCommandCurrentTip(Command $command): void
     {
-        $this->setTipMask($command, $this->tipMask->currentTip ?? TipMask::firstTip());
+        $tip = $this->tipMask->currentTip ?? TipMask::firstTip();
+        $this->setTipMask($command, $tip);
 
         $this->commands->add($command);
     }
@@ -86,10 +85,13 @@ class TecanProtocol
             return;
         }
 
-        if ($this->currentDiTiTypeIndex !== null
-            && ($this->commands->isEmpty()
+        if ($this->currentDiTiTypeIndex === null) {
+            return;
+        }
+
+        if ($this->commands->isEmpty()
             || $this->commandsAreOnlyComments()
-            || $this->commands->last() instanceof BreakCommand)
+            || $this->commands->last() instanceof BreakCommand
         ) {
             $this->commands->add(new SetDiTiType($this->currentDiTiTypeIndex));
         }
@@ -121,13 +123,11 @@ class TecanProtocol
 
     private function commandsAreOnlyComments(): bool
     {
-        return $this->commands
-            ->reject(fn (Command $command): bool => $command instanceof Comment)
-            ->isEmpty();
+        return $this->commands->every(fn (Command $command): bool => $command instanceof Comment);
     }
 
     /** @return Collection<int, Command> */
-    private function initHeader(?string $userName, ?string $protocolName): Collection
+    private function buildHeader(?string $userName, ?string $protocolName): Collection
     {
         $package = Meta::PACKAGE_NAME;
         $version = InstalledVersions::getPrettyVersion($package);
