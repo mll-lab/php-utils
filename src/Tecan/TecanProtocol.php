@@ -10,6 +10,7 @@ use MLL\Utils\Meta;
 use MLL\Utils\Tecan\BasicCommands\BreakCommand;
 use MLL\Utils\Tecan\BasicCommands\Command;
 use MLL\Utils\Tecan\BasicCommands\Comment;
+use MLL\Utils\Tecan\BasicCommands\SetDiTiType;
 use MLL\Utils\Tecan\BasicCommands\UsesTipMask;
 use MLL\Utils\Tecan\TipMask\TipMask;
 
@@ -20,19 +21,28 @@ class TecanProtocol
 
     public const GEMINI_WORKLIST_FILENAME_SUFFIX = '.gwl';
 
-    /** @var Collection<int, Command> */
-    private Collection $commands;
-
     private TipMask $tipMask;
 
     private string $protocolName;
 
-    public function __construct(TipMask $tipMask, ?string $protocolName = null, ?string $userName = null)
-    {
-        $this->protocolName = $protocolName ?? Str::uuid()->toString();
-        $this->tipMask = $tipMask;
+    /** @var Collection<int, Command> */
+    private Collection $commands;
 
-        $this->commands = $this->initHeader($userName, $protocolName);
+    public ?int $defaultDiTiTypeIndex;
+
+    public ?int $currentDiTiTypeIndex;
+
+    public function __construct(
+        TipMask $tipMask,
+        ?string $protocolName = null,
+        ?string $userName = null,
+        ?int $defaultDiTiTypeIndex = null
+    ) {
+        $this->tipMask = $tipMask;
+        $this->protocolName = $protocolName ?? Str::uuid()->toString();
+        $this->commands = $this->buildHeader($userName, $protocolName);
+        $this->defaultDiTiTypeIndex = $defaultDiTiTypeIndex;
+        $this->currentDiTiTypeIndex = $defaultDiTiTypeIndex;
     }
 
     public function addCommand(Command $command): void
@@ -43,7 +53,8 @@ class TecanProtocol
     /** @param Command&UsesTipMask $command */
     public function addCommandCurrentTip(Command $command): void
     {
-        $command->setTipMask($this->tipMask->currentTip ?? TipMask::firstTip());
+        $tip = $this->tipMask->currentTip ?? TipMask::firstTip();
+        $this->setTipMask($command, $tip);
 
         $this->commands->add($command);
     }
@@ -55,9 +66,35 @@ class TecanProtocol
             $this->commands->add(new BreakCommand());
         }
 
-        $command->setTipMask($this->tipMask->nextTip());
+        $this->setTipMask($command, $this->tipMask->nextTip());
 
         $this->commands->add($command);
+    }
+
+    private function shouldUseDifferentTipTypeIndex(): bool
+    {
+        return $this->defaultDiTiTypeIndex !== null
+            && $this->defaultDiTiTypeIndex !== $this->currentDiTiTypeIndex;
+    }
+
+    private function setTipMask(UsesTipMask $command, int $tip): void
+    {
+        $command->setTipMask($tip);
+
+        if (! $this->shouldUseDifferentTipTypeIndex()) {
+            return;
+        }
+
+        if ($this->currentDiTiTypeIndex === null) {
+            return;
+        }
+
+        if ($this->commands->isEmpty()
+            || $this->commandsAreOnlyComments()
+            || $this->commands->last() instanceof BreakCommand
+        ) {
+            $this->commands->add(new SetDiTiType($this->currentDiTiTypeIndex));
+        }
     }
 
     public function buildProtocol(): string
@@ -73,8 +110,24 @@ class TecanProtocol
         return $this->protocolName . self::GEMINI_WORKLIST_FILENAME_SUFFIX;
     }
 
+    public function setCurrentDiTiTypeIndex(int $currentDiTiTypeIndex): void
+    {
+        if (! $this->commandsAreOnlyComments()
+            && ! $this->commands->last() instanceof BreakCommand
+        ) {
+            throw new TecanException('Cannot change the DiTi type index if the last command is not a break command.');
+        }
+
+        $this->currentDiTiTypeIndex = $currentDiTiTypeIndex;
+    }
+
+    private function commandsAreOnlyComments(): bool
+    {
+        return $this->commands->every(fn (Command $command): bool => $command instanceof Comment);
+    }
+
     /** @return Collection<int, Command> */
-    private function initHeader(?string $userName, ?string $protocolName): Collection
+    private function buildHeader(?string $userName, ?string $protocolName): Collection
     {
         $package = Meta::PACKAGE_NAME;
         $version = InstalledVersions::getPrettyVersion($package);
@@ -90,6 +143,7 @@ class TecanProtocol
         if ($userName !== null) {
             $commentCommands->add(new Comment("User: {$userName}"));
         }
+
         if ($protocolName !== null) {
             $commentCommands->add(new Comment("Protocol name: {$protocolName}"));
         }
