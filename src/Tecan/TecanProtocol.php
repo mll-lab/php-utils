@@ -74,11 +74,11 @@ class TecanProtocol
 
     private function shouldUseDifferentTipTypeIndex(): bool
     {
-        return $this->defaultDiTiTypeIndex
+        return $this->defaultDiTiTypeIndex !== null
             && $this->defaultDiTiTypeIndex !== $this->currentDiTiTypeIndex;
     }
 
-    private function setTipMask(Command $command, int $tip): void
+    private function setTipMask(UsesTipMask $command, int $tip): void
     {
         $command->setTipMask($tip);
 
@@ -86,9 +86,10 @@ class TecanProtocol
             return;
         }
 
-        if ($this->commands->isEmpty()
+        if ($this->currentDiTiTypeIndex !== null &&
+            ($this->commands->isEmpty()
             || $this->commandsAreOnlyComments()
-            || $this->commands->last() instanceof BreakCommand
+            || $this->commands->last() instanceof BreakCommand)
         ) {
             $this->commands->add(new SetDiTiType($this->currentDiTiTypeIndex));
         }
