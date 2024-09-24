@@ -4,10 +4,10 @@ namespace MLL\Utils\Tests\Microplate\Scalars;
 
 use GraphQL\Error\Error;
 use GraphQL\Type\Definition\ScalarType;
-use MLL\Utils\Microplate\Scalars\Column2;
+use MLL\Utils\Microplate\Scalars\Column6;
 use PHPUnit\Framework\TestCase;
 
-final class Column2Test extends TestCase
+final class Column6Test extends TestCase
 {
     protected function setUp(): void
     {
@@ -21,40 +21,40 @@ final class Column2Test extends TestCase
     public function testSerializeThrowsIfNotAnInt(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Value not in range 1-2: "2".');
+        $this->expectExceptionMessage('Value not in range 1-6: "2".');
 
-        (new Column2())->serialize('2');
+        (new Column6())->serialize('2');
     }
 
     public function testSerializeThrowsIfInvalid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Value not in range 1-2: 3.');
+        $this->expectExceptionMessage('Value not in range 1-6: 7.');
 
-        (new Column2())->serialize(3);
+        (new Column6())->serialize(7);
     }
 
     public function testSerializePassesWhenValid(): void
     {
         self::assertSame(
             2,
-            (new Column2())->serialize(2)
+            (new Column6())->serialize(2)
         );
     }
 
     public function testParseValueThrowsIfInvalid(): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessage('Value not in range 1-2: 3.');
+        $this->expectExceptionMessage('Value not in range 1-6: 7.');
 
-        (new Column2())->parseValue(3);
+        (new Column6())->parseValue(7);
     }
 
     public function testParseValuePassesIfValid(): void
     {
         self::assertSame(
-            2,
-            (new Column2())->parseValue(2)
+            5,
+            (new Column6())->parseValue(5)
         );
     }
 }

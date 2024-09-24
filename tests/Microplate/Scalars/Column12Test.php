@@ -36,9 +36,10 @@ final class Column12Test extends TestCase
 
     public function testSerializePassesValid(): void
     {
-        $serializedResult = (new Column12())->serialize(12);
-
-        self::assertSame(12, $serializedResult);
+        self::assertSame(
+            12,
+            (new Column12())->serialize(12)
+        );
     }
 
     public function testParseValueThrowsIfInvalid(): void

@@ -37,9 +37,10 @@ final class Row16Test extends TestCase
 
     public function testSerializePassesWhenValid(): void
     {
-        $serializedResult = (new Row16())->serialize('H');
-
-        self::assertSame('H', $serializedResult);
+        self::assertSame(
+            'H',
+            (new Row16())->serialize('H')
+        );
     }
 
     public function testParseValueThrowsIfInvalid(): void

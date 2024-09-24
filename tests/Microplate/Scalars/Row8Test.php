@@ -37,9 +37,10 @@ final class Row8Test extends TestCase
 
     public function testSerializePassesWhenValid(): void
     {
-        $serializedResult = (new Row8())->serialize('H');
-
-        self::assertSame('H', $serializedResult);
+        self::assertSame(
+            'H',
+            (new Row8())->serialize('H')
+        );
     }
 
     public function testParseValueThrowsIfInvalid(): void
