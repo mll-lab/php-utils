@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.5.0
+
+### Added
+
+- Add scalar `Column6`
+
 ## v5.4.0
 
 ### Added
