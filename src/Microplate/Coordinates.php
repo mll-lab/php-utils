@@ -92,9 +92,11 @@ class Coordinates
     }
 
     /**
-     * @param TCoordinateSystem $coordinateSystem
+     * @template TCoord of CoordinateSystem
      *
-     * @return static<TCoordinateSystem>
+     * @param TCoord $coordinateSystem
+     *
+     * @return static<TCoord>
      */
     public static function fromPosition(int $position, FlowDirection $direction, CoordinateSystem $coordinateSystem): self
     {

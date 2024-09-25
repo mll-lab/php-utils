@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.5.1
+
+### Fixed
+
+- Fix generic inference for `MLL\Utils\Microplate\Coordinates::fromPosition()`
+
 ## v5.5.0
 
 ### Added
