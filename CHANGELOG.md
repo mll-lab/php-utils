@@ -9,6 +9,24 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.5.1
+
+### Fixed
+
+- Fix generic inference for `MLL\Utils\Microplate\Coordinates::fromPosition()`
+
+## v5.5.0
+
+### Added
+
+- Add scalar `Column6`
+
+## v5.4.0
+
+### Added
+
+- Add command `SetDiTiType` to tecan worklist
+
 ## v5.3.0
 
 ### Added
