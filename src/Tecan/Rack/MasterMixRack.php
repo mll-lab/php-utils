@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tecan\Rack;
 
-use MLL\Utils\Microplate\CoordinateSystem2x16;
+use MLL\Utils\Microplate\CoordinateSystem2x16MM;
 
 /**
  * @template TContent
@@ -13,7 +13,7 @@ class MasterMixRack extends BaseRack
 {
     public function __construct()
     {
-        parent::__construct(new CoordinateSystem2x16());
+        parent::__construct(new CoordinateSystem2x16MM());
     }
 
     public function type(): string
