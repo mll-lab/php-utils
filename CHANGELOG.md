@@ -13,6 +13,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ### Fixed
 
+- Changed coordinate system for  `MLL\Utils\Tecan\Rack\MasterMixRack`
+
+## v5.5.1
+
+### Fixed
+
 - Fix generic inference for `MLL\Utils\Microplate\Coordinates::fromPosition()`
 
 ## v5.5.0
