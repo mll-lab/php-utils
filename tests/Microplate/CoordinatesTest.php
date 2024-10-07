@@ -238,7 +238,7 @@ final class CoordinatesTest extends TestCase
     public static function invalidRowsOrColumns(): iterable
     {
         yield '2x16' => [new CoordinateSystem2x16(), [['X', 2], ['B', 0], ['B', 3], ['B', -1], ['B', 1000], ['rolf', 2]]];
-        yield '2x16NoJ' => [new CoordinateSystem2x16NoJ(), [['J', 1], ['J', 2],]];
+        yield '2x16NoJ' => [new CoordinateSystem2x16NoJ(), [['J', 1], ['J', 2]]];
         yield '4x3' => [new CoordinateSystem4x3(), [['X', 2], ['B', 0], ['B', 4], ['B', -1], ['B', 1000], ['rolf', 2], ['D', 1]]];
         yield '8x6' => [new CoordinateSystem8x6(), [['X', 2], ['B', 0], ['B', 4], ['B', -1], ['B', 1000], ['rolf', 2], ['G', 1]]];
         yield '12x8' => [new CoordinateSystem12x8(), [['X', 2], ['B', 0], ['B', 13], ['B', -1], ['B', 1000], ['rolf', 2]]];
