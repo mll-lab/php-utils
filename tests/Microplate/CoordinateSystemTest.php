@@ -6,6 +6,7 @@ use MLL\Utils\Microplate\CoordinateSystem;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\Microplate\CoordinateSystem1x1;
 use MLL\Utils\Microplate\CoordinateSystem2x16;
+use MLL\Utils\Microplate\CoordinateSystem2x16NoJ;
 use MLL\Utils\Microplate\CoordinateSystem4x3;
 use MLL\Utils\Microplate\CoordinateSystem6x4;
 use MLL\Utils\Microplate\CoordinateSystem6x8;
@@ -38,6 +39,7 @@ final class CoordinateSystemTest extends TestCase
         yield '6x8' => [new CoordinateSystem6x8(), 'A1', 'H6'];
         yield '8x6' => [new CoordinateSystem8x6(), 'A1', 'F8'];
         yield '12x8' => [new CoordinateSystem12x8(), 'A1', 'H12'];
+        yield '2x16NoJ' => [new CoordinateSystem2x16NoJ(), 'A1', 'Q2'];
     }
 
     public function testPositionsCount(): void
@@ -49,6 +51,7 @@ final class CoordinateSystemTest extends TestCase
         self::assertSame(CoordinateSystem6x8::POSITIONS_COUNT, (new CoordinateSystem6x8())->positionsCount());
         self::assertSame(CoordinateSystem8x6::POSITIONS_COUNT, (new CoordinateSystem8x6())->positionsCount());
         self::assertSame(CoordinateSystem12x8::POSITIONS_COUNT, (new CoordinateSystem12x8())->positionsCount());
+        self::assertSame(CoordinateSystem2x16NoJ::POSITIONS_COUNT, (new CoordinateSystem2x16NoJ())->positionsCount());
     }
 
     public function testEquals(): void
