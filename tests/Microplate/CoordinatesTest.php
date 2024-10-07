@@ -330,6 +330,7 @@ final class CoordinatesTest extends TestCase
         ];
     }
 
+    /** @return array<WellData> */
     public static function data2x16NoJ(): array
     {
         return [
