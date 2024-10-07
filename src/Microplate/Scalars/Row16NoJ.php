@@ -4,9 +4,9 @@ namespace MLL\Utils\Microplate\Scalars;
 
 use MLL\GraphQLScalars\Regex;
 
-class Row16MM extends Regex
+class Row16NoJ extends Regex
 {
-    public ?string $description = 'Represents a row in a coordinate system with 16 rows without the letter J (see AE-347)';
+    public ?string $description = 'Represents a row in a coordinate system with 16 rows without the letter J';
 
     public static function regex(): string
     {
