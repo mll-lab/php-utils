@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.5.2
+
+### Fixed
+
+- Changed coordinate system for  `MLL\Utils\Tecan\Rack\MasterMixRack`
+
 ## v5.5.1
 
 ### Fixed
