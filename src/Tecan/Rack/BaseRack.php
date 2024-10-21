@@ -18,6 +18,7 @@ abstract class BaseRack implements Rack
     public function __construct(CoordinateSystem $coordinateSystem)
     {
         $this->coordinateSystem = $coordinateSystem;
+        /** @phpstan-ignore-next-line types are correct, but phpstan doesn't understand it */
         $this->positions = Collection::times($this->positionCount(), fn () => self::EMPTY_POSITION)
             ->mapWithKeys(fn ($content, int $position): array => [$position + 1 => $content]);
     }

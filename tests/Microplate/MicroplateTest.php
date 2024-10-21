@@ -29,8 +29,8 @@ final class MicroplateTest extends TestCase
         $wellContent2 = 'bar';
         $microplate->addWell($microplateCoordinate2, $wellContent2);
 
-        self::assertEquals($wellContent1, $microplate->well($microplateCoordinate1));
-        self::assertEquals($wellContent2, $microplate->well($microplateCoordinate2));
+        self::assertSame($wellContent1, $microplate->well($microplateCoordinate1));
+        self::assertSame($wellContent2, $microplate->well($microplateCoordinate2));
 
         $coordinateWithOtherCoordinateSystem = new Coordinates('B', 2, new CoordinateSystem4x3());
         // @phpstan-ignore-next-line expecting a type error due to mismatching coordinates
@@ -145,7 +145,7 @@ final class MicroplateTest extends TestCase
         foreach ($data12x8 as $well) {
             $microplateCoordinates = Coordinates::fromArray($well, new CoordinateSystem12x8());
 
-            $randomNumber = rand(1, 100);
+            $randomNumber = random_int(1, 100);
             $randomNumberOrNull = $randomNumber > 50 ? $randomNumber : null;
 
             $microplate->addWell($microplateCoordinates, $randomNumberOrNull);
@@ -200,7 +200,7 @@ final class MicroplateTest extends TestCase
             $microplateCoordinates = Coordinates::fromArray($wellData, $coordinateSystem);
             // check that it does not throw before the plate is full
             self::assertEquals($microplateCoordinates, $microplate->nextFreeWellCoordinates(FlowDirection::ROW()));
-            $microplate->addWell($microplateCoordinates, rand(1, 100));
+            $microplate->addWell($microplateCoordinates, random_int(1, 100));
         }
 
         $this->expectException(MicroplateIsFullException::class);

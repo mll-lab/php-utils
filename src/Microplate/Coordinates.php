@@ -52,7 +52,7 @@ class Coordinates
      *
      * @return static<TCoord>
      */
-    public static function fromArray(array $coordinates, CoordinateSystem $coordinateSystem)
+    public static function fromArray(array $coordinates, CoordinateSystem $coordinateSystem): self
     {
         return new self($coordinates['row'], $coordinates['column'], $coordinateSystem);
     }
