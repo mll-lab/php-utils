@@ -33,17 +33,15 @@ final class DualIndexTest extends TestCase
         new DualIndex($i7IndexID, $index, $i5IndexID, $index2);
     }
 
-    /** @return array<string, array<int, string|bool|null>> */
-    public static function provideValidDualIndexes(): array
+    /** @return iterable<string, array<int, string|bool|null>> */
+    public static function provideValidDualIndexes(): iterable
     {
-        return [
-            'Both indices valid long' => ['someIndexID', 'ATCGNGTANGT', 'someOtherIndexID', 'ATGNAAATTTTAC', true],
-            'Both indices valid short' => ['someIndexID', 'A', 'someOtherIndexID', 'G', true],
-            'Both indices invalid' => ['i7IndexID', 'invalidValue', 'i5IndexID', 'invalidValue2', false, 'invalidValue'],
-            'First index invalid' => ['i7IndexID', 'invalidValue', 'i5IndexID', 'ATCGNGT', false, 'invalidValue'],
-            'Second index invalid' => ['i7IndexID', 'ATCGNGT', 'i5IndexID', 'invalidValue2', false, 'invalidValue2'],
-            'First index empty' => ['someIndexID', '', 'someOtherIndexID', 'ATGNAAAC', false, ''],
-            'Second index empty' => ['someIndexID', 'ATCGNGT', 'someOtherIndexID', '', false, ''],
-        ];
+        yield 'Both indices valid long' => ['someIndexID', 'ATCGNGTANGT', 'someOtherIndexID', 'ATGNAAATTTTAC', true];
+        yield 'Both indices valid short' => ['someIndexID', 'A', 'someOtherIndexID', 'G', true];
+        yield 'Both indices invalid' => ['i7IndexID', 'invalidValue', 'i5IndexID', 'invalidValue2', false, 'invalidValue'];
+        yield 'First index invalid' => ['i7IndexID', 'invalidValue', 'i5IndexID', 'ATCGNGT', false, 'invalidValue'];
+        yield 'Second index invalid' => ['i7IndexID', 'ATCGNGT', 'i5IndexID', 'invalidValue2', false, 'invalidValue2'];
+        yield 'First index empty' => ['someIndexID', '', 'someOtherIndexID', 'ATGNAAAC', false, ''];
+        yield 'Second index empty' => ['someIndexID', 'ATCGNGT', 'someOtherIndexID', '', false, ''];
     }
 }

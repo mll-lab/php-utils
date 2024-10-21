@@ -14,6 +14,7 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 ### Added
 
 - Improve code quality with automatic type declarations via Rector
+- Improve code quality with automatic rector rules for PHPUnit
 
 ## v5.5.1
 

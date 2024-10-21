@@ -25,8 +25,8 @@ final class RackTest extends TestCase
         self::assertSame(32, $rack->positionCount());
 
         $position = $rack->assignFirstEmptyPosition('Sample');
-        self::assertEquals(1, $position);
-        self::assertEquals('Sample', $rack->positions[1]);
+        self::assertSame(1, $position);
+        self::assertSame('Sample', $rack->positions[1]);
     }
 
     public function testAssignsLastEmptyPosition(): void
@@ -36,8 +36,8 @@ final class RackTest extends TestCase
         self::assertSame($lastPosition, $rack->positionCount());
 
         $position = $rack->assignLastEmptyPosition('Sample');
-        self::assertEquals($lastPosition, $position);
-        self::assertEquals('Sample', $rack->positions[$lastPosition]);
+        self::assertSame($lastPosition, $position);
+        self::assertSame('Sample', $rack->positions[$lastPosition]);
     }
 
     public function testThrowsExceptionWhenNoEmptyPosition(): void
