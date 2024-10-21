@@ -2,25 +2,25 @@
 
 use Rector\CodeQuality\Rector\Concat\JoinStringConcatRector;
 use Rector\Config\RectorConfig;
-use Rector\PHPUnit\Rector\Class_\PreferPHPUnitSelfCallRector;
+use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector;
 use Rector\Set\ValueObject\SetList;
 
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->sets([
-        SetList::PHP_71,
-        SetList::PHP_72,
-        SetList::PHP_73,
-        SetList::PHP_74,
+return RectorConfig::configure()
+    ->withSets([
         SetList::CODE_QUALITY,
-    ]);
-    $rectorConfig->skip([
+        SetList::TYPE_DECLARATION,
+        SetList::RECTOR_PRESET,
+    ])
+    ->withPhpSets()
+    ->withRules([PreferPHPUnitSelfCallRector::class])
+    ->withSkip([
         JoinStringConcatRector::class => [
             __DIR__ . '/tests/CSVArrayTest.php', // keep `\r\n` for readability
         ],
-    ]);
-
-    $rectorConfig->rule(PreferPHPUnitSelfCallRector::class);
-
-    $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
-    $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
-};
+    ])
+    ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
+    ->withBootstrapFiles([
+        // Rector uses PHPStan internally, which in turn requires Larastan to be set up correctly
+        __DIR__ . '/vendor/larastan/larastan/bootstrap.php',
+    ])
+    ->withPHPStanConfigs([__DIR__ . '/phpstan.neon']);

@@ -26,8 +26,12 @@ class DataSection implements Section
     {
         $this->assertNotEmpty();
 
+        $object = $this->dataRows[0];
+        if (! is_object($object)) {
+            throw new IlluminaSampleSheetException('Trying to convert empty data section to string.');
+        }
         /** @var array<string> $samplePropertiesOfFirstSample */
-        $samplePropertiesOfFirstSample = array_keys(get_object_vars($this->dataRows[0]));
+        $samplePropertiesOfFirstSample = array_keys(get_object_vars($object));
         foreach ($this->dataRows as $sample) {
             $actualProperties = array_keys(get_object_vars($sample));
             if ($samplePropertiesOfFirstSample !== $actualProperties) {
@@ -52,10 +56,10 @@ class DataSection implements Section
     /** @param array<string> $samplePropertiesOfFirstSample */
     protected function generateDataHeaderByProperties(array $samplePropertiesOfFirstSample): string
     {
-        $samplePropertiesOfFirstSample = array_filter($samplePropertiesOfFirstSample, fn (string $value) // @phpstan-ignore-next-line Variable property access on a non-object required here
+        $samplePropertiesOfFirstSample = array_filter($samplePropertiesOfFirstSample, fn (string $value): bool // @phpstan-ignore-next-line Variable property access on a non-object required here
         => $this->dataRows[0]->$value !== null);
 
-        $samplePropertiesOfFirstSample = array_map(fn (string $value) => ucfirst($value), $samplePropertiesOfFirstSample);
+        $samplePropertiesOfFirstSample = array_map(fn (string $value): string => ucfirst($value), $samplePropertiesOfFirstSample);
 
         return implode(',', $samplePropertiesOfFirstSample);
     }

@@ -53,7 +53,7 @@ class OverrideCycles
 
         return new OverrideCycle(
             array_map(
-                fn (array $match) => new CycleTypeWithCount(new CycleType($match[1]), (int) $match[2]),
+                fn (array $match): \MLL\Utils\IlluminaSampleSheet\V2\BclConvert\CycleTypeWithCount => new CycleTypeWithCount(new CycleType($match[1]), (int) $match[2]),
                 $matches
             )
         );

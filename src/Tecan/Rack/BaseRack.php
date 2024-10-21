@@ -18,8 +18,10 @@ abstract class BaseRack implements Rack
     public function __construct(CoordinateSystem $coordinateSystem)
     {
         $this->coordinateSystem = $coordinateSystem;
-        $this->positions = Collection::times($this->positionCount(), fn () => self::EMPTY_POSITION)
+        /** @var Collection<int, TContent|null> $positions */
+        $positions = Collection::times($this->positionCount(), fn () => self::EMPTY_POSITION)
             ->mapWithKeys(fn ($content, int $position): array => [$position + 1 => $content]);
+        $this->positions = $positions;
     }
 
     public function id(): ?string

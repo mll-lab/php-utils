@@ -26,8 +26,10 @@
   "require-dev": {
     "ergebnis/composer-normalize": "^2",
     "jangregor/phpstan-prophecy": "^1",
+    "larastan/larastan": "^2.9",
     "mll-lab/graphql-php-scalars": "^6.3",
     "mll-lab/php-cs-fixer-config": "^5",
+    "orchestra/testbench": "^9.5",
     "phpstan/extension-installer": "^1",
     "phpstan/phpstan": "^1",
     "phpstan/phpstan-deprecation-rules": "^1",

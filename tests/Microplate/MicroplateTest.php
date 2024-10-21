@@ -145,7 +145,7 @@ final class MicroplateTest extends TestCase
         foreach ($data12x8 as $well) {
             $microplateCoordinates = Coordinates::fromArray($well, new CoordinateSystem12x8());
 
-            $randomNumber = rand(1, 100);
+            $randomNumber = random_int(1, 100);
             $randomNumberOrNull = $randomNumber > 50 ? $randomNumber : null;
 
             $microplate->addWell($microplateCoordinates, $randomNumberOrNull);
@@ -200,7 +200,7 @@ final class MicroplateTest extends TestCase
             $microplateCoordinates = Coordinates::fromArray($wellData, $coordinateSystem);
             // check that it does not throw before the plate is full
             self::assertEquals($microplateCoordinates, $microplate->nextFreeWellCoordinates(FlowDirection::ROW()));
-            $microplate->addWell($microplateCoordinates, rand(1, 100));
+            $microplate->addWell($microplateCoordinates, random_int(1, 100));
         }
 
         $this->expectException(MicroplateIsFullException::class);

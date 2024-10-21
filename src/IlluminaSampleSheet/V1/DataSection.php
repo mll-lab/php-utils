@@ -53,10 +53,10 @@ class DataSection implements Section
     protected function validateDuplicatedSampleIDs(): void
     {
         $groups = $this->rows
-            ->groupBy(fn (Row $row) => $row->sampleID);
+            ->groupBy(fn (Row $row): string => $row->sampleID);
 
         $duplicates = $groups
-            ->filter(fn ($group) => count($group) > 1)
+            ->filter(fn ($group): bool => count($group) > 1)
             ->keys();
         $duplicateIDsAsString = $duplicates->implode(', ');
 

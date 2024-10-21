@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.6.0
+
+### Added
+
+- Improve code quality with automatic type declarations via Rector
+
 ## v5.5.1
 
 ### Fixed

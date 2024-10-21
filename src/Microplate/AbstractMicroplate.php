@@ -70,7 +70,6 @@ abstract class AbstractMicroplate
     /** @return Collection<string, null> */
     public function freeWells(): Collection
     {
-        // @phpstan-ignore-next-line Only recognized to be correct with larastan
         return $this->wells()->filter(
             /** @param TWell $content */
             static fn ($content): bool => $content === self::EMPTY_WELL
@@ -80,7 +79,6 @@ abstract class AbstractMicroplate
     /** @return Collection<string, TWell> */
     public function filledWells(): Collection
     {
-        // @phpstan-ignore-next-line Only recognized to be correct with larastan
         return $this->wells()->filter(
             /** @param TWell $content */
             static fn ($content): bool => $content !== self::EMPTY_WELL
