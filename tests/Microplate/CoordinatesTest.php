@@ -6,6 +6,7 @@ use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\Microplate\CoordinateSystem2x16;
+use MLL\Utils\Microplate\CoordinateSystem2x16NoJ;
 use MLL\Utils\Microplate\CoordinateSystem4x3;
 use MLL\Utils\Microplate\CoordinateSystem6x8;
 use MLL\Utils\Microplate\CoordinateSystem8x6;
@@ -213,6 +214,7 @@ final class CoordinatesTest extends TestCase
     public static function dataProviderWells(): iterable
     {
         yield '2x16' => [new CoordinateSystem2x16(), self::data2x16()];
+        yield '2x16NoJ' => [new CoordinateSystem2x16NoJ(), self::data2x16NoJ()];
         yield '4x3' => [new CoordinateSystem4x3(), self::data4x3()];
         yield '8x6' => [new CoordinateSystem8x6(), self::data8x6()];
         yield '12x8' => [new CoordinateSystem12x8(), self::data12x8()];
@@ -236,6 +238,7 @@ final class CoordinatesTest extends TestCase
     public static function invalidRowsOrColumns(): iterable
     {
         yield '2x16' => [new CoordinateSystem2x16(), [['X', 2], ['B', 0], ['B', 3], ['B', -1], ['B', 1000], ['rolf', 2]]];
+        yield '2x16NoJ' => [new CoordinateSystem2x16NoJ(), [['J', 1], ['J', 2]]];
         yield '4x3' => [new CoordinateSystem4x3(), [['X', 2], ['B', 0], ['B', 4], ['B', -1], ['B', 1000], ['rolf', 2], ['D', 1]]];
         yield '8x6' => [new CoordinateSystem8x6(), [['X', 2], ['B', 0], ['B', 4], ['B', -1], ['B', 1000], ['rolf', 2], ['G', 1]]];
         yield '12x8' => [new CoordinateSystem12x8(), [['X', 2], ['B', 0], ['B', 13], ['B', -1], ['B', 1000], ['rolf', 2]]];
@@ -259,6 +262,7 @@ final class CoordinatesTest extends TestCase
     public static function invalidPositions(): iterable
     {
         yield '2x16' => [new CoordinateSystem2x16(), [0, -1, 33, 10000]];
+        yield '2x16NoJ' => [new CoordinateSystem2x16NoJ(), [0, -1, 33, 10000]];
         yield '4x3' => [new CoordinateSystem4x3(), [0, -1, 13, 10000]];
         yield '8x6' => [new CoordinateSystem8x6(), [0, -1, 49, 10000]];
         yield '12x8' => [new CoordinateSystem12x8(), [0, -1, 97, 10000]];
@@ -282,6 +286,7 @@ final class CoordinatesTest extends TestCase
     public static function invalidCoordinates(): iterable
     {
         yield '2x16' => [new CoordinateSystem2x16(), ['A0', 'A01', 'D3', 'C5', 'X3', 'rolf', 'a1']];
+        yield '2x16NoJ' => [new CoordinateSystem2x16NoJ(), ['J1', 'J2']];
         yield '8x6' => [new CoordinateSystem8x6(), ['A0', 'A01', 'G3', 'C9', 'rolf', 'a1']];
         yield '12x8' => [new CoordinateSystem12x8(), ['A0', 'A001', 'X3', 'rolf', 'a1']];
     }
@@ -322,6 +327,45 @@ final class CoordinatesTest extends TestCase
             ['row' => 'N', 'column' => 2, 'rowFlowPosition' => 28, 'columnFlowPosition' => 30],
             ['row' => 'O', 'column' => 2, 'rowFlowPosition' => 30, 'columnFlowPosition' => 31],
             ['row' => 'P', 'column' => 2, 'rowFlowPosition' => 32, 'columnFlowPosition' => 32],
+        ];
+    }
+
+    /** @return array<WellData> */
+    public static function data2x16NoJ(): array
+    {
+        return [
+            ['row' => 'A', 'column' => 1, 'rowFlowPosition' => 1, 'columnFlowPosition' => 1],
+            ['row' => 'B', 'column' => 1, 'rowFlowPosition' => 3, 'columnFlowPosition' => 2],
+            ['row' => 'C', 'column' => 1, 'rowFlowPosition' => 5, 'columnFlowPosition' => 3],
+            ['row' => 'D', 'column' => 1, 'rowFlowPosition' => 7, 'columnFlowPosition' => 4],
+            ['row' => 'E', 'column' => 1, 'rowFlowPosition' => 9, 'columnFlowPosition' => 5],
+            ['row' => 'F', 'column' => 1, 'rowFlowPosition' => 11, 'columnFlowPosition' => 6],
+            ['row' => 'G', 'column' => 1, 'rowFlowPosition' => 13, 'columnFlowPosition' => 7],
+            ['row' => 'H', 'column' => 1, 'rowFlowPosition' => 15, 'columnFlowPosition' => 8],
+            ['row' => 'I', 'column' => 1, 'rowFlowPosition' => 17, 'columnFlowPosition' => 9],
+            ['row' => 'K', 'column' => 1, 'rowFlowPosition' => 19, 'columnFlowPosition' => 10],
+            ['row' => 'L', 'column' => 1, 'rowFlowPosition' => 21, 'columnFlowPosition' => 11],
+            ['row' => 'M', 'column' => 1, 'rowFlowPosition' => 23, 'columnFlowPosition' => 12],
+            ['row' => 'N', 'column' => 1, 'rowFlowPosition' => 25, 'columnFlowPosition' => 13],
+            ['row' => 'O', 'column' => 1, 'rowFlowPosition' => 27, 'columnFlowPosition' => 14],
+            ['row' => 'P', 'column' => 1, 'rowFlowPosition' => 29, 'columnFlowPosition' => 15],
+            ['row' => 'Q', 'column' => 1, 'rowFlowPosition' => 31, 'columnFlowPosition' => 16],
+            ['row' => 'A', 'column' => 2, 'rowFlowPosition' => 2, 'columnFlowPosition' => 17],
+            ['row' => 'B', 'column' => 2, 'rowFlowPosition' => 4, 'columnFlowPosition' => 18],
+            ['row' => 'C', 'column' => 2, 'rowFlowPosition' => 6, 'columnFlowPosition' => 19],
+            ['row' => 'D', 'column' => 2, 'rowFlowPosition' => 8, 'columnFlowPosition' => 20],
+            ['row' => 'E', 'column' => 2, 'rowFlowPosition' => 10, 'columnFlowPosition' => 21],
+            ['row' => 'F', 'column' => 2, 'rowFlowPosition' => 12, 'columnFlowPosition' => 22],
+            ['row' => 'G', 'column' => 2, 'rowFlowPosition' => 14, 'columnFlowPosition' => 23],
+            ['row' => 'H', 'column' => 2, 'rowFlowPosition' => 16, 'columnFlowPosition' => 24],
+            ['row' => 'I', 'column' => 2, 'rowFlowPosition' => 18, 'columnFlowPosition' => 25],
+            ['row' => 'K', 'column' => 2, 'rowFlowPosition' => 20, 'columnFlowPosition' => 26],
+            ['row' => 'L', 'column' => 2, 'rowFlowPosition' => 22, 'columnFlowPosition' => 27],
+            ['row' => 'M', 'column' => 2, 'rowFlowPosition' => 24, 'columnFlowPosition' => 28],
+            ['row' => 'N', 'column' => 2, 'rowFlowPosition' => 26, 'columnFlowPosition' => 29],
+            ['row' => 'O', 'column' => 2, 'rowFlowPosition' => 28, 'columnFlowPosition' => 30],
+            ['row' => 'P', 'column' => 2, 'rowFlowPosition' => 30, 'columnFlowPosition' => 31],
+            ['row' => 'Q', 'column' => 2, 'rowFlowPosition' => 32, 'columnFlowPosition' => 32],
         ];
     }
 

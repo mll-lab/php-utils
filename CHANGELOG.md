@@ -16,6 +16,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 - Improve code quality with automatic type declarations via Rector
 - Improve code quality with automatic rector rules for PHPUnit
 
+## v5.5.2
+
+### Fixed
+
+- Changed coordinate system for  `MLL\Utils\Tecan\Rack\MasterMixRack`
+
 ## v5.5.1
 
 ### Fixed
