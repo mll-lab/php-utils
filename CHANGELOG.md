@@ -9,6 +9,18 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.8.0
+
+### Added
+
+- Add PHPStan-Rule `MLL\Utils\PHPStan\Rules\ThrowableClassNameRule`
+
+## v5.7.0
+
+### Added
+
+- Add PHPStan-Rule `MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule`
+
 ## v5.6.0
 
 ### Added
