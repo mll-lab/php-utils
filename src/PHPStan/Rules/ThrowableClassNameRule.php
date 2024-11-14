@@ -21,26 +21,27 @@ class ThrowableClassNameRule implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         $className = (string) $node->name;
-        $extendsThrowable = false;
 
-        if ($node->extends !== null) {
-            $parentClass = $node->extends->toString();
-            $extendsThrowable = is_subclass_of($parentClass, \Throwable::class) || $parentClass === \Throwable::class;
+        if ($node->extends === null) {
+            if (str_ends_with($className, 'Exception')) {
+                return [
+                    RuleErrorBuilder::message(sprintf(
+                        'Class "%s" uses the suffix "Exception" but does not extend \Throwable. Consider using "Exemption" or another term.',
+                        $className
+                    ))->build(),
+                ];
+            }
+
+            return [];
         }
+
+        $parentClass = $node->extends->toString();
+        $extendsThrowable = is_subclass_of($parentClass, \Throwable::class) || $parentClass === \Throwable::class;
 
         if ($extendsThrowable && ! str_ends_with($className, 'Exception')) {
             return [
                 RuleErrorBuilder::message(sprintf(
                     'Class "%s" extends \Throwable but does not use the suffix "Exception".',
-                    $className
-                ))->build(),
-            ];
-        }
-
-        if (! $extendsThrowable && str_ends_with($className, 'Exception')) {
-            return [
-                RuleErrorBuilder::message(sprintf(
-                    'Class "%s" uses the suffix "Exception" but does not extend \Throwable. Consider using "Exemption" or another term.',
                     $className
                 ))->build(),
             ];
