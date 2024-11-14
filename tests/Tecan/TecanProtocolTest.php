@@ -65,7 +65,7 @@ CSV
         self::assertTrue(Str::isUuid($fileName));
 
         $fileSuffix = Str::after($tecanProtocol->fileName(), $fileName);
-        self::assertSame($fileSuffix, TecanProtocol::GEMINI_WORKLIST_FILENAME_SUFFIX);
+        self::assertSame(TecanProtocol::GEMINI_WORKLIST_FILENAME_SUFFIX, $fileSuffix);
     }
 
     public function testProtocolWithForFourTips(): void
