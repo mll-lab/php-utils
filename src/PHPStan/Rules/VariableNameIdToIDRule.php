@@ -28,6 +28,7 @@ class VariableNameIdToIDRule implements Rule
             && static::containsWrongIDCapitalization($nodeName)
         ) {
             $expectedName = static::fixIDCapitalization($nodeName);
+
             return [
                 RuleErrorBuilder::message(<<<TXT
                 Variable name "\${$nodeName}" should use "ID" instead of "Id", rename it to "\${$expectedName}".
