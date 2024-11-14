@@ -22,18 +22,34 @@ class VariableNameIdToIDRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
-        if (
-            is_string($node->name)
-            && \Safe\preg_match('/Id/', $node->name) === 1
-            && ! Str::contains($node->name, self::FALSE_POSITIVES)
+        $nodeName = $node->name;
+
+        if (is_string($nodeName)
+            && static::containsWrongIDCapitalization($nodeName)
         ) {
+            $expectedName = static::fixIDCapitalization($nodeName);
             return [
                 RuleErrorBuilder::message(<<<TXT
-                Variable name "\${$node->name}" should use "ID" instead of "Id".
+                Variable name "\${$nodeName}" should use "ID" instead of "Id", rename it to "\${$expectedName}".
                 TXT)->build(),
             ];
         }
 
         return [];
+    }
+
+    public static function containsWrongIDCapitalization(string $nodeName): bool
+    {
+        return \Safe\preg_match('/Id/', $nodeName) === 1
+            && ! Str::contains($nodeName, self::FALSE_POSITIVES);
+    }
+
+    public static function fixIDCapitalization(string $nodeName): string
+    {
+        if ($nodeName === 'Id') {
+            return 'id';
+        }
+
+        return str_replace('Id', 'ID', $nodeName);
     }
 }
