@@ -88,7 +88,7 @@ class ICAClient extends Connector
 {
 	public function resolveBaseUrl(): string
 	{
-		return '/ica/rest';
+		return env('ICA_HOST');
 	}
 
     public function defaultAuth(): ?Authenticator
