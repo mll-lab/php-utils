@@ -53,6 +53,8 @@ use MLL\Utils\ICA\Client\Resource\System;
 use MLL\Utils\ICA\Client\Resource\Token;
 use MLL\Utils\ICA\Client\Resource\User;
 use MLL\Utils\ICA\Client\Resource\Workgroup;
+use Saloon\Contracts\Authenticator;
+use Saloon\Http\Auth\AccessTokenAuthenticator;
 use Saloon\Http\Connector;
 
 /**
@@ -89,8 +91,13 @@ class ICAClient extends Connector
 		return '/ica/rest';
 	}
 
+    public function defaultAuth(): ?Authenticator
+    {
+        return new AccessTokenAuthenticator(env('ICA_API_KEY'));
+    }
 
-	public function analysisStorage(): AnalysisStorage
+
+    public function analysisStorage(): AnalysisStorage
 	{
 		return new AnalysisStorage($this);
 	}
