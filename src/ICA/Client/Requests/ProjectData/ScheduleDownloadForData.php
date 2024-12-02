@@ -1,0 +1,42 @@
+<?php
+
+namespace MLL\Utils\ICA\Client\Requests\ProjectData;
+
+use DateTime;
+use Saloon\Contracts\Body\HasBody;
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
+use Saloon\Traits\Body\HasJsonBody;
+
+/**
+ * scheduleDownloadForData
+ *
+ * Endpoint for scheduling a download for the data specified by the ID to a connector. This download
+ * will only start when the connector is running. Data transfers for folder contents are created
+ * asynchronously, meaning that they will not be immediately visible in the project data transfers end
+ * point. This is a non-RESTful endpoint, as the path of this endpoint is not representing a REST
+ * resource.
+ */
+class ScheduleDownloadForData extends Request implements HasBody
+{
+	use HasJsonBody;
+
+	protected Method $method = Method::POST;
+
+
+	public function resolveEndpoint(): string
+	{
+		return "/api/projects/{$this->projectId}/data/{$this->dataIdScheduleDownload}";
+	}
+
+
+	/**
+	 * @param string $projectId
+	 * @param string $dataId
+	 */
+	public function __construct(
+		protected string $projectId,
+		protected string $dataId,
+	) {
+	}
+}

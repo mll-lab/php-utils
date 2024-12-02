@@ -39,3 +39,7 @@ vendor: composer.json
 	composer validate --strict
 	composer install
 	composer normalize
+
+api-ica: vendor ## Generates the API Client SDK
+	cd src/ICA && wget https://ica.illumina.com/ica/api/swagger/openapi_public.yaml
+	vendor/bin/sdkgenerator generate:sdk src/ICA/openapi_public.yaml --type=openapi --name=ICAClient --output=src/ICA/Client --namespace=MLL\\Utils\\ICA\\Client
