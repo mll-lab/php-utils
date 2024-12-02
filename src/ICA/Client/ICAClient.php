@@ -55,6 +55,7 @@ use MLL\Utils\ICA\Client\Resource\User;
 use MLL\Utils\ICA\Client\Resource\Workgroup;
 use Saloon\Contracts\Authenticator;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
+use Saloon\Http\Auth\HeaderAuthenticator;
 use Saloon\Http\Connector;
 
 /**
@@ -93,7 +94,7 @@ class ICAClient extends Connector
 
     public function defaultAuth(): ?Authenticator
     {
-        return new AccessTokenAuthenticator(env('ICA_API_KEY'));
+        return new HeaderAuthenticator(env('ICA_API_KEY'), 'X-API-Key');
     }
 
 
