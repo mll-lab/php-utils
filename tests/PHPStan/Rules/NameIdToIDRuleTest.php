@@ -2,17 +2,17 @@
 
 namespace MLL\Utils\Tests\PHPStan\Rules;
 
-use MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule;
+use MLL\Utils\PHPStan\Rules\NameIdToIDRule;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-final class VariableNameIdToIDRuleTest extends TestCase
+final class NameIdToIDRuleTest extends TestCase
 {
     /** @dataProvider wrongID */
     #[DataProvider('wrongID')]
     public function testRecognizesWrongCapitalizations(string $variableName): void
     {
-        self::assertTrue(VariableNameIdToIDRule::containsWrongIDCapitalization($variableName));
+        self::assertTrue(NameIdToIDRule::containsWrongIDCapitalization($variableName));
     }
 
     /** @return iterable<array{string}> */
@@ -27,7 +27,7 @@ final class VariableNameIdToIDRuleTest extends TestCase
     #[DataProvider('correctID')]
     public function testAllowsCorrectCapitalizations(string $variableName): void
     {
-        self::assertFalse(VariableNameIdToIDRule::containsWrongIDCapitalization($variableName));
+        self::assertFalse(NameIdToIDRule::containsWrongIDCapitalization($variableName));
     }
 
     /** @return iterable<array{string}> */
@@ -39,13 +39,14 @@ final class VariableNameIdToIDRuleTest extends TestCase
         yield ['labID'];
         yield ['labIDs'];
         yield ['testIdentifier'];
+        yield ['openIdtAnalyses'];
     }
 
     /** @dataProvider wrongToRight */
     #[DataProvider('wrongToRight')]
     public function testFixIDCapitalization(string $wrong, string $right): void
     {
-        self::assertSame($right, VariableNameIdToIDRule::fixIDCapitalization($wrong));
+        self::assertSame($right, NameIdToIDRule::fixIDCapitalization($wrong));
     }
 
     /** @return iterable<array{string, string}> */
