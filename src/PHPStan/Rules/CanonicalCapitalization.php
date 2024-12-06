@@ -3,6 +3,7 @@
 namespace MLL\Utils\PHPStan\Rules;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
@@ -35,6 +36,10 @@ final class CanonicalCapitalization implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         $result = NodeIdentifier::extractNodeNameAndType($node);
+
+        if ($node instanceof Node\Scalar\String_) {
+            $result = [$node->value, 'String'];
+        }
 
         if ($result === null) {
             return [];
