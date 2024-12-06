@@ -45,7 +45,8 @@ class NameIdToIDRule implements Rule
                 <<<TXT
                 {$type} Name "{$nodeName}" should use "ID" instead of "Id", rename it to "{$expectedName}".
                 TXT
-            )->build(),
+            )->identifier('mllLabRules.nameIdToID')
+                ->build(),
         ];
     }
 
