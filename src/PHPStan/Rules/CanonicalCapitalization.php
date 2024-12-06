@@ -58,7 +58,7 @@ final class CanonicalCapitalization implements Rule
                 <<<TXT
                 {$type} "{$nodeName}" should use "{$correct}" instead of "{$incorrect}", rename it to "{$expectedName}".
                 TXT
-            )->identifier('mllLabRules.nameIdToID')
+            )->identifier('mllLabRules.canonicalCapitalization')
                 ->build(),
         ];
     }
