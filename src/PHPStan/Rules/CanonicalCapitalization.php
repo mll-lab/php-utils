@@ -3,7 +3,7 @@
 namespace MLL\Utils\PHPStan\Rules;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
@@ -37,7 +37,7 @@ final class CanonicalCapitalization implements Rule
     {
         $result = NodeIdentifier::extractNodeNameAndType($node);
 
-        if ($node instanceof Node\Scalar\String_) {
+        if ($node instanceof String_) {
             $result = [$node->value, 'String'];
         }
 

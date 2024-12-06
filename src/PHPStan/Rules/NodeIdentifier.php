@@ -8,9 +8,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 
 class NodeIdentifier
 {
-    /**
-     * @return array{0: string, 1: string}|null
-     */
+    /** @return array{0: string, 1: string}|null */
     public static function extractNodeNameAndType(Node $node): ?array
     {
         if ($node instanceof Variable && is_string($node->name)) {
