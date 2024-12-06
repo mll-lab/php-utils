@@ -16,6 +16,7 @@ class NameIdToIDRule implements Rule
     /** Lists words or phrases that contain "Id" but are fine. */
     protected const FALSE_POSITIVES = [
         'Identifier',
+        'Identical',
         'Idt', // IDT is an abbreviation for the brand "Integrated DNA Technologies, Inc."
     ];
 

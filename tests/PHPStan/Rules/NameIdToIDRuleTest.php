@@ -40,6 +40,7 @@ final class NameIdToIDRuleTest extends TestCase
         yield ['labIDs'];
         yield ['testIdentifier'];
         yield ['openIdtAnalyses'];
+        yield ['isIdenticalThing'];
     }
 
     /** @dataProvider wrongToRight */
