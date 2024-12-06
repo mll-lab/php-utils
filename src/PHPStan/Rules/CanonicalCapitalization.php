@@ -13,7 +13,18 @@ use function Safe\preg_match;
 final class CanonicalCapitalization implements Rule
 {
     private const CANONICAL_CAPITALIZATIONS = [
-        'Lab ID' => ['lab id', 'Lab-ID', 'LabID ', ' LabID', 'labID', 'LABID', 'Labid', 'lab-Id', 'Lab Id'],
+        'Lab ID' => [
+            'lab id',
+            'Lab-ID',
+            'LabID ',
+            ' LabID',
+            ' labID',
+            'labID ',
+            'LABID',
+            'Labid',
+            'lab-Id',
+            'Lab Id',
+        ],
     ];
 
     public function getNodeType(): string

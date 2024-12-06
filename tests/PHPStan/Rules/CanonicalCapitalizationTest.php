@@ -34,7 +34,8 @@ final class CanonicalCapitalizationTest extends TestCase
         yield 'Should correct capitalization for "LabID "' => ['The LabID is incorrect', ['Lab ID', 'LabID ', self::EXPECTED_LAB_ID_IS_INCORRECT]];
         yield 'Should correct capitalization for "Lab-ID"' => ['The Lab-ID is incorrect', ['Lab ID', 'Lab-ID', self::EXPECTED_LAB_ID_IS_INCORRECT]];
         yield 'Should correct capitalization for "lab id"' => ['The lab id is incorrect', ['Lab ID', 'lab id', self::EXPECTED_LAB_ID_IS_INCORRECT]];
-        yield 'Should correct capitalization for "labID"' => ['The labID is incorrect', ['Lab ID', 'labID', self::EXPECTED_LAB_ID_IS_INCORRECT]];
+        yield 'Should correct capitalization for " labID"' => ['The labID is incorrect', ['Lab ID', ' labID', self::EXPECTED_LAB_ID_IS_INCORRECT]];
+        yield 'Should correct capitalization for "labID "' => ['labID is incorrect', ['Lab ID', 'labID ', 'Lab ID is incorrect']];
         yield 'Should correct capitalization for " LabID"' => ['The LabID', ['Lab ID', ' LabID', 'The Lab ID']];
         yield 'Should correct capitalization for "LABID"' => ['The LABID is incorrect', ['Lab ID', 'LABID', self::EXPECTED_LAB_ID_IS_INCORRECT]];
         yield 'Should correct capitalization for "Labid"' => ['The Labid is incorrect', ['Lab ID', 'Labid', self::EXPECTED_LAB_ID_IS_INCORRECT]];
@@ -53,5 +54,6 @@ final class CanonicalCapitalizationTest extends TestCase
     public static function rightCapitalizationProvider(): iterable
     {
         yield 'Should not be fixed because it might be in a non-space case written' => ['TheLabIDIsIncorrect'];
+        yield 'Should not be fixed because it might be a varName' => ['labID'];
     }
 }
