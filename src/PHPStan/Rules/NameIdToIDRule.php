@@ -4,8 +4,6 @@ namespace MLL\Utils\PHPStan\Rules;
 
 use Illuminate\Support\Str;
 use PhpParser\Node;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
@@ -27,7 +25,7 @@ class NameIdToIDRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
-        $result = $this->extractNodeNameAndType($node);
+        $result = NodeIdentifier::extractNodeNameAndType($node);
 
         if ($result === null) {
             return [];
@@ -64,24 +62,5 @@ class NameIdToIDRule implements Rule
         }
 
         return str_replace('Id', 'ID', $nodeName);
-    }
-
-    /** @return array{0: string, 1: string}|null */
-    public function extractNodeNameAndType(Node $node): ?array
-    {
-        if ($node instanceof Variable && is_string($node->name)) {
-            return [$node->name, 'Variable'];
-        }
-        if ($node instanceof Node\Param && $node->var instanceof Variable && is_string($node->var->name)) {
-            return [$node->var->name, 'Parameter'];
-        }
-        if ($node instanceof ClassMethod) {
-            return [$node->name->toString(), 'ClassMethod'];
-        }
-        if ($node instanceof Node\Stmt\Class_ && $node->name instanceof Node\Identifier) {
-            return [$node->name->toString(), 'Class'];
-        }
-
-        return null;
     }
 }
