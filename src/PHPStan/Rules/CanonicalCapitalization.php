@@ -30,7 +30,7 @@ final class CanonicalCapitalization implements Rule
 
     public function getNodeType(): string
     {
-        return Node\Expr\Variable::class;
+        return Node::class;
     }
 
     public function processNode(Node $node, Scope $scope): array
@@ -39,8 +39,6 @@ final class CanonicalCapitalization implements Rule
 
         if ($node instanceof String_) {
             $result = [$node->value, 'String'];
-        } elseif ($node instanceof Node\Expr\BinaryOp\Concat) {
-            $result = $this->extractConcatString($node);
         }
 
         if ($result === null) {
@@ -62,7 +60,7 @@ final class CanonicalCapitalization implements Rule
         return [
             RuleErrorBuilder::message(
                 <<<TXT
-                {$type} Name "{$nodeName}" should use "{$correct}" instead of "{$incorrect}", rename it to "{$expectedName}".
+                {$type} "{$nodeName}" should use "{$correct}" instead of "{$incorrect}", rename it to "{$expectedName}".
                 TXT
             )->identifier('mllLabRules.nameIdToID')
                 ->build(),
@@ -86,23 +84,5 @@ final class CanonicalCapitalization implements Rule
     public static function fixIDCapitalization(string $nodeName, string $correct, string $incorrect): string
     {
         return str_replace(trim($incorrect), trim($correct), $nodeName);
-    }
-
-    private function extractConcatString(Node\Expr\BinaryOp\Concat $concat): array
-    {
-        $parts = [];
-        $this->gatherConcatParts($concat, $parts);
-        $string = implode('', $parts);
-        return [$string, 'String'];
-    }
-
-    private function gatherConcatParts(Node $node, array &$parts): void
-    {
-        if ($node instanceof Node\Expr\BinaryOp\Concat) {
-            $this->gatherConcatParts($node->left, $parts);
-            $this->gatherConcatParts($node->right, $parts);
-        } elseif ($node instanceof String_) {
-            $parts[] = $node->value;
-        }
     }
 }
