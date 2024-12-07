@@ -9,6 +9,16 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v6.0.0
+
+### Changed
+
+- Breaking Change: Renamed class `MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule` to `MLL\Utils\PHPStan\Rules\NameIdToIDRule`
+- Refactored `MLL\Utils\PHPStan\Rules\NameIdToIDRule` to handle variable names, parameter names, method names and class names for incorrect capitalization of "Id"
+- Add 'Idt' and 'Identical' to the list of incorrect capitalizations for "Id" of `MLL\Utils\PHPStan\Rules\NameIdToIDRule`
+- Add RuleIdentifier 'mllLabRules.nameIdToID' to `MLL\Utils\PHPStan\Rules\NameIdToIDRule`
+- Add PHPStan-Rule `MLL\Utils\PHPStan\Rules\CanonicalCapitalizations` to check spelling of LabID
+
 ## v5.8.0
 
 ### Added
