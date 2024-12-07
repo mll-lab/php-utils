@@ -10,7 +10,7 @@ use PHPStan\Rules\RuleErrorBuilder;
 use function Safe\preg_match;
 
 /** @implements Rule<Node> */
-final class CanonicalCapitalization implements Rule
+class CanonicalCapitalization implements Rule
 {
     private const CANONICAL_CAPITALIZATIONS = [
         'Lab ID' => [
@@ -35,7 +35,7 @@ final class CanonicalCapitalization implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         $result = NodeIdentifier::extractNodeNameAndType($node)
-    ?? NodeIdentifier::nodeNameForString($node);
+            ?? NodeIdentifier::nodeNameForString($node);
 
         if ($result === null) {
             return [];
@@ -54,11 +54,10 @@ final class CanonicalCapitalization implements Rule
         $expectedName = self::fixIDCapitalization($nodeName, $correct, $incorrect);
 
         return [
-            RuleErrorBuilder::message(
-                <<<TXT
+            RuleErrorBuilder::message(<<<TXT
                 {$type} "{$nodeName}" should use "{$correct}" instead of "{$incorrect}", rename it to "{$expectedName}".
-                TXT
-            )->identifier('mllLabRules.canonicalCapitalization')
+                TXT)
+                ->identifier('mll.canonicalCapitalization')
                 ->build(),
         ];
     }
@@ -68,7 +67,7 @@ final class CanonicalCapitalization implements Rule
     {
         foreach (self::CANONICAL_CAPITALIZATIONS as $correct => $incorrectVariants) {
             foreach ($incorrectVariants as $incorrect) {
-                if (preg_match('/' . $incorrect . '/', $nodeName) === 1) {
+                if (preg_match("/{$incorrect}/", $nodeName) === 1) {
                     return [$correct, $incorrect];
                 }
             }
