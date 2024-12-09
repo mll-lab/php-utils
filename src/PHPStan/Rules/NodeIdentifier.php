@@ -15,7 +15,10 @@ class NodeIdentifier
         if ($node instanceof Variable && is_string($node->name)) {
             return [$node->name, 'Variable'];
         }
-        if ($node instanceof Node\Param && $node->var instanceof Variable && is_string($node->var->name)) {
+        if ($node instanceof Node\Param
+            && $node->var instanceof Variable
+            && is_string($node->var->name)
+        ) {
             return [$node->var->name, 'Parameter'];
         }
         if ($node instanceof ClassMethod) {

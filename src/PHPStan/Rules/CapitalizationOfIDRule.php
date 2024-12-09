@@ -9,7 +9,7 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
 /** @implements Rule<Node> */
-class NameIdToIDRule implements Rule
+class CapitalizationOfIDRule implements Rule
 {
     /** Lists words or phrases that contain "Id" but are fine. */
     protected const FALSE_POSITIVES = [
@@ -41,7 +41,7 @@ class NameIdToIDRule implements Rule
             RuleErrorBuilder::message(<<<TXT
                 {$type} Name "{$nodeName}" should use "ID" instead of "Id", rename it to "{$expectedName}".
                 TXT)
-                ->identifier('mllLabRules.nameIdToID')
+                ->identifier('mll.capitalizationOfID')
                 ->build(),
         ];
     }

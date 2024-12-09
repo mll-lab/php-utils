@@ -2,17 +2,17 @@
 
 namespace MLL\Utils\Tests\PHPStan\Rules;
 
-use MLL\Utils\PHPStan\Rules\NameIdToIDRule;
+use MLL\Utils\PHPStan\Rules\CapitalizationOfIDRule;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-final class NameIdToIDRuleTest extends TestCase
+final class CapitalizationOfIDRuleTest extends TestCase
 {
     /** @dataProvider wrongID */
     #[DataProvider('wrongID')]
     public function testRecognizesWrongCapitalizations(string $variableName): void
     {
-        self::assertTrue(NameIdToIDRule::containsWrongIDCapitalization($variableName));
+        self::assertTrue(CapitalizationOfIDRule::containsWrongIDCapitalization($variableName));
     }
 
     /** @return iterable<array{string}> */
@@ -27,7 +27,7 @@ final class NameIdToIDRuleTest extends TestCase
     #[DataProvider('correctID')]
     public function testAllowsCorrectCapitalizations(string $variableName): void
     {
-        self::assertFalse(NameIdToIDRule::containsWrongIDCapitalization($variableName));
+        self::assertFalse(CapitalizationOfIDRule::containsWrongIDCapitalization($variableName));
     }
 
     /** @return iterable<array{string}> */
@@ -47,7 +47,7 @@ final class NameIdToIDRuleTest extends TestCase
     #[DataProvider('wrongToRight')]
     public function testFixIDCapitalization(string $wrong, string $right): void
     {
-        self::assertSame($right, NameIdToIDRule::fixIDCapitalization($wrong));
+        self::assertSame($right, CapitalizationOfIDRule::fixIDCapitalization($wrong));
     }
 
     /** @return iterable<array{string, string}> */
