@@ -26,13 +26,11 @@ class NameIdToIDRule implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         $result = NodeIdentifier::extractNodeNameAndType($node);
-
         if ($result === null) {
             return [];
         }
 
         [$nodeName, $type] = $result;
-
         if (! static::containsWrongIDCapitalization($nodeName)) {
             return [];
         }
@@ -40,11 +38,10 @@ class NameIdToIDRule implements Rule
         $expectedName = static::fixIDCapitalization($nodeName);
 
         return [
-            RuleErrorBuilder::message(
-                <<<TXT
+            RuleErrorBuilder::message(<<<TXT
                 {$type} Name "{$nodeName}" should use "ID" instead of "Id", rename it to "{$expectedName}".
-                TXT
-            )->identifier('mllLabRules.nameIdToID')
+                TXT)
+                ->identifier('mllLabRules.nameIdToID')
                 ->build(),
         ];
     }

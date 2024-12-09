@@ -36,7 +36,6 @@ class CanonicalCapitalization implements Rule
     {
         $result = NodeIdentifier::extractNodeNameAndType($node)
             ?? NodeIdentifier::nodeNameForString($node);
-
         if ($result === null) {
             return [];
         }
@@ -44,7 +43,6 @@ class CanonicalCapitalization implements Rule
         [$nodeName, $type] = $result;
 
         $wrongCapitalization = CanonicalCapitalization::findWrongCapitalization($nodeName);
-
         if ($wrongCapitalization === null) {
             return [];
         }
@@ -78,6 +76,9 @@ class CanonicalCapitalization implements Rule
 
     public static function fixIDCapitalization(string $nodeName, string $correct, string $incorrect): string
     {
-        return str_replace(trim($incorrect), trim($correct), $nodeName);
+        $trimmedIncorrect = trim($incorrect);
+        $trimmedCorrect = trim($correct);
+
+        return str_replace($trimmedIncorrect, $trimmedCorrect, $nodeName);
     }
 }
