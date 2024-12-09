@@ -3,6 +3,9 @@
 namespace MLL\Utils\PHPStan\Rules;
 
 use Illuminate\Support\Str;
+use MLL\Utils\PHPStan\NodeNameExtractor\ClassMethodNameExtractor;
+use MLL\Utils\PHPStan\NodeNameExtractor\ClassNameExtractor;
+use MLL\Utils\PHPStan\NodeNameExtractor\VariableNameExtractor;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
@@ -25,21 +28,33 @@ class CapitalizationOfIDRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
-        $result = NodeIdentifier::extractNodeNameAndType($node);
-        if ($result === null) {
+        $extractors = [
+            new ClassMethodNameExtractor(),
+            new ClassNameExtractor(),
+            new VariableNameExtractor(),
+        ];
+        $nodeName = null;
+        foreach ($extractors as $extractor) {
+            $extractedName = $extractor->extract($node);
+            if ($extractedName !== null) {
+                $nodeName = $extractedName;
+                break;
+            }
+        }
+
+        if ($nodeName === null) {
             return [];
         }
 
-        [$nodeName, $type] = $result;
-        if (! static::containsWrongIDCapitalization($nodeName)) {
+        if (! self::containsWrongIDCapitalization($nodeName)) {
             return [];
         }
 
-        $expectedName = static::fixIDCapitalization($nodeName);
+        $expectedName = self::fixIDCapitalization($nodeName);
 
         return [
             RuleErrorBuilder::message(<<<TXT
-                {$type} Name "{$nodeName}" should use "ID" instead of "Id", rename it to "{$expectedName}".
+                Name of {$node->getType()} "{$nodeName}" should use "ID" instead of "Id", rename it to "{$expectedName}".
                 TXT)
                 ->identifier('mll.capitalizationOfID')
                 ->build(),

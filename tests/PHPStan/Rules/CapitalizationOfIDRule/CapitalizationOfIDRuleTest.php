@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils\Tests\PHPStan\Rules;
+namespace MLL\Utils\Tests\PHPStan\Rules\CapitalizationOfIDRule;
 
 use MLL\Utils\PHPStan\Rules\CapitalizationOfIDRule;
 use PHPUnit\Framework\Attributes\DataProvider;

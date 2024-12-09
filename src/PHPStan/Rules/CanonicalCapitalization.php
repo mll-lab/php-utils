@@ -2,6 +2,10 @@
 
 namespace MLL\Utils\PHPStan\Rules;
 
+use MLL\Utils\PHPStan\NodeNameExtractor\ClassMethodNameExtractor;
+use MLL\Utils\PHPStan\NodeNameExtractor\ClassNameExtractor;
+use MLL\Utils\PHPStan\NodeNameExtractor\StringNameExtractor;
+use MLL\Utils\PHPStan\NodeNameExtractor\VariableNameExtractor;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
@@ -34,13 +38,25 @@ class CanonicalCapitalization implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
-        $result = NodeIdentifier::extractNodeNameAndType($node)
-            ?? NodeIdentifier::nodeNameForString($node);
-        if ($result === null) {
-            return [];
+        $extractors = [
+            new ClassMethodNameExtractor(),
+            new ClassNameExtractor(),
+            new VariableNameExtractor(),
+            new StringNameExtractor(),
+        ];
+
+        $nodeName = null;
+        foreach ($extractors as $extractor) {
+            $extractedName = $extractor->extract($node);
+            if ($extractedName !== null) {
+                $nodeName = $extractedName;
+                break;
+            }
         }
 
-        [$nodeName, $type] = $result;
+        if ($nodeName === null) {
+            return [];
+        }
 
         $wrongCapitalization = CanonicalCapitalization::findWrongCapitalization($nodeName);
         if ($wrongCapitalization === null) {
@@ -53,7 +69,7 @@ class CanonicalCapitalization implements Rule
 
         return [
             RuleErrorBuilder::message(<<<TXT
-                {$type} "{$nodeName}" should use "{$correct}" instead of "{$incorrect}", rename it to "{$expectedName}".
+                Name of {$node->getType()} "{$nodeName}" should use "{$correct}" instead of "{$incorrect}", rename it to "{$expectedName}".
                 TXT)
                 ->identifier('mll.canonicalCapitalization')
                 ->build(),
