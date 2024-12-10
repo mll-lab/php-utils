@@ -13,6 +13,7 @@ class StringNameExtractor implements NodeNameExtractor
         if ($node instanceof String_) {
             return $node->value;
         }
+
         if ($node instanceof EncapsedStringPart) {
             return $node->value;
         }

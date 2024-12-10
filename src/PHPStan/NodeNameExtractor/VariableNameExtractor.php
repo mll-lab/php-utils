@@ -10,14 +10,21 @@ class VariableNameExtractor implements NodeNameExtractor
 {
     public function extract(Node $node): ?string
     {
-        if ($node instanceof Variable && is_string($node->name)) {
-            return $node->name;
+        if ($node instanceof Variable) {
+            $name = $node->name;
+            if (is_string($name)) {
+                return $name;
+            }
         }
-        if ($node instanceof Param
-            && $node->var instanceof Variable
-            && is_string($node->var->name)
-        ) {
-            return $node->var->name;
+
+        if ($node instanceof Param) {
+            $var = $node->var;
+            if ($var instanceof Variable) {
+                $name = $var->name;
+                if (is_string($name)) {
+                    return $name;
+                }
+            }
         }
 
         return null;

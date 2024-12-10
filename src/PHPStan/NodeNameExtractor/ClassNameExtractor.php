@@ -10,8 +10,11 @@ class ClassNameExtractor implements NodeNameExtractor
 {
     public function extract(Node $node): ?string
     {
-        if ($node instanceof Class_ && $node->name instanceof Identifier) {
-            return $node->name->toString();
+        if ($node instanceof Class_) {
+            $name = $node->name;
+            if ($name instanceof Identifier) {
+                return $name->toString();
+            }
         }
 
         return null;
