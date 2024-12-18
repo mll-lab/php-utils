@@ -8,23 +8,32 @@ use MLL\Utils\Microplate\Microplate;
 
 class LightcyclerSampleSheet
 {
+    private const WINDOWS_NEW_LINE = "\r\n";
+    private const TAB_SEPARATOR = "\t";
+
     /** @param Microplate<SampleDTO, CoordinateSystem12x8> $microplate */
-    public function generate(Microplate $microplate, RandomHexGenerator $hexGenerator = null): string
+    public function generate(Microplate $microplate): string
     {
-        $lc480import = "General:Pos\t\"General:Sample Name\"\t\"General:Repl. Of\"\t\"General:Filt. Comb.\"\t\"Sample Preferences:Color\"\r\n";
+        $sampleSheet = implode(self::TAB_SEPARATOR, [
+            '"General:Pos"',
+            '"General:Sample Name"',
+            '"General:Repl. Of"',
+            '"General:Filt. Comb."',
+            '"Sample Preferences:Color"',
+        ]) . self::WINDOWS_NEW_LINE;
 
         foreach ($microplate->filledWells() as $coordinateFromKey => $well) {
-            $row = new LightcyclerRow(
-                Coordinates::fromString($coordinateFromKey, $microplate->coordinateSystem),
-                $well->sampleName,
-                '',
-                '498-640',
-                $hexGenerator ?? new RandomHexGenerator()
-            );
+            $replicationOf = $well->replicationOf instanceof Coordinates ? $well->replicationOf->toString() : '';
 
-            $lc480import .= $row;
+            $sampleSheet .= implode(self::TAB_SEPARATOR, [
+                Coordinates::fromString($coordinateFromKey, $microplate->coordinateSystem)->toString(),
+                "\"{$well->sampleName}\"",
+                "\"{$replicationOf}\"",
+                $well->filterCombination,
+                "$00{$well->hexColor}",
+            ]) . self::WINDOWS_NEW_LINE;
         }
 
-        return $lc480import;
+        return $sampleSheet;
     }
 }

@@ -2,18 +2,30 @@
 
 namespace MLL\Utils\LightcyclerSampleSheet;
 
+use MLL\Utils\Microplate\Coordinates;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
+
 class SampleDTO
 {
     public string $sampleName;
 
-    public string $type;
+    /** @var Coordinates<CoordinateSystem12x8>|null */
+    public ?Coordinates $replicationOf;
 
-    public string $target;
+    public string $filterCombination;
 
-    public function __construct(string $labID, string $type, string $target)
-    {
+    public string $hexColor;
+
+    /** @param Coordinates<CoordinateSystem12x8>|null $replicationOf */
+    public function __construct(
+        string $labID,
+        ?Coordinates $replicationOf,
+        string $filterCombination,
+        string $hexColor
+    ) {
         $this->sampleName = $labID;
-        $this->type = $type;
-        $this->target = $target;
+        $this->replicationOf = $replicationOf;
+        $this->filterCombination = $filterCombination;
+        $this->hexColor = $hexColor;
     }
 }
