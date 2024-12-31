@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.9.0
+
+### Added
+
+- Add class `MLL\Utils\Specification` for logical combinations of predicates
+
 ## v5.8.0
 
 ### Added
