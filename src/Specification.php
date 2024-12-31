@@ -5,7 +5,7 @@ namespace MLL\Utils;
 /**
  * Allows the logical combination of specification callables.
  *
- * We define specifications through a functional interface in the form `(TCandidate): bool`.
+ * We define specifications through a functional interface in the form `(mixed): bool`.
  * This allows the usage of ad-hoc closures, first-class callables, and invokable classes.
  *
  * https://en.wikipedia.org/wiki/Specification_pattern
