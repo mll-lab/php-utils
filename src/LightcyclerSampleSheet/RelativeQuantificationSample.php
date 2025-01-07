@@ -9,23 +9,23 @@ class RelativeQuantificationSample
 {
     public string $sampleName;
 
-    /** @var Coordinates<CoordinateSystem12x8>|null */
-    public ?Coordinates $replicationOf;
-
     public string $filterCombination;
 
     public string $hexColor;
 
+    /** @var Coordinates<CoordinateSystem12x8>|null */
+    public ?Coordinates $replicationOf;
+
     /** @param Coordinates<CoordinateSystem12x8>|null $replicationOf */
     public function __construct(
         string $sampleName,
-        ?Coordinates $replicationOf,
         string $filterCombination,
-        string $hexColor
+        string $hexColor,
+        ?Coordinates $replicationOf
     ) {
         $this->sampleName = $sampleName;
-        $this->replicationOf = $replicationOf;
         $this->filterCombination = $filterCombination;
         $this->hexColor = $hexColor;
+        $this->replicationOf = $replicationOf;
     }
 }
