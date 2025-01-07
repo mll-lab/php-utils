@@ -18,12 +18,12 @@ class RelativeQuantificationSample
 
     /** @param Coordinates<CoordinateSystem12x8>|null $replicationOf */
     public function __construct(
-        string $labID,
+        string $sampleName,
         ?Coordinates $replicationOf,
         string $filterCombination,
         string $hexColor
     ) {
-        $this->sampleName = $labID;
+        $this->sampleName = $sampleName;
         $this->replicationOf = $replicationOf;
         $this->filterCombination = $filterCombination;
         $this->hexColor = $hexColor;
