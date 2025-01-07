@@ -2,24 +2,24 @@
 
 namespace MLL\Utils\Tests\LightcyclerSampleSheet;
 
-use MLL\Utils\LightcyclerSampleSheet\LightcyclerSampleSheet;
-use MLL\Utils\LightcyclerSampleSheet\SampleDTO;
+use MLL\Utils\LightcyclerSampleSheet\RelativeQuantificationSample;
+use MLL\Utils\LightcyclerSampleSheet\RelativeQuantificationSheet;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\Microplate\Microplate;
 use MLL\Utils\StringUtil;
 use PHPUnit\Framework\TestCase;
 
-final class LightcyclerSampleSheetTest extends TestCase
+final class RelativeQuantificationSheetTest extends TestCase
 {
     public function testGenerate(): void
     {
         $samples = [
-            'A1' => new SampleDTO('Sample 1', null, '498-640', 'FF378A'),
-            'B1' => new SampleDTO('Sample 2', null, '498-640', '4899D1'),
-            'C1' => new SampleDTO('Sample 3', null, '498-640', '8528B9'),
-            'D1' => new SampleDTO('Sample 4', null, '498-640', '8E05D9'),
-            'E1' => new SampleDTO('Sample 5', null, '498-640', '4080A5'),
+            'A1' => new RelativeQuantificationSample('Sample 1', null, '498-640', 'FF378A'),
+            'B1' => new RelativeQuantificationSample('Sample 2', null, '498-640', '4899D1'),
+            'C1' => new RelativeQuantificationSample('Sample 3', null, '498-640', '8528B9'),
+            'D1' => new RelativeQuantificationSample('Sample 4', null, '498-640', '8E05D9'),
+            'E1' => new RelativeQuantificationSample('Sample 5', null, '498-640', '4080A5'),
         ];
 
         $microplate = new Microplate(new CoordinateSystem12x8());
@@ -30,8 +30,8 @@ final class LightcyclerSampleSheetTest extends TestCase
             );
         }
 
-        $lightcyclerSampleSheet = new LightcyclerSampleSheet();
-        $result = $lightcyclerSampleSheet->generate($microplate);
+        $sheet = new RelativeQuantificationSheet();
+        $result = $sheet->generate($microplate);
 
         $expected = <<<EOT
 "General:Pos"\t"General:Sample Name"\t"General:Repl. Of"\t"General:Filt. Comb."\t"Sample Preferences:Color"

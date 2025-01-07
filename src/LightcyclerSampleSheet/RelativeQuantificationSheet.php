@@ -6,7 +6,7 @@ use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\Microplate\Microplate;
 
-class LightcyclerSampleSheet
+class RelativeQuantificationSheet
 {
     private const WINDOWS_NEW_LINE = "\r\n";
     private const TAB_SEPARATOR = "\t";
@@ -18,7 +18,7 @@ class LightcyclerSampleSheet
         '"Sample Preferences:Color"',
     ];
 
-    /** @param Microplate<SampleDTO, CoordinateSystem12x8> $microplate */
+    /** @param Microplate<RelativeQuantificationSample, CoordinateSystem12x8> $microplate */
     public function generate(Microplate $microplate): string
     {
         $sampleSheet = implode(self::TAB_SEPARATOR, self::HEADER_COLUMNS) . self::WINDOWS_NEW_LINE;

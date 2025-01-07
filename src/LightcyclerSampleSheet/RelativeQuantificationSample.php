@@ -5,7 +5,7 @@ namespace MLL\Utils\LightcyclerSampleSheet;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
 
-class SampleDTO
+class RelativeQuantificationSample
 {
     public string $sampleName;
 
