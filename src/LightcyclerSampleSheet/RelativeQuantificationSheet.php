@@ -2,9 +2,9 @@
 
 namespace MLL\Utils\LightcyclerSampleSheet;
 
+use Illuminate\Support\Collection;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
-use MLL\Utils\Microplate\Microplate;
 
 class RelativeQuantificationSheet
 {
@@ -18,15 +18,15 @@ class RelativeQuantificationSheet
         '"Sample Preferences:Color"',
     ];
 
-    /** @param Microplate<RelativeQuantificationSample, CoordinateSystem12x8> $microplate */
-    public function generate(Microplate $microplate): string
+    /** @param Collection<string, RelativeQuantificationSample> $samples */
+    public function generate(Collection $samples): string
     {
         $sampleSheet = implode(self::TAB_SEPARATOR, self::HEADER_COLUMNS) . self::WINDOWS_NEW_LINE;
 
-        foreach ($microplate->filledWells() as $coordinateFromKey => $well) {
+        foreach ($samples as $coordinateFromKey => $well) {
             $replicationOf = $well->replicationOf instanceof Coordinates ? $well->replicationOf->toString() : '';
             $row = [
-                Coordinates::fromString($coordinateFromKey, $microplate->coordinateSystem)->toString(),
+                Coordinates::fromString($coordinateFromKey, new CoordinateSystem12x8())->toString(),
                 "\"{$well->sampleName}\"",
                 "\"{$replicationOf}\"",
                 $well->filterCombination,

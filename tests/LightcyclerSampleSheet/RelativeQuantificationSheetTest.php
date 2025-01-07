@@ -2,11 +2,9 @@
 
 namespace MLL\Utils\Tests\LightcyclerSampleSheet;
 
+use Illuminate\Support\Collection;
 use MLL\Utils\LightcyclerSampleSheet\RelativeQuantificationSample;
 use MLL\Utils\LightcyclerSampleSheet\RelativeQuantificationSheet;
-use MLL\Utils\Microplate\Coordinates;
-use MLL\Utils\Microplate\CoordinateSystem12x8;
-use MLL\Utils\Microplate\Microplate;
 use MLL\Utils\StringUtil;
 use PHPUnit\Framework\TestCase;
 
@@ -14,24 +12,16 @@ final class RelativeQuantificationSheetTest extends TestCase
 {
     public function testGenerate(): void
     {
-        $samples = [
+        $samples = Collection::make([
             'A1' => new RelativeQuantificationSample('Sample 1', null, '498-640', 'FF378A'),
             'B1' => new RelativeQuantificationSample('Sample 2', null, '498-640', '4899D1'),
             'C1' => new RelativeQuantificationSample('Sample 3', null, '498-640', '8528B9'),
             'D1' => new RelativeQuantificationSample('Sample 4', null, '498-640', '8E05D9'),
             'E1' => new RelativeQuantificationSample('Sample 5', null, '498-640', '4080A5'),
-        ];
-
-        $microplate = new Microplate(new CoordinateSystem12x8());
-        foreach ($samples as $coordinateFromKey => $sample) {
-            $microplate->addWell(
-                Coordinates::fromString($coordinateFromKey, $microplate->coordinateSystem),
-                $sample
-            );
-        }
+        ]);
 
         $sheet = new RelativeQuantificationSheet();
-        $result = $sheet->generate($microplate);
+        $result = $sheet->generate($samples);
 
         $expected = <<<EOT
 "General:Pos"\t"General:Sample Name"\t"General:Repl. Of"\t"General:Filt. Comb."\t"Sample Preferences:Color"
