@@ -9,7 +9,6 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
-
 ## v5.10.0
 
 ### Added

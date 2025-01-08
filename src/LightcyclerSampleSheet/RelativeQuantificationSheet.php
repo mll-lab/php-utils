@@ -21,21 +21,28 @@ class RelativeQuantificationSheet
     /** @param Collection<string, RelativeQuantificationSample> $samples */
     public function generate(Collection $samples): string
     {
-        $headerLine = implode(self::TAB_SEPARATOR, self::HEADER_COLUMNS) . self::WINDOWS_NEW_LINE;
+        $rows = [
+            self::HEADER_COLUMNS,
+            ...$samples->map(fn (RelativeQuantificationSample $well, string $coordinateFromKey): string {
+                $replicationOf = $well->replicationOf instanceof Coordinates
+                    ? "\"{$well->replicationOf->toString()}\""
+                    : '""';
 
-        return $headerLine . $samples->map(function (RelativeQuantificationSample $well, string $coordinateFromKey): string {
-            $replicationOf = $well->replicationOf instanceof Coordinates
-                ? "\"{$well->replicationOf->toString()}\""
-                : '""';
-            $row = [
-                Coordinates::fromString($coordinateFromKey, new CoordinateSystem12x8())->toString(),
-                "\"{$well->sampleName}\"",
-                $replicationOf,
-                $well->filterCombination,
-                "$00{$well->hexColor}",
-            ];
+                return [
+                    Coordinates::fromString($coordinateFromKey, new CoordinateSystem12x8())->toString(),
+                    "\"{$well->sampleName}\"",
+                    $replicationOf,
+                    $well->filterCombination,
+                    "$00{$well->hexColor}",
+                ];
+            }),
+        ];
 
-            return implode(self::TAB_SEPARATOR, $row);
-        })->implode(self::WINDOWS_NEW_LINE) . self::WINDOWS_NEW_LINE;
+       $lines = array_map(
+           fn (array $rows): string => implode(self::TAB_SEPARATOR, $row),
+           $rows,
+       );
+
+       return implode(self::WINDOWS_NEW_LINE, $lines) . self::WINDOWS_NEW_LINE;
     }
 }
