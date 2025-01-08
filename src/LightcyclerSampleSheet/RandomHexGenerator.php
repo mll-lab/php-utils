@@ -6,6 +6,10 @@ class RandomHexGenerator
 {
     public function hex6Digits(): string
     {
-        return strtoupper(str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT));
+        $randomNumber = mt_rand(0, 0xFFFFFF);
+        $hexString = dechex($randomNumber);
+        $paddedHexString = str_pad($hexString, 6, '0', STR_PAD_LEFT);
+
+        return strtoupper($paddedHexString);
     }
 }

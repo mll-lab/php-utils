@@ -8,8 +8,8 @@ use MLL\Utils\Microplate\CoordinateSystem12x8;
 
 class RelativeQuantificationSheet
 {
-    private const WINDOWS_NEW_LINE = "\r\n";
-    private const TAB_SEPARATOR = "\t";
+    protected const WINDOWS_NEW_LINE = "\r\n";
+    protected const TAB_SEPARATOR = "\t";
     public const HEADER_COLUMNS = [
         '"General:Pos"',
         '"General:Sample Name"',
@@ -23,7 +23,7 @@ class RelativeQuantificationSheet
     {
         $rows = [
             self::HEADER_COLUMNS,
-            ...$samples->map(fn (RelativeQuantificationSample $well, string $coordinateFromKey): string {
+            ...$samples->map(function (RelativeQuantificationSample $well, string $coordinateFromKey): array {
                 $replicationOf = $well->replicationOf instanceof Coordinates
                     ? "\"{$well->replicationOf->toString()}\""
                     : '""';
@@ -38,11 +38,11 @@ class RelativeQuantificationSheet
             }),
         ];
 
-       $lines = array_map(
-           fn (array $rows): string => implode(self::TAB_SEPARATOR, $row),
-           $rows,
-       );
+        $lines = array_map(
+            fn (array $row): string => implode(self::TAB_SEPARATOR, $row),
+            $rows,
+        );
 
-       return implode(self::WINDOWS_NEW_LINE, $lines) . self::WINDOWS_NEW_LINE;
+        return implode(self::WINDOWS_NEW_LINE, $lines) . self::WINDOWS_NEW_LINE;
     }
 }
