@@ -20,7 +20,7 @@ class RelativeQuantificationSheet
     public function generate(Collection $samples): string
     {
         return $samples
-            ->map(fn (RelativeQuantificationSample $well, string $coordinateFromKey): array => $well->serialize($coordinateFromKey))
+            ->map(fn (RelativeQuantificationSample $well, string $coordinateFromKey): array => $well->toSerializableArray($coordinateFromKey))
             ->prepend(self::HEADER_COLUMNS)
             ->map(fn (array $row): string => implode(self::TAB_SEPARATOR, $row))
             ->implode(self::WINDOWS_NEW_LINE)

@@ -30,7 +30,7 @@ class RelativeQuantificationSample
     }
 
     /** @return list<string> */
-    public function serialize(string $coordinatesString): array
+    public function toSerializableArray(string $coordinatesString): array
     {
         $replicationOf = $this->replicationOf instanceof Coordinates
             ? "\"{$this->replicationOf->toString()}\""
