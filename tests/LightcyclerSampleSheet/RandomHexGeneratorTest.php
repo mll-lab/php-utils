@@ -12,7 +12,7 @@ final class RandomHexGeneratorTest extends TestCase
         $generator = new RandomHexGenerator();
         $hexCode = $generator->uniqueHex6Digits();
 
-        self::assertMatchesRegularExpression('/^[A-F0-9]{6}$/', $hexCode);
+        self::assertTrue((bool) \Safe\preg_match('/^[A-F0-9]{6}$/', $hexCode));
     }
 
     public function testGeneratesUniqueHexCodes(): void
