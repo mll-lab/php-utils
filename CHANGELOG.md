@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.10.0
+
+### Added
+
+- Support creating Lightcycler Sample Sheets for Relative Quantification
+
 ## v5.9.0
 
 ### Added
