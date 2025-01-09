@@ -28,4 +28,22 @@ class RelativeQuantificationSample
         $this->hexColor = $hexColor;
         $this->replicationOf = $replicationOf;
     }
+
+    /**
+     * @return list<string>
+     */
+    public function serialize(string $coordinatesString): array
+    {
+        $replicationOf = $this->replicationOf instanceof Coordinates
+            ? "\"{$this->replicationOf->toString()}\""
+            : '""';
+
+        return [
+            Coordinates::fromString($coordinatesString, new CoordinateSystem12x8())->toString(),
+            "\"{$this->sampleName}\"",
+            $replicationOf,
+            $this->filterCombination,
+            "$00{$this->hexColor}",
+        ];
+    }
 }
