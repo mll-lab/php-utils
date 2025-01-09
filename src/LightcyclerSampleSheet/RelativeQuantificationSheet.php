@@ -21,9 +21,8 @@ class RelativeQuantificationSheet
     /** @param Collection<string, RelativeQuantificationSample> $samples */
     public function generate(Collection $samples): string
     {
-        $rows = [
-            self::HEADER_COLUMNS,
-            ...$samples->map(function (RelativeQuantificationSample $well, string $coordinateFromKey): array {
+        return $samples
+            ->map(function (RelativeQuantificationSample $well, string $coordinateFromKey): array {
                 $replicationOf = $well->replicationOf instanceof Coordinates
                     ? "\"{$well->replicationOf->toString()}\""
                     : '""';
@@ -35,14 +34,10 @@ class RelativeQuantificationSheet
                     $well->filterCombination,
                     "$00{$well->hexColor}",
                 ];
-            }),
-        ];
-
-        $lines = array_map(
-            fn (array $row): string => implode(self::TAB_SEPARATOR, $row),
-            $rows,
-        );
-
-        return implode(self::WINDOWS_NEW_LINE, $lines) . self::WINDOWS_NEW_LINE;
+            })
+            ->prepend(self::HEADER_COLUMNS)
+            ->map(fn (array $row): string => implode(self::TAB_SEPARATOR, $row))
+            ->implode(self::WINDOWS_NEW_LINE)
+            . self::WINDOWS_NEW_LINE;
     }
 }
