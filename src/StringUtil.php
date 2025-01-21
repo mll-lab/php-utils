@@ -21,7 +21,7 @@ class StringUtil
     /** https://en.wikipedia.org/wiki/Byte_order_mark#UTF-32 */
     public const UTF_32_LITTLE_ENDIAN_BOM = "\xFF\xFE\x00\x00";
 
-    /** @param iterable<string|null> $parts */
+    /** @param iterable<string|int|null> $parts */
     public static function joinNonEmpty(string $glue, iterable $parts): string
     {
         $nonEmptyParts = [];
