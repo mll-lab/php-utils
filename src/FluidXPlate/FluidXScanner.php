@@ -80,9 +80,7 @@ class FluidXScanner
         }
 
         if ($id === FluidXScanner::NO_READ) {
-            throw new ScanFluidXPlateException($barcodes === []
-                ? 'Weder Platten-Barcode noch Tube-Barcodes konnten gescannt werden. Bitte überprüfen Sie, dass die Platte korrekt in den FluidX-Scanner eingelegt wurde.'
-                : 'Platten-Barcode konnte nicht gescannt werden. Bitte überprüfen Sie, dass die Platte mit der korrekten Orientierung in den FluidX-Scanner eingelegt wurde.');
+            throw new ScanFluidXPlateException($barcodes === [] ? 'Weder Platten-Barcode noch Tube-Barcodes konnten gescannt werden. Bitte überprüfen Sie, dass die Platte korrekt in den FluidX-Scanner eingelegt wurde.' : 'Platten-Barcode konnte nicht gescannt werden. Bitte überprüfen Sie, dass die Platte mit der korrekten Orientierung in den FluidX-Scanner eingelegt wurde.');
         }
 
         $plate = new FluidXPlate($id);

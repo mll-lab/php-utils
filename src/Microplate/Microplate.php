@@ -72,9 +72,7 @@ class Microplate extends AbstractMicroplate
     private function assertIsWellEmpty(Coordinates $coordinates, $content): void
     {
         if (! $this->isWellEmpty($coordinates)) {
-            throw new WellNotEmptyException(
-                'Well with coordinates "' . $coordinates->toString() . '" is not empty. Use setWell() to overwrite the coordinate. Well content "' . serialize($content) . '" was not added.'
-            );
+            throw new WellNotEmptyException('Well with coordinates "' . $coordinates->toString() . '" is not empty. Use setWell() to overwrite the coordinate. Well content "' . serialize($content) . '" was not added.');
         }
     }
 
