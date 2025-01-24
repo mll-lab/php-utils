@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.11.0
+
+### Added
+
+- Allow `int` parts in `StringUtil::joinNonEmpty`
+
 ## v5.10.0
 
 ### Added
