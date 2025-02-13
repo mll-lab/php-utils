@@ -9,6 +9,13 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+
+## v5.12.0
+
+### Added
+
+- Handle empty values in CSVArray as empty string
+
 ## v5.11.0
 
 ### Added
