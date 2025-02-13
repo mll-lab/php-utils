@@ -50,7 +50,7 @@ class Coordinates
      * @param CoordinatesArray $coordinates
      * @param TCoord $coordinateSystem
      *
-     * @return static<TCoord>
+     * @return self<TCoord>
      */
     public static function fromArray(array $coordinates, CoordinateSystem $coordinateSystem): self
     {
@@ -62,7 +62,7 @@ class Coordinates
      *
      * @param TCoord $coordinateSystem
      *
-     * @return static<TCoord>
+     * @return self<TCoord>
      */
     public static function fromString(string $coordinatesString, CoordinateSystem $coordinateSystem): self
     {
@@ -96,7 +96,7 @@ class Coordinates
      *
      * @param TCoord $coordinateSystem
      *
-     * @return static<TCoord>
+     * @return self<TCoord>
      */
     public static function fromPosition(int $position, FlowDirection $direction, CoordinateSystem $coordinateSystem): self
     {
