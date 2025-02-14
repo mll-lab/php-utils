@@ -54,7 +54,7 @@ class Coordinates
      */
     public static function fromArray(array $coordinates, CoordinateSystem $coordinateSystem): self
     {
-        return new self($coordinates['row'], $coordinates['column'], $coordinateSystem);
+        return new static($coordinates['row'], $coordinates['column'], $coordinateSystem);
     }
 
     /**
@@ -88,7 +88,7 @@ class Coordinates
             throw new \InvalidArgumentException("Expected coordinates between {$firstValidExample} and {$lastValidExample} for {$coordinateSystemClass}, got: {$coordinatesString}.");
         }
 
-        return new self($matches[1], (int) $matches[2], $coordinateSystem);
+        return new static($matches[1], (int) $matches[2], $coordinateSystem);
     }
 
     /**
@@ -104,14 +104,14 @@ class Coordinates
 
         switch ($direction->value) {
             case FlowDirection::COLUMN:
-                return new self(
+                return new static(
                     $coordinateSystem->rowForColumnFlowPosition($position),
                     $coordinateSystem->columnForColumnFlowPosition($position),
                     $coordinateSystem
                 );
 
             case FlowDirection::ROW:
-                return new self(
+                return new static(
                     $coordinateSystem->rowForRowFlowPosition($position),
                     $coordinateSystem->columnForRowFlowPosition($position),
                     $coordinateSystem

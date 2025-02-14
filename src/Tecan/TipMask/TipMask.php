@@ -20,12 +20,12 @@ class TipMask
 
     public static function FOUR_TIPS(): self
     {
-        return new self(self::FOUR_TIPS);
+        return new static(self::FOUR_TIPS);
     }
 
     public static function EIGHT_TIPS(): self
     {
-        return new self(self::EIGHT_TIPS);
+        return new static(self::EIGHT_TIPS);
     }
 
     public static function firstTip(): int

@@ -128,6 +128,39 @@ final class CSVArrayTest extends TestCase
         );
     }
 
+    public function testToArrayDefaultsMissingColumnsToEmptyStrings(): void
+    {
+        self::assertSame(
+            [
+                1 => [
+                    'Spalte1' => 'Wert11',
+                    'Spalte2' => 'Wert21',
+                ],
+                2 => [
+                    'Spalte1' => 'Wert12',
+                    'Spalte2' => CSVArray::DEFAULT_EMPTY_VALUE,
+                ],
+                3 => [
+                    'Spalte1' => '',
+                    'Spalte2' => '',
+                ],
+                5 => [
+                    'Spalte1' => 'Wert14',
+                    'Spalte2' => 'Wert24',
+                ],
+            ],
+            CSVArray::toArray(
+                "Spalte1;Spalte2\r\n"
+                . "Wert11;Wert21\r\n"
+                . "Wert12\r\n"
+                . ";\r\n"
+                . "\r\n"
+                . 'Wert14;Wert24;Wert34'
+                . "\r\n"
+            )
+        );
+    }
+
     public function testHandlesMultilineStrings(): void
     {
         $multilineCsv = <<<CSV

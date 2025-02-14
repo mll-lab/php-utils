@@ -16,11 +16,11 @@ class FlowDirection
 
     public static function ROW(): self
     {
-        return new self(self::ROW);
+        return new static(self::ROW);
     }
 
     public static function COLUMN(): self
     {
-        return new self(self::COLUMN);
+        return new static(self::COLUMN);
     }
 }

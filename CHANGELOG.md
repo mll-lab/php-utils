@@ -9,6 +9,13 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.12.0
+
+### Added
+
+- Default missing columns to empty strings instead of throwing in `CSVArray::toArray`
+- Ensure extensibility by using `new static` over `new self` everywhere
+
 ## v5.11.0
 
 ### Added

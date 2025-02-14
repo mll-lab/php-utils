@@ -19,27 +19,27 @@ class MLLLiquidClass implements LiquidClass
 
     public static function DNA_DILUTION(): self
     {
-        return new self(self::DNA_DILUTION);
+        return new static(self::DNA_DILUTION);
     }
 
     public static function DNA_DILUTION_WATER(): self
     {
-        return new self(self::DNA_DILUTION_WATER);
+        return new static(self::DNA_DILUTION_WATER);
     }
 
     public static function TRANSFER_PCR_PRODUKT(): self
     {
-        return new self(self::TRANSFER_PCR_PRODUKT);
+        return new static(self::TRANSFER_PCR_PRODUKT);
     }
 
     public static function TRANSFER_MASTERMIX_MP(): self
     {
-        return new self(self::TRANSFER_MASTERMIX_MP);
+        return new static(self::TRANSFER_MASTERMIX_MP);
     }
 
     public static function TRANSFER_TEMPLATE(): self
     {
-        return new self(self::TRANSFER_TEMPLATE);
+        return new static(self::TRANSFER_TEMPLATE);
     }
 
     public function name(): string

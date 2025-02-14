@@ -7,6 +7,8 @@ use Illuminate\Support\Arr;
 /** @phpstan-type CSVPrimitive bool|float|int|string|\Stringable|null */
 class CSVArray
 {
+    public const DEFAULT_EMPTY_VALUE = '';
+
     /**
      * TODO: fix parsing multiline-content in csv.
      *
@@ -36,12 +38,8 @@ class CSVArray
 
             /** @var array<int, string> $entries */
             $entries = str_getcsv($line, $delimiter, $enclosure, $escape);
-            if (count($entries) !== count($columnHeaders)) {
-                throw new \Exception("The number of columns in row {$index} does not match the headers in CSV: {$firstLine}");
-            }
-
             foreach ($columnHeaders as $columnIndex => $columnName) {
-                $result[$index + 1][$columnName] = $entries[$columnIndex];
+                $result[$index + 1][$columnName] = $entries[$columnIndex] ?? self::DEFAULT_EMPTY_VALUE;
             }
         }
 
