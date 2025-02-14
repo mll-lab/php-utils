@@ -17,27 +17,27 @@ class MLLLiquidClass implements LiquidClass
         $this->value = $value;
     }
 
-    public static function DNA_DILUTION(): static
+    public static function DNA_DILUTION(): self
     {
         return new static(self::DNA_DILUTION);
     }
 
-    public static function DNA_DILUTION_WATER(): static
+    public static function DNA_DILUTION_WATER(): self
     {
         return new static(self::DNA_DILUTION_WATER);
     }
 
-    public static function TRANSFER_PCR_PRODUKT(): static
+    public static function TRANSFER_PCR_PRODUKT(): self
     {
         return new static(self::TRANSFER_PCR_PRODUKT);
     }
 
-    public static function TRANSFER_MASTERMIX_MP(): static
+    public static function TRANSFER_MASTERMIX_MP(): self
     {
         return new static(self::TRANSFER_MASTERMIX_MP);
     }
 
-    public static function TRANSFER_TEMPLATE(): static
+    public static function TRANSFER_TEMPLATE(): self
     {
         return new static(self::TRANSFER_TEMPLATE);
     }

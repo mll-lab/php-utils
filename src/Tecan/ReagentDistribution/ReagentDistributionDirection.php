@@ -14,12 +14,12 @@ class ReagentDistributionDirection
         $this->value = $value;
     }
 
-    public static function LEFT_TO_RIGHT(): static
+    public static function LEFT_TO_RIGHT(): self
     {
         return new static(self::LEFT_TO_RIGHT);
     }
 
-    public static function RIGHT_TO_LEFT(): static
+    public static function RIGHT_TO_LEFT(): self
     {
         return new static(self::RIGHT_TO_LEFT);
     }

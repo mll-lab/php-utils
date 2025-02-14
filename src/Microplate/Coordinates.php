@@ -52,7 +52,7 @@ class Coordinates
      *
      * @return static<TCoord>
      */
-    public static function fromArray(array $coordinates, CoordinateSystem $coordinateSystem): static
+    public static function fromArray(array $coordinates, CoordinateSystem $coordinateSystem): self
     {
         return new static($coordinates['row'], $coordinates['column'], $coordinateSystem);
     }
@@ -64,7 +64,7 @@ class Coordinates
      *
      * @return static<TCoord>
      */
-    public static function fromString(string $coordinatesString, CoordinateSystem $coordinateSystem): static
+    public static function fromString(string $coordinatesString, CoordinateSystem $coordinateSystem): self
     {
         $rows = $coordinateSystem->rows();
         $rowsOptions = \implode('|', $rows);
@@ -98,7 +98,7 @@ class Coordinates
      *
      * @return static<TCoord>
      */
-    public static function fromPosition(int $position, FlowDirection $direction, CoordinateSystem $coordinateSystem): static
+    public static function fromPosition(int $position, FlowDirection $direction, CoordinateSystem $coordinateSystem): self
     {
         self::assertPositionInRange($coordinateSystem, $position);
 
