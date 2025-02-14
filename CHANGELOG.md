@@ -9,12 +9,11 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
-
 ## v5.12.0
 
 ### Added
 
-- Handle empty values in CSVArray as empty string
+- Default missing columns to empty strings instead of throwing in `CSVArray::toArray`
 
 ## v5.11.0
 
