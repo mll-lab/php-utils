@@ -14,13 +14,13 @@ class FlowDirection
         $this->value = $value;
     }
 
-    public static function ROW(): self
+    public static function ROW(): static
     {
-        return new self(self::ROW);
+        return new static(self::ROW);
     }
 
-    public static function COLUMN(): self
+    public static function COLUMN(): static
     {
-        return new self(self::COLUMN);
+        return new static(self::COLUMN);
     }
 }

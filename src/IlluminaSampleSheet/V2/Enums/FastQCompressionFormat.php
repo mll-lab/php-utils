@@ -14,13 +14,13 @@ class FastQCompressionFormat
         $this->value = $value;
     }
 
-    public static function GZIP(): self
+    public static function GZIP(): static
     {
-        return new self(self::GZIP);
+        return new static(self::GZIP);
     }
 
-    public static function DRAGEN(): self
+    public static function DRAGEN(): static
     {
-        return new self(self::DRAGEN);
+        return new static(self::DRAGEN);
     }
 }

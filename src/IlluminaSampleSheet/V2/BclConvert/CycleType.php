@@ -16,23 +16,23 @@ class CycleType
         $this->value = $value;
     }
 
-    public static function READ_CYCLE(): self
+    public static function READ_CYCLE(): static
     {
-        return new self(self::READ_CYCLE);
+        return new static(self::READ_CYCLE);
     }
 
-    public static function TRIMMED_CYCLE(): self
+    public static function TRIMMED_CYCLE(): static
     {
-        return new self(self::TRIMMED_CYCLE);
+        return new static(self::TRIMMED_CYCLE);
     }
 
-    public static function UMI_CYCLE(): self
+    public static function UMI_CYCLE(): static
     {
-        return new self(self::UMI_CYCLE);
+        return new static(self::UMI_CYCLE);
     }
 
-    public static function INDEX_CYCLE(): self
+    public static function INDEX_CYCLE(): static
     {
-        return new self(self::INDEX_CYCLE);
+        return new static(self::INDEX_CYCLE);
     }
 }
