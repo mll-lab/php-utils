@@ -155,7 +155,7 @@ final class CSVArrayTest extends TestCase
                 . "Wert12\r\n"
                 . ";\r\n"
                 . "\r\n"
-                . "Wert14;Wert24;Wert34",
+                . 'Wert14;Wert24;Wert34',
             )
         );
     }
