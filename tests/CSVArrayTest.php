@@ -144,7 +144,7 @@ final class CSVArrayTest extends TestCase
                     'Spalte1' => '',
                     'Spalte2' => '',
                 ],
-                4 => [
+                5 => [
                     'Spalte1' => 'Wert14',
                     'Spalte2' => 'Wert24',
                 ],
@@ -155,7 +155,8 @@ final class CSVArrayTest extends TestCase
                 . "Wert12\r\n"
                 . ";\r\n"
                 . "\r\n"
-                . 'Wert14;Wert24;Wert34',
+                . 'Wert14;Wert24;Wert34'
+                . "\r\n"
             )
         );
     }
