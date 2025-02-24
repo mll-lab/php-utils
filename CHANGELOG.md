@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.12.1
+
+### Added
+
+- Update type annotations to use array<int> in Tecan
+
 ## v5.12.0
 
 ### Added
