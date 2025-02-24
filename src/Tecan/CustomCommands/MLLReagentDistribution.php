@@ -48,7 +48,7 @@ class MLLReagentDistribution extends Command
         return $reagentDistribution->toString();
     }
 
-    /** @return array<int, int> */
+    /** @return array<int> */
     private function excludedWells(): array
     {
         $min = min($this->target->dispensePositions);

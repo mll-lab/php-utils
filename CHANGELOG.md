@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.12.1
+
+### Fixed
+
+- Update type annotations in namespace `MLL\Utils\Tecan` to use `array<int>` over `array<int, int>`
+
 ## v5.12.0
 
 ### Added
