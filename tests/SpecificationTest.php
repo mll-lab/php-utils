@@ -9,18 +9,18 @@ final class SpecificationTest extends TestCase
 {
     public function testNot(): void
     {
-        $identity = fn ($value) => $value;
+        $truthy = fn ($value): bool => (bool) $value;
 
-        self::assertTrue($identity(true));
+        self::assertTrue($truthy('truthy'));
 
-        $negatedIdentity = Specification::not($identity);
-        self::assertFalse($negatedIdentity(true));
+        $negatedIdentity = Specification::not($truthy);
+        self::assertFalse($negatedIdentity('truthy'));
     }
 
     public function testOr(): void
     {
-        $is1 = fn ($value): bool => $value === 1;
-        $is2 = fn ($value): bool => $value === 2;
+        $is1 = fn (int $value): bool => $value === 1;
+        $is2 = fn (int $value): bool => $value === 2;
 
         $is1Or2 = Specification::or($is1, $is2);
         self::assertTrue($is1Or2(1));
@@ -30,8 +30,8 @@ final class SpecificationTest extends TestCase
 
     public function testAnd(): void
     {
-        $isPositive = fn ($value): bool => $value > 0;
-        $isOdd = fn ($value): bool => $value % 2 === 1;
+        $isPositive = fn (int $value): bool => $value > 0;
+        $isOdd = fn (int $value): bool => $value % 2 === 1;
 
         $isPositiveAndOdd = Specification::and($isPositive, $isOdd);
         self::assertTrue($isPositiveAndOdd(1));
