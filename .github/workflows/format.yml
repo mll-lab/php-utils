@@ -21,7 +21,7 @@ jobs:
           extensions: mbstring
           php-version: 8.3
 
-      - run: composer install --no-interaction --no-progress --no-suggest
+      - uses: ramsey/composer-install@v3
 
       - run: composer normalize
 
@@ -43,7 +43,7 @@ jobs:
           extensions: mbstring
           php-version: 8.3
 
-      - run: composer install --no-interaction --no-progress --no-suggest
+      - uses: ramsey/composer-install@v3
 
       - run: vendor/bin/php-cs-fixer fix --using-cache=no
 

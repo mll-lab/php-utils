@@ -33,9 +33,9 @@ jobs:
           extensions: mbstring
           php-version: 8.3
 
-      - run: composer install --no-interaction --no-progress --no-suggest
+      - uses: ramsey/composer-install@v3
 
-      - run: vendor/bin/phpstan analyse
+      - run: vendor/bin/phpstan analyse --configuration=phpstan.neon
 
   tests:
     name: "Tests - PHP ${{ matrix.php-version }}, Illuminate ${{ matrix.illuminate }}, ${{ matrix.dependencies }}"
@@ -51,6 +51,7 @@ jobs:
           - "8.1"
           - "8.2"
           - "8.3"
+          - "8.4"
         dependencies:
           - lowest
           - highest
@@ -59,6 +60,7 @@ jobs:
           - ^9
           - ^10
           - ^11
+          - ^12
         exclude:
           - php-version: "7.4"
             illuminate: ^9
@@ -66,12 +68,18 @@ jobs:
             illuminate: ^10
           - php-version: "7.4"
             illuminate: ^11
+          - php-version: "7.4"
+            illuminate: ^12
           - php-version: "8.0"
             illuminate: ^10
           - php-version: "8.0"
             illuminate: ^11
+          - php-version: "8.0"
+            illuminate: ^12
           - php-version: "8.1"
             illuminate: ^11
+          - php-version: "8.1"
+            illuminate: ^12
 
     steps:
       - uses: actions/checkout@v4
@@ -87,11 +95,9 @@ jobs:
 
       - run: composer require "illuminate/support:${{ matrix.illuminate }}" --no-interaction --no-update
 
-      - if: matrix.dependencies == 'lowest'
-        run: composer update --prefer-lowest --no-interaction --no-progress --no-suggest
-
-      - if: matrix.dependencies == 'highest'
-        run: composer update --no-interaction --no-progress --no-suggest
+      - uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: "${{ matrix.dependencies }}"
 
       - run: vendor/bin/phpunit
 
@@ -107,7 +113,7 @@ jobs:
           extensions: mbstring
           php-version: 8.3
 
-      - run: composer install --no-interaction --no-progress --no-suggest
+      - uses: ramsey/composer-install@v3
 
       - run: vendor/bin/phpunit --coverage-clover=.build/logs/clover.xml
 
