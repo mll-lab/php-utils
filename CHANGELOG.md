@@ -9,6 +9,8 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.13.0
+
 ### Added
 
 - Support `illuminate/support` version 12
