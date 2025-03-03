@@ -56,7 +56,7 @@ class StringUtil
 
         $amountOfDots = strspn($firstname, '.');
         if ($amountOfDots === 2) {
-            /** @var int $dotPosition guaranteed because we know there are two dots */
+            /** @var int<0, max> $dotPosition guaranteed because we know there are two dots */
             $dotPosition = strpos($firstname, '.');
 
             $firstPart = Str::substr($firstname, 0, 1) . '.';
@@ -89,7 +89,7 @@ class StringUtil
      */
     public static function splitLines(string $string): array
     {
-        return \Safe\preg_split("/\r\n|\n|\r/", $string);
+        return \Safe\preg_split("/\r\n|\n|\r/", $string); // @phpstan-ignore return.type (preg_split from safe not known)
     }
 
     public static function normalizeLineEndings(string $input, string $to = "\r\n"): string
@@ -122,12 +122,12 @@ class StringUtil
     private static function guessEncoding(string $text): string
     {
         // @see https://www.php.net/manual/en/function.mb-detect-encoding.php#91051
-        $first3 = substr($text, 0, 3);
+        $first3 = substr($text, 0, 3); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
         if ($first3 === self::UTF_8_BOM) {
             return 'UTF-8';
         }
 
-        $first4 = substr($text, 0, 3);
+        $first4 = substr($text, 0, 3); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
         if ($first4 === self::UTF_32_BIG_ENDIAN_BOM) {
             return 'UTF-32BE';
         }
@@ -135,7 +135,7 @@ class StringUtil
             return 'UTF-32LE';
         }
 
-        $first2 = substr($text, 0, 2);
+        $first2 = substr($text, 0, 2); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
         if ($first2 === self::UTF_16_BIG_ENDIAN_BOM) {
             return 'UTF-16BE';
         }

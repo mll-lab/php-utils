@@ -8,6 +8,7 @@ use PhpParser\Node\Stmt\If_;
 use PhpParser\NodeFinder;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * Inspired by https://github.com/odan/phpstan-rules/blob/388db4cdf7c99e2978f20b1ed8801d748984812a/src/Rules/AssignmentInConditionRule.php.
@@ -35,6 +36,10 @@ class NoAssignmentInIfRule implements Rule
             return [];
         }
 
-        return ['Assignment in conditional expression is not allowed.'];
+        return [
+            RuleErrorBuilder::message('Assignment in conditional expression is not allowed.')
+                ->identifier('mll.noAssignmentInIf')
+                ->build(),
+        ];
     }
 }

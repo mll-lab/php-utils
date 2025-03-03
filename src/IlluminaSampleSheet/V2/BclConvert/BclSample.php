@@ -40,7 +40,7 @@ class BclSample
     /** @return array<int|string> */
     public function toArray(): array
     {
-        return array_filter([
+        return array_filter([ // @phpstan-ignore arrayFilter.strict (we want truthy comparison)
             $this->lane,
             $this->sample_ID,
             $this->index,

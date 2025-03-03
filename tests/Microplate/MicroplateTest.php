@@ -12,6 +12,7 @@ use MLL\Utils\Microplate\Microplate;
 use MLL\Utils\Microplate\WellWithCoordinates;
 use PHPUnit\Framework\TestCase;
 
+/** @phpstan-import-type WellData from CoordinatesTest */
 final class MicroplateTest extends TestCase
 {
     public function testCanAddAndRetrieveWellBasedOnCoordinateSystem(): void
@@ -143,6 +144,7 @@ final class MicroplateTest extends TestCase
         $data12x8 = CoordinatesTest::data12x8();
         \Safe\shuffle($data12x8);
         foreach ($data12x8 as $well) {
+            /** @var WellData $well */
             $microplateCoordinates = Coordinates::fromArray($well, new CoordinateSystem12x8());
 
             $randomNumber = random_int(1, 100);

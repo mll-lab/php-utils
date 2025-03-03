@@ -32,7 +32,8 @@ class VariableNameIdToIDRule implements Rule
             return [
                 RuleErrorBuilder::message(<<<TXT
                 Variable name "\${$nodeName}" should use "ID" instead of "Id", rename it to "\${$expectedName}".
-                TXT)->build(),
+                TXT)->identifier('mll.nameIdToID')
+                    ->build(),
             ];
         }
 
