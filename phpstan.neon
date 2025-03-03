@@ -7,8 +7,9 @@ parameters:
   - tests
   tmpDir: .build/phpstan
   # Install https://plugins.jetbrains.com/plugin/7677-awesome-console to make those links clickable
-  editorUrl: '%%relFile%%:%%line%%'
-  editorUrlTitle: '%%relFile%%:%%line%%'
+  # TODO restore when we can require a newer PHPStan version
+  # editorUrl: '%%relFile%%:%%line%%'
+  # editorUrlTitle: '%%relFile%%:%%line%%'
   # As long as we support multiple PHP versions, there will be some dead spots
   reportUnmatchedIgnoredErrors: false
   ignoreErrors:
