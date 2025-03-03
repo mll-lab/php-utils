@@ -56,7 +56,7 @@ class StringUtil
 
         $amountOfDots = strspn($firstname, '.');
         if ($amountOfDots === 2) {
-            /** @var int $dotPosition guaranteed because we know there are two dots */
+            /** @var int<0, max> $dotPosition guaranteed because we know there are two dots */
             $dotPosition = strpos($firstname, '.');
 
             $firstPart = Str::substr($firstname, 0, 1) . '.';
@@ -89,7 +89,7 @@ class StringUtil
      */
     public static function splitLines(string $string): array
     {
-        return \Safe\preg_split("/\r\n|\n|\r/", $string);
+        return \Safe\preg_split("/\r\n|\n|\r/", $string); // @phpstan-ignore return.type (preg_split from safe not known)
     }
 
     public static function normalizeLineEndings(string $input, string $to = "\r\n"): string

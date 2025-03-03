@@ -118,6 +118,7 @@ abstract class AbstractMicroplate
     /** @return callable(TWell $content, string $coordinatesString): WellWithCoordinates<TWell, TCoordinateSystem> */
     public function toWellWithCoordinatesMapper(): callable
     {
+        // @phpstan-ignore return.type (generic not inferred)
         return fn ($content, string $coordinatesString): WellWithCoordinates => new WellWithCoordinates(
             $content,
             Coordinates::fromString($coordinatesString, $this->coordinateSystem)
@@ -137,6 +138,16 @@ abstract class AbstractMicroplate
                 fn ($content, string $coordinatesString): int => Coordinates::fromString($coordinatesString, $this->coordinateSystem)->position($flowDirection)
             );
 
-        return ($positions->max() - $positions->min() + 1) === $positions->count();
+        if ($positions->isEmpty()) {
+            return false;
+        }
+
+        $max = $positions->max();
+        assert(is_int($max));
+
+        $min = $positions->min();
+        assert(is_int($min));
+
+        return ($max - $min + 1) === $positions->count();
     }
 }

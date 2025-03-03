@@ -24,7 +24,7 @@ class FluidXPlate
             throw new InvalidRackIDException($rackID);
         }
         $this->rackID = $rackID;
-        $this->microplate = new Microplate(self::coordinateSystem());
+        $this->microplate = new Microplate(self::coordinateSystem()); // @phpstan-ignore assign.propertyType (generic not inferred)
     }
 
     public static function coordinateSystem(): CoordinateSystem12x8

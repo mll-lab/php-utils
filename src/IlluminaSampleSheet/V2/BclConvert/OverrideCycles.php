@@ -31,12 +31,14 @@ class OverrideCycles
         $dataSection = $this->dataSection;
         $dataSection->assertNotEmpty();
 
-        return implode(';', array_filter([
+        $filledParts = array_filter([ // @phpstan-ignore arrayFilter.strict (we want truthy comparison)
             $this->read1->toString($dataSection->maxRead1Cycles(), null),
             $this->index1->toString($dataSection->maxIndex1Cycles(), null),
             $this->index2(),
             $this->read2(),
-        ]));
+        ]);
+
+        return implode(';', $filledParts);
     }
 
     public function makeOverrideCycle(string $cycleString): OverrideCycle

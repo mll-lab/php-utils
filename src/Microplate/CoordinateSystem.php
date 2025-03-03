@@ -41,7 +41,9 @@ abstract class CoordinateSystem
 
     public function rowForRowFlowPosition(int $position): string
     {
-        return $this->rows()[floor(($position - 1) / $this->columnsCount())];
+        $index = (int) floor(($position - 1) / $this->columnsCount());
+
+        return $this->rows()[$index];
     }
 
     public function rowForColumnFlowPosition(int $position): string
@@ -56,7 +58,9 @@ abstract class CoordinateSystem
 
     public function columnForColumnFlowPosition(int $position): int
     {
-        return $this->columns()[floor(($position - 1) / $this->rowsCount())];
+        $index = (int) floor(($position - 1) / $this->rowsCount());
+
+        return $this->columns()[$index];
     }
 
     public function positionsCount(): int

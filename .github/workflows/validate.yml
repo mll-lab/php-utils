@@ -24,6 +24,20 @@ jobs:
   static-code-analysis:
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+        dependencies:
+          - lowest
+          - highest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -31,14 +45,19 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: 8.3
+          php-version: "${{ matrix.php-version }}"
+
+      - if: "! startsWith(matrix.php-version, 8)"
+        run: composer remove --dev --no-update mll-lab/graphql-php-scalars
 
       - uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: "${{ matrix.dependencies }}"
 
       - run: vendor/bin/phpstan analyse --configuration=phpstan.neon
 
   tests:
-    name: "Tests - PHP ${{ matrix.php-version }}, Illuminate ${{ matrix.illuminate }}, ${{ matrix.dependencies }}"
+    name: "Tests - PHP ${{ matrix.php-version }}, ${{ matrix.dependencies }}"
 
     runs-on: ubuntu-latest
 
@@ -55,31 +74,6 @@ jobs:
         dependencies:
           - lowest
           - highest
-        illuminate:
-          - ^8.73
-          - ^9
-          - ^10
-          - ^11
-          - ^12
-        exclude:
-          - php-version: "7.4"
-            illuminate: ^9
-          - php-version: "7.4"
-            illuminate: ^10
-          - php-version: "7.4"
-            illuminate: ^11
-          - php-version: "7.4"
-            illuminate: ^12
-          - php-version: "8.0"
-            illuminate: ^10
-          - php-version: "8.0"
-            illuminate: ^11
-          - php-version: "8.0"
-            illuminate: ^12
-          - php-version: "8.1"
-            illuminate: ^11
-          - php-version: "8.1"
-            illuminate: ^12
 
     steps:
       - uses: actions/checkout@v4
@@ -92,8 +86,6 @@ jobs:
 
       - if: "! startsWith(matrix.php-version, 8)"
         run: composer remove --dev --no-update mll-lab/graphql-php-scalars
-
-      - run: composer require "illuminate/support:${{ matrix.illuminate }}" --no-interaction --no-update
 
       - uses: ramsey/composer-install@v3
         with:
