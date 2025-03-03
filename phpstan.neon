@@ -8,15 +8,10 @@ parameters:
   tmpDir: .build/phpstan
   # Install https://plugins.jetbrains.com/plugin/7677-awesome-console to make those links clickable
   # TODO restore when we can require a newer PHPStan version
-  # editorUrl: '%%relFile%%:%%line%%'
-  # editorUrlTitle: '%%relFile%%:%%line%%'
+  editorUrl: '%%relFile%%:%%line%%'
+  editorUrlTitle: '%%relFile%%:%%line%%'
   # As long as we support multiple PHP versions, there will be some dead spots
   reportUnmatchedIgnoredErrors: false
-  excludePaths:
-  # Require mll-lab/graphql-php-scalars which in turn requires PHP 8.0
-  - src/FluidXPlate/Scalars
-  - src/Microplate/Scalars
-  - tests/FluidXPlate/Scalars
   ignoreErrors:
   # This is a library, so it should be extendable
   - '#Unsafe usage of new static.*#'
