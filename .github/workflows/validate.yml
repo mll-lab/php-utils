@@ -48,7 +48,7 @@ jobs:
           php-version: "${{ matrix.php-version }}"
 
       - if: "! startsWith(matrix.php-version, 8)"
-        run: composer remove --dev --no-update mll-lab/graphql-php-scalars
+        run: composer remove --dev --no-update rector/rector mll-lab/graphql-php-scalars
 
       - uses: ramsey/composer-install@v3
         with:
@@ -85,7 +85,7 @@ jobs:
           php-version: "${{ matrix.php-version }}"
 
       - if: "! startsWith(matrix.php-version, 8)"
-        run: composer remove --dev --no-update mll-lab/graphql-php-scalars
+        run: composer remove --dev --no-update rector/rector mll-lab/graphql-php-scalars
 
       - uses: ramsey/composer-install@v3
         with:
