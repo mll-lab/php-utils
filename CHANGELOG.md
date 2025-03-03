@@ -9,6 +9,11 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+### Added
+
+- Support `illuminate/support` version 12
+- Support `thecodingmachine/safe` version 3
+
 ## v5.12.1
 
 ### Fixed

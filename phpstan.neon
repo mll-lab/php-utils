@@ -16,6 +16,7 @@ parameters:
   # Require mll-lab/graphql-php-scalars which in turn requires PHP 8.0
   - src/FluidXPlate/Scalars
   - src/Microplate/Scalars
+  - tests/FluidXPlate/Scalars
   ignoreErrors:
   # This is a library, so it should be extendable
   - '#Unsafe usage of new static.*#'
