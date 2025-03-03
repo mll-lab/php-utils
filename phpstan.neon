@@ -14,3 +14,5 @@ parameters:
   ignoreErrors:
   # This is a library, so it should be extendable
   - '#Unsafe usage of new static.*#'
+  # Not in older PHPUnit versions
+  - '#Attribute class PHPUnit\\Framework\\Attributes\\DataProvider does not exist\.#'
