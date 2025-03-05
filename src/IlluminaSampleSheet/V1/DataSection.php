@@ -37,11 +37,10 @@ class DataSection implements Section
     {
         $this->validate();
 
-        if ($this->rows->isEmpty()) {
+        $firstRow = $this->rows->first();
+        if ($firstRow === null) {
             throw new IlluminaSampleSheetException('Data section must contain at least one row.');
         }
-        /** @var Row $firstRow */
-        $firstRow = $this->rows->first();
 
         $rowsData = $this->rows
             ->map(fn (Row $row): string => $row->toString())

@@ -87,6 +87,7 @@ class Coordinates
             $coordinateSystemClass = \get_class($coordinateSystem);
             throw new \InvalidArgumentException("Expected coordinates between {$firstValidExample} and {$lastValidExample} for {$coordinateSystemClass}, got: {$coordinatesString}.");
         }
+        /** @var array{1: string, 2: string} $matches */
 
         return new static($matches[1], (int) $matches[2], $coordinateSystem);
     }
@@ -136,10 +137,10 @@ class Coordinates
 
     public function position(FlowDirection $direction): int
     {
-        /** @var int $rowIndex Must be found, since __construct enforces $this->row is valid */
+        /** @var int<0, max> $rowIndex Must be found, since __construct enforces $this->row is valid */
         $rowIndex = array_search($this->row, $this->coordinateSystem->rows(), true);
 
-        /** @var int $columnIndex Must be found, since __construct enforces $this->column is valid */
+        /** @var int<0, max> $columnIndex Must be found, since __construct enforces $this->column is valid */
         $columnIndex = array_search($this->column, $this->coordinateSystem->columns(), true);
 
         switch ($direction->value) {

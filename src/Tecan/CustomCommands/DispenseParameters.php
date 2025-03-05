@@ -9,10 +9,10 @@ class DispenseParameters
 {
     public Rack $rack;
 
-    /** @var array<int> */
+    /** @var non-empty-array<int> */
     public array $dispensePositions;
 
-    /** @param array<int> $dispensePositions */
+    /** @param non-empty-array<int> $dispensePositions */
     public function __construct(Rack $rack, array $dispensePositions)
     {
         $this->rack = $rack;

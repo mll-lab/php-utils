@@ -1,9 +1,6 @@
 <?php declare(strict_types=1);
 
-use Rector\CodeQuality\Rector\Concat\JoinStringConcatRector;
 use Rector\Config\RectorConfig;
-use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector;
-use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\SetList;
 
@@ -23,12 +20,15 @@ return RectorConfig::configure()
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
     ])
     ->withPhpSets()
-    ->withRules([PreferPHPUnitSelfCallRector::class])
+    ->withRules([
+        Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector::class,
+    ])
     ->withSkip([
-        PreferPHPUnitThisCallRector::class, // breaks tests
-        JoinStringConcatRector::class => [
+        Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector::class, // breaks tests
+        Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class => [
             __DIR__ . '/tests/CSVArrayTest.php', // keep `\r\n` for readability
         ],
+        Rector\PHPUnit\CodeQuality\Rector\MethodCall\AssertCountWithZeroToAssertEmptyRector::class, // sloppy
     ])
     ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
     ->withBootstrapFiles([
