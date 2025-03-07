@@ -1,5 +1,6 @@
 includes:
-- phpstan-extension.neon
+- extension.neon
+- rules.neon
 parameters:
   level: max
   paths:

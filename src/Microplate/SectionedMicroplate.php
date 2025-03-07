@@ -44,7 +44,7 @@ class SectionedMicroplate extends AbstractMicroplate
     {
         foreach ($this->sections as $i => $s) {
             if ($s === $section) {
-                unset($this->sections[$i]);
+                unset($this->sections[$i]); // @phpstan-ignore unset.possiblyHookedProperty (we allow extension and can not disable all footguns)
             }
         }
     }
