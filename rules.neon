@@ -7,5 +7,6 @@ parameters:
   - function: 'compact()'
     message: 'makes refactoring code hard'
     errorTip: 'use standard array syntax instead'
+  # https://github.com/itsgoingd/clockwork?tab=readme-ov-file#logging
   - function: 'clock()'
     message: 'remove debugging code'
