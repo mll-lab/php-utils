@@ -1,5 +1,4 @@
 rules:
-- MLL\Utils\PHPStan\Rules\NoAssignmentInIfRule
 # TODO gradually enable those rules
 #- MLL\Utils\PHPStan\Rules\ThrowableClassNameRule
 #- MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
