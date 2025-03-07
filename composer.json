@@ -41,7 +41,8 @@
     "thecodingmachine/phpstan-safe-rule": "^1.2.0"
   },
   "suggest": {
-    "mll-lab/graphql-php-scalars": "To use the provided scalar types for GraphQL servers, requires version ^6.3"
+    "mll-lab/graphql-php-scalars": "To use the provided scalar types for GraphQL servers, requires version ^6.3",
+    "spaze/phpstan-disallowed-calls": "Required when using the PHPStan configuration from rules.neon directly or through the extension installer"
   },
   "autoload": {
     "psr-4": {

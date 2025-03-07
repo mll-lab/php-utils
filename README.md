@@ -51,6 +51,8 @@ includes:
 +- vendor/mll-lab/php-utils/rules.neon
 ```
 
+Requires `spaze/phpstan-disallowed-calls`.
+
 ## Changelog
 
 See [`CHANGELOG.md`](CHANGELOG.md).
