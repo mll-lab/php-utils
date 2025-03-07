@@ -1,7 +1,8 @@
 rules:
 - MLL\Utils\PHPStan\Rules\NoAssignmentInIfRule
-- MLL\Utils\PHPStan\Rules\ThrowableClassNameRule
-- MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
+# TODO gradually enable those rules
+#- MLL\Utils\PHPStan\Rules\ThrowableClassNameRule
+#- MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
 parameters:
   disallowedFunctionCalls:
   - function: 'compact()'

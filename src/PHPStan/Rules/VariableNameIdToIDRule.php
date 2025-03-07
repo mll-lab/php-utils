@@ -13,7 +13,7 @@ use PHPStan\Rules\RuleErrorBuilder;
 class VariableNameIdToIDRule implements Rule
 {
     /** Lists words or phrases that contain "Id" but are fine. */
-    protected const FALSE_POSITIVES = ['Identifier'];
+    protected const FALSE_POSITIVES = ['Identifier', 'Identity'];
 
     public function getNodeType(): string
     {
