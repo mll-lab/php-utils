@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.14.0
+
+### Added
+
+- Register rules as a PHPStan extension
+
 ## v5.13.0
 
 ### Added
