@@ -47,7 +47,8 @@ or registered manually by adding the following to your `phpstan.neon`:
 
 ```diff
 includes:
-+- vendor/mll-lab/php-utils/phpstan-extension.neon
++- vendor/mll-lab/php-utils/extension.neon
++- vendor/mll-lab/php-utils/rules.neon
 ```
 
 ## Changelog
