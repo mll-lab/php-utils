@@ -35,4 +35,8 @@ return RectorConfig::configure()
         // Rector uses PHPStan internally, which in turn requires Larastan to be set up correctly
         __DIR__ . '/vendor/larastan/larastan/bootstrap.php',
     ])
-    ->withPHPStanConfigs([__DIR__ . '/phpstan.neon']);
+    ->withPHPStanConfigs([
+        __DIR__ . '/phpstan.neon',
+        __DIR__ . '/vendor/larastan/larastan/extension.neon',
+        __DIR__ . '/vendor/spaze/phpstan-disallowed-calls/extension.neon',
+    ]);
