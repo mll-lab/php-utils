@@ -69,10 +69,7 @@ class FullColumnSection extends AbstractSection
     /** @return false|int */
     private function nextReservedWell()
     {
-        $search = $this->sectionItems->search(AbstractMicroplate::EMPTY_WELL);
-        assert($search === false || is_int($search));
-
-        return $search;
+        return $this->sectionItems->search(AbstractMicroplate::EMPTY_WELL);
     }
 
     private function sectionCanGrow(): bool

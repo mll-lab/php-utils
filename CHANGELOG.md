@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.15.0
+
+### Changed
+
+- Update method signatures to use `CarbonInterface` in `MLL\Utils\BavarianHolidays` for better type flexibility
+
 ## v5.14.0
 
 ### Added
@@ -310,3 +316,4 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 ### Added
 
 - Add `StringUtil`
+
