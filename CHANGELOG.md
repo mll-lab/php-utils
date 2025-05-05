@@ -316,4 +316,3 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 ### Added
 
 - Add `StringUtil`
-
