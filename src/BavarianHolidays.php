@@ -3,6 +3,7 @@
 namespace MLL\Utils;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 
 /**
  * Some definitions:
@@ -48,15 +49,15 @@ class BavarianHolidays
      */
     public static $loadUserDefinedHolidays;
 
-    /** Checks if given date is a business day. */
-    public static function isBusinessDay(Carbon $date): bool
+    /** Checks if the given date is a business day. */
+    public static function isBusinessDay(CarbonInterface $date): bool
     {
         return ! self::isHoliday($date)
             && ! $date->isWeekend();
     }
 
-    /** Checks if given date is a holiday. */
-    public static function isHoliday(Carbon $date): bool
+    /** Checks if the given date is a holiday. */
+    public static function isHoliday(CarbonInterface $date): bool
     {
         return is_string(self::nameHoliday($date));
     }
@@ -65,7 +66,7 @@ class BavarianHolidays
      * Returns the name of the holiday if the date happens to land on one.
      * Saturday and Sunday are not evaluated as holiday.
      */
-    public static function nameHoliday(Carbon $date): ?string
+    public static function nameHoliday(CarbonInterface $date): ?string
     {
         $holidayMap = self::buildHolidayMap($date);
 
@@ -78,7 +79,7 @@ class BavarianHolidays
         return DateModification::addDays(
             $date,
             $days,
-            fn (Carbon $date): bool => self::isBusinessDay($date)
+            fn (CarbonInterface $date): bool => self::isBusinessDay($date)
         );
     }
 
@@ -88,7 +89,7 @@ class BavarianHolidays
         return DateModification::subDays(
             $date,
             $days,
-            fn (Carbon $date): bool => self::isBusinessDay($date)
+            fn (CarbonInterface $date): bool => self::isBusinessDay($date)
         );
     }
 
@@ -97,7 +98,7 @@ class BavarianHolidays
      *
      * @return array<string, string>
      */
-    protected static function buildHolidayMap(Carbon $date): array
+    protected static function buildHolidayMap(CarbonInterface $date): array
     {
         $holidays = self::HOLIDAYS_STATIC;
 
@@ -131,14 +132,14 @@ class BavarianHolidays
         return $holidays;
     }
 
-    protected static function dateFromEaster(Carbon $easter, int $daysAway): string
+    protected static function dateFromEaster(CarbonInterface $easter, int $daysAway): string
     {
         $date = $easter->clone()->addDays($daysAway);
 
         return self::dayOfTheYear($date);
     }
 
-    public static function dayOfTheYear(Carbon $date): string
+    public static function dayOfTheYear(CarbonInterface $date): string
     {
         return $date->format('d.m');
     }
