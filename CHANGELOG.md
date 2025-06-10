@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.16.0
+
+### Added
+
+- Disallow `Carbon\Carbon::create()` via PHPStan rule
+
 ## v5.15.0
 
 ### Changed
