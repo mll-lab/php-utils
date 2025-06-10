@@ -4,10 +4,6 @@ rules:
 #- MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
 parameters:
   # https://github.com/spaze/phpstan-disallowed-calls/blob/main/docs/custom-rules.md
-  disallowedMethodCalls:
-  - method: 'Carbon\Carbon::create()'
-    message: 'it ignores errors.'
-    errorTip: 'use Carbon\Carbon::createStrict() instead.'
   disallowedFunctionCalls:
   - function: 'compact()'
     message: 'makes refactoring code hard.'
@@ -16,3 +12,7 @@ parameters:
   - function: 'clock()'
     message: 'it is just meant for debugging.'
     errorTip: 'remove debugging code.'
+  disallowedStaticCalls:
+  - method: 'Carbon\Carbon::create()'
+    message: 'it ignores errors.'
+    errorTip: 'use Carbon\Carbon::createStrict() instead.'
