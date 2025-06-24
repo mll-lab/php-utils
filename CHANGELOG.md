@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.17.0
+
+### Added
+
+- Add `next()` method to Coordinates to return the next coordinate in the specified flow direction
+
 ## v5.16.0
 
 ### Added

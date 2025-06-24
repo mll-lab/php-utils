@@ -545,4 +545,45 @@ final class CoordinatesTest extends TestCase
             ['row' => 'H', 'column' => 12, 'rowFlowPosition' => 96, 'columnFlowPosition' => 96],
         ];
     }
+
+    /** @dataProvider nextCoordinatesProvider */
+    public function testNext(string $start, string $expected, FlowDirection $direction): void
+    {
+        $coordinateSystem = new CoordinateSystem4x3();
+        $coordinates = Coordinates::fromString($start, $coordinateSystem);
+        $next = $coordinates->next($direction);
+        self::assertSame($expected, $next->toString());
+    }
+
+    /** @return iterable<int, array{0: string, 1: string, 2: FlowDirection}> */
+    public static function nextCoordinatesProvider(): iterable
+    {
+        yield ['A1', 'B1', FlowDirection::COLUMN()];
+        yield ['B1', 'C1', FlowDirection::COLUMN()];
+        yield ['C1', 'A2', FlowDirection::COLUMN()];
+        yield ['A2', 'B2', FlowDirection::COLUMN()];
+        yield ['B2', 'C2', FlowDirection::COLUMN()];
+        yield ['C2', 'A3', FlowDirection::COLUMN()];
+        yield ['A3', 'B3', FlowDirection::COLUMN()];
+        yield ['B3', 'C3', FlowDirection::COLUMN()];
+
+        yield ['A1', 'A2', FlowDirection::ROW()];
+        yield ['A2', 'A3', FlowDirection::ROW()];
+        yield ['A3', 'A4', FlowDirection::ROW()];
+        yield ['A4', 'B1', FlowDirection::ROW()];
+        yield ['B1', 'B2', FlowDirection::ROW()];
+        yield ['B2', 'B3', FlowDirection::ROW()];
+        yield ['B3', 'B4', FlowDirection::ROW()];
+        yield ['B4', 'C1', FlowDirection::ROW()];
+        yield ['C1', 'C2', FlowDirection::ROW()];
+        yield ['C2', 'C3', FlowDirection::ROW()];
+    }
+
+    public function testNextThrowsOnLastPosition(): void
+    {
+        $coordinate = Coordinates::fromString('C4', new CoordinateSystem4x3());
+
+        $this->expectExceptionObject(new \OutOfBoundsException('No next coordinate available: already at the last position.'));
+        $coordinate->next(FlowDirection::ROW());
+    }
 }

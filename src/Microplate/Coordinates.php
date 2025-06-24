@@ -167,6 +167,21 @@ class Coordinates
             && $coordinates->coordinateSystem->equals($this->coordinateSystem);
     }
 
+    /**
+     * Returns the next coordinate in the specified flow direction.
+     *
+     * @return static<TCoordinateSystem>
+     */
+    public function next(FlowDirection $direction): self
+    {
+        $currentPosition = $this->position($direction);
+        if ($currentPosition >= $this->coordinateSystem->positionsCount()) {
+            throw new \OutOfBoundsException('No next coordinate available: already at the last position.');
+        }
+
+        return self::fromPosition($currentPosition + 1, $direction, $this->coordinateSystem);
+    }
+
     private static function assertPositionInRange(CoordinateSystem $coordinateSystem, int $position): void
     {
         if (! in_array($position, range(self::MIN_POSITION, $coordinateSystem->positionsCount()), true)) {
