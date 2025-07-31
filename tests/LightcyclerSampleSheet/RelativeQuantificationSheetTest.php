@@ -14,12 +14,14 @@ final class RelativeQuantificationSheetTest extends TestCase
 {
     public function testGenerate(): void
     {
+        $coordinateSystem = new CoordinateSystem12x8();
+
         $samples = Collection::make([
             'A1' => new RelativeQuantificationSample('Sample 1', '498-640', 'FF378A', null),
             'B1' => new RelativeQuantificationSample('Sample 2', '498-640', '4899D1', null),
             'C1' => new RelativeQuantificationSample('Sample 3', '498-640', '8528B9', null),
             'D1' => new RelativeQuantificationSample('Sample 4', '498-640', '8E05D9', null),
-            'E1' => new RelativeQuantificationSample('Sample 5', '498-640', '4080A5', Coordinates::fromString('C12', new CoordinateSystem12x8())),
+            'E1' => new RelativeQuantificationSample('Sample 5', '498-640', '4080A5', Coordinates::fromString('C12', $coordinateSystem)),
         ]);
 
         $sheet = new RelativeQuantificationSheet();
