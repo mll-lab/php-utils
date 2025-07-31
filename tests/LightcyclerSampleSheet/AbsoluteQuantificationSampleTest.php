@@ -3,11 +3,13 @@
 namespace MLL\Utils\Tests\LightcyclerSampleSheet;
 
 use MLL\Utils\LightcyclerSampleSheet\AbsoluteQuantificationSample;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class AbsoluteQuantificationSampleTest extends TestCase
 {
     /** @dataProvider concentrationFormattingProvider */
+    #[DataProvider('concentrationFormattingProvider')]
     public function testFormatConcentration(?int $input, string $expected): void
     {
         $result = AbsoluteQuantificationSample::formatConcentration($input);
