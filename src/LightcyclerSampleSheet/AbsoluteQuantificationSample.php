@@ -2,7 +2,6 @@
 
 namespace MLL\Utils\LightcyclerSampleSheet;
 
-use Illuminate\Support\Number;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
 
@@ -47,7 +46,7 @@ class AbsoluteQuantificationSample
         $exponent = (int) floor(log10(abs($concentration)));
         $mantissa = $concentration / (10 ** $exponent);
 
-        return Number::format($mantissa, 2) . 'E' . $exponent;
+        return number_format($mantissa, 2) . 'E' . $exponent;
     }
 
     /** @return list<string> */
