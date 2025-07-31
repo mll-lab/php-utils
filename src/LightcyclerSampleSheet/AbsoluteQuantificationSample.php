@@ -4,7 +4,6 @@ namespace MLL\Utils\LightcyclerSampleSheet;
 
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
-use MLL\Utils\StringUtil;
 
 class AbsoluteQuantificationSample
 {
@@ -16,7 +15,7 @@ class AbsoluteQuantificationSample
 
     public string $sampleType;
 
-    public string $concentration;
+    public ?int $concentration;
 
     /** @var Coordinates<CoordinateSystem12x8>|null */
     public ?Coordinates $replicationOf;
@@ -27,7 +26,7 @@ class AbsoluteQuantificationSample
         string $filterCombination,
         string $hexColor,
         string $sampleType,
-        string $concentration,
+        ?int $concentration,
         ?Coordinates $replicationOf = null
     ) {
         $this->sampleName = $sampleName;
@@ -36,6 +35,18 @@ class AbsoluteQuantificationSample
         $this->sampleType = $sampleType;
         $this->concentration = $concentration;
         $this->replicationOf = $replicationOf;
+    }
+
+    public static function formatConcentration(?int $concentration): string
+    {
+        if ($concentration === null) {
+            return '';
+        }
+
+        $formatted = sprintf('%.2E', $concentration);
+
+        // Remove the + sign from positive exponents to match Lightcycler format (4.00E2 instead of 4.00E+2)
+        return str_replace('E+', 'E', $formatted);
     }
 
     /** @return list<string> */
@@ -52,7 +63,7 @@ class AbsoluteQuantificationSample
             $this->filterCombination,
             RandomHexGenerator::LIGHTCYCLER_COLOR_PREFIX . $this->hexColor,
             "\"{$this->sampleType}\"",
-            "\"{$this->concentration}\"",
+            self::formatConcentration($this->concentration),
         ];
     }
 }
