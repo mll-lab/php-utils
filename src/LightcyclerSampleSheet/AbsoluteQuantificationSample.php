@@ -4,7 +4,6 @@ namespace MLL\Utils\LightcyclerSampleSheet;
 
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
-use MLL\Utils\StringUtil;
 
 class AbsoluteQuantificationSample
 {
