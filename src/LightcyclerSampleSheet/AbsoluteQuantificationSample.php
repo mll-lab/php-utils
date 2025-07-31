@@ -4,6 +4,7 @@ namespace MLL\Utils\LightcyclerSampleSheet;
 
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
+use MLL\Utils\StringUtil;
 
 class AbsoluteQuantificationSample
 {
@@ -49,7 +50,7 @@ class AbsoluteQuantificationSample
             "\"{$this->sampleName}\"",
             $replicationOf,
             $this->filterCombination,
-            "$00{$this->hexColor}",
+            RandomHexGenerator::LIGHTCYCLER_COLOR_PREFIX . $this->hexColor,
             "\"{$this->sampleType}\"",
             "\"{$this->concentration}\"",
         ];
