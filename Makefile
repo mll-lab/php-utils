@@ -3,7 +3,7 @@ it: fix stan test ## Run the commonly used targets
 
 .PHONY: help
 help: ## Displays this list of targets with descriptions
-	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(firstword $(MAKEFILE_LIST)) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
+	@grep --extended-regexp '^[a-zA-Z0-9_-]+:.*?## .*$$' $(firstword $(MAKEFILE_LIST)) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
 setup: vendor ## Set up the repository
 
@@ -23,7 +23,7 @@ rector: vendor
 .PHONY: php-cs-fixer
 php-cs-fixer:
 	mkdir --parents .build/php-cs-fixer
-	vendor/bin/php-cs-fixer fix --cache-file=.build/php-cs-fixer/cache
+	vendor/bin/php-cs-fixer fix
 
 .PHONY: stan
 stan: vendor ## Runs a static analysis with phpstan
@@ -37,5 +37,5 @@ test: vendor ## Runs auto-review, unit, and integration tests with phpunit
 
 vendor: composer.json
 	composer validate --strict
-	composer install
+	composer update
 	composer normalize
