@@ -20,11 +20,43 @@ class AbsoluteQuantificationSheet
     /** @param Collection<string, AbsoluteQuantificationSample> $samples */
     public function generate(Collection $samples): string
     {
+        $replicationMapping = $this->calculateReplicationMapping($samples);
+
         return $samples
-            ->map(fn (AbsoluteQuantificationSample $well, string $coordinateFromKey): array => $well->toSerializableArray($coordinateFromKey))
+            ->map(fn (AbsoluteQuantificationSample $well, string $coordinateFromKey): array => $well->toSerializableArray(
+                $coordinateFromKey,
+                $replicationMapping[$coordinateFromKey]
+            ))
             ->prepend(self::HEADER_COLUMNS)
-            ->map(fn (array $row): string => implode(StringUtil::TAB, $row))
-            ->implode(StringUtil::WINDOWS_NEW_LINE)
-            . StringUtil::WINDOWS_NEW_LINE;
+            ->map(fn (array $row): string => implode("\t", $row))
+            ->implode(StringUtil::WINDOWS_NEWLINE)
+            . StringUtil::WINDOWS_NEWLINE;
+    }
+
+    /**
+     * Calculate replication mapping based on replicationOfKey. Returns a map of coordinate -> replicationOfCoordinate.
+     *
+     * @param Collection<string, AbsoluteQuantificationSample> $samples
+     *
+     * @return array<string, string>
+     */
+    private function calculateReplicationMapping(Collection $samples): array
+    {
+        $replicationKeyMap = [];
+        $mapping = [];
+
+        foreach ($samples as $coordinate => $sample) {
+            if (! isset($replicationKeyMap[$sample->replicationOfKey])) {
+                // The First occurrence replicates to itself
+                $replicationKeyMap[$sample->replicationOfKey] = $coordinate;
+                $mapping[$coordinate] = $coordinate;
+            } else {
+                // Later occurrences replicate to the first occurrence
+                $firstOccurrenceCoordinate = $replicationKeyMap[$sample->replicationOfKey];
+                $mapping[$coordinate] = $firstOccurrenceCoordinate;
+            }
+        }
+
+        return $mapping;
     }
 }

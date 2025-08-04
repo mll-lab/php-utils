@@ -6,9 +6,7 @@ use Illuminate\Support\Str;
 
 class StringUtil
 {
-    public const WINDOWS_NEW_LINE = "\r\n";
-
-    public const TAB = "\t";
+    public const WINDOWS_NEWLINE = "\r\n";
 
     /** https://en.wikipedia.org/wiki/Byte_order_mark#UTF-8 */
     public const UTF_8_BOM = "\xEF\xBB\xBF";
