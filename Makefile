@@ -23,7 +23,7 @@ rector: vendor
 .PHONY: php-cs-fixer
 php-cs-fixer:
 	mkdir --parents .build/php-cs-fixer
-	vendor/bin/php-cs-fixer fix --cache-file=.build/php-cs-fixer/cache
+	vendor/bin/php-cs-fixer fix
 
 .PHONY: stan
 stan: vendor ## Runs a static analysis with phpstan
