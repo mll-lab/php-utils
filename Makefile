@@ -37,5 +37,5 @@ test: vendor ## Runs auto-review, unit, and integration tests with phpunit
 
 vendor: composer.json
 	composer validate --strict
-	composer install
+	composer update
 	composer normalize
