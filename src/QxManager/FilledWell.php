@@ -20,7 +20,7 @@ class FilledWell
     /** @param Coordinates<CoordinateSystem12x8> $coordinates */
     public function toString(Coordinates $coordinates): string
     {
-        return $coordinates->toPaddedString() . QxManagerSampleSheet::DELIMITER . $this->famRow->toString() . QxManagerSampleSheet::EOL
+        return $coordinates->toPaddedString() . QxManagerSampleSheet::DELIMITER . $this->famRow->toString() . QxManagerSampleSheet::NEWLINE
             . $coordinates->toPaddedString() . QxManagerSampleSheet::DELIMITER . $this->hexRow->toString();
     }
 }

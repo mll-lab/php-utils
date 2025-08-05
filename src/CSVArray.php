@@ -47,7 +47,7 @@ class CSVArray
     }
 
     /** @param iterable<array<string, CSVPrimitive>> $data */
-    public static function toCSV(iterable $data, string $delimiter = ';', string $lineSeparator = "\r\n"): string
+    public static function toCSV(iterable $data, string $delimiter = ';', string $lineSeparator = StringUtil::WINDOWS_NEWLINE): string
     {
         // Use the keys of the array as the headers of the CSV
         $headerItem = Arr::first($data);

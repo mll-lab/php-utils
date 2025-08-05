@@ -94,7 +94,7 @@ class StringUtil
         return \Safe\preg_split("/\r\n|\n|\r/", $string); // @phpstan-ignore return.type (preg_split from safe not known)
     }
 
-    public static function normalizeLineEndings(string $input, string $to = "\r\n"): string
+    public static function normalizeLineEndings(string $input, string $to = self::WINDOWS_NEWLINE): string
     {
         return \Safe\preg_replace("/\r\n|\r|\n/", $to, $input);
     }
