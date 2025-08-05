@@ -31,19 +31,19 @@ final class AbsoluteQuantificationSheetTest extends TestCase
         $result = $sheet->generate($samples);
 
         $expected = <<<EOT
-"General:Pos"\t"General:Sample Name"\t"General:Repl. Of"\t"General:Filt. Comb."\t"Sample Preferences:Color"\t"Abs Quant:Sample Type"\t"Abs Quant:Concentration"
-A1\t"Standard_1"\tA1\t485-520\t$00FF0000\t"Standard"\t1.00E3
-B1\t"Standard_1"\tA1\t485-520\t$00FF0001\t"Standard"\t1.00E3
-C1\t"Standard_2"\tC1\t485-520\t$0000FF00\t"Standard"\t1.00E2
-D1\t"Standard_2"\tC1\t485-520\t$0000FF01\t"Standard"\t1.00E2
-E1\t"Sample_001"\tE1\t485-520\t$000000FF\t"Unknown"\t
-F1\t"Sample_001"\tE1\t485-520\t$000000FE\t"Unknown"\t
-G1\t"Sample_002"\tG1\t485-520\t$00FFFF00\t"Unknown"\t
-H1\t"Sample_002"\tG1\t485-520\t$00FFFF01\t"Unknown"\t
-A2\t"NTC"\tA2\t485-520\t$00000000\t"Negative Control"\t
-B2\t"NTC"\tA2\t485-520\t$00000001\t"Negative Control"\t
-C2\t"Standard_1"\tC2\t485-520\t$00FF0000\t"Standard"\t1.00E3
-D2\t"Standard_1"\tC2\t485-520\t$00FF0001\t"Standard"\t1.00E3
+General:Pos\t"General:Sample Name"\t"General:Repl. Of"\t"General:Filt. Comb."\t"Sample Preferences:Color"\t"Abs Quant:Sample Type"\t"Abs Quant:Concentration"
+A1\tStandard_1\tA1\t485-520\t$00FF0000\tStandard\t1.00E3
+B1\tStandard_1\tA1\t485-520\t$00FF0001\tStandard\t1.00E3
+C1\tStandard_2\tC1\t485-520\t$0000FF00\tStandard\t1.00E2
+D1\tStandard_2\tC1\t485-520\t$0000FF01\tStandard\t1.00E2
+E1\tSample_001\tE1\t485-520\t$000000FF\tUnknown\t
+F1\tSample_001\tE1\t485-520\t$000000FE\tUnknown\t
+G1\tSample_002\tG1\t485-520\t$00FFFF00\tUnknown\t
+H1\tSample_002\tG1\t485-520\t$00FFFF01\tUnknown\t
+A2\tNTC\tA2\t485-520\t$00000000\t"Negative Control"\t
+B2\tNTC\tA2\t485-520\t$00000001\t"Negative Control"\t
+C2\tStandard_1\tC2\t485-520\t$00FF0000\tStandard\t1.00E3
+D2\tStandard_1\tC2\t485-520\t$00FF0001\tStandard\t1.00E3
 
 EOT;
 

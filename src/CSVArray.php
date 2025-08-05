@@ -46,17 +46,13 @@ class CSVArray
         return $result;
     }
 
-    /** @param array<array<string, CSVPrimitive>> $data */
-    public static function toCSV(array $data, string $delimiter = ';', string $lineSeparator = "\r\n"): string
+    /** @param iterable<array<string, CSVPrimitive>> $data */
+    public static function toCSV(iterable $data, string $delimiter = ';', string $lineSeparator = "\r\n"): string
     {
-        if ($data === []) {
-            throw new \Exception('Array is empty');
-        }
-
         // Use the keys of the array as the headers of the CSV
         $headerItem = Arr::first($data);
-        if (! is_array($headerItem)) {
-            throw new \Exception('Missing column headers.');
+        if ($headerItem === null) {
+            throw new \Exception('Missing data.');
         }
         $headerKeys = array_keys($headerItem);
 

@@ -12,13 +12,10 @@ class AbsoluteQuantificationSheet
     {
         $replicationMapping = $this->calculateReplicationMapping($samples);
 
-        $data = $samples
-            ->map(fn (AbsoluteQuantificationSample $well, string $coordinateFromKey): array => $well->toSerializableArray(
-                $coordinateFromKey,
-                $replicationMapping[$coordinateFromKey]
-            ))
-            ->values()
-            ->all();
+        $data = $samples->map(fn (AbsoluteQuantificationSample $well, string $coordinateFromKey): array => $well->toSerializableArray(
+            $coordinateFromKey,
+            $replicationMapping[$coordinateFromKey]
+        ));
 
         return CSVArray::toCSV($data, "\t");
     }
