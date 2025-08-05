@@ -25,7 +25,7 @@ class TransferWithAutoWash extends Command implements UsesTipMask
 
     public function toString(): string
     {
-        return implode(TecanProtocol::WINDOWS_NEW_LINE, [
+        return implode(TecanProtocol::NEWLINE, [
             $this->aspirate->toString(),
             $this->dispense->toString(),
             (new Wash())->toString(),

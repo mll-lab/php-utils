@@ -3,11 +3,11 @@
 namespace MLL\Utils\LightcyclerSampleSheet;
 
 use Illuminate\Support\Collection;
+use MLL\Utils\StringUtil;
 
+/** TODO use CSVArray, @see AbsoluteQuantificationSheet */
 class RelativeQuantificationSheet
 {
-    protected const WINDOWS_NEW_LINE = "\r\n";
-    protected const TAB_SEPARATOR = "\t";
     public const HEADER_COLUMNS = [
         '"General:Pos"',
         '"General:Sample Name"',
@@ -22,8 +22,8 @@ class RelativeQuantificationSheet
         return $samples
             ->map(fn (RelativeQuantificationSample $well, string $coordinateFromKey): array => $well->toSerializableArray($coordinateFromKey))
             ->prepend(self::HEADER_COLUMNS)
-            ->map(fn (array $row): string => implode(self::TAB_SEPARATOR, $row))
-            ->implode(self::WINDOWS_NEW_LINE)
-            . self::WINDOWS_NEW_LINE;
+            ->map(fn (array $row): string => implode("\t", $row))
+            ->implode(StringUtil::WINDOWS_NEWLINE)
+            . StringUtil::WINDOWS_NEWLINE;
     }
 }

@@ -4,6 +4,8 @@ namespace MLL\Utils\LightcyclerSampleSheet;
 
 class RandomHexGenerator
 {
+    public const LIGHTCYCLER_COLOR_PREFIX = '$00';
+
     /** @var list<string> */
     private array $generatedHexCodes = [];
 

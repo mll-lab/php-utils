@@ -18,3 +18,5 @@ parameters:
   - '#Unsafe usage of new static.*#'
   # Not in older PHPUnit versions
   - '#Attribute class PHPUnit\\Framework\\Attributes\\DataProvider does not exist\.#'
+  # Allows assert() calls to assist IDE autocompletion
+  - message: '#Call to function assert\(\) with true.* will always evaluate to true\.#'

@@ -46,18 +46,18 @@ class CSVArray
         return $result;
     }
 
-    /** @param array<int, array<string, CSVPrimitive>> $data */
-    public static function toCSV(array $data, string $delimiter = ';', string $lineSeparator = "\r\n"): string
+    /** @param iterable<array<string, CSVPrimitive>> $data */
+    public static function toCSV(iterable $data, string $delimiter = ';', string $lineSeparator = StringUtil::WINDOWS_NEWLINE): string
     {
-        if ($data === []) {
-            throw new \Exception('Array is empty');
-        }
-
         // Use the keys of the array as the headers of the CSV
         $headerItem = Arr::first($data);
-        if (! is_array($headerItem)) {
-            throw new \Exception('Missing column headers.');
+        if ($headerItem === null) {
+            throw new \Exception('Expected $data to contain at least one item.');
         }
+        assert(
+            is_array($headerItem), // @phpstan-ignore function.alreadyNarrowedType (necessary for older PHPStan/Illuminate versions)
+            'Expected $data to contain arrays.'
+        );
         $headerKeys = array_keys($headerItem);
 
         $content = str_putcsv($headerKeys, $delimiter) . $lineSeparator;

@@ -41,7 +41,7 @@ class RelativeQuantificationSample
             "\"{$this->sampleName}\"",
             $replicationOf,
             $this->filterCombination,
-            "$00{$this->hexColor}",
+            RandomHexGenerator::LIGHTCYCLER_COLOR_PREFIX . $this->hexColor,
         ];
     }
 }

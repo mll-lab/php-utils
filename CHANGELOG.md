@@ -9,6 +9,13 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.17.0
+
+### Added
+
+- Support creating Lightcycler Sample Sheets for Absolute Quantification https://github.com/mll-lab/php-utils/pull/55
+- Accept `iterable $data` in `CSVArray::toCSV` https://github.com/mll-lab/php-utils/pull/55
+
 ## v5.16.0
 
 ### Added

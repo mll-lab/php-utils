@@ -7,6 +7,7 @@ use Composer\InstalledVersions;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use MLL\Utils\Meta;
+use MLL\Utils\StringUtil;
 use MLL\Utils\Tecan\BasicCommands\BreakCommand;
 use MLL\Utils\Tecan\BasicCommands\Command;
 use MLL\Utils\Tecan\BasicCommands\Comment;
@@ -17,7 +18,7 @@ use MLL\Utils\Tecan\TipMask\TipMask;
 class TecanProtocol
 {
     /** Tecan software runs on Windows. */
-    public const WINDOWS_NEW_LINE = "\r\n";
+    public const NEWLINE = StringUtil::WINDOWS_NEWLINE;
 
     public const GEMINI_WORKLIST_FILENAME_SUFFIX = '.gwl';
 
@@ -101,8 +102,8 @@ class TecanProtocol
     {
         return $this->commands
             ->map(fn (Command $command): string => $command->toString())
-            ->join(self::WINDOWS_NEW_LINE)
-            . self::WINDOWS_NEW_LINE;
+            ->join(self::NEWLINE)
+            . self::NEWLINE;
     }
 
     public function fileName(): string

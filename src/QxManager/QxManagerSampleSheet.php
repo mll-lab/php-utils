@@ -11,7 +11,9 @@ use MLL\Utils\StringUtil;
 
 class QxManagerSampleSheet
 {
-    public const EOL = "\r\n";
+    /** QX Manager runs on Windows. */
+    public const NEWLINE = StringUtil::WINDOWS_NEWLINE;
+
     public const DELIMITER = ',';
 
     /** @param Microplate<FilledWell, CoordinateSystem12x8> $microplate */
@@ -38,8 +40,8 @@ CSV);
                     . QxManagerSampleSheet::DELIMITER
                     . (new EmptyRow())->toString();
             })
-            ->join(self::EOL);
+            ->join(self::NEWLINE);
 
-        return $header . $body . self::EOL;
+        return $header . $body . self::NEWLINE;
     }
 }
