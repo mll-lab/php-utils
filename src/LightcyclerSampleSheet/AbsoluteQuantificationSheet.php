@@ -3,42 +3,32 @@
 namespace MLL\Utils\LightcyclerSampleSheet;
 
 use Illuminate\Support\Collection;
-use MLL\Utils\StringUtil;
+use MLL\Utils\CSVArray;
 
 class AbsoluteQuantificationSheet
 {
-    public const HEADER_COLUMNS = [
-        '"General:Pos"',
-        '"General:Sample Name"',
-        '"General:Repl. Of"',
-        '"General:Filt. Comb."',
-        '"Sample Preferences:Color"',
-        '"Abs Quant:Sample Type"',
-        '"Abs Quant:Concentration"',
-    ];
-
     /** @param Collection<string, AbsoluteQuantificationSample> $samples */
     public function generate(Collection $samples): string
     {
         $replicationMapping = $this->calculateReplicationMapping($samples);
 
-        return $samples
+        $data = $samples
             ->map(fn (AbsoluteQuantificationSample $well, string $coordinateFromKey): array => $well->toSerializableArray(
                 $coordinateFromKey,
                 $replicationMapping[$coordinateFromKey]
             ))
-            ->prepend(self::HEADER_COLUMNS)
-            ->map(fn (array $row): string => implode("\t", $row))
-            ->implode(StringUtil::WINDOWS_NEWLINE)
-            . StringUtil::WINDOWS_NEWLINE;
+            ->values()
+            ->all();
+
+        return CSVArray::toCSV($data, "\t");
     }
 
     /**
-     * Calculate replication mapping based on replicationOfKey. Returns a map of coordinate -> replicationOfCoordinate.
+     * Calculate replication mapping based on replicationOfKey.
      *
      * @param Collection<string, AbsoluteQuantificationSample> $samples
      *
-     * @return array<string, string>
+     * @return array<string, string> a map of coordinate -> replicationOfCoordinate
      */
     private function calculateReplicationMapping(Collection $samples): array
     {

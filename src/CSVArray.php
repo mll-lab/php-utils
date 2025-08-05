@@ -46,7 +46,7 @@ class CSVArray
         return $result;
     }
 
-    /** @param array<int, array<string, CSVPrimitive>> $data */
+    /** @param array<array<string, CSVPrimitive>> $data */
     public static function toCSV(array $data, string $delimiter = ';', string $lineSeparator = "\r\n"): string
     {
         if ($data === []) {

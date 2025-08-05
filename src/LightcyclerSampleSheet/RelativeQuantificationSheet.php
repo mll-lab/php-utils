@@ -5,6 +5,7 @@ namespace MLL\Utils\LightcyclerSampleSheet;
 use Illuminate\Support\Collection;
 use MLL\Utils\StringUtil;
 
+/** TODO use CSVArray, @see AbsoluteQuantificationSheet */
 class RelativeQuantificationSheet
 {
     public const HEADER_COLUMNS = [

@@ -48,17 +48,17 @@ class AbsoluteQuantificationSample
         return number_format($mantissa, 2) . 'E' . $exponent;
     }
 
-    /** @return list<string|null> */
+    /** @return array<string, string|null> */
     public function toSerializableArray(string $coordinatesString, string $replicationOfCoordinate): array
     {
         return [
-            Coordinates::fromString($coordinatesString, new CoordinateSystem12x8())->toString(),
-            "\"{$this->sampleName}\"",
-            $replicationOfCoordinate,
-            $this->filterCombination,
-            RandomHexGenerator::LIGHTCYCLER_COLOR_PREFIX . $this->hexColor,
-            "\"{$this->sampleType}\"",
-            self::formatConcentration($this->concentration),
+            'General:Pos' => Coordinates::fromString($coordinatesString, new CoordinateSystem12x8())->toString(),
+            'General:Sample Name' => $this->sampleName,
+            'General:Repl. Of' => $replicationOfCoordinate,
+            'General:Filt. Comb.' => $this->filterCombination,
+            'Sample Preferences:Color' => RandomHexGenerator::LIGHTCYCLER_COLOR_PREFIX . $this->hexColor,
+            'Abs Quant:Sample Type' => $this->sampleType,
+            'Abs Quant:Concentration' => self::formatConcentration($this->concentration),
         ];
     }
 }
