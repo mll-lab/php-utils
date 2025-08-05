@@ -52,8 +52,12 @@ class CSVArray
         // Use the keys of the array as the headers of the CSV
         $headerItem = Arr::first($data);
         if ($headerItem === null) {
-            throw new \Exception('Missing data.');
+            throw new \Exception('Expected $data to contain at least one item.');
         }
+        assert(
+            is_array($headerItem), // @phpstan-ignore function.alreadyNarrowedType (necessary for older PHPStan/Illuminate versions)
+            'Expected $data to contain arrays.'
+        );
         $headerKeys = array_keys($headerItem);
 
         $content = str_putcsv($headerKeys, $delimiter) . $lineSeparator;
