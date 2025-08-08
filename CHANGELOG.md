@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.18.0
+
+### Added
+
+- Support parsing Lightcycler Sample Sheets from XML-file https://github.com/mll-lab/php-utils/pull/56
+
 ## v5.17.0
 
 ### Added

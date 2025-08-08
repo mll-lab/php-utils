@@ -17,6 +17,7 @@
   "require": {
     "php": "^7.4 || ^8",
     "ext-calendar": "*",
+    "ext-simplexml": "*",
     "illuminate/support": "^8.73 || ^9 || ^10 || ^11 || ^12",
     "mll-lab/str_putcsv": "^1",
     "nesbot/carbon": "^2.62.1 || ^3",
