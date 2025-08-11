@@ -43,7 +43,7 @@ trait LightcyclerDataParsingTrait
             return null;
         }
 
-        return trim($maybeString) /** @phpstan-ignore ternary.shortNotAllowed (we explicitly want the short ternary here) */
+        return trim($maybeString)
             ?: null;
     }
 
