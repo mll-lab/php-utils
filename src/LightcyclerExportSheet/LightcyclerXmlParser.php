@@ -12,11 +12,6 @@ class LightcyclerXmlParser
 {
     use LightcyclerDataParsingTrait;
 
-    private const XML_PROPERTY_NAME = 'name';
-    private const XML_PROPERTY_POSITION = 'Position';
-    private const XML_PROPERTY_CALC_CONC = 'CalcConc';
-    private const XML_PROPERTY_STANDARD_CONC = 'StandardConc';
-    private const XML_PROPERTY_CROSSING_POINT = 'CrossingPoint';
     public const FLOAT_ZERO = 0.0;
 
     /** @return Collection<array-key, LightcyclerSample> */
@@ -55,23 +50,23 @@ class LightcyclerXmlParser
         $sampleProperties = $this->extractPropertiesFromXml($xmlSample);
 
         [$validatedConcentration, $validatedCrossingPoint] = $this->validateConcentrationAndCrossingPoint(
-            $this->optionalProperty($sampleProperties, self::XML_PROPERTY_CALC_CONC),
-            $this->optionalProperty($sampleProperties, self::XML_PROPERTY_CROSSING_POINT),
+            $this->optionalProperty($sampleProperties, 'CalcConc'),
+            $this->optionalProperty($sampleProperties, 'CrossingPoint'),
         );
 
         $coordinates = Coordinates::fromString(
-            $this->requiredProperty($sampleProperties, self::XML_PROPERTY_POSITION),
+            $this->requiredProperty($sampleProperties, 'Position'),
             new CoordinateSystem12x8(),
         );
 
         return new LightcyclerSample(
-            $this->requiredProperty($sampleProperties, self::XML_PROPERTY_NAME),
+            $this->requiredProperty($sampleProperties, 'name'),
             $coordinates,
             $validatedConcentration,
             $validatedCrossingPoint,
             $this->parseFloatValue($this->optionalProperty(
                 $sampleProperties,
-                self::XML_PROPERTY_STANDARD_CONC,
+                'StandardConc',
             )),
         );
     }
