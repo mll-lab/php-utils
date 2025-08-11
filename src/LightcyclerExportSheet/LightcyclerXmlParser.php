@@ -38,7 +38,9 @@ final class LightcyclerXmlParser
         $samples = [];
 
         foreach ($analyses->analysis as $analysis) {
-            if (property_exists($analysis, 'AnalysisSamples') && $analysis->AnalysisSamples !== null) {
+            if (property_exists($analysis, 'AnalysisSamples')
+                && $analysis->AnalysisSamples !== null
+            ) {
                 foreach ($analysis->AnalysisSamples->AnalysisSample as $xmlSample) {
                     $samples[] = $this->createSampleFromXml($xmlSample);
                 }

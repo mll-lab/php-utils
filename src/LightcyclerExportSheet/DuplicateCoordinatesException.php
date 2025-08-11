@@ -9,6 +9,6 @@ final class DuplicateCoordinatesException extends \InvalidArgumentException
     {
         $coordinates = implode(', ', $duplicateCoordinates);
 
-        return new self("Duplicate sample coordinates found: {$coordinates}");
+        return new self("Duplicate sample coordinates found: {$coordinates}.");
     }
 }

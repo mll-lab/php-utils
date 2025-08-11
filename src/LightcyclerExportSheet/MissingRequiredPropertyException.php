@@ -6,6 +6,6 @@ final class MissingRequiredPropertyException extends \InvalidArgumentException
 {
     public static function forProperty(string $propertyName): self
     {
-        return new self("Required property '{$propertyName}' is missing or empty");
+        return new self("Required property '{$propertyName}' is missing or empty.");
     }
 }
