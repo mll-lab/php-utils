@@ -8,7 +8,7 @@ use MLL\Utils\Microplate\CoordinateSystem12x8;
 
 use function Safe\simplexml_load_string;
 
-final class LightcyclerXmlParser
+class LightcyclerXmlParser
 {
     use LightcyclerDataParsingTrait;
 

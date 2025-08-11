@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\LightcyclerExportSheet;
 
-final class DuplicateCoordinatesException extends \InvalidArgumentException
+class DuplicateCoordinatesException extends \InvalidArgumentException
 {
     /** @param array<string> $duplicateCoordinates */
     public static function forCoordinates(array $duplicateCoordinates): self

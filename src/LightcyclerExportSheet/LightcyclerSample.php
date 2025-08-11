@@ -5,7 +5,7 @@ namespace MLL\Utils\LightcyclerExportSheet;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
 
-final class LightcyclerSample
+class LightcyclerSample
 {
     public string $name;
 

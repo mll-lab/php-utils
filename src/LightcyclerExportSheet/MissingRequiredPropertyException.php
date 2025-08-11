@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\LightcyclerExportSheet;
 
-final class MissingRequiredPropertyException extends \InvalidArgumentException
+class MissingRequiredPropertyException extends \InvalidArgumentException
 {
     public static function forProperty(string $propertyName): self
     {
