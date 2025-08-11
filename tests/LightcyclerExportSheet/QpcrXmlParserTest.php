@@ -49,8 +49,7 @@ final class QpcrXmlParserTest extends TestCase
         $parser = new LightcyclerXmlParser();
 
         // Test Patient Sample
-        $patientXml /* @lang XML */
-            = <<<XML
+        $patientXml = /* @lang XML */ <<<XML
             <?xml version="1.0" encoding="UTF-8"?>
             <root>
                 <analyses>
@@ -73,8 +72,7 @@ final class QpcrXmlParserTest extends TestCase
         $sample = $result->first();
         self::assertInstanceOf(LightcyclerSample::class, $sample); // Test Standard Sample
         $standardConcentration = 400.0;
-        $standardXml /* @lang XML */
-            = <<<XML
+        $standardXml = /* @lang XML */ <<<XML
             <?xml version="1.0" encoding="UTF-8"?>
             <root>
                 <analyses>
@@ -99,8 +97,7 @@ final class QpcrXmlParserTest extends TestCase
         self::assertInstanceOf(LightcyclerSample::class, $sample);
 
         // Test Control Sample
-        $controlXml /* @lang XML */
-            = <<<XML
+        $controlXml = /* @lang XML */ <<<XML
             <?xml version="1.0" encoding="UTF-8"?>
             <root>
                 <analyses>
