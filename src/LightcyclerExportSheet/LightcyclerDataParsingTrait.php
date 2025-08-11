@@ -42,9 +42,11 @@ trait LightcyclerDataParsingTrait
         if ($maybeString === null) {
             return null;
         }
+        $trimmed = trim($maybeString);
 
-        return trim($maybeString)
-            ?: null;
+        return $trimmed !== ''
+            ? $trimmed
+            : null;
     }
 
     /** @param  array<string, string>  $properties */
