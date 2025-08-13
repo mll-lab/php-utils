@@ -1,6 +1,10 @@
 includes:
 - extension.neon
 - rules.neon
+rules:
+#- MLL\Utils\PHPStan\Rules\ThrowableClassNameRule
+- MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
+- MLL\Utils\PHPStan\Rules\MissingClosureParameterTypehintRule
 parameters:
   level: max
   paths:

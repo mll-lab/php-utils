@@ -9,6 +9,12 @@ See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
 
 ## Unreleased
 
+## v5.19.0
+
+### Added
+
+- Add PHPStan-Rule `MLL\Utils\PHPStan\Rules\MissingClosureParameterTypehintRule.php`
+
 ## v5.18.0
 
 ### Added

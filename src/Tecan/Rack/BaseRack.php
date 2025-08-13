@@ -20,7 +20,7 @@ abstract class BaseRack implements Rack
         $this->coordinateSystem = $coordinateSystem;
         /** @phpstan-ignore-next-line types are correct, but phpstan doesn't understand it */
         $this->positions = Collection::times($this->positionCount(), fn () => self::EMPTY_POSITION)
-            ->mapWithKeys(fn ($content, int $position): array => [$position + 1 => $content]);
+            ->mapWithKeys(fn ($content, int $position): array => [$position + 1 => $content]); /** @phpstan-ignore missingType.parameter (is in template context) */
     }
 
     public function id(): ?string
@@ -52,7 +52,7 @@ abstract class BaseRack implements Rack
     public function findFirstEmptyPosition(): int
     {
         $firstEmpty = $this->positions
-            ->filter(fn ($content): bool => $content === self::EMPTY_POSITION)
+            ->filter(fn ($content): bool => $content === self::EMPTY_POSITION) /** @phpstan-ignore missingType.parameter (is in template context) */
             ->keys()
             ->first();
 
@@ -66,7 +66,7 @@ abstract class BaseRack implements Rack
     public function findLastEmptyPosition(): int
     {
         $lastEmpty = $this->positions
-            ->filter(fn ($content): bool => $content === self::EMPTY_POSITION)
+            ->filter(fn ($content): bool => $content === self::EMPTY_POSITION) /** @phpstan-ignore missingType.parameter (is in template context) */
             ->keys()
             ->last();
 
