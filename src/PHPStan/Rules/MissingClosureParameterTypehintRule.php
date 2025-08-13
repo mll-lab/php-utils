@@ -52,8 +52,6 @@ final class MissingClosureParameterTypehintRule implements Rule
 
             $varName = $paramVar->name;
 
-            // Da $scope->getVariableType($varName) in diesem Kontext immer Fehler auslöst,
-            // erstellen wir direkt einen RuleError, ohne zu versuchen, den Typ zu bestimmen
             $errors[] = RuleErrorBuilder::message(sprintf(
                 'Closure parameter $%s is missing a native typehint.',
                 $varName
