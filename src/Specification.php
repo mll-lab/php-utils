@@ -21,7 +21,7 @@ class Specification
      */
     public static function not(callable $specification): callable
     {
-        return fn ($value): bool => ! $specification($value); /** @phpstan-ignore closure.missingParameterType (is in template context) */
+        return fn ($value): bool => ! $specification($value); /** @phpstan-ignore missingType.parameter (is in template context) */
     }
 
     /**
@@ -33,7 +33,7 @@ class Specification
      */
     public static function or(callable ...$specifications): callable
     {
-        return function ($value) use ($specifications): bool { /** @phpstan-ignore closure.missingParameterType (is in template context) */
+        return function ($value) use ($specifications): bool { /** @phpstan-ignore missingType.parameter (is in template context) */
             foreach ($specifications as $specification) {
                 if ($specification($value)) {
                     return true;
@@ -53,7 +53,7 @@ class Specification
      */
     public static function and(callable ...$specifications): callable
     {
-        return function ($value) use ($specifications): bool { /** @phpstan-ignore closure.missingParameterType (is in template context) */
+        return function ($value) use ($specifications): bool { /** @phpstan-ignore missingType.parameter (is in template context) */
             foreach ($specifications as $specification) {
                 if (! $specification($value)) {
                     return false;

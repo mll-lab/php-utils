@@ -49,7 +49,7 @@ abstract class AbstractMicroplate
     {
         return $this->wells()->sortBy(
             /** @param TWell $content */
-            function ($content, string $key) use ($flowDirection): string { /** @phpstan-ignore closure.missingParameterType (is in template context) */
+            function ($content, string $key) use ($flowDirection): string { /** @phpstan-ignore missingType.parameter (is in template context) */
                 switch ($flowDirection->value) {
                     case FlowDirection::ROW:
                         return $key;
@@ -72,7 +72,7 @@ abstract class AbstractMicroplate
     {
         return $this->wells()->filter(
             /** @param TWell $content */
-            static fn ($content): bool => $content === self::EMPTY_WELL /** @phpstan-ignore closure.missingParameterType (is in template context) */
+            static fn ($content): bool => $content === self::EMPTY_WELL /** @phpstan-ignore missingType.parameter (is in template context) */
         );
     }
 
@@ -81,14 +81,14 @@ abstract class AbstractMicroplate
     {
         return $this->wells()->filter(
             /** @param TWell $content */
-            static fn ($content): bool => $content !== self::EMPTY_WELL /** @phpstan-ignore closure.missingParameterType (is in template context) */
+            static fn ($content): bool => $content !== self::EMPTY_WELL /** @phpstan-ignore missingType.parameter (is in template context) */
         );
     }
 
     /** @return callable(TWell|null $content, string $coordinatesString): bool */
     public function matchRow(string $row): callable
     {
-        return function ($content, string $coordinatesString) use ($row): bool { /** @phpstan-ignore closure.missingParameterType (is in template context) */
+        return function ($content, string $coordinatesString) use ($row): bool { /** @phpstan-ignore missingType.parameter (is in template context) */
             $coordinates = Coordinates::fromString($coordinatesString, $this->coordinateSystem);
 
             return $coordinates->row === $row;
@@ -98,7 +98,7 @@ abstract class AbstractMicroplate
     /** @return callable(TWell|null $content, string $coordinatesString): bool */
     public function matchColumn(int $column): callable
     {
-        return function ($content, string $coordinatesString) use ($column): bool { /** @phpstan-ignore closure.missingParameterType (is in template context) */
+        return function ($content, string $coordinatesString) use ($column): bool { /** @phpstan-ignore missingType.parameter (is in template context) */
             $coordinates = Coordinates::fromString($coordinatesString, $this->coordinateSystem);
 
             return $coordinates->column === $column;
@@ -119,7 +119,7 @@ abstract class AbstractMicroplate
     public function toWellWithCoordinatesMapper(): callable
     {
         // @phpstan-ignore return.type (generic not inferred)
-        return fn ($content, string $coordinatesString): WellWithCoordinates => new WellWithCoordinates( /** @phpstan-ignore closure.missingParameterType (is in template context) */
+        return fn ($content, string $coordinatesString): WellWithCoordinates => new WellWithCoordinates( /** @phpstan-ignore missingType.parameter (is in template context) */
             $content,
             Coordinates::fromString($coordinatesString, $this->coordinateSystem)
         );
@@ -135,7 +135,7 @@ abstract class AbstractMicroplate
         $positions = $this->filledWells()
             ->map(
                 /** @param TWell $content */
-                fn ($content, string $coordinatesString): int => Coordinates::fromString($coordinatesString, $this->coordinateSystem)->position($flowDirection) /** @phpstan-ignore closure.missingParameterType (is in template context) */
+                fn ($content, string $coordinatesString): int => Coordinates::fromString($coordinatesString, $this->coordinateSystem)->position($flowDirection) /** @phpstan-ignore missingType.parameter (is in template context) */
             );
 
         if ($positions->isEmpty()) {
