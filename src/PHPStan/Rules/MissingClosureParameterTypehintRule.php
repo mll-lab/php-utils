@@ -51,6 +51,10 @@ final class MissingClosureParameterTypehintRule implements Rule
 
             $varName = $paramVar->name;
 
+            if ($varName === '_') {
+                continue;
+            }
+
             $errors[] = RuleErrorBuilder::message("Closure parameter {$varName} is missing a native typehint.")
                 ->identifier('closure.missingParameterType')
                 ->build();
