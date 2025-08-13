@@ -55,7 +55,7 @@ class DataSection implements Section
             ->groupBy(fn (Row $row): string => $row->sampleID);
 
         $duplicates = $groups
-            ->filter(fn ($group): bool => count($group) > 1)
+            ->filter(fn (Collection $group): bool => count($group) > 1)
             ->keys();
         $duplicateIDsAsString = $duplicates->implode(', ');
 

@@ -9,7 +9,7 @@ final class SpecificationTest extends TestCase
 {
     public function testNot(): void
     {
-        $truthy = fn ($value): bool => (bool) $value;
+        $truthy = fn (string $value): bool => (bool) $value;
 
         self::assertTrue($truthy('truthy'));
 

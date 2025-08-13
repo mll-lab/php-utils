@@ -29,7 +29,7 @@ Well,Perform Droplet Reading,ExperimentType,Sample description 1,Sample descript
 CSV);
 
         $body = $microplate->sortedWells(FlowDirection::ROW())
-            ->map(function ($well, string $coordinateString) use ($microplate): string {
+            ->map(function ($well, string $coordinateString) use ($microplate): string { /** @phpstan-ignore closure.missingParameterType (is in template context) */
                 $coordinates = Coordinates::fromString($coordinateString, $microplate->coordinateSystem);
 
                 if ($well instanceof FilledWell) {
