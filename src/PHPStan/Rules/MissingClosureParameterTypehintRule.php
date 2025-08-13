@@ -32,9 +32,8 @@ final class MissingClosureParameterTypehintRule implements Rule
         if (! $node instanceof Closure && ! $node instanceof ArrowFunction) {
             return [];
         }
-        /** @var list<IdentifierRuleError> $errors */
-        $errors = [];
 
+        $errors = [];
         foreach ($node->params as $param) {
             if ($param->type !== null) {
                 continue;
@@ -52,10 +51,9 @@ final class MissingClosureParameterTypehintRule implements Rule
 
             $varName = $paramVar->name;
 
-            $errors[] = RuleErrorBuilder::message(sprintf(
-                'Closure parameter $%s is missing a native typehint.',
-                $varName
-            ))->identifier('closure.missingParameterType')->build();
+            $errors[] = RuleErrorBuilder::message("Closure parameter {$varName} is missing a native typehint.")
+                ->identifier('closure.missingParameterType')
+                ->build();
         }
 
         return $errors;
