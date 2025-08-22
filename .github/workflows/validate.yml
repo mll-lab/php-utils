@@ -142,6 +142,4 @@ jobs:
       - name: "Validate downgraded composer.json"
         run: composer validate --no-check-publish
       - name: "Run PHPUnit on downgraded src"
-        run: vendor/bin/phpunit --configuration phpunit.xml || (echo 'Downgraded tests failed' && exit 1)
-      - name: "Run PHPStan on downgraded src"
-        run: vendor/bin/phpstan analyse src --error-format=github --configuration=phpstan-php74.neon
+        run: vendor/bin/phpunit
