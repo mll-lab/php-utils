@@ -34,6 +34,11 @@
             "MLL\\Utils\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "MLL\\Utils\\Tests\\": "tests/"
+        }
+    },
     "config": {
       "allow-plugins": {
         "ergebnis/composer-normalize": true,
