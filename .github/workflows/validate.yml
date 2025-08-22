@@ -17,13 +17,12 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: 8.1
+          php-version: 8.3
 
       - run: composer validate --strict
 
   static-code-analysis:
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.php-version == '8.4' }}
 
     strategy:
       fail-fast: false
@@ -119,10 +118,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: "Setup PHP 8.1 (Rector)"
+      - name: "Setup PHP 8.3 (Rector)"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.3
           coverage: none
       - uses: ramsey/composer-install@v3
       - name: "Downgrade src and tests"
