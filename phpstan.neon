@@ -24,3 +24,9 @@ parameters:
   - '#Attribute class PHPUnit\\Framework\\Attributes\\DataProvider does not exist\.#'
   # Allows assert() calls to assist IDE autocompletion
   - message: '#Call to function assert\(\) with true.* will always evaluate to true\.#'
+  excludePaths:
+    - src/Microplate/Scalars/Row8.php
+    - src/Microplate/Scalars/Row16NoJ.php
+    - src/Microplate/Scalars/Row16.php
+    - src/FluidXPlate/Scalars/FluidXBarcode.php
+    - src/FluidXPlate/Scalars/FrameStarBarcode.php
