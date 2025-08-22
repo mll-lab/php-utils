@@ -58,7 +58,6 @@ jobs:
     name: "Tests - PHP ${{ matrix.php-version }}, ${{ matrix.dependencies }}"
 
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.php-version == '8.4' }}
 
     strategy:
       fail-fast: false
@@ -117,7 +116,6 @@ jobs:
 
   # Optionale Smoke-Prüfung des Downgrade-Prozesses (nur manueller Start)
   downgrade-smoke:
-    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -144,6 +142,7 @@ jobs:
 
   downgraded-static-analysis:
     name: "Downgraded Static Analysis"
+    needs: downgrade-smoke
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -179,6 +178,7 @@ jobs:
 
   downgraded-tests:
     name: "Downgraded Tests (PHP 7.4)"
+    needs: downgrade-smoke
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
