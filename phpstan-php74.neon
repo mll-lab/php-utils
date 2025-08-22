@@ -1,9 +1,0 @@
-includes:
-- phpstan.neon
-parameters:
-  excludePaths:
-    - src/Microplate/Scalars/Row8.php
-    - src/Microplate/Scalars/Row16NoJ.php
-    - src/Microplate/Scalars/Row16.php
-    - src/FluidXPlate/Scalars/FluidXBarcode.php
-    - src/FluidXPlate/Scalars/FrameStarBarcode.php
