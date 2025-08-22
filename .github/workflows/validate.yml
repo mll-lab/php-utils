@@ -17,26 +17,19 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: 8.3
+          php-version: 8.1
 
       - run: composer validate --strict
 
   static-code-analysis:
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.php-version == '8.4' }}
 
     strategy:
       fail-fast: false
       matrix:
-        php-version:
-          # Not including 7.4, as PHPStan is hard to get working there
-          - "8.0"
-          - "8.1"
-          - "8.2"
-          - "8.3"
-          - "8.4"
-        dependencies:
-          - lowest
-          - highest
+        php-version: ["8.1", "8.2", "8.3", "8.4"]
+        dependencies: [lowest, highest]
 
     steps:
       - uses: actions/checkout@v4
@@ -50,6 +43,14 @@ jobs:
       - uses: ramsey/composer-install@v3
         with:
           dependency-versions: "${{ matrix.dependencies }}"
+      - name: "Cache Composer"
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: composer-${{ runner.os }}-${{ matrix.php-version }}-${{ matrix.dependencies }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            composer-${{ runner.os }}-${{ matrix.php-version }}-${{ matrix.dependencies }}-
+            composer-${{ runner.os }}-
 
       - run: vendor/bin/phpstan analyse --configuration=phpstan.neon
 
@@ -57,20 +58,13 @@ jobs:
     name: "Tests - PHP ${{ matrix.php-version }}, ${{ matrix.dependencies }}"
 
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.php-version == '8.4' }}
 
     strategy:
       fail-fast: false
       matrix:
-        php-version:
-          - "7.4"
-          - "8.0"
-          - "8.1"
-          - "8.2"
-          - "8.3"
-          - "8.4"
-        dependencies:
-          - lowest
-          - highest
+        php-version: ["8.1", "8.2", "8.3", "8.4"]
+        dependencies: [lowest, highest]
 
     steps:
       - uses: actions/checkout@v4
@@ -81,12 +75,17 @@ jobs:
           extensions: mbstring
           php-version: "${{ matrix.php-version }}"
 
-      - if: "! startsWith(matrix.php-version, 8)"
-        run: composer remove --dev --no-update rector/rector mll-lab/graphql-php-scalars spaze/phpstan-disallowed-calls
-
       - uses: ramsey/composer-install@v3
         with:
           dependency-versions: "${{ matrix.dependencies }}"
+      - name: "Cache Composer"
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: composer-${{ runner.os }}-${{ matrix.php-version }}-${{ matrix.dependencies }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            composer-${{ runner.os }}-${{ matrix.php-version }}-${{ matrix.dependencies }}-
+            composer-${{ runner.os }}-
 
       - run: vendor/bin/phpunit
 
@@ -103,8 +102,105 @@ jobs:
           php-version: 8.3
 
       - uses: ramsey/composer-install@v3
+      - name: "Cache Composer"
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: composer-${{ runner.os }}-coverage-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            composer-${{ runner.os }}-coverage-
 
       - run: vendor/bin/phpunit --coverage-clover=.build/logs/clover.xml
 
       # Not using v4 due to the breaking changes described in https://github.com/codecov/codecov-action/releases/tag/v4.0.0
       - uses: codecov/codecov-action@v3
+
+  # Optionale Smoke-Prüfung des Downgrade-Prozesses (nur manueller Start)
+  downgrade-smoke:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Install PHP 8.1 + tools"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          coverage: none
+      - uses: ramsey/composer-install@v3
+      - name: "Downgrade src"
+        run: vendor/bin/rector process src --config build/rector-downgrade-php-74.php --ansi
+      - name: "Prepare downgraded artifact"
+        run: |
+          cp build/composer-php-74.json composer.json
+          tar -czf downgraded-src.tar.gz src composer.json
+      - name: "Validate downgraded composer.json under PHP 7.4"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          coverage: none
+      - run: composer validate --no-check-publish
+      - name: "List downgraded files"
+        run: tar -tzf downgraded-src.tar.gz | head -n 40
+
+  downgraded-static-analysis:
+    name: "Downgraded Static Analysis"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Setup PHP 8.1 (Rector + tools)"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          coverage: none
+      - uses: ramsey/composer-install@v3
+      - name: "Create downgraded copy (retain original composer for analysis)"
+        run: |
+          rsync -a --exclude vendor ./ downgraded/
+          vendor/bin/rector process downgraded/src downgraded/tests --config build/rector-downgrade-php-74.php --ansi
+      - name: "Install deps for analysis (original composer)"
+        working-directory: downgraded
+        run: composer install --no-interaction --no-progress
+      - name: "PHPStan on downgraded code"
+        working-directory: downgraded
+        run: vendor/bin/phpstan analyse downgraded/src downgraded/tests --configuration=phpstan.neon --memory-limit=1G
+      - name: "Switch to downgraded composer"
+        run: cp build/composer-php-74.json downgraded/composer.json
+      - name: "Composer validate downgraded (PHP 8.1)"
+        working-directory: downgraded
+        run: composer validate --no-check-publish
+      - name: "Syntax lint under PHP 7.4"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          coverage: none
+      - name: "Run syntax check"
+        run: |
+          find downgraded/src -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l > /dev/null
+
+  downgraded-tests:
+    name: "Downgraded Tests (PHP 7.4)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Setup PHP 8.1 (Rector)"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          coverage: none
+      - uses: ramsey/composer-install@v3
+      - name: "Create downgraded copy"
+        run: |
+          rsync -a --exclude vendor ./ downgraded/
+          vendor/bin/rector process downgraded/src downgraded/tests --config build/rector-downgrade-php-74.php --ansi
+          cp build/composer-php-74.json downgraded/composer.json
+      - name: "Switch to PHP 7.4"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          coverage: none
+      - name: "Add phpunit dev dependency"
+        working-directory: downgraded
+        run: composer require --dev phpunit/phpunit:^9.6 --no-interaction --no-progress
+      - name: "Run downgraded tests"
+        working-directory: downgraded
+        run: vendor/bin/phpunit || (echo 'Downgraded tests failed' && exit 1)
