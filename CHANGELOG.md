@@ -1,20 +1,8 @@
 ## [5.19.1](https://github.com/mll-lab/php-utils/compare/v5.19.0...v5.19.1) (2025-08-22)
 
-
 ### Bug Fixes
 
 * exclude irrelevant files from composer package ([beb08f3](https://github.com/mll-lab/php-utils/commit/beb08f371142d271536fac834c2c00a337c01cff))
-
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
-
-## Unreleased
 
 ## v5.19.0
 
