@@ -5,7 +5,6 @@ use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\SetList;
 
 return RectorConfig::configure()
-    ->withPhpVersion(81)
     ->withSets([
         SetList::CODE_QUALITY,
         SetList::TYPE_DECLARATION,

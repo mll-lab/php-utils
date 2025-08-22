@@ -6,9 +6,9 @@ use MLL\Utils\Tecan\Rack\ScannedRack;
 
 class BarcodeLocation implements Location
 {
-    private string $barcode;
+    private readonly string $barcode;
 
-    private ScannedRack $rack;
+    private readonly ScannedRack $rack;
 
     public function __construct(string $barcode, ScannedRack $rack)
     {

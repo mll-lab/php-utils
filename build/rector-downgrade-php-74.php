@@ -1,9 +1,6 @@
-<?php
-use Rector\Config\RectorConfig;
-use Rector\Set\ValueObject\DowngradeLevelSetList;
+<?php declare(strict_types=1);
 
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->sets([
-        DowngradeLevelSetList::DOWN_TO_PHP_74,
-    ]);
-};
+use Rector\Config\RectorConfig;
+
+return RectorConfig::configure()
+    ->withDowngradeSets(php74: true);

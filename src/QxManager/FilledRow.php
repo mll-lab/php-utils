@@ -4,37 +4,37 @@ namespace MLL\Utils\QxManager;
 
 class FilledRow
 {
-    private string $experimentType;
+    private readonly string $experimentType;
 
-    private string $supermixName;
+    private readonly string $supermixName;
 
-    private string $assayType;
+    private readonly string $assayType;
 
-    private string $targetType;
+    private readonly string $targetType;
 
-    private string $plot;
+    private readonly string $plot;
 
-    private string $targetName;
+    private readonly string $targetName;
 
-    private string $signalCh1;
+    private readonly string $signalCh1;
 
-    private string $signalCh2;
+    private readonly string $signalCh2;
 
-    private string $sampleDescription1;
+    private readonly string $sampleDescription1;
 
-    private ?string $sampleDescription2;
+    private readonly ?string $sampleDescription2;
 
-    private ?string $sampleDescription3;
+    private readonly ?string $sampleDescription3;
 
-    private ?string $sampleDescription4;
+    private readonly ?string $sampleDescription4;
 
-    private string $sampleType;
+    private readonly string $sampleType;
 
-    private ?int $referenceCopies;
+    private readonly ?int $referenceCopies;
 
-    private ?string $wellNotes;
+    private readonly ?string $wellNotes;
 
-    private ?string $rdqConversionFactor;
+    private readonly ?string $rdqConversionFactor;
 
     public function __construct(
         string $sampleDescription1,

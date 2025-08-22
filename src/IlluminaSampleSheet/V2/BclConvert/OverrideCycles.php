@@ -15,7 +15,7 @@ class OverrideCycles
 
     public ?OverrideCycle $read2;
 
-    private DataSection $dataSection;
+    private readonly DataSection $dataSection;
 
     public function __construct(DataSection $dataSection, string $read1, string $index1, ?string $index2, ?string $read2)
     {

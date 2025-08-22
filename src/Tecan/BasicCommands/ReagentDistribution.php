@@ -7,22 +7,22 @@ use MLL\Utils\Tecan\ReagentDistribution\ReagentDistributionDirection;
 
 class ReagentDistribution extends Command
 {
-    private AspirateAndDispenseParameters $source;
+    private readonly AspirateAndDispenseParameters $source;
 
-    private AspirateAndDispenseParameters $target;
+    private readonly AspirateAndDispenseParameters $target;
 
-    private float $volume;
+    private readonly float $volume;
 
-    private LiquidClass $liquidClass;
+    private readonly LiquidClass $liquidClass;
 
-    private ?int $numberOfDitiReuses;
+    private readonly ?int $numberOfDitiReuses;
 
-    private ?int $numberOfMultiDisp;
+    private readonly ?int $numberOfMultiDisp;
 
-    private ReagentDistributionDirection $direction;
+    private readonly ReagentDistributionDirection $direction;
 
     /** @var array<int>|null */
-    private ?array $excludedTargetWells;
+    private readonly ?array $excludedTargetWells;
 
     /**
      * @param int|null $numberOfDitiReuses optional maximum number of DiTi reuses allowed (default 1 = no DiTi reuse)

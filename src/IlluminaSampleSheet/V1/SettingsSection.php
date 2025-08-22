@@ -6,9 +6,9 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 
 class SettingsSection implements Section
 {
-    private ?string $adapter;
+    private readonly ?string $adapter;
 
-    private ?string $adapterRead2;
+    private readonly ?string $adapterRead2;
 
     public function __construct(?string $adapter = null, ?string $adapterRead2 = null)
     {

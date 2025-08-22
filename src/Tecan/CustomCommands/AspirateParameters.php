@@ -7,9 +7,9 @@ use MLL\Utils\Tecan\Rack\Rack;
 
 class AspirateParameters
 {
-    private Rack $rack;
+    private readonly Rack $rack;
 
-    private int $sourcePosition;
+    private readonly int $sourcePosition;
 
     public function __construct(Rack $rack, int $sourcePosition)
     {

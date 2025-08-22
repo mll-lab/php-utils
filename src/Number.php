@@ -13,10 +13,8 @@ class Number
      * @param float|int $min
      * @param float|int $max
      * @param float|int $current
-     *
-     * @return float|int
      */
-    public static function clamp($min, $max, $current)
+    public static function clamp($min, $max, $current): float|int
     {
         return max($min, min($max, $current));
     }

@@ -9,7 +9,7 @@ namespace MLL\Utils\Tecan\BasicCommands;
  */
 class SetDiTiType extends Command
 {
-    private int $indexOfDiTi;
+    private readonly int $indexOfDiTi;
 
     public function __construct(int $indexOfDiTi)
     {
