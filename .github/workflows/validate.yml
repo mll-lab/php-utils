@@ -129,7 +129,7 @@ jobs:
         run: vendor/bin/rector process src --config build/rector-downgrade-php-74.php --ansi
       - name: "Prepare downgraded artifact"
         run: |
-          cp build/composer-php-74.json composer.json
+          cp build/composer-php-74.json composer.json && rm -f composer.lock
           tar -czf downgraded-src.tar.gz src composer.json
       - name: "Validate downgraded composer.json under PHP 7.4"
         uses: shivammathur/setup-php@v2
