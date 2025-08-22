@@ -193,6 +193,7 @@ jobs:
           rsync -a --exclude vendor ./ downgraded/
           vendor/bin/rector process downgraded/src downgraded/tests --config build/rector-downgrade-php-74.php --ansi
           cp build/composer-php-74.json downgraded/composer.json
+          rm -f downgraded/composer.lock
       - name: "Switch to PHP 7.4"
         uses: shivammathur/setup-php@v2
         with:
