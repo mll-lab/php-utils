@@ -1,3 +1,10 @@
+## [5.19.1](https://github.com/mll-lab/php-utils/compare/v5.19.0...v5.19.1) (2025-08-22)
+
+
+### Bug Fixes
+
+* exclude irrelevant files from composer package ([beb08f3](https://github.com/mll-lab/php-utils/commit/beb08f371142d271536fac834c2c00a337c01cff))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
