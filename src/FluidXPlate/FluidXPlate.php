@@ -16,7 +16,7 @@ class FluidXPlate
     public string $rackID;
 
     /** @var Microplate<string, CoordinateSystem12x8> */
-    private Microplate $microplate;
+    private readonly Microplate $microplate;
 
     public function __construct(string $rackID)
     {
@@ -51,7 +51,7 @@ class FluidXPlate
     /** @return Collection<string, string|null> */
     public function wells(): Collection
     {
-        return $this->microplate->wells();
+        return $this->microplate->wells(); // @phpstan-ignore return.type (generic not inferred)
     }
 
     /** @return Collection<string, null> */
@@ -63,6 +63,6 @@ class FluidXPlate
     /** @return Collection<string, string> */
     public function filledWells(): Collection
     {
-        return $this->microplate->filledWells();
+        return $this->microplate->filledWells(); // @phpstan-ignore return.type (generic not inferred)
     }
 }

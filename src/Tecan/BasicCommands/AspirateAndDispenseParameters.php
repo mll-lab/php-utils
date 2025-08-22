@@ -6,11 +6,11 @@ use MLL\Utils\Tecan\Rack\Rack;
 
 class AspirateAndDispenseParameters
 {
-    private Rack $rack;
+    private readonly Rack $rack;
 
-    private int $startPosition;
+    private readonly int $startPosition;
 
-    private int $endPosition;
+    private readonly int $endPosition;
 
     public function __construct(Rack $rack, int $startPosition, int $endPosition)
     {

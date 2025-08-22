@@ -6,9 +6,9 @@ use MLL\Utils\Tecan\Rack\Rack;
 
 class PositionLocation implements Location
 {
-    private int $position;
+    private readonly int $position;
 
-    private Rack $rack;
+    private readonly Rack $rack;
 
     public function __construct(int $position, Rack $rack)
     {

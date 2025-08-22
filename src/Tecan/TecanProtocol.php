@@ -22,12 +22,12 @@ class TecanProtocol
 
     public const GEMINI_WORKLIST_FILENAME_SUFFIX = '.gwl';
 
-    private TipMask $tipMask;
+    private readonly TipMask $tipMask;
 
-    private string $protocolName;
+    private readonly string $protocolName;
 
     /** @var Collection<int, Command> */
-    private Collection $commands;
+    private readonly Collection $commands;
 
     public ?int $defaultDiTiTypeIndex;
 

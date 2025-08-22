@@ -6,9 +6,9 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 
 class ReadsSection implements Section
 {
-    private int $read1Cycles;
+    private readonly int $read1Cycles;
 
-    private int $read2Cycles;
+    private readonly int $read2Cycles;
 
     public function __construct(int $read1Cycles, int $read2Cycles)
     {

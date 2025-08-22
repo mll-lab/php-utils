@@ -7,9 +7,9 @@ use MLL\Utils\Microplate\CoordinateSystem12x8;
 
 class FilledWell
 {
-    private FilledRow $famRow;
+    private readonly FilledRow $famRow;
 
-    private FilledRow $hexRow;
+    private readonly FilledRow $hexRow;
 
     public function __construct(FilledRow $famRow, FilledRow $hexRow)
     {
