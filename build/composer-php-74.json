@@ -10,7 +10,7 @@
         "illuminate/support": "^8.73",
         "mll-lab/str_putcsv": "^1",
         "nesbot/carbon": "^2.62.1",
-        "ramsey/uuid": "^3",
+        "ramsey/uuid": "^3 || ^4.2.2",
         "thecodingmachine/safe": "^1"
     },
     "require-dev": {
