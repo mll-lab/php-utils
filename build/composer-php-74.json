@@ -35,6 +35,15 @@
             "MLL\\Utils\\": "src/"
         }
     },
+    "config": {
+      "allow-plugins": {
+        "ergebnis/composer-normalize": true,
+        "infection/extension-installer": true,
+        "ocramius/package-versions": true,
+        "phpstan/extension-installer": true
+      },
+      "sort-packages": true
+    },
     "extra": {
         "phpstan": {
             "includes": [
