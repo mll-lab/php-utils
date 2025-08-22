@@ -132,7 +132,7 @@ jobs:
           cp build/composer-php-74.json composer.json && rm -f composer.lock
           tar -czf downgraded-src.tar.gz src composer.json phpstan.neon phpunit.xml extension.neon rules.neon
       - name: "Upload downgraded artifact"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: downgraded-src
           path: downgraded-src.tar.gz
@@ -155,7 +155,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: "Download downgraded artifact"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: downgraded-src
       - name: "Setup PHP 7.4 (Static Analysis)"
@@ -176,7 +176,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: "Download downgraded artifact"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: downgraded-src
       - name: "Setup PHP 7.4 (Tests)"
