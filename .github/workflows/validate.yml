@@ -114,78 +114,34 @@ jobs:
       # Not using v4 due to the breaking changes described in https://github.com/codecov/codecov-action/releases/tag/v4.0.0
       - uses: codecov/codecov-action@v3
 
-  # Optionale Smoke-Prüfung des Downgrade-Prozesses (nur manueller Start)
-  downgrade-smoke:
+  downgraded-build-validate:
+    name: "Downgraded Build Validate (PHP 7.4)"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: "Install PHP 8.1 + tools"
+      - name: "Setup PHP 8.1 (Rector)"
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.1
           coverage: none
       - uses: ramsey/composer-install@v3
-      - name: "Downgrade src"
-        run: vendor/bin/rector process src --config build/rector-downgrade-php-74.php --ansi
-      - name: "Prepare downgraded artifact"
+      - name: "Downgrade src and tests"
         run: |
-          cp build/composer-php-74.json composer.json && rm -f composer.lock
-          tar -czf downgraded-src.tar.gz src composer.json phpstan.neon phpunit.xml extension.neon rules.neon
-      - name: "Upload downgraded artifact"
-        uses: actions/upload-artifact@v4
-        with:
-          name: downgraded-src
-          path: downgraded-src.tar.gz
-      - name: "Validate downgraded composer.json under PHP 7.4"
+          vendor/bin/rector process src tests --config build/rector-downgrade-php-74.php --ansi
+      - name: "Prepare downgraded composer.json"
+        run: |
+          cp build/composer-php-74.json composer.json
+          rm -f composer.lock
+      - name: "Setup PHP 7.4"
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4
           coverage: none
-      - run: |
-          tar -xzf downgraded-src.tar.gz
-          composer install --no-interaction --prefer-dist
-          composer validate --no-check-publish
-      - name: "List downgraded files"
-        run: tar -tzf downgraded-src.tar.gz | head -n 40
-
-  downgraded-static-analysis:
-    name: "Downgraded Static Analysis"
-    needs: downgrade-smoke
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: "Download downgraded artifact"
-        uses: actions/download-artifact@v4
-        with:
-          name: downgraded-src
-      - name: "Setup PHP 7.4 (Static Analysis)"
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.4
-          coverage: none
-      - run: |
-          tar -xzf downgraded-src/downgraded-src.tar.gz
-          composer install --no-interaction --prefer-dist
+      - name: "Install downgraded dependencies"
+        run: composer install --no-interaction --prefer-dist
+      - name: "Validate downgraded composer.json"
+        run: composer validate --no-check-publish
       - name: "Run PHPStan on downgraded src"
         run: vendor/bin/phpstan analyse src --error-format=github
-
-  downgraded-tests:
-    name: "Downgraded Tests (PHP 7.4)"
-    needs: downgrade-smoke
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: "Download downgraded artifact"
-        uses: actions/download-artifact@v4
-        with:
-          name: downgraded-src
-      - name: "Setup PHP 7.4 (Tests)"
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.4
-          coverage: none
-      - run: |
-          tar -xzf downgraded-src/downgraded-src.tar.gz
-          composer install --no-interaction --prefer-dist
       - name: "Run PHPUnit on downgraded src"
         run: vendor/bin/phpunit --configuration phpunit.xml || (echo 'Downgraded tests failed' && exit 1)
