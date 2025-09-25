@@ -11,18 +11,20 @@ class QiaxcelImport
 {
     public string $fileName;
 
-    public string $valueForEmptyCell = 'Leer';
-
     /** @var list<string> */
-    protected array $entries = [];
+    protected array $entries;
+
+    public string $valueForEmptyCell;
 
     /** @param list<string> $entries */
     public function __construct(
         string $fileName,
-        array $entries
+        array $entries,
+        string $valueForEmptyCell = 'Leer'
     ) {
         $this->fileName = $fileName;
         $this->entries = $entries;
+        $this->valueForEmptyCell = $valueForEmptyCell;
     }
 
     public function generate(): SpreadSheet
