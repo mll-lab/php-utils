@@ -2,6 +2,7 @@
 
 namespace MLL\Utils\Qiaxcel;
 
+use Illuminate\Support\Str;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -31,7 +32,7 @@ final class QiaxcelImport
         foreach (array_chunk($this->entries, 12) as $entryChunks) {
             $sampleSheetRow = [];
             foreach ($entryChunks as $entryChunk) {
-                $sampleSheetRow[] = substr($entryChunk, 0, 36); // Maximum 36 characters in Qiaxcel
+                $sampleSheetRow[] = Str::substr($entryChunk, 0, 36); // Maximum 36 characters in Qiaxcel
             }
             $sampleSheetData[] = $sampleSheetRow;
         }
