@@ -36,6 +36,6 @@ test: vendor ## Runs auto-review, unit, and integration tests with phpunit
 	vendor/bin/phpunit --cache-directory=.build/phpunit
 
 vendor: composer.json
-	composer validate --strict
 	composer update
+	composer validate --strict
 	composer normalize
