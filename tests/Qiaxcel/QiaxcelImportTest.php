@@ -14,12 +14,9 @@ final class QiaxcelImportTest extends TestCase
             $entries[] = "Test-Eintrag {$i}";
         }
 
-        $newQiaxelImport = new QiaxcelImport(
-            'test.xlsx',
-            $entries
-        );
+        $newQiaxcelImport = new QiaxcelImport('test.xlsx', $entries);
 
-        $spreadsheet = $newQiaxelImport->generate();
+        $spreadsheet = $newQiaxcelImport->generate();
         $worksheet = $spreadsheet->getActiveSheet();
         $cellA1 = $worksheet->getCell('A1');
         self::assertNotNull($cellA1); // @phpstan-ignore staticMethod.alreadyNarrowedType
