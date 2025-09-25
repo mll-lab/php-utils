@@ -67,7 +67,7 @@ abstract class AbstractMicroplate
         );
     }
 
-    /** @return Collection<string, null> */
+    /** @return Collection<string, (TWell&null)|null> */
     public function freeWells(): Collection
     {
         return $this->wells()->filter(
