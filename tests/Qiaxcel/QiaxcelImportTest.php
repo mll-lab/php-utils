@@ -9,13 +9,15 @@ final class QiaxcelImportTest extends TestCase
 {
     public function testGenerate(): void
     {
+        $entries = [];
+        foreach (range(1, 13) as $i) {
+            $entries[] = "Test-Eintrag {$i}";
+        }
+
         $newQiaxelImport = new QiaxcelImport(
             'test.xlsx',
+            $entries
         );
-
-        foreach (range(1, 13) as $i) {
-            $newQiaxelImport->addEntry("Test-Eintrag {$i}");
-        }
 
         $spreadsheet = $newQiaxelImport->generate();
         $worksheet = $spreadsheet->getActiveSheet();

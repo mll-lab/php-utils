@@ -3,27 +3,26 @@
 namespace MLL\Utils\Qiaxcel;
 
 use Illuminate\Support\Str;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-final class QiaxcelImport
+class QiaxcelImport
 {
     public string $fileName;
 
     public string $valueForEmptyCell = 'Leer';
 
     /** @var list<string> */
-    private array $entries = [];
+    protected array $entries = [];
 
+    /** @param list<string> $entries */
     public function __construct(
-        string $fileName
+        string $fileName,
+        array $entries
     ) {
         $this->fileName = $fileName;
-    }
-
-    public function addEntry(string $content): void
-    {
-        $this->entries[] = $content;
+        $this->entries = $entries;
     }
 
     public function generate(): SpreadSheet
@@ -61,7 +60,7 @@ final class QiaxcelImport
         foreach (range(1, 8) as $number) {
             foreach (range('A', 'L') as $letter) {
                 $cell = $spreadsheet->getActiveSheet()->getCell("{$letter}{$number}");
-                if ($cell !== null) { // @phpstan-ignore if.alwaysTrue, notIdentical.alwaysTrue
+                if ($cell instanceof Cell) { // @phpstan-ignore instanceof.alwaysTrue
                     $value = $cell->getValue();
                     if ($value === '' || $value === null) {
                         $cell->setValue($this->valueForEmptyCell);
