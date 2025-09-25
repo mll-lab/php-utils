@@ -19,10 +19,20 @@ final class QiaxcelImportTest extends TestCase
 
         $spreadsheet = $newQiaxelImport->generate();
         $worksheet = $spreadsheet->getActiveSheet();
-        self::assertEquals('Test-Eintrag 1', $worksheet->getCell('A1')->getValue());
-        self::assertSame('Test-Eintrag 12', $worksheet->getCell('L1')->getValue());
-        self::assertSame('Test-Eintrag 13', $worksheet->getCell('A2')->getValue());
-        self::assertSame('Leer', $worksheet->getCell('B2')->getValue());
-        self::assertSame('Leer', $worksheet->getCell('L8')->getValue());
+        $cellA1 = $worksheet->getCell('A1');
+        self::assertNotNull($cellA1); // @phpstan-ignore staticMethod.alreadyNarrowedType
+        self::assertEquals('Test-Eintrag 1', $cellA1->getValue());
+        $cellL1 = $worksheet->getCell('L1');
+        self::assertNotNull($cellL1); // @phpstan-ignore staticMethod.alreadyNarrowedType
+        self::assertSame('Test-Eintrag 12', $cellL1->getValue());
+        $cellA2 = $worksheet->getCell('A2');
+        self::assertNotNull($cellA2); // @phpstan-ignore staticMethod.alreadyNarrowedType
+        self::assertSame('Test-Eintrag 13', $cellA2->getValue());
+        $cellB2 = $worksheet->getCell('B2');
+        self::assertNotNull($cellB2); // @phpstan-ignore staticMethod.alreadyNarrowedType
+        self::assertSame('Leer', $cellB2->getValue());
+        $cellL8 = $worksheet->getCell('L8');
+        self::assertNotNull($cellL8); // @phpstan-ignore staticMethod.alreadyNarrowedType
+        self::assertSame('Leer', $cellL8->getValue());
     }
 }

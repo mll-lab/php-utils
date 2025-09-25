@@ -61,9 +61,11 @@ final class QiaxcelImport
         foreach (range(1, 8) as $number) {
             foreach (range('A', 'L') as $letter) {
                 $cell = $spreadsheet->getActiveSheet()->getCell("{$letter}{$number}");
-                $value = $cell->getValue();
-                if ($value === '' || $value === null) {
-                    $cell->setValue($this->valueForEmptyCell);
+                if ($cell !== null) { // @phpstan-ignore if.alwaysTrue, notIdentical.alwaysTrue
+                    $value = $cell->getValue();
+                    if ($value === '' || $value === null) {
+                        $cell->setValue($this->valueForEmptyCell);
+                    }
                 }
             }
         }
