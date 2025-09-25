@@ -1,3 +1,10 @@
+# [5.20.0](https://github.com/mll-lab/php-utils/compare/v5.19.1...v5.20.0) (2025-09-25)
+
+
+### Features
+
+* QiaxcelImport allows to create an import file for a Qiaxcel device from Qiagen ([433eea3](https://github.com/mll-lab/php-utils/commit/433eea30de399662089681efa7da9a56f51c7f65))
+
 ## [5.19.1](https://github.com/mll-lab/php-utils/compare/v5.19.0...v5.19.1) (2025-08-22)
 
 ### Bug Fixes
