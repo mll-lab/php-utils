@@ -54,7 +54,7 @@ class FluidXScanner
         $barcodes = [];
         $id = null;
         foreach ($lines as $line) {
-            if ($line === '' || $line === self::READING || $line === self::XTR_96_CONNECTED) {
+            if (in_array($line, ['', self::READING, self::XTR_96_CONNECTED], true)) {
                 continue;
             }
             $content = explode(', ', $line);
