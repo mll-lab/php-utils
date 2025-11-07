@@ -1,12 +1,11 @@
 - [ ] Added automated tests
 - [ ] Documented for all relevant versions
-- [ ] Updated the changelog
 
 <!-- Link to related issues this PR resolves, e.g. "Resolves #236"-->
 
 **Changes**
 
-<!-- Detail the changes in behaviour this PR introduces. -->
+<!-- Detail the changes in behavior this PR introduces. -->
 
 **Breaking changes**
 
