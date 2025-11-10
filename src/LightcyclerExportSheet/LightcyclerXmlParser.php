@@ -5,6 +5,7 @@ namespace MLL\Utils\LightcyclerExportSheet;
 use Illuminate\Support\Collection;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
+use MLL\Utils\SafeCast;
 
 use function Safe\simplexml_load_string;
 
@@ -77,7 +78,7 @@ class LightcyclerXmlParser
         $properties = [];
 
         foreach ($xmlElement->prop as $propertyNode) {
-            $propertyName = (string) $propertyNode->attributes()->name;
+            $propertyName = SafeCast::toString($propertyNode->attributes()->name);
             $propertyValue = $propertyNode->__toString();
 
             if (! isset($properties[$propertyName])) {

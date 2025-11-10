@@ -2,8 +2,6 @@
 
 namespace MLL\Utils;
 
-use Safe\Exceptions\PcreException;
-
 use function Safe\preg_match;
 
 /**
@@ -151,11 +149,7 @@ class SafeCast
      */
     private static function isIntegerString(string $value): bool
     {
-        try {
-            return preg_match('/^[+-]?\d+$/', $value) === 1;
-        } catch (PcreException $ex) {
-            return false;
-        }
+        return preg_match('/^[+-]?\d+$/', $value) === 1;
     }
 
     /**
@@ -165,20 +159,12 @@ class SafeCast
      */
     private static function isNumericString(string $value): bool
     {
-        // Use is_numeric() but verify it's not in a weird format
         if (! is_numeric($value)) {
             return false;
         }
 
-        // is_numeric accepts some formats we might want to reject
-        // like hexadecimal (0x1F) or binary (0b1010)
+        // is_numeric accepts some formats we want to reject, like hexadecimal (0x1F) or binary (0b1010).
         // Check for these and reject them for stricter validation
-        try {
-            $hasHexOrBinary = preg_match('/^0[xXbB]/', $value) === 1;
-
-            return ! $hasHexOrBinary;
-        } catch (PcreException $ex) {
-            return false;
-        }
+        return preg_match('/^0[xXbB]/', $value) !== 1;
     }
 }

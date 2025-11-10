@@ -3,6 +3,7 @@
 namespace MLL\Utils\LightcyclerExportSheet;
 
 use Illuminate\Support\Collection;
+use MLL\Utils\SafeCast;
 
 trait LightcyclerDataParsingTrait
 {
@@ -14,11 +15,7 @@ trait LightcyclerDataParsingTrait
             return null;
         }
 
-        if (! is_numeric($cleanString)) {
-            throw new \InvalidArgumentException("Invalid float value: '{$cleanString}'");
-        }
-
-        return (float) $cleanString;
+        return SafeCast::toFloat($cleanString);
     }
 
     /** @return array{float, float} */

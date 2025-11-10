@@ -4,6 +4,7 @@ namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 use MLL\Utils\IlluminaSampleSheet\V2\HeaderSection;
+use MLL\Utils\SafeCast;
 
 class OverrideCycles
 {
@@ -55,7 +56,7 @@ class OverrideCycles
 
         return new OverrideCycle(
             array_map(
-                fn (array $match): CycleTypeWithCount => new CycleTypeWithCount(new CycleType($match[1]), (int) $match[2]),
+                fn (array $match): CycleTypeWithCount => new CycleTypeWithCount(new CycleType($match[1]), SafeCast::toInt($match[2])),
                 $matches
             )
         );

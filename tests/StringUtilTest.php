@@ -154,7 +154,15 @@ final class StringUtilTest extends TestCase
         );
 
         self::expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('is not a valid numeric format');
         StringUtil::leftPadNumber('foo', 3);
+    }
+
+    public function testLeftPadNumberRejectsHexAndBinary(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('is not a valid numeric format');
+        StringUtil::leftPadNumber('0x1A', 5);
     }
 
     public function testHasContent(): void

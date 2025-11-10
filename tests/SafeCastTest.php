@@ -60,6 +60,8 @@ final class SafeCastTest extends TestCase
         yield ['Float value "5.5" cannot be safely cast to int', 5.5];
         yield ['cannot be safely cast to int (not a whole number or not finite)', INF];
         yield ['Cannot cast value of type "array" to int', []];
+        yield ['Cannot cast value of type "boolean" to int', true];
+        yield ['Cannot cast value of type "boolean" to int', false];
     }
 
     /**
@@ -113,6 +115,8 @@ final class SafeCastTest extends TestCase
         yield ['Cannot cast value of type "array" to float', []];
         yield ['is not a valid numeric format', '0x1A'];
         yield ['is not a valid numeric format', '0b1010'];
+        yield ['Cannot cast value of type "boolean" to float', true];
+        yield ['Cannot cast value of type "boolean" to float', false];
     }
 
     /**
@@ -169,5 +173,7 @@ final class SafeCastTest extends TestCase
     {
         yield ['Cannot cast value of type "object" to string', new \stdClass()];
         yield ['Cannot cast value of type "array" to string', []];
+        yield ['Cannot cast value of type "boolean" to string', true];
+        yield ['Cannot cast value of type "boolean" to string', false];
     }
 }
