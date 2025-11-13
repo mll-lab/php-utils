@@ -9,6 +9,7 @@ return RectorConfig::configure()
         SetList::CODE_QUALITY,
         SetList::TYPE_DECLARATION,
         SetList::RECTOR_PRESET,
+        SetList::PHP_81,
         PHPUnitSetList::PHPUNIT_40,
         PHPUnitSetList::PHPUNIT_50,
         PHPUnitSetList::PHPUNIT_60,
@@ -19,7 +20,6 @@ return RectorConfig::configure()
         PHPUnitSetList::PHPUNIT_110,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
     ])
-    ->withPhpSets()
     ->withRules([
         Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector::class,
     ])

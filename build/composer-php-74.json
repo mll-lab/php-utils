@@ -1,0 +1,43 @@
+{
+    "name": "mll-lab/php-utils",
+    "description": "Shared PHP utility functions of MLL (downgraded build)",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": "^7.4",
+        "ext-calendar": "*",
+        "ext-simplexml": "*",
+        "illuminate/support": "^8.73",
+        "mll-lab/str_putcsv": "^1",
+        "nesbot/carbon": "^2.62.1",
+        "ramsey/uuid": "^3 || ^4.2.2",
+        "thecodingmachine/safe": "^1"
+    },
+    "require-dev": {
+      "ergebnis/composer-normalize": "^2.45",
+      "larastan/larastan": "^1",
+      "mll-lab/php-cs-fixer-config": "^5.10",
+      "orchestra/testbench": "^6.47.1",
+      "phpunit/phpunit": "^9.6.22",
+      "rector/rector": "^1.2",
+      "thecodingmachine/phpstan-safe-rule": "^1.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MLL\\Utils\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MLL\\Utils\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+      "allow-plugins": {
+        "ergebnis/composer-normalize": true,
+        "infection/extension-installer": true,
+        "ocramius/package-versions": true
+      },
+      "sort-packages": true
+    }
+}
