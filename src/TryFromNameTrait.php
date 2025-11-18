@@ -25,6 +25,7 @@ trait TryFromNameTrait
      * Attempts to find an enum case by its name.
      *
      * @param string $name The case-sensitive name of the enum case
+     *
      * @return static|null The matching enum case, or null if not found
      */
     public static function tryFromName(string $name): ?self
