@@ -11,3 +11,12 @@ enum TestEnum: string
     case FOO = 'foo_value';
     case BAR = 'bar_value';
 }
+
+enum PureTestEnum
+{
+    use TryFromNameTrait;
+
+    case FIRST;
+    case SECOND;
+    case THIRD;
+}
