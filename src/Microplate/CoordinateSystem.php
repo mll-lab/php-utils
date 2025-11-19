@@ -3,6 +3,7 @@
 namespace MLL\Utils\Microplate;
 
 use Illuminate\Support\Arr;
+use MLL\Utils\SafeCast;
 
 /**
  * Children should be called `CoordinateSystemXxY`, where X is the number of columns and Y is the number of rows.
@@ -34,14 +35,14 @@ abstract class CoordinateSystem
     /** 0-pad column to be as long as the longest column in the coordinate system. */
     public function padColumn(int $column): string
     {
-        $maxColumnLength = strlen((string) $this->columnsCount());
+        $maxColumnLength = strlen(SafeCast::toString($this->columnsCount()));
 
-        return str_pad((string) $column, $maxColumnLength, '0', STR_PAD_LEFT);
+        return str_pad(SafeCast::toString($column), $maxColumnLength, '0', STR_PAD_LEFT);
     }
 
     public function rowForRowFlowPosition(int $position): string
     {
-        $index = (int) floor(($position - 1) / $this->columnsCount());
+        $index = SafeCast::toInt(floor(($position - 1) / $this->columnsCount()));
 
         return $this->rows()[$index];
     }
@@ -58,7 +59,7 @@ abstract class CoordinateSystem
 
     public function columnForColumnFlowPosition(int $position): int
     {
-        $index = (int) floor(($position - 1) / $this->rowsCount());
+        $index = SafeCast::toInt(floor(($position - 1) / $this->rowsCount()));
 
         return $this->columns()[$index];
     }
