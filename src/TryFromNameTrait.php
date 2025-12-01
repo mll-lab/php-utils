@@ -5,15 +5,15 @@ namespace MLL\Utils;
 /**
  * Provides a method to look up enum cases by their name property.
  *
- * This trait should only be used with PHP 8.1+ enums.
+ * This trait must only be used with PHP 8.1+ native enums.
  *
  * @example
- * enum Status: string
+ * enum Status
  * {
  *     use TryFromNameTrait;
  *
- *     case PENDING = 'pending';
- *     case ACTIVE = 'active';
+ *     case PENDING;
+ *     case ACTIVE;
  * }
  *
  * Status::tryFromName('PENDING'); // Returns Status::PENDING
