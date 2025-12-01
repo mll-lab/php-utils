@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MLL\Utils;
+namespace MLL\Utils\Enum;
 
 /**
  * Provides a method to look up enum cases by their name property.
