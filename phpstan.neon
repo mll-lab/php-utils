@@ -20,12 +20,14 @@ parameters:
   ignoreErrors:
   # This is a library, so it should be extendable
   - '#Unsafe usage of new static.*#'
+
   # Not in older PHPUnit versions
   - '#Attribute class PHPUnit\\Framework\\Attributes\\DataProvider does not exist\.#'
+
   # Allows assert() calls to assist IDE autocompletion
   - message: '#Call to function assert\(\) with true.* will always evaluate to true\.#'
-  # Enums are only available in PHP 8.1+, but we support 7.4+
-  -
-    message: '#Enumerations are only allowed since PHP 8\.1\.#'
+
+  # Optional parts of the library use enums
+  - message: '#Enumerations are only allowed since PHP 8\.1\.#'
     paths:
-      - tests/TestEnum.php
+    - tests/TestEnum.php
