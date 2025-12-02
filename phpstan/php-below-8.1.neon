@@ -32,7 +32,7 @@ parameters:
     - '#Instanceof between .* and .* will always evaluate to true\.#'
     - '#Strict comparison using === between null and null will always evaluate to true\.#'
     - '#Unreachable statement - code above always terminates\.#'
-    - "#PHPDoc tag .@var. with type .* is not subtype of type .*\.#"
+    - '#PHPDoc tag .@var. with type .* is not subtype of type .*\.#'
     - '#Parameter .* of static method .* expects iterable<.*>, .* given\.#'
 
     # PHPDoc parsing differences in older versions
