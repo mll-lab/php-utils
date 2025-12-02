@@ -1,0 +1,29 @@
+includes:
+- extension.neon
+- rules.neon
+rules:
+#- MLL\Utils\PHPStan\Rules\ThrowableClassNameRule
+- MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
+- MLL\Utils\PHPStan\Rules\MissingClosureParameterTypehintRule
+parameters:
+  level: max
+  paths:
+  - src
+  - tests
+  tmpDir: .build/phpstan
+  # As long as we support multiple PHP versions, there will be some dead spots
+  reportUnmatchedIgnoredErrors: false
+  ignoreErrors:
+  # This is a library, so it should be extendable
+  - '#Unsafe usage of new static.*#'
+
+  # Not in older PHPUnit versions
+  - '#Attribute class PHPUnit\\Framework\\Attributes\\DataProvider does not exist\.#'
+
+  # Allows assert() calls to assist IDE autocompletion
+  - message: '#Call to function assert\(\) with true.* will always evaluate to true\.#'
+
+  # Optional parts of the library use enums
+  - message: '#Enumerations are only allowed since PHP 8\.1\.#'
+    paths:
+    - tests/Enum
