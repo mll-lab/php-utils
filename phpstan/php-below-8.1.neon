@@ -3,6 +3,11 @@ parameters:
     # Enums require PHP 8.1+
     - ../src/Enum
     - ../tests/Enum
+    # GraphQL scalars require mll-lab/graphql-php-scalars which is removed for PHP < 8.1
+    - ../src/FluidXPlate/Scalars
+    - ../src/Microplate/Scalars
+    - ../tests/FluidXPlate/Scalars
+    - ../tests/Microplate/Scalars
 
   ignoreErrors:
     # @phpstan-ignore inline comment not supported in older PHPStan
@@ -13,10 +18,22 @@ parameters:
 
     # Differences in type inference between PHPStan versions
     - '#Cannot access property .* on mixed\.#'
+    - '#Cannot call method .* on mixed\.#'
+    - '#Cannot cast mixed to .*\.#'
+    - '#Binary operation .* between mixed and mixed results in an error\.#'
+    - '#Part .* of encapsed string cannot be cast to string\.#'
+    - '#Parameter .* of function count expects array\|Countable, array\|null given\.#'
+    - '#Parameter .* of function array_map expects .*, array\|null given\.#'
+    - '#Parameter .* of function array_map expects \(callable\(mixed\).*, Closure\(array\).* given\.#'
+    - '#Parameter .* expects string, mixed given\.#'
+    - '#Method .* should return .* but returns mixed\.#'
+    - '#Method .* should return .* but returns .*\|null\.#'
     - '#Call to static method PHPUnit\\Framework\\Assert::assertNotNull\(\) with .* will always evaluate to true\.#'
     - '#Instanceof between .* and .* will always evaluate to true\.#'
     - '#Strict comparison using === between null and null will always evaluate to true\.#'
     - '#Unreachable statement - code above always terminates\.#'
+    - "#PHPDoc tag .@var. with type .* is not subtype of type .*\.#"
+    - '#Parameter .* of static method .* expects iterable<.*>, .* given\.#'
 
     # PHPDoc parsing differences in older versions
     - '#PHPDoc tag @param has invalid value.*covariant.*#'
