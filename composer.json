@@ -64,6 +64,11 @@
       "ocramius/package-versions": true,
       "phpstan/extension-installer": true
     },
+    "audit": {
+      "ignore": [
+        "PKSA-8qx3-n5y5-vvnd"
+      ]
+    },
     "sort-packages": true
   },
   "extra": {
