@@ -47,6 +47,10 @@ jobs:
           extensions: mbstring
           php-version: "${{ matrix.php-version }}"
 
+      # PHP 8.0 needs larastan 1.x (Laravel 8 + Symfony 5.x) since Symfony 6.x dropped PHP 8.0 support
+      - if: matrix.php-version == '8.0'
+        run: composer require --dev --no-update "larastan/larastan:^1.0.4"
+
       - uses: ramsey/composer-install@v3
         with:
           dependency-versions: "${{ matrix.dependencies }}"
@@ -83,6 +87,10 @@ jobs:
 
       - if: "! startsWith(matrix.php-version, 8)"
         run: composer remove --dev --no-update rector/rector mll-lab/graphql-php-scalars spaze/phpstan-disallowed-calls
+
+      # Remove enum tests for PHP < 8.1 (enums require PHP 8.1+)
+      - if: matrix.php-version == '7.4' || matrix.php-version == '8.0'
+        run: rm -rf tests/Enum
 
       - uses: ramsey/composer-install@v3
         with:
