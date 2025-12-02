@@ -1,6 +1,7 @@
 includes:
+- phpstan/include-by-php-version.php
 - extension.neon
-- rules.neon
+# rules.neon is conditionally included by include-by-php-version.php (PHP 8.0+ only)
 rules:
 #- MLL\Utils\PHPStan\Rules\ThrowableClassNameRule
 - MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule

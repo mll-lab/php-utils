@@ -28,7 +28,7 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          # Not including 7.4, as PHPStan is hard to get working there
+          - "7.4"
           - "8.0"
           - "8.1"
           - "8.2"
@@ -47,8 +47,11 @@ jobs:
           extensions: mbstring
           php-version: "${{ matrix.php-version }}"
 
-      # PHP 8.0 needs larastan 1.x (Laravel 8 + Symfony 5.x) since Symfony 6.x dropped PHP 8.0 support
-      # Also remove rector which requires newer PHPStan versions incompatible with larastan 1.x
+      # PHP 7.4: Remove all packages incompatible with PHP 7.4
+      - if: "! startsWith(matrix.php-version, 8)"
+        run: composer remove --dev --no-update larastan/larastan rector/rector mll-lab/graphql-php-scalars spaze/phpstan-disallowed-calls
+
+      # PHP 8.0: Use larastan 1.x, remove rector (Symfony 6.x dropped PHP 8.0 support)
       - if: matrix.php-version == '8.0'
         run: |
           composer require --dev --no-update larastan/larastan:^1.0.4
@@ -58,11 +61,7 @@ jobs:
         with:
           dependency-versions: "${{ matrix.dependencies }}"
 
-      - if: matrix.php-version != '8.0'
-        run: vendor/bin/phpstan analyse --configuration=phpstan.neon
-
-      - if: matrix.php-version == '8.0'
-        run: vendor/bin/phpstan analyse --configuration=phpstan-legacy.neon
+      - run: vendor/bin/phpstan analyse --configuration=phpstan.neon
 
   tests:
     name: "Tests - PHP ${{ matrix.php-version }}, ${{ matrix.dependencies }}"
