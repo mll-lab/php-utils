@@ -1,3 +1,10 @@
+# [5.21.0](https://github.com/mll-lab/php-utils/compare/v5.20.0...v5.21.0) (2025-12-02)
+
+
+### Features
+
+* add TryFromNameTrait for enum name lookup ([45e08c3](https://github.com/mll-lab/php-utils/commit/45e08c376e912c3ea64809d918b7e322911d6a5a))
+
 # [5.20.0](https://github.com/mll-lab/php-utils/compare/v5.19.1...v5.20.0) (2025-09-25)
 
 
