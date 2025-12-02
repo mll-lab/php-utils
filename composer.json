@@ -65,10 +65,10 @@
       "phpstan/extension-installer": true
     },
     "audit": {
-      "abandoned": "ignore",
       "ignore": [
         "PKSA-8qx3-n5y5-vvnd"
-      ]
+      ],
+      "abandoned": "ignore"
     },
     "block-insecure": false,
     "sort-packages": true
