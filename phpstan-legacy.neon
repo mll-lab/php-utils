@@ -47,3 +47,7 @@ parameters:
 
   # Return type differences in older PHPStan rule interfaces
   - '#Method MLL\\Utils\\PHPStan\\Rules\\MissingClosureParameterTypehintRule::processNode\(\) should return array<int, PHPStan\\Rules\\IdentifierRuleError> but returns array<int, PHPStan\\Rules\\RuleError>\.#'
+
+  # Existing code with @phpstan-ignore that older versions don't understand
+  - message: '#Cannot access property \$name on SimpleXMLElement\|null\.#'
+    path: src/LightcyclerExportSheet/LightcyclerXmlParser.php
