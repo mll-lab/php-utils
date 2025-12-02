@@ -47,15 +47,15 @@ jobs:
           extensions: mbstring
           php-version: "${{ matrix.php-version }}"
 
-      # PHP 7.4: Remove all packages incompatible with PHP 7.4
-      - if: "! startsWith(matrix.php-version, 8)"
-        run: composer remove --dev --no-update larastan/larastan rector/rector mll-lab/graphql-php-scalars spaze/phpstan-disallowed-calls
+      - if: "startsWith(matrix.php-version, 7)"
+        run: >
+          composer remove --dev --no-update
+          rector/rector
+          mll-lab/graphql-php-scalars
+          spaze/phpstan-disallowed-calls
 
-      # PHP 8.0: Use larastan 1.x, remove rector (Symfony 6.x dropped PHP 8.0 support)
       - if: matrix.php-version == '8.0'
-        run: |
-          composer require --dev --no-update larastan/larastan:^1.0.4
-          composer remove --dev --no-update rector/rector
+        run: composer remove --dev --no-update rector/rector
 
       - uses: ramsey/composer-install@v3
         with:
@@ -91,16 +91,16 @@ jobs:
           extensions: mbstring
           php-version: "${{ matrix.php-version }}"
 
-      - if: "! startsWith(matrix.php-version, 8)"
-        run: composer remove --dev --no-update rector/rector mll-lab/graphql-php-scalars spaze/phpstan-disallowed-calls
+      - if: "startsWith(matrix.php-version, 7)"
+        run: >
+          composer remove --dev --no-update
+          rector/rector
+          mll-lab/graphql-php-scalars
+          spaze/phpstan-disallowed-calls
 
-      # PHP 8.0 needs larastan 1.x and no rector (Symfony 6.x dropped PHP 8.0 support)
       - if: matrix.php-version == '8.0'
-        run: |
-          composer require --dev --no-update "larastan/larastan:^1.0.4"
-          composer remove --dev --no-update rector/rector
+        run: composer remove --dev --no-update rector/rector
 
-      # Remove enum tests for PHP < 8.1 (enums require PHP 8.1+)
       - if: matrix.php-version == '7.4' || matrix.php-version == '8.0'
         run: rm -rf tests/Enum
 
