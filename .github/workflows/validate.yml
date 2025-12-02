@@ -47,7 +47,7 @@ jobs:
           extensions: mbstring
           php-version: "${{ matrix.php-version }}"
 
-      - if: "startsWith(matrix.php-version, 7)"
+      - if: matrix.php-version == '7.4'
         run: >
           composer remove --dev --no-update
           rector/rector
@@ -56,6 +56,9 @@ jobs:
 
       - if: matrix.php-version == '8.0'
         run: composer remove --dev --no-update rector/rector
+
+      - if: matrix.php-version == '7.4' || matrix.php-version == '8.0'
+        run: rm -rf src/Enum tests/Enum src/FluidXPlate/Scalars src/Microplate/Scalars tests/FluidXPlate/Scalars tests/Microplate/Scalars
 
       - uses: ramsey/composer-install@v3
         with:
@@ -91,7 +94,7 @@ jobs:
           extensions: mbstring
           php-version: "${{ matrix.php-version }}"
 
-      - if: "startsWith(matrix.php-version, 7)"
+      - if: matrix.php-version == '7.4'
         run: >
           composer remove --dev --no-update
           rector/rector
@@ -102,7 +105,7 @@ jobs:
         run: composer remove --dev --no-update rector/rector
 
       - if: matrix.php-version == '7.4' || matrix.php-version == '8.0'
-        run: rm -rf tests/Enum
+        run: rm -rf src/Enum tests/Enum src/FluidXPlate/Scalars src/Microplate/Scalars tests/FluidXPlate/Scalars tests/Microplate/Scalars
 
       - uses: ramsey/composer-install@v3
         with:

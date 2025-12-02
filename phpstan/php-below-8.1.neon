@@ -1,14 +1,4 @@
 parameters:
-  excludePaths:
-    # Enums require PHP 8.1+
-    - ../src/Enum
-    - ../tests/Enum
-    # GraphQL scalars require mll-lab/graphql-php-scalars which is removed for PHP < 8.1
-    - ../src/FluidXPlate/Scalars
-    - ../src/Microplate/Scalars
-    - ../tests/FluidXPlate/Scalars
-    - ../tests/Microplate/Scalars
-
   ignoreErrors:
     # @phpstan-ignore inline comment not supported in older PHPStan
     - '#Unknown PHPDoc tag: @phpstan-ignore#'
