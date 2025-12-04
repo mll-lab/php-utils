@@ -31,3 +31,8 @@ parameters:
     paths:
     - tests/Enum
 
+  # Test fixtures intentionally contain ID capitalization violations
+  - message: '#should use "ID" instead of "Id"#'
+    paths:
+    - tests/PHPStan/Rules/CapitalizationOfIDRule/Fixtures/
+
