@@ -1,1 +1,29 @@
-services: []
+parameters:
+	mllCapitalizationOfID:
+		enabled: false
+		checkVariables: true
+		checkParameters: true
+		checkMethods: true
+		checkClasses: true
+
+parametersSchema:
+	mllCapitalizationOfID: structure([
+		enabled: bool()
+		checkVariables: bool()
+		checkParameters: bool()
+		checkMethods: bool()
+		checkClasses: bool()
+	])
+
+conditionalTags:
+	MLL\Utils\PHPStan\Rules\CapitalizationOfIDRule:
+		phpstan.rules.rule: %mllCapitalizationOfID.enabled%
+
+services:
+	-
+		class: MLL\Utils\PHPStan\Rules\CapitalizationOfIDRule
+		arguments:
+			checkVariables: %mllCapitalizationOfID.checkVariables%
+			checkParameters: %mllCapitalizationOfID.checkParameters%
+			checkMethods: %mllCapitalizationOfID.checkMethods%
+			checkClasses: %mllCapitalizationOfID.checkClasses%

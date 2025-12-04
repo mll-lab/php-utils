@@ -30,3 +30,4 @@ parameters:
   - message: '#Enumerations are only allowed since PHP 8\.1\.#'
     paths:
     - tests/Enum
+
