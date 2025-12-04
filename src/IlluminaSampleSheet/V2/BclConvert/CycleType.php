@@ -18,21 +18,21 @@ class CycleType
 
     public static function READ_CYCLE(): self
     {
-        return new self(self::READ_CYCLE);
+        return new static(self::READ_CYCLE);
     }
 
     public static function TRIMMED_CYCLE(): self
     {
-        return new self(self::TRIMMED_CYCLE);
+        return new static(self::TRIMMED_CYCLE);
     }
 
     public static function UMI_CYCLE(): self
     {
-        return new self(self::UMI_CYCLE);
+        return new static(self::UMI_CYCLE);
     }
 
     public static function INDEX_CYCLE(): self
     {
-        return new self(self::INDEX_CYCLE);
+        return new static(self::INDEX_CYCLE);
     }
 }

@@ -11,7 +11,9 @@ use MLL\Utils\StringUtil;
 
 class QxManagerSampleSheet
 {
-    public const EOL = "\r\n";
+    /** QX Manager runs on Windows. */
+    public const NEWLINE = StringUtil::WINDOWS_NEWLINE;
+
     public const DELIMITER = ',';
 
     /** @param Microplate<FilledWell, CoordinateSystem12x8> $microplate */
@@ -27,7 +29,7 @@ Well,Perform Droplet Reading,ExperimentType,Sample description 1,Sample descript
 CSV);
 
         $body = $microplate->sortedWells(FlowDirection::ROW())
-            ->map(function ($well, string $coordinateString) use ($microplate): string {
+            ->map(function ($well, string $coordinateString) use ($microplate): string { /** @phpstan-ignore missingType.parameter (is in template context) */
                 $coordinates = Coordinates::fromString($coordinateString, $microplate->coordinateSystem);
 
                 if ($well instanceof FilledWell) {
@@ -38,8 +40,8 @@ CSV);
                     . QxManagerSampleSheet::DELIMITER
                     . (new EmptyRow())->toString();
             })
-            ->join(self::EOL);
+            ->join(self::NEWLINE);
 
-        return $header . $body . self::EOL;
+        return $header . $body . self::NEWLINE;
     }
 }

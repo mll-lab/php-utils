@@ -1,13 +1,113 @@
-# Changelog
+# [5.22.0](https://github.com/mll-lab/php-utils/compare/v5.21.0...v5.22.0) (2025-12-04)
 
-All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+### Features
 
-See [GitHub releases](https://github.com/mll-lab/php-utils/releases).
+* **phpstan:** add 'Idt' to VariableNameIdToIDRule false positives ([99b1d2d](https://github.com/mll-lab/php-utils/commit/99b1d2dd38c543fb61325198a8bfa0ed7b78e5ef))
 
-## Unreleased
+# [5.21.0](https://github.com/mll-lab/php-utils/compare/v5.20.0...v5.21.0) (2025-12-02)
+
+
+### Features
+
+* add TryFromNameTrait for enum name lookup ([45e08c3](https://github.com/mll-lab/php-utils/commit/45e08c376e912c3ea64809d918b7e322911d6a5a))
+
+# [5.20.0](https://github.com/mll-lab/php-utils/compare/v5.19.1...v5.20.0) (2025-09-25)
+
+
+### Features
+
+* QiaxcelImport allows to create an import file for a Qiaxcel device from Qiagen ([433eea3](https://github.com/mll-lab/php-utils/commit/433eea30de399662089681efa7da9a56f51c7f65))
+
+## [5.19.1](https://github.com/mll-lab/php-utils/compare/v5.19.0...v5.19.1) (2025-08-22)
+
+### Bug Fixes
+
+* exclude irrelevant files from composer package ([beb08f3](https://github.com/mll-lab/php-utils/commit/beb08f371142d271536fac834c2c00a337c01cff))
+
+## v5.19.0
+
+### Added
+
+- Add PHPStan-Rule `MLL\Utils\PHPStan\Rules\MissingClosureParameterTypehintRule.php`
+
+## v5.18.0
+
+### Added
+
+- Support parsing Lightcycler Sample Sheets from XML-file https://github.com/mll-lab/php-utils/pull/56
+
+## v5.17.0
+
+### Added
+
+- Support creating Lightcycler Sample Sheets for Absolute Quantification https://github.com/mll-lab/php-utils/pull/55
+- Accept `iterable $data` in `CSVArray::toCSV` https://github.com/mll-lab/php-utils/pull/55
+
+## v5.16.0
+
+### Added
+
+- Disallow `Carbon\Carbon::create()` via PHPStan rule
+
+## v5.15.0
+
+### Changed
+
+- Update method signatures to use `CarbonInterface` in `MLL\Utils\BavarianHolidays` for better type flexibility
+
+## v5.14.0
+
+### Added
+
+- Register rules as a PHPStan extension
+
+### Deprecated
+
+- Deprecate `NoAssignmentInIfRule`
+
+## v5.13.0
+
+### Added
+
+- Support `illuminate/support` version 12
+- Support `thecodingmachine/safe` version 3
+- Add error identifiers to custom PHPStan rules
+
+### Changed
+
+- Refine PHPDoc types
+
+## v5.12.1
+
+### Fixed
+
+- Update type annotations in namespace `MLL\Utils\Tecan` to use `array<int>` over `array<int, int>`
+
+## v5.12.0
+
+### Added
+
+- Default missing columns to empty strings instead of throwing in `CSVArray::toArray`
+- Ensure extensibility by using `new static` over `new self` everywhere
+
+## v5.11.0
+
+### Added
+
+- Allow `int` parts in `StringUtil::joinNonEmpty`
+
+## v5.10.0
+
+### Added
+
+- Support creating Lightcycler Sample Sheets for Relative Quantification
+
+## v5.9.0
+
+### Added
+
+- Add class `MLL\Utils\Specification` for logical combinations of predicates
 
 ## v6.0.0
 

@@ -9,4 +9,7 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return risky($finder);
+$config = risky($finder);
+$config->setCacheFile(__DIR__ . '/.build/php-cs-fixer/cache');
+
+return $config;

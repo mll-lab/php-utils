@@ -21,14 +21,14 @@ class ReagentDistribution extends Command
 
     private ReagentDistributionDirection $direction;
 
-    /** @var array<int, int>|null */
+    /** @var array<int>|null */
     private ?array $excludedTargetWells;
 
     /**
      * @param int|null $numberOfDitiReuses optional maximum number of DiTi reuses allowed (default 1 = no DiTi reuse)
      * @param int|null $numberOfMultiDisp optional maximum number of dispenses in a multidispense sequence (default 1 = no multi-dispense)
      * @param ReagentDistributionDirection|null $direction optional pipetting direction (default = LEFT_TO_RIGHT)
-     * @param array<int, int>|null $excludedTargetWells Optional list of wells in destination labware to be excluded from pipetting
+     * @param array<int>|null $excludedTargetWells Optional list of wells in destination labware to be excluded from pipetting
      */
     public function __construct(
         AspirateAndDispenseParameters $source,

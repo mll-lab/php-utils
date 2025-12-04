@@ -16,11 +16,11 @@ class ReagentDistributionDirection
 
     public static function LEFT_TO_RIGHT(): self
     {
-        return new self(self::LEFT_TO_RIGHT);
+        return new static(self::LEFT_TO_RIGHT);
     }
 
     public static function RIGHT_TO_LEFT(): self
     {
-        return new self(self::RIGHT_TO_LEFT);
+        return new static(self::RIGHT_TO_LEFT);
     }
 }

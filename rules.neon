@@ -1,0 +1,19 @@
+rules:
+# TODO gradually enable those rules
+#- MLL\Utils\PHPStan\Rules\ThrowableClassNameRule
+#- MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
+#- MLL\Utils\PHPStan\Rules\MissingClosureParameterTypehintRule
+parameters:
+  # https://github.com/spaze/phpstan-disallowed-calls/blob/main/docs/custom-rules.md
+  disallowedFunctionCalls:
+  - function: 'compact()'
+    message: 'makes refactoring code hard.'
+    errorTip: 'use standard array syntax instead.'
+  # https://github.com/itsgoingd/clockwork?tab=readme-ov-file#logging
+  - function: 'clock()'
+    message: 'it is just meant for debugging.'
+    errorTip: 'remove debugging code.'
+  disallowedStaticCalls:
+  - method: 'Carbon\Carbon::create()'
+    message: 'it ignores errors.'
+    errorTip: 'use Carbon\Carbon::createStrict() instead.'

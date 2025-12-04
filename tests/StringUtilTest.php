@@ -12,7 +12,7 @@ final class StringUtilTest extends TestCase
     /**
      * @dataProvider joinNonEmpty
      *
-     * @param iterable<string|null> $parts
+     * @param iterable<string|int|null> $parts
      */
     #[DataProvider('joinNonEmpty')]
     public function testJoinNonEmpty(string $expectedJoined, string $glue, iterable $parts): void
@@ -23,12 +23,12 @@ final class StringUtilTest extends TestCase
         );
     }
 
-    /** @return iterable<array{string, string, iterable<string|null>}> */
+    /** @return iterable<array{string, string, iterable<string|int|null>}> */
     public static function joinNonEmpty(): iterable
     {
-        yield ['a b', ' ', ['a', null, '', 'b']];
-        yield ['ab', '', ['a', null, '', 'b']];
-        yield ['a,b', ',', new Collection(['a', null, '', 'b'])];
+        yield ['a b 0', ' ', ['a', null, 'b', '', 0]];
+        yield ['ab1', '', ['a', null, '', 'b', 1]];
+        yield ['a,b,2', ',', new Collection(['a', 'b', 2, null, ''])];
     }
 
     /** @dataProvider shortenFirstname */

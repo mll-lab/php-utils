@@ -70,7 +70,7 @@ class FullColumnSection extends AbstractSection
     private function nextReservedWell()
     {
         $search = $this->sectionItems->search(AbstractMicroplate::EMPTY_WELL);
-        assert($search === false || is_int($search));
+        assert($search === false || is_int($search)); // @phpstan-ignore-line function.alreadyNarrowedType (not yet supported by PHPStan of older versions)
 
         return $search;
     }

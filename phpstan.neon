@@ -1,5 +1,11 @@
 includes:
-- phpstan-extension.neon
+- phpstan/include-by-php-version.php
+- extension.neon
+# rules.neon is conditionally included by include-by-php-version.php (PHP 8.0+ only)
+rules:
+#- MLL\Utils\PHPStan\Rules\ThrowableClassNameRule
+- MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
+- MLL\Utils\PHPStan\Rules\MissingClosureParameterTypehintRule
 parameters:
   level: max
   paths:
@@ -8,4 +14,19 @@ parameters:
   tmpDir: .build/phpstan
   # Install https://plugins.jetbrains.com/plugin/7677-awesome-console to make those links clickable
   editorUrl: '%%relFile%%:%%line%%'
-  editorUrlTitle: '%%relFile%%:%%line%%'
+  # As long as we support multiple PHP versions, there will be some dead spots
+  reportUnmatchedIgnoredErrors: false
+  ignoreErrors:
+  # This is a library, so it should be extendable
+  - '#Unsafe usage of new static.*#'
+
+  # Not in older PHPUnit versions
+  - '#Attribute class PHPUnit\\Framework\\Attributes\\DataProvider does not exist\.#'
+
+  # Allows assert() calls to assist IDE autocompletion
+  - message: '#Call to function assert\(\) with true.* will always evaluate to true\.#'
+
+  # Optional parts of the library use enums
+  - message: '#Enumerations are only allowed since PHP 8\.1\.#'
+    paths:
+    - tests/Enum

@@ -1,9 +1,6 @@
 <?php declare(strict_types=1);
 
-use Rector\CodeQuality\Rector\Concat\JoinStringConcatRector;
 use Rector\Config\RectorConfig;
-use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector;
-use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\SetList;
 
@@ -23,10 +20,12 @@ return RectorConfig::configure()
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
     ])
     ->withPhpSets()
-    ->withRules([PreferPHPUnitSelfCallRector::class])
+    ->withRules([
+        Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector::class,
+    ])
     ->withSkip([
-        PreferPHPUnitThisCallRector::class, // breaks tests
-        JoinStringConcatRector::class => [
+        Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector::class, // breaks tests
+        Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class => [
             __DIR__ . '/tests/CSVArrayTest.php', // keep `\r\n` for readability
         ],
     ])
@@ -35,4 +34,8 @@ return RectorConfig::configure()
         // Rector uses PHPStan internally, which in turn requires Larastan to be set up correctly
         __DIR__ . '/vendor/larastan/larastan/bootstrap.php',
     ])
-    ->withPHPStanConfigs([__DIR__ . '/phpstan.neon']);
+    ->withPHPStanConfigs([
+        __DIR__ . '/phpstan.neon',
+        __DIR__ . '/vendor/larastan/larastan/extension.neon',
+        __DIR__ . '/vendor/spaze/phpstan-disallowed-calls/extension.neon',
+    ]);

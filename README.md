@@ -1,6 +1,8 @@
 # php-utils
 
-[![Continuous Integration](https://github.com/mll-lab/php-utils/workflows/Continuous%20Integration/badge.svg)](https://github.com/mll-lab/php-utils/actions)
+[![.github/workflows/format.yml](https://github.com/mll-lab/php-utils/actions/workflows/format.yml/badge.svg)](https://github.com/mll-lab/php-utils/actions/workflows/format.yml)
+[![.github/workflows/release.yml](https://github.com/mll-lab/php-utils/actions/workflows/release.yml/badge.svg)](https://github.com/mll-lab/php-utils/actions/workflows/release.yml)
+[![.github/workflows/validate.yml](https://github.com/mll-lab/php-utils/actions/workflows/validate.yml/badge.svg)](https://github.com/mll-lab/php-utils/actions/workflows/validate.yml)
 [![Code Coverage](https://codecov.io/gh/mll-lab/php-utils/branch/master/graph/badge.svg)](https://codecov.io/gh/mll-lab/php-utils)
 
 [![Latest Stable Version](https://poser.pugx.org/mll-lab/php-utils/v/stable)](https://packagist.org/packages/mll-lab/php-utils)
@@ -47,8 +49,11 @@ or registered manually by adding the following to your `phpstan.neon`:
 
 ```diff
 includes:
-+- vendor/mll-lab/php-utils/phpstan-extension.neon
++- vendor/mll-lab/php-utils/extension.neon
++- vendor/mll-lab/php-utils/rules.neon
 ```
+
+Requires `spaze/phpstan-disallowed-calls`.
 
 ## Changelog
 

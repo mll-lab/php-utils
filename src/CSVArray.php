@@ -7,6 +7,8 @@ use Illuminate\Support\Arr;
 /** @phpstan-type CSVPrimitive bool|float|int|string|\Stringable|null */
 class CSVArray
 {
+    public const DEFAULT_EMPTY_VALUE = '';
+
     /**
      * TODO: fix parsing multiline-content in csv.
      *
@@ -36,30 +38,26 @@ class CSVArray
 
             /** @var array<int, string> $entries */
             $entries = str_getcsv($line, $delimiter, $enclosure, $escape);
-            if (count($entries) !== count($columnHeaders)) {
-                throw new \Exception("The number of columns in row {$index} does not match the headers in CSV: {$firstLine}");
-            }
-
             foreach ($columnHeaders as $columnIndex => $columnName) {
-                $result[$index + 1][$columnName] = $entries[$columnIndex];
+                $result[$index + 1][$columnName] = $entries[$columnIndex] ?? self::DEFAULT_EMPTY_VALUE;
             }
         }
 
         return $result;
     }
 
-    /** @param array<int, array<string, CSVPrimitive>> $data */
-    public static function toCSV(array $data, string $delimiter = ';', string $lineSeparator = "\r\n"): string
+    /** @param iterable<array<string, CSVPrimitive>> $data */
+    public static function toCSV(iterable $data, string $delimiter = ';', string $lineSeparator = StringUtil::WINDOWS_NEWLINE): string
     {
-        if ($data === []) {
-            throw new \Exception('Array is empty');
-        }
-
         // Use the keys of the array as the headers of the CSV
         $headerItem = Arr::first($data);
-        if (! is_array($headerItem)) {
-            throw new \Exception('Missing column headers.');
+        if ($headerItem === null) {
+            throw new \Exception('Expected $data to contain at least one item.');
         }
+        assert(
+            is_array($headerItem), // @phpstan-ignore function.alreadyNarrowedType (necessary for older PHPStan/Illuminate versions)
+            'Expected $data to contain arrays.'
+        );
         $headerKeys = array_keys($headerItem);
 
         $content = str_putcsv($headerKeys, $delimiter) . $lineSeparator;

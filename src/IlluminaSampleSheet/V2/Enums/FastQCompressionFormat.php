@@ -16,11 +16,11 @@ class FastQCompressionFormat
 
     public static function GZIP(): self
     {
-        return new self(self::GZIP);
+        return new static(self::GZIP);
     }
 
     public static function DRAGEN(): self
     {
-        return new self(self::DRAGEN);
+        return new static(self::DRAGEN);
     }
 }
