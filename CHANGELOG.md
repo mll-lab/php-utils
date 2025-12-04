@@ -1,3 +1,10 @@
+# [5.22.0](https://github.com/mll-lab/php-utils/compare/v5.21.0...v5.22.0) (2025-12-04)
+
+
+### Features
+
+* **phpstan:** add 'Idt' to VariableNameIdToIDRule false positives ([99b1d2d](https://github.com/mll-lab/php-utils/commit/99b1d2dd38c543fb61325198a8bfa0ed7b78e5ef))
+
 # [5.21.0](https://github.com/mll-lab/php-utils/compare/v5.20.0...v5.21.0) (2025-12-02)
 
 
