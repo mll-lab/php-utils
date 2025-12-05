@@ -1,0 +1,5 @@
+parameters:
+    customRulesetUsed: true
+
+rules:
+    - MLL\Utils\PHPStan\Rules\LabIDCapitalizationRule
