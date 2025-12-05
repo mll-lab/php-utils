@@ -75,6 +75,28 @@ final class LabIDCapitalizationRuleIntegrationTest extends PHPStanTestCase
         self::assertNotContains(14, $errorLines, 'Should not report correct Lab ID capitalization');
     }
 
+    public function testIgnoresIdentifierStrings(): void
+    {
+        $errors = $this->runAnalyse(__DIR__ . '/data/lab-id-capitalization.php');
+
+        $labIDErrors = array_filter(
+            $errors,
+            static fn (Error $error): bool => str_contains($error->getMessage(), 'should use "Lab ID"'),
+        );
+
+        $errorLines = array_map(
+            static fn (Error $error): int => $error->getLine() ?? 0,
+            $labIDErrors,
+        );
+
+        // Lines 44-45: Array keys 'labID', 'LabID' - should NOT be detected (identifier-like)
+        self::assertNotContains(44, $errorLines, 'Should not report array key labID');
+        self::assertNotContains(45, $errorLines, 'Should not report array key LabID');
+
+        // Line 52: Single identifier string 'labID' - should NOT be detected
+        self::assertNotContains(52, $errorLines, 'Should not report identifier string labID');
+    }
+
     /** @return array<Error> */
     private function runAnalyse(string $file): array
     {

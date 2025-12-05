@@ -41,6 +41,11 @@ abstract class CanonicalCapitalizationRule implements Rule
         }
 
         $value = $node->value;
+
+        if ($this->looksLikeIdentifier($value)) {
+            return [];
+        }
+
         $wrongVariant = $this->findWrongVariant($value);
 
         if ($wrongVariant === null) {
@@ -56,6 +61,12 @@ abstract class CanonicalCapitalizationRule implements Rule
                 ->identifier($this->getErrorIdentifier())
                 ->build(),
         ];
+    }
+
+    /** Identifiers (array keys, field names) can't contain spaces, so skip them. */
+    protected function looksLikeIdentifier(string $value): bool
+    {
+        return \Safe\preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $value) === 1;
     }
 
     /** GraphQL queries are annotated with @lang GraphQL and use field names that can't contain spaces. */
