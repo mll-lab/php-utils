@@ -30,3 +30,14 @@ parameters:
   - message: '#Enumerations are only allowed since PHP 8\.1\.#'
     paths:
     - tests/Enum
+
+  # Test fixtures intentionally contain ID capitalization violations
+  - message: '#should use "ID" instead of "Id"#'
+    paths:
+    - tests/PHPStan/data/
+
+  # PHPStan internal API usage is acceptable in tests
+  - message: '#is not covered by backward compatibility promise#'
+    paths:
+    - tests/PHPStan/
+
