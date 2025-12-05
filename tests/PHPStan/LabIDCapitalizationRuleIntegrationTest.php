@@ -97,6 +97,50 @@ final class LabIDCapitalizationRuleIntegrationTest extends PHPStanTestCase
         self::assertNotContains(52, $errorLines, 'Should not report identifier string labID');
     }
 
+    public function testIgnoresSqlQueryWithAnnotation(): void
+    {
+        $errors = $this->runAnalyse(__DIR__ . '/data/lab-id-capitalization.php');
+
+        $labIDErrors = array_filter(
+            $errors,
+            static fn (Error $error): bool => str_contains($error->getMessage(), 'should use "Lab ID"'),
+        );
+
+        $errorLines = array_map(
+            static fn (Error $error): int => $error->getLine() ?? 0,
+            $labIDErrors,
+        );
+
+        // Lines 57-64: SQL query WITH @lang annotation - should NOT be detected
+        $sqlAnnotatedErrors = array_filter(
+            $errorLines,
+            static fn (int $line): bool => $line >= 57 && $line <= 64,
+        );
+
+        self::assertEmpty($sqlAnnotatedErrors, 'Should ignore SQL query with @lang annotation');
+    }
+
+    public function testDetectsSqlQueryWithoutAnnotation(): void
+    {
+        $errors = $this->runAnalyse(__DIR__ . '/data/lab-id-capitalization.php');
+
+        $labIDErrors = array_filter(
+            $errors,
+            static fn (Error $error): bool => str_contains($error->getMessage(), 'should use "Lab ID"'),
+        );
+
+        $errorLines = array_map(
+            static fn (Error $error): int => $error->getLine() ?? 0,
+            $labIDErrors,
+        );
+
+        // Lines 66-72: SQL query WITHOUT @lang annotation - should be detected
+        self::assertTrue(
+            count(array_filter($errorLines, static fn (int $line): bool => $line >= 66 && $line <= 72)) > 0,
+            'Should detect labID in SQL query without @lang annotation',
+        );
+    }
+
     /** @return array<Error> */
     private function runAnalyse(string $file): array
     {

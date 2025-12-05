@@ -53,4 +53,21 @@ class LabIDCapitalizationTestFixture
 
         return $key;
     }
+
+    public function sqlQueryIsIgnored(): string
+    {
+        return /* @lang SQL */ '
+            SELECT exam_no AS labID
+            FROM examinations
+            WHERE labID > 1000
+        ';
+    }
+
+    public function sqlQueryWithoutAnnotationIsChecked(): string
+    {
+        return '
+            SELECT exam_no AS labID
+            FROM examinations
+        ';
+    }
 }

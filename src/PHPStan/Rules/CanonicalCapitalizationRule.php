@@ -36,7 +36,7 @@ abstract class CanonicalCapitalizationRule implements Rule
     /** @param String_ $node */
     public function processNode(Node $node, Scope $scope): array
     {
-        if ($this->hasGraphQLAnnotation($node)) {
+        if ($this->hasLanguageAnnotation($node)) {
             return [];
         }
 
@@ -69,11 +69,15 @@ abstract class CanonicalCapitalizationRule implements Rule
         return \Safe\preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $value) === 1;
     }
 
-    /** GraphQL queries are annotated with @lang GraphQL and use field names that can't contain spaces. */
-    protected function hasGraphQLAnnotation(String_ $node): bool
+    /**
+     * Strings annotated with @lang (GraphQL, SQL, etc.) use field/column names that can't contain spaces.
+     *
+     * @see https://www.jetbrains.com/help/phpstorm/using-language-injections.html
+     */
+    protected function hasLanguageAnnotation(String_ $node): bool
     {
         foreach ($node->getComments() as $comment) {
-            if (Str::contains($comment->getText(), '@lang GraphQL')) {
+            if (Str::contains($comment->getText(), '@lang')) {
                 return true;
             }
         }
