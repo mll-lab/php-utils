@@ -1,30 +1,8 @@
 parameters:
     customRulesetUsed: true
-    mllCapitalizationOfID:
-        enabled: true
-        checkVariables: true
-        checkParameters: true
-        checkMethods: true
-        checkClasses: true
 
-parametersSchema:
-    mllCapitalizationOfID: structure([
-        enabled: bool()
-        checkVariables: bool()
-        checkParameters: bool()
-        checkMethods: bool()
-        checkClasses: bool()
-    ])
-
-conditionalTags:
-    MLL\Utils\PHPStan\Rules\CapitalizationOfIDRule:
-        phpstan.rules.rule: %mllCapitalizationOfID.enabled%
-
-services:
-    -
-        class: MLL\Utils\PHPStan\Rules\CapitalizationOfIDRule
-        arguments:
-            checkVariables: %mllCapitalizationOfID.checkVariables%
-            checkParameters: %mllCapitalizationOfID.checkParameters%
-            checkMethods: %mllCapitalizationOfID.checkMethods%
-            checkClasses: %mllCapitalizationOfID.checkClasses%
+rules:
+    - MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
+    - MLL\Utils\PHPStan\Rules\ParameterNameIdToIDRule
+    - MLL\Utils\PHPStan\Rules\MethodNameIdToIDRule
+    - MLL\Utils\PHPStan\Rules\ClassNameIdToIDRule

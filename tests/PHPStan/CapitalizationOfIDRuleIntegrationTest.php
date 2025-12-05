@@ -2,16 +2,22 @@
 
 namespace MLL\Utils\Tests\PHPStan;
 
-use MLL\Utils\PHPStan\Rules\CapitalizationOfIDRule;
+use MLL\Utils\PHPStan\Rules\ClassNameIdToIDRule;
+use MLL\Utils\PHPStan\Rules\MethodNameIdToIDRule;
+use MLL\Utils\PHPStan\Rules\ParameterNameIdToIDRule;
+use MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule;
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Testing\PHPStanTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
- * Integration tests for CapitalizationOfIDRule using PHPStan's analyser.
+ * Integration tests for ID capitalization rules using PHPStan's analyser.
  *
- * @see CapitalizationOfIDRule
+ * @see VariableNameIdToIDRule
+ * @see ParameterNameIdToIDRule
+ * @see MethodNameIdToIDRule
+ * @see ClassNameIdToIDRule
  */
 final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
 {
@@ -35,13 +41,17 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
         yield [__DIR__ . '/data/correct-capitalization.php', []];
     }
 
-    /** @param array<int, array<int, string>> $expectedErrors */
+    /**
+     * @param array<int, array<int, string>> $expectedErrors
+     *
+     * @dataProvider dataIntegrationTests
+     */
     #[DataProvider('dataIntegrationTests')]
     public function testIntegration(string $file, array $expectedErrors): void
     {
         $errors = $this->runAnalyse($file);
 
-        // Filter to only our rule's errors
+        // Filter to only our rules' errors
         $ourErrors = array_filter(
             $errors,
             static fn (Error $error): bool => str_contains($error->getMessage(), 'should use "ID" instead of "Id"')
@@ -58,7 +68,7 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
     /** @return Error[] */
     private function runAnalyse(string $file): array
     {
-        $file = $this->getFileHelper()->normalizePath($file);
+        $file = self::getFileHelper()->normalizePath($file);
 
         /** @var Analyser $analyser */
         $analyser = self::getContainer()->getByType(Analyser::class); // @phpstan-ignore phpstanApi.classConstant

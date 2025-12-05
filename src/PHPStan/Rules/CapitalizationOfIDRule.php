@@ -3,41 +3,25 @@
 namespace MLL\Utils\PHPStan\Rules;
 
 use Illuminate\Support\Str;
-use MLL\Utils\PHPStan\NodeNameExtractor\ClassNameExtractor;
-use MLL\Utils\PHPStan\NodeNameExtractor\MethodNameExtractor;
-use MLL\Utils\PHPStan\NodeNameExtractor\NodeNameExtractor;
-use MLL\Utils\PHPStan\NodeNameExtractor\ParameterNameExtractor;
-use MLL\Utils\PHPStan\NodeNameExtractor\VariableNameExtractor;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
 /**
- * Checks that "ID" is used instead of "Id" in names.
+ * Abstract base class for rules that check "ID" capitalization.
  *
- * Can be configured to check variables, parameters, methods, and/or classes.
+ * Provides shared logic for detecting and fixing "Id" -> "ID" in names.
+ * Concrete implementations check specific node types (variables, parameters, methods, classes).
  *
- * To enable via phpstan.neon configuration:
- *
- *     parameters:
- *         mllCapitalizationOfID:
- *             enabled: true
- *             checkVariables: true
- *             checkParameters: true
- *             checkMethods: true
- *             checkClasses: true
- *
- * Or add directly to rules: section for default (all checks enabled):
- *
- *     rules:
- *         - MLL\Utils\PHPStan\Rules\CapitalizationOfIDRule
- *
- * For variables-only checking (backwards compatible), use VariableNameIdToIDRule.
+ * @see VariableNameIdToIDRule
+ * @see ParameterNameIdToIDRule
+ * @see MethodNameIdToIDRule
+ * @see ClassNameIdToIDRule
  *
  * @implements Rule<Node>
  */
-class CapitalizationOfIDRule implements Rule
+abstract class CapitalizationOfIDRule implements Rule
 {
     /**
      * Lists words or phrases that contain "Id" but are fine.
@@ -51,33 +35,15 @@ class CapitalizationOfIDRule implements Rule
         'Idt', // IDT is an abbreviation for the brand "Integrated DNA Technologies, Inc."
     ];
 
-    /** @var array<NodeNameExtractor> */
-    private array $extractors;
+    /** Returns the PHPStan error identifier for this rule. */
+    abstract protected function getErrorIdentifier(): string;
 
-    public function __construct(
-        bool $checkVariables = true,
-        bool $checkParameters = true,
-        bool $checkMethods = true,
-        bool $checkClasses = true
-    ) {
-        $this->extractors = $this->buildExtractors($checkVariables, $checkParameters, $checkMethods, $checkClasses);
-    }
-
-    public function getNodeType(): string
-    {
-        return Node::class;
-    }
+    /** Extracts the name from the node, or null if not applicable. */
+    abstract protected function extractName(Node $node): ?string;
 
     public function processNode(Node $node, Scope $scope): array
     {
-        $nodeName = null;
-        foreach ($this->extractors as $extractor) {
-            $extractedName = $extractor->extract($node);
-            if ($extractedName !== null) {
-                $nodeName = $extractedName;
-                break;
-            }
-        }
+        $nodeName = $this->extractName($node);
 
         if ($nodeName === null) {
             return [];
@@ -93,37 +59,9 @@ class CapitalizationOfIDRule implements Rule
             RuleErrorBuilder::message(<<<TXT
                 Name of {$node->getType()} "{$nodeName}" should use "ID" instead of "Id", rename it to "{$expectedName}".
                 TXT)
-                ->identifier('mll.capitalizationOfID')
+                ->identifier($this->getErrorIdentifier())
                 ->build(),
         ];
-    }
-
-    /** @return array<NodeNameExtractor> */
-    private function buildExtractors(
-        bool $checkVariables,
-        bool $checkParameters,
-        bool $checkMethods,
-        bool $checkClasses
-    ): array {
-        $extractors = [];
-
-        if ($checkMethods) {
-            $extractors[] = new MethodNameExtractor();
-        }
-
-        if ($checkParameters) {
-            $extractors[] = new ParameterNameExtractor();
-        }
-
-        if ($checkClasses) {
-            $extractors[] = new ClassNameExtractor();
-        }
-
-        if ($checkVariables) {
-            $extractors[] = new VariableNameExtractor();
-        }
-
-        return $extractors;
     }
 
     public static function containsWrongIDCapitalization(string $nodeName): bool

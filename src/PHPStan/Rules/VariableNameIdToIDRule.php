@@ -2,20 +2,30 @@
 
 namespace MLL\Utils\PHPStan\Rules;
 
-/**
- * Checks that "ID" is used instead of "Id" in variable names only.
- *
- * For checking parameters, methods, and classes as well, use CapitalizationOfIDRule directly.
- */
-class VariableNameIdToIDRule extends CapitalizationOfIDRule
+use PhpParser\Node;
+use PhpParser\Node\Expr\Variable;
+
+/** Checks that "ID" is used instead of "Id" in variable names. */
+final class VariableNameIdToIDRule extends CapitalizationOfIDRule
 {
-    public function __construct()
+    public function getNodeType(): string
     {
-        parent::__construct(
-            true,  // checkVariables
-            false, // checkParameters
-            false, // checkMethods
-            false  // checkClasses
-        );
+        return Variable::class;
+    }
+
+    protected function getErrorIdentifier(): string
+    {
+        return 'mll.variableNameIdToID';
+    }
+
+    protected function extractName(Node $node): ?string
+    {
+        assert($node instanceof Variable);
+
+        if (is_string($node->name)) {
+            return $node->name;
+        }
+
+        return null;
     }
 }

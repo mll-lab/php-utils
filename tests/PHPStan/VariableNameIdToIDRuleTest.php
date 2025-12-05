@@ -3,20 +3,21 @@
 namespace MLL\Utils\Tests\PHPStan;
 
 use MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule;
+use PhpParser\Node\Expr\Variable;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for VariableNameIdToIDRule.
  *
- * The static methods (containsWrongIDCapitalization, fixIDCapitalization) are
+ * Static methods (containsWrongIDCapitalization, fixIDCapitalization) are
  * tested in CapitalizationOfIDRuleTest since they are inherited unchanged.
  */
 final class VariableNameIdToIDRuleTest extends TestCase
 {
-    public function testExtendsCapitalizationOfIDRule(): void
+    public function testReturnsCorrectNodeType(): void
     {
         $rule = new VariableNameIdToIDRule();
 
-        self::assertSame(\PhpParser\Node::class, $rule->getNodeType());
+        self::assertSame(Variable::class, $rule->getNodeType());
     }
 }
