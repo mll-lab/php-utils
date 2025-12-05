@@ -63,7 +63,9 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
         /** @var Analyser $analyser */
         $analyser = self::getContainer()->getByType(Analyser::class);
 
-        return $analyser->analyse([$file])->getErrors();
+        $result = $analyser->analyse([$file]);
+
+        return $result->getErrors();
     }
 
     /**
