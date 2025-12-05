@@ -55,4 +55,13 @@ CSV;
 
         self::assertSame($expected, $dataSection->convertSectionToString());
     }
+
+    public function testThrowsExceptionForInvalidCycleFormat(): void
+    {
+        $dataSection = new DataSection();
+
+        $this->expectException(IlluminaSampleSheetException::class);
+        $this->expectExceptionMessage('Invalid Override Cycle Part');
+        new OverrideCycles($dataSection, 'invalid', 'I8', null, null);
+    }
 }

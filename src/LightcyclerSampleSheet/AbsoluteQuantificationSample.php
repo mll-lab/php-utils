@@ -4,6 +4,7 @@ namespace MLL\Utils\LightcyclerSampleSheet;
 
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
+use MLL\Utils\SafeCast;
 
 class AbsoluteQuantificationSample
 {
@@ -42,7 +43,11 @@ class AbsoluteQuantificationSample
             return null;
         }
 
-        $exponent = (int) floor(log10(abs($concentration)));
+        if ($concentration === 0) {
+            return '0.00E0';
+        }
+
+        $exponent = SafeCast::toInt(floor(log10(abs($concentration))));
         $mantissa = $concentration / (10 ** $exponent);
 
         return number_format($mantissa, 2) . 'E' . $exponent;
