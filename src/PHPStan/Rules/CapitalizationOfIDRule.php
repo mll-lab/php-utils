@@ -8,19 +8,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
-/**
- * Abstract base class for rules that check "ID" capitalization.
- *
- * Provides shared logic for detecting and fixing "Id" -> "ID" in names.
- * Concrete implementations check specific node types (variables, parameters, methods, classes).
- *
- * @see VariableNameIdToIDRule
- * @see ParameterNameIdToIDRule
- * @see MethodNameIdToIDRule
- * @see ClassNameIdToIDRule
- *
- * @implements Rule<Node>
- */
+/** @implements Rule<Node> */
 abstract class CapitalizationOfIDRule implements Rule
 {
     /** @var array<int, string> */

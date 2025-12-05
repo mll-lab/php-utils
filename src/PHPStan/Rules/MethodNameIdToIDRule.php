@@ -5,7 +5,6 @@ namespace MLL\Utils\PHPStan\Rules;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 
-/** Checks that "ID" is used instead of "Id" in method names. */
 final class MethodNameIdToIDRule extends CapitalizationOfIDRule
 {
     public function getNodeType(): string

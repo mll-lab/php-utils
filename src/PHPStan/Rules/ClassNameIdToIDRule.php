@@ -6,7 +6,6 @@ use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
 
-/** Checks that "ID" is used instead of "Id" in class names. */
 final class ClassNameIdToIDRule extends CapitalizationOfIDRule
 {
     public function getNodeType(): string

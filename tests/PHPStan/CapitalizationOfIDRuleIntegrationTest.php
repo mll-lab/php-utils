@@ -7,7 +7,6 @@ use PHPStan\Analyser\Error;
 use PHPStan\Testing\PHPStanTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-/** Integration tests for ID capitalization rules using PHPStan's analyser. */
 final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
 {
     /** @return iterable<array{0: string, 1: array<int, array<int, string>>}> */

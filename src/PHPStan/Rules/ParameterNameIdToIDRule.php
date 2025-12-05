@@ -6,7 +6,6 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Param;
 
-/** Checks that "ID" is used instead of "Id" in parameter names. */
 final class ParameterNameIdToIDRule extends CapitalizationOfIDRule
 {
     public function getNodeType(): string

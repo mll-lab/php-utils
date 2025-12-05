@@ -5,7 +5,6 @@ namespace MLL\Utils\PHPStan\Rules;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 
-/** Checks that "ID" is used instead of "Id" in variable names. */
 final class VariableNameIdToIDRule extends CapitalizationOfIDRule
 {
     public function getNodeType(): string
