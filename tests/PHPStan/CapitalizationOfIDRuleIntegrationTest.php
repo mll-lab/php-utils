@@ -19,7 +19,7 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
             7 => ['Name of Stmt_ClassMethod "getLabId" should use "ID" instead of "Id", rename it to "getLabID".'],
             12 => [
                 'Name of Stmt_ClassMethod "processLabId" should use "ID" instead of "Id", rename it to "processLabID".',
-                'Name of Param "labId" should use "ID" instead of "Id", rename it to "labID".',
+                'Name of Param "$labId" should use "ID" instead of "Id", rename it to "$labID".',
             ],
             14 => [
                 'Name of Expr_Variable "$sampleId" should use "ID" instead of "Id", rename it to "$sampleID".',

@@ -18,6 +18,11 @@ final class ParameterNameIdToIDRule extends CapitalizationOfIDRule
         return 'mll.parameterNameIdToID';
     }
 
+    protected function formatNameForMessage(string $name): string
+    {
+        return '$' . $name;
+    }
+
     protected function extractName(Node $node): ?string
     {
         assert($node instanceof Param);
