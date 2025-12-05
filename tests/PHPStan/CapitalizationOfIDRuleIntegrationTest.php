@@ -44,7 +44,11 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
         // Filter to only our rules' errors
         $ourErrors = array_filter(
             $errors,
-            static fn (Error $error): bool => str_contains($error->getMessage(), 'should use "ID" instead of "Id"')
+            static function (Error $error): bool {
+                $message = $error->getMessage();
+
+                return str_contains($message, 'should use "ID" instead of "Id"');
+            }
         );
 
         if ($expectedErrors === []) {
@@ -76,9 +80,10 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
     {
         foreach ($errors as $error) {
             $errorLine = $error->getLine() ?? 0;
+            $errorMessage = $error->getMessage();
 
-            self::assertArrayHasKey($errorLine, $expectedErrors, "Unexpected error at line {$errorLine}: {$error->getMessage()}");
-            self::assertContains($error->getMessage(), $expectedErrors[$errorLine]);
+            self::assertArrayHasKey($errorLine, $expectedErrors, "Unexpected error at line {$errorLine}: {$errorMessage}");
+            self::assertContains($errorMessage, $expectedErrors[$errorLine]);
         }
     }
 
