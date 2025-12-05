@@ -28,4 +28,9 @@ final class ClassNameIdToIDRule extends CapitalizationOfIDRule
 
         return null;
     }
+
+    public static function fixIDCapitalization(string $nodeName): string
+    {
+        return str_replace('Id', 'ID', $nodeName);
+    }
 }

@@ -12,6 +12,7 @@ class CorrectCapitalization
     public function processLabID(int $labID): void
     {
         $sampleID = $labID;
+        $id = 1;
     }
 
     public function getIdentifier(): string

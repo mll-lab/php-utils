@@ -56,7 +56,7 @@ abstract class CapitalizationOfIDRule implements Rule
 
     public static function containsWrongIDCapitalization(string $nodeName): bool
     {
-        return \Safe\preg_match('/Id/', $nodeName) === 1
+        return Str::contains($nodeName, 'Id')
             && ! Str::contains($nodeName, self::FALSE_POSITIVES);
     }
 

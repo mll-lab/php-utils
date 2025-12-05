@@ -1,8 +1,1 @@
-# This file is intentionally empty.
-# Rules from this package should be added explicitly in your project's phpstan.neon.
-#
-# Available ID capitalization rules:
-# - MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
-# - MLL\Utils\PHPStan\Rules\ParameterNameIdToIDRule
-# - MLL\Utils\PHPStan\Rules\MethodNameIdToIDRule
-# - MLL\Utils\PHPStan\Rules\ClassNameIdToIDRule
+- services: []

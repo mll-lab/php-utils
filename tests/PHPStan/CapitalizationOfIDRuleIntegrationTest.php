@@ -15,8 +15,12 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
         self::getContainer();
 
         yield [__DIR__ . '/data/wrong-capitalization.php', [
-            5 => ['Name of Stmt_Class "LabIdProcessor" should use "ID" instead of "Id", rename it to "LabIDProcessor".'],
-            7 => ['Name of Stmt_ClassMethod "getLabId" should use "ID" instead of "Id", rename it to "getLabID".'],
+            5 => [
+                'Name of Stmt_Class "LabIdProcessor" should use "ID" instead of "Id", rename it to "LabIDProcessor".',
+            ],
+            7 => [
+                'Name of Stmt_ClassMethod "getLabId" should use "ID" instead of "Id", rename it to "getLabID".',
+            ],
             12 => [
                 'Name of Stmt_ClassMethod "processLabId" should use "ID" instead of "Id", rename it to "processLabID".',
                 'Name of Param "$labId" should use "ID" instead of "Id", rename it to "$labID".',
@@ -57,7 +61,7 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
         }
     }
 
-    /** @return Error[] */
+    /** @return array<Error> */
     private function runAnalyse(string $file): array
     {
         $file = self::getFileHelper()->normalizePath($file);
@@ -72,7 +76,7 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
 
     /**
      * @param array<int, array<int, string>> $expectedErrors
-     * @param Error[] $errors
+     * @param array<Error> $errors
      */
     private function assertSameErrorMessages(array $expectedErrors, array $errors): void
     {
@@ -85,7 +89,7 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
         }
     }
 
-    /** @return string[] */
+    /** @return array<string> */
     public static function getAdditionalConfigFiles(): array
     {
         return [
