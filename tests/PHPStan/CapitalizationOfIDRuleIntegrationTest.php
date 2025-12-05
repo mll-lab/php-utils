@@ -2,23 +2,12 @@
 
 namespace MLL\Utils\Tests\PHPStan;
 
-use MLL\Utils\PHPStan\Rules\ClassNameIdToIDRule;
-use MLL\Utils\PHPStan\Rules\MethodNameIdToIDRule;
-use MLL\Utils\PHPStan\Rules\ParameterNameIdToIDRule;
-use MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule;
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Testing\PHPStanTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * Integration tests for ID capitalization rules using PHPStan's analyser.
- *
- * @see VariableNameIdToIDRule
- * @see ParameterNameIdToIDRule
- * @see MethodNameIdToIDRule
- * @see ClassNameIdToIDRule
- */
+/** Integration tests for ID capitalization rules using PHPStan's analyser. */
 final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
 {
     /** @return iterable<array{0: string, 1: array<int, array<int, string>>}> */
@@ -27,14 +16,15 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
         self::getContainer();
 
         yield [__DIR__ . '/data/wrong-capitalization.php', [
+            5 => ['Name of Stmt_Class "LabIdProcessor" should use "ID" instead of "Id", rename it to "LabIDProcessor".'],
             7 => ['Name of Stmt_ClassMethod "getLabId" should use "ID" instead of "Id", rename it to "getLabID".'],
             12 => [
                 'Name of Stmt_ClassMethod "processLabId" should use "ID" instead of "Id", rename it to "processLabID".',
                 'Name of Param "labId" should use "ID" instead of "Id", rename it to "labID".',
             ],
             14 => [
-                'Name of Expr_Variable "sampleId" should use "ID" instead of "Id", rename it to "sampleID".',
-                'Name of Expr_Variable "labId" should use "ID" instead of "Id", rename it to "labID".',
+                'Name of Expr_Variable "$sampleId" should use "ID" instead of "Id", rename it to "$sampleID".',
+                'Name of Expr_Variable "$labId" should use "ID" instead of "Id", rename it to "$labID".',
             ],
         ]];
 

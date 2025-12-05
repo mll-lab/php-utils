@@ -18,6 +18,11 @@ final class VariableNameIdToIDRule extends CapitalizationOfIDRule
         return 'mll.variableNameIdToID';
     }
 
+    protected function formatNameForMessage(string $name): string
+    {
+        return '$' . $name;
+    }
+
     protected function extractName(Node $node): ?string
     {
         assert($node instanceof Variable);

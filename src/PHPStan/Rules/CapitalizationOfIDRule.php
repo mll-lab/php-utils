@@ -41,6 +41,12 @@ abstract class CapitalizationOfIDRule implements Rule
     /** Extracts the name from the node, or null if not applicable. */
     abstract protected function extractName(Node $node): ?string;
 
+    /** Formats the name for display in error messages. Override for custom formatting (e.g., adding $ prefix). */
+    protected function formatNameForMessage(string $name): string
+    {
+        return $name;
+    }
+
     public function processNode(Node $node, Scope $scope): array
     {
         $nodeName = $this->extractName($node);
@@ -54,10 +60,12 @@ abstract class CapitalizationOfIDRule implements Rule
         }
 
         $expectedName = self::fixIDCapitalization($nodeName);
+        $displayName = $this->formatNameForMessage($nodeName);
+        $displayExpectedName = $this->formatNameForMessage($expectedName);
 
         return [
             RuleErrorBuilder::message(<<<TXT
-                Name of {$node->getType()} "{$nodeName}" should use "ID" instead of "Id", rename it to "{$expectedName}".
+                Name of {$node->getType()} "{$displayName}" should use "ID" instead of "Id", rename it to "{$displayExpectedName}".
                 TXT)
                 ->identifier($this->getErrorIdentifier())
                 ->build(),

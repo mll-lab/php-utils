@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Tests\PHPStan\data;
 
-class WrongCapitalization
+class LabIdProcessor
 {
     public function getLabId(): int
     {
