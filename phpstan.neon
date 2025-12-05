@@ -37,10 +37,7 @@ parameters:
     - tests/PHPStan/data/
 
   # PHPStan internal API usage is acceptable in tests
-  - identifier: phpstanApi.method
-    paths:
-    - tests/PHPStan/
-  - identifier: phpstanApi.classConstant
+  - message: '#is not covered by backward compatibility promise#'
     paths:
     - tests/PHPStan/
 
