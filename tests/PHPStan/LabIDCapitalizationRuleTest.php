@@ -29,13 +29,12 @@ final class LabIDCapitalizationRuleTest extends TestCase
     /** @return iterable<array{string, string, string}> */
     public static function wrongCapitalizations(): iterable
     {
-        yield 'LabID in variable' => ['getLabID', 'LabID', 'getLab ID'];
-        yield 'labID in variable' => ['labIDValue', 'labID', 'Lab IDValue'];
-        yield 'LABID uppercase' => ['LABID_CONSTANT', 'LABID', 'Lab ID_CONSTANT'];
-        yield 'Labid mixed' => ['Labid', 'Labid', 'Lab ID'];
-        yield 'Lab-ID with hyphen' => ['Lab-ID', 'Lab-ID', 'Lab ID'];
-        yield 'Lab Id wrong case' => ['Lab Id', 'Lab Id', 'Lab ID'];
-        yield 'In string literal' => ['The LabID is wrong', 'LabID', 'The Lab ID is wrong'];
+        yield 'LabID' => ['The LabID is wrong', 'LabID', 'The Lab ID is wrong'];
+        yield 'labID' => ['Your labID was submitted', 'labID', 'Your Lab ID was submitted'];
+        yield 'LABID' => ['LABID not found', 'LABID', 'Lab ID not found'];
+        yield 'Labid' => ['Labid missing', 'Labid', 'Lab ID missing'];
+        yield 'Lab-ID with hyphen' => ['Enter Lab-ID here', 'Lab-ID', 'Enter Lab ID here'];
+        yield 'Lab Id wrong case' => ['Lab Id is required', 'Lab Id', 'Lab ID is required'];
     }
 
     /** @dataProvider correctCapitalizations */
@@ -52,7 +51,7 @@ final class LabIDCapitalizationRuleTest extends TestCase
     {
         yield 'Correct Lab ID' => ['Lab ID'];
         yield 'In sentence' => ['The Lab ID is correct'];
-        yield 'labID as variable (camelCase)' => ['labId']; // This is ID capitalization, not Lab ID
-        yield 'Unrelated' => ['Laboratory'];
+        yield 'labId lowercase' => ['labId']; // This is ID capitalization, not Lab ID
+        yield 'Unrelated word' => ['Laboratory'];
     }
 }

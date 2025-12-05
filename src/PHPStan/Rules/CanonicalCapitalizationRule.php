@@ -4,17 +4,20 @@ namespace MLL\Utils\PHPStan\Rules;
 
 use Illuminate\Support\Str;
 use PhpParser\Node;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Param;
 use PhpParser\Node\Scalar\String_;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
-/** @implements Rule<Node> */
+/**
+ * Enforces canonical capitalization in string literals.
+ *
+ * Only checks string literals because canonical forms like "Lab ID" contain spaces,
+ * which are invalid in PHP identifiers (variables, methods, classes).
+ * Per coding guidelines: "Unless the circumstances demand otherwise (all lower, no spaces, ...)".
+ *
+ * @implements Rule<String_>
+ */
 abstract class CanonicalCapitalizationRule implements Rule
 {
     /** The correct canonical form, e.g. "Lab ID". */
@@ -27,74 +30,34 @@ abstract class CanonicalCapitalizationRule implements Rule
 
     public function getNodeType(): string
     {
-        return Node::class;
+        return String_::class;
     }
 
+    /** @param String_ $node */
     public function processNode(Node $node, Scope $scope): array
     {
-        $nodeName = $this->extractName($node);
-
-        if ($nodeName === null) {
-            return [];
-        }
-
-        $wrongVariant = $this->findWrongVariant($nodeName);
+        $value = $node->value;
+        $wrongVariant = $this->findWrongVariant($value);
 
         if ($wrongVariant === null) {
             return [];
         }
 
-        $expectedName = $this->fixCapitalization($nodeName, $wrongVariant);
-        $displayName = $this->formatNameForMessage($node, $nodeName);
-        $displayExpectedName = $this->formatNameForMessage($node, $expectedName);
+        $expectedValue = $this->fixCapitalization($value, $wrongVariant);
 
         return [
             RuleErrorBuilder::message(<<<TXT
-                Name of {$node->getType()} "{$displayName}" should use "{$this->getCanonicalForm()}" instead of "{$wrongVariant}", rename it to "{$displayExpectedName}".
+                String "{$value}" should use "{$this->getCanonicalForm()}" instead of "{$wrongVariant}", change it to "{$expectedValue}".
                 TXT)
                 ->identifier($this->getErrorIdentifier())
                 ->build(),
         ];
     }
 
-    protected function extractName(Node $node): ?string
-    {
-        if ($node instanceof Variable && is_string($node->name)) {
-            return $node->name;
-        }
-
-        if ($node instanceof Param && $node->var instanceof Variable && is_string($node->var->name)) {
-            return $node->var->name;
-        }
-
-        if ($node instanceof ClassMethod) {
-            return $node->name->name;
-        }
-
-        if ($node instanceof Class_ && $node->name instanceof Identifier) {
-            return $node->name->name;
-        }
-
-        if ($node instanceof String_) {
-            return $node->value;
-        }
-
-        return null;
-    }
-
-    protected function formatNameForMessage(Node $node, string $name): string
-    {
-        if ($node instanceof Variable || $node instanceof Param) {
-            return '$' . $name;
-        }
-
-        return $name;
-    }
-
-    protected function findWrongVariant(string $nodeName): ?string
+    protected function findWrongVariant(string $value): ?string
     {
         foreach ($this->getWrongVariants() as $wrongVariant) {
-            if (Str::contains($nodeName, $wrongVariant)) {
+            if (Str::contains($value, $wrongVariant)) {
                 return $wrongVariant;
             }
         }
@@ -102,8 +65,8 @@ abstract class CanonicalCapitalizationRule implements Rule
         return null;
     }
 
-    protected function fixCapitalization(string $nodeName, string $wrongVariant): string
+    protected function fixCapitalization(string $value, string $wrongVariant): string
     {
-        return str_replace($wrongVariant, $this->getCanonicalForm(), $nodeName);
+        return str_replace($wrongVariant, $this->getCanonicalForm(), $value);
     }
 }
