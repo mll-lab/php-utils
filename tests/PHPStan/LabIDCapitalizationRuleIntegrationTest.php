@@ -6,6 +6,9 @@ use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Testing\PHPStanTestCase;
 
+/**
+ * @requires PHP >= 8.3
+ */
 final class LabIDCapitalizationRuleIntegrationTest extends PHPStanTestCase
 {
     public function testDetectsWrongCapitalizationInString(): void
