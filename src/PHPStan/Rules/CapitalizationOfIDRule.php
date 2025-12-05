@@ -62,8 +62,8 @@ abstract class CapitalizationOfIDRule implements Rule
 
     public static function fixIDCapitalization(string $nodeName): string
     {
-        if ($nodeName === 'Id') {
-            return 'id';
+        if (str_starts_with($nodeName, 'Id')) {
+            $nodeName = 'id' . substr($nodeName, 2);
         }
 
         return str_replace('Id', 'ID', $nodeName);

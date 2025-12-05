@@ -55,6 +55,8 @@ final class CapitalizationOfIDRuleTest extends TestCase
     public static function wrongToRight(): iterable
     {
         yield ['Id', 'id'];
+        yield ['IdProvider', 'idProvider'];
+        yield ['IdToSomething', 'idToSomething'];
         yield ['labId', 'labID'];
         yield ['labIds', 'labIDs'];
     }
