@@ -39,6 +39,7 @@ final class VariableNameIdToIDRuleTest extends TestCase
         yield ['labID'];
         yield ['labIDs'];
         yield ['testIdentifier'];
+        yield ['openIdtPanelAnalyses'];
     }
 
     /** @dataProvider wrongToRight */

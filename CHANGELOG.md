@@ -1,3 +1,17 @@
+# [5.22.0](https://github.com/mll-lab/php-utils/compare/v5.21.0...v5.22.0) (2025-12-04)
+
+
+### Features
+
+* **phpstan:** add 'Idt' to VariableNameIdToIDRule false positives ([99b1d2d](https://github.com/mll-lab/php-utils/commit/99b1d2dd38c543fb61325198a8bfa0ed7b78e5ef))
+
+# [5.21.0](https://github.com/mll-lab/php-utils/compare/v5.20.0...v5.21.0) (2025-12-02)
+
+
+### Features
+
+* add TryFromNameTrait for enum name lookup ([45e08c3](https://github.com/mll-lab/php-utils/commit/45e08c376e912c3ea64809d918b7e322911d6a5a))
+
 # [5.20.0](https://github.com/mll-lab/php-utils/compare/v5.19.1...v5.20.0) (2025-09-25)
 
 

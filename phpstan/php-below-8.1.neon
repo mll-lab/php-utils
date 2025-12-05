@@ -1,0 +1,36 @@
+parameters:
+  ignoreErrors:
+    # @phpstan-ignore inline comment not supported in older PHPStan
+    - '#Unknown PHPDoc tag: @phpstan-ignore#'
+
+    # Older PHPStan has stricter/different closure parameter typehint checking
+    - '#Closure parameter .* is missing a native type hint\.#'
+
+    # Differences in type inference between PHPStan versions
+    - '#Cannot access property .* on mixed\.#'
+    - '#Cannot call method .* on mixed\.#'
+    - '#Cannot cast mixed to .*\.#'
+    - '#Binary operation .* between mixed and mixed results in an error\.#'
+    - '#Part .* of encapsed string cannot be cast to string\.#'
+    - '#Parameter .* of function count expects array\|Countable, array\|null given\.#'
+    - '#Parameter .* of function array_map expects .*, array\|null given\.#'
+    - '#Parameter .* of function array_map expects \(callable\(mixed\).*, Closure\(array\).* given\.#'
+    - '#Parameter .* expects string, mixed given\.#'
+    - '#Method .* should return .* but returns mixed\.#'
+    - '#Method .* should return .* but returns .*\|null\.#'
+    - '#Call to static method PHPUnit\\Framework\\Assert::assertNotNull\(\) with .* will always evaluate to true\.#'
+    - '#Instanceof between .* and .* will always evaluate to true\.#'
+    - '#Strict comparison using === between null and null will always evaluate to true\.#'
+    - '#Unreachable statement - code above always terminates\.#'
+    - '#PHPDoc tag .@var. with type .* is not subtype of type .*\.#'
+    - '#Parameter .* of static method .* expects iterable<.*>, .* given\.#'
+
+    # PHPDoc parsing differences in older versions
+    - '#PHPDoc tag @param has invalid value.*covariant.*#'
+
+    # Return type differences in older PHPStan rule interfaces
+    - '#Method MLL\\Utils\\PHPStan\\Rules\\MissingClosureParameterTypehintRule::processNode\(\) should return array<int, PHPStan\\Rules\\IdentifierRuleError> but returns array<int, PHPStan\\Rules\\RuleError>\.#'
+
+    # Existing code with @phpstan-ignore that older versions don't understand
+    - message: '#Cannot access property \$name on SimpleXMLElement\|null\.#'
+      path: ../src/LightcyclerExportSheet/LightcyclerXmlParser.php
