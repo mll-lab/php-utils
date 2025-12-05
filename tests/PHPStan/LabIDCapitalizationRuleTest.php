@@ -20,7 +20,9 @@ final class LabIDCapitalizationRuleTest extends TestCase
     public function testDetectsWrongCapitalizations(string $input, string $wrongVariant, string $expected): void
     {
         $findWrongVariant = new \ReflectionMethod($this->rule, 'findWrongVariant');
+        $findWrongVariant->setAccessible(true);
         $fixCapitalization = new \ReflectionMethod($this->rule, 'fixCapitalization');
+        $fixCapitalization->setAccessible(true);
 
         self::assertSame($wrongVariant, $findWrongVariant->invoke($this->rule, $input));
         self::assertSame($expected, $fixCapitalization->invoke($this->rule, $input, $wrongVariant));
@@ -42,6 +44,7 @@ final class LabIDCapitalizationRuleTest extends TestCase
     public function testAllowsCorrectCapitalizations(string $input): void
     {
         $findWrongVariant = new \ReflectionMethod($this->rule, 'findWrongVariant');
+        $findWrongVariant->setAccessible(true);
 
         self::assertNull($findWrongVariant->invoke($this->rule, $input));
     }
