@@ -41,7 +41,6 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
     {
         $errors = $this->runAnalyse($file);
 
-        // Filter to only our rules' errors
         $ourErrors = array_filter(
             $errors,
             static function (Error $error): bool {

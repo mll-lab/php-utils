@@ -23,11 +23,7 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 abstract class CapitalizationOfIDRule implements Rule
 {
-    /**
-     * Lists words or phrases that contain "Id" but are fine.
-     *
-     * @var array<int, string>
-     */
+    /** @var array<int, string> */
     protected const FALSE_POSITIVES = [
         'Identifier',
         'Identical',
@@ -35,13 +31,11 @@ abstract class CapitalizationOfIDRule implements Rule
         'Idt', // IDT is an abbreviation for the brand "Integrated DNA Technologies, Inc."
     ];
 
-    /** Returns the PHPStan error identifier for this rule. */
     abstract protected function getErrorIdentifier(): string;
 
-    /** Extracts the name from the node, or null if not applicable. */
     abstract protected function extractName(Node $node): ?string;
 
-    /** Formats the name for display in error messages. Override for custom formatting (e.g., adding $ prefix). */
+    /** Override for custom formatting (e.g., adding $ prefix for variables). */
     protected function formatNameForMessage(string $name): string
     {
         return $name;
