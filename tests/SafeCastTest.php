@@ -145,7 +145,7 @@ final class SafeCastTest extends TestCase
 
     public function testToStringWithObjectHavingToStringMethod(): void
     {
-        $object = new class() {
+        $object = new class() implements \Stringable {
             public function __toString(): string
             {
                 return 'object-string';
