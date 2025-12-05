@@ -36,6 +36,10 @@ abstract class CanonicalCapitalizationRule implements Rule
     /** @param String_ $node */
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->hasGraphQLAnnotation($node)) {
+            return [];
+        }
+
         $value = $node->value;
         $wrongVariant = $this->findWrongVariant($value);
 
@@ -52,6 +56,18 @@ abstract class CanonicalCapitalizationRule implements Rule
                 ->identifier($this->getErrorIdentifier())
                 ->build(),
         ];
+    }
+
+    /** GraphQL queries are annotated with @lang GraphQL and use field names that can't contain spaces. */
+    protected function hasGraphQLAnnotation(String_ $node): bool
+    {
+        foreach ($node->getComments() as $comment) {
+            if (Str::contains($comment->getText(), '@lang GraphQL')) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     protected function findWrongVariant(string $value): ?string
