@@ -36,3 +36,11 @@ parameters:
     paths:
     - tests/PHPStan/data/
 
+  # PHPStan internal API usage is acceptable in tests
+  - identifier: phpstanApi.method
+    paths:
+    - tests/PHPStan/
+  - identifier: phpstanApi.classConstant
+    paths:
+    - tests/PHPStan/
+

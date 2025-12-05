@@ -61,9 +61,8 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
         $file = self::getFileHelper()->normalizePath($file);
 
         /** @var Analyser $analyser */
-        $analyser = self::getContainer()->getByType(Analyser::class); // @phpstan-ignore phpstanApi.classConstant
+        $analyser = self::getContainer()->getByType(Analyser::class);
 
-        // @phpstan-ignore-next-line PHPStan internal API usage is acceptable in tests
         return $analyser->analyse([$file])->getErrors();
     }
 
