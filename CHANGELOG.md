@@ -1,3 +1,10 @@
+# [5.23.0](https://github.com/mll-lab/php-utils/compare/v5.22.0...v5.23.0) (2025-12-08)
+
+
+### Features
+
+* **phpstan:** add separate ID capitalization rules for variables, parameters, methods, and classes ([#64](https://github.com/mll-lab/php-utils/issues/64)) ([02b2f53](https://github.com/mll-lab/php-utils/commit/02b2f535882b8ccb10503a029487ddb485ae478e))
+
 # [5.22.0](https://github.com/mll-lab/php-utils/compare/v5.21.0...v5.22.0) (2025-12-04)
 
 
