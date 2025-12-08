@@ -62,10 +62,10 @@ abstract class IdToIDRule implements Rule
 
     public static function fixIDCapitalization(string $nodeName): string
     {
-        if (str_starts_with($nodeName, 'Id')) {
-            $nodeName = 'id' . substr($nodeName, 2);
+        if (Str::startsWith($nodeName, 'Id')) {
+            $nodeName = 'id' . Str::substr($nodeName, 2);
         }
 
-        return str_replace('Id', 'ID', $nodeName);
+        return Str::replace('Id', 'ID', $nodeName);
     }
 }
