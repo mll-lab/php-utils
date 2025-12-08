@@ -2,15 +2,6 @@
 
 namespace MLL\Utils\PHPStan\Rules;
 
-/**
- * Enforces correct capitalization of "Lab ID".
- *
- * Detects variants like:
- * - LabID, labID, LABID (missing space)
- * - Labid, labid (wrong case)
- * - Lab-ID, lab-Id (wrong separator)
- * - Lab Id (wrong case after space)
- */
 final class LabIDCapitalizationRule extends CanonicalCapitalizationRule
 {
     protected function getCanonicalForm(): string

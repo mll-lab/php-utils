@@ -10,20 +10,16 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
 /**
- * Enforces canonical capitalization in string literals.
- *
  * Only checks string literals because canonical forms like "Lab ID" contain spaces,
  * which are invalid in PHP identifiers (variables, methods, classes).
- * Per coding guidelines: "Unless the circumstances demand otherwise (all lower, no spaces, ...)".
  *
  * @implements Rule<String_>
  */
 abstract class CanonicalCapitalizationRule implements Rule
 {
-    /** The correct canonical form, e.g. "Lab ID". */
     abstract protected function getCanonicalForm(): string;
 
-    /** @return array<int, string> Wrong variants to detect, e.g. ['LabID', 'labID', 'LABID']. */
+    /** @return array<int, string> */
     abstract protected function getWrongVariants(): array;
 
     abstract protected function getErrorIdentifier(): string;
@@ -42,7 +38,7 @@ abstract class CanonicalCapitalizationRule implements Rule
 
         $value = $node->value;
 
-        if ($this->looksLikeIdentifier($value)) {
+        if ($this->cannotContainSpaces($value)) {
             return [];
         }
 
@@ -63,17 +59,12 @@ abstract class CanonicalCapitalizationRule implements Rule
         ];
     }
 
-    /** Identifiers (array keys, field names) can't contain spaces, so skip them. */
-    protected function looksLikeIdentifier(string $value): bool
+    protected function cannotContainSpaces(string $value): bool
     {
-        return \Safe\preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $value) === 1;
+        return ! str_contains($value, ' ');
     }
 
-    /**
-     * Strings annotated with @lang (GraphQL, SQL, etc.) use field/column names that can't contain spaces.
-     *
-     * @see https://www.jetbrains.com/help/phpstorm/using-language-injections.html
-     */
+    /** @see https://www.jetbrains.com/help/phpstorm/using-language-injections.html */
     protected function hasLanguageAnnotation(String_ $node): bool
     {
         foreach ($node->getComments() as $comment) {

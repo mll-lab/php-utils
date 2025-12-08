@@ -2,16 +2,15 @@
 
 namespace MLL\Utils\Tests\PHPStan;
 
-use PHPStan\Analyser\Analyser;
-use PHPStan\Analyser\Error;
-use PHPStan\Testing\PHPStanTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @requires PHP >= 8.3
  */
-final class LabIDCapitalizationRuleIntegrationTest extends PHPStanTestCase
+final class LabIDCapitalizationRuleIntegrationTest extends PHPStanIntegrationTestCase
 {
+    private const ERROR_PATTERN = 'should use "Lab ID"';
+
     /** @return iterable<string, array{0: string, 1: array<int, array<int, string>>}> */
     public static function dataIntegrationTests(): iterable
     {
@@ -56,63 +55,14 @@ final class LabIDCapitalizationRuleIntegrationTest extends PHPStanTestCase
     #[DataProvider('dataIntegrationTests')]
     public function testIntegration(string $file, array $expectedErrors): void
     {
-        $errors = $this->runAnalyse($file);
-
-        $labIDErrors = array_filter(
-            $errors,
-            static fn (Error $error): bool => str_contains($error->getMessage(), 'should use "Lab ID"'),
-        );
+        $errors = $this->analyseFile($file);
+        $filteredErrors = $this->filterErrors($errors, self::ERROR_PATTERN);
 
         if ($expectedErrors === []) {
-            self::assertEmpty($labIDErrors, 'Should not report errors for correct capitalization');
+            self::assertEmpty($filteredErrors, 'Should not report errors for correct capitalization');
         } else {
-            self::assertNotEmpty($labIDErrors, 'Should detect wrong Lab ID capitalization');
-            $this->assertExpectedErrors($expectedErrors, $labIDErrors);
+            self::assertNotEmpty($filteredErrors, 'Should detect wrong Lab ID capitalization');
+            $this->assertExpectedErrors($expectedErrors, $filteredErrors);
         }
-    }
-
-    /** @return array<Error> */
-    private function runAnalyse(string $file): array
-    {
-        $file = self::getFileHelper()->normalizePath($file);
-
-        /** @var Analyser $analyser */
-        $analyser = self::getContainer()->getByType(Analyser::class);
-
-        $result = $analyser->analyse([$file]);
-
-        return $result->getErrors();
-    }
-
-    /**
-     * @param array<int, array<int, string>> $expectedErrors
-     * @param array<Error> $actualErrors
-     */
-    private function assertExpectedErrors(array $expectedErrors, array $actualErrors): void
-    {
-        foreach ($actualErrors as $error) {
-            $errorLine = $error->getLine() ?? 0;
-            $errorMessage = $error->getMessage();
-
-            self::assertArrayHasKey($errorLine, $expectedErrors, "Unexpected error at line {$errorLine}: {$errorMessage}");
-            self::assertContains($errorMessage, $expectedErrors[$errorLine]);
-        }
-
-        // Verify we got all expected errors
-        $actualLines = array_map(
-            static fn (Error $error): int => $error->getLine() ?? 0,
-            $actualErrors,
-        );
-        foreach (array_keys($expectedErrors) as $expectedLine) {
-            self::assertContains($expectedLine, $actualLines, "Expected error at line {$expectedLine} was not reported");
-        }
-    }
-
-    /** @return array<string> */
-    public static function getAdditionalConfigFiles(): array
-    {
-        return [
-            __DIR__ . '/phpstan-test.neon',
-        ];
     }
 }
