@@ -39,7 +39,6 @@ class LabIDCapitalizationTestFixture
     /** @return array<string, string> */
     public function arrayKeysAreIgnored(): array
     {
-        // Array keys that look like identifiers should be ignored
         return [
             'labID' => 'some value',
             'LabID' => 'another value',
@@ -48,7 +47,6 @@ class LabIDCapitalizationTestFixture
 
     public function identifierStringsAreIgnored(): string
     {
-        // Single identifier strings (no spaces) should be ignored
         $key = 'labID';
 
         return $key;

@@ -46,7 +46,7 @@ final class LabIDCapitalizationRuleTest extends TestCase
     {
         yield 'Correct Lab ID' => ['Lab ID'];
         yield 'In sentence' => ['The Lab ID is correct'];
-        yield 'labId lowercase' => ['labId']; // This is ID capitalization, not Lab ID
+        yield 'labId lowercase' => ['labId'];
         yield 'Unrelated word' => ['Laboratory'];
     }
 }

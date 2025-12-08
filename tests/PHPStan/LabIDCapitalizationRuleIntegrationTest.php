@@ -19,9 +19,7 @@ final class LabIDCapitalizationRuleIntegrationTest extends PHPStanIntegrationTes
         yield 'detects wrong capitalization' => [
             __DIR__ . '/data/lab-id-capitalization.php',
             [
-                // Line 9: 'The LabID is wrong' - wrong capitalization
                 9 => ['String "The LabID is wrong" should use "Lab ID" instead of "LabID", change it to "The Lab ID is wrong".'],
-                // Line 30: GraphQL query WITHOUT @lang annotation - wrong capitalization (multiline string starts here)
                 30 => ['String "
             {
                 patient {
@@ -35,8 +33,7 @@ final class LabIDCapitalizationRuleIntegrationTest extends PHPStanIntegrationTes
                 }
             }
         ".'],
-                // Line 68: SQL query WITHOUT @lang annotation - wrong capitalization (multiline string starts here)
-                68 => ['String "
+                66 => ['String "
             SELECT exam_no AS labID
             FROM examinations
         " should use "Lab ID" instead of "labID", change it to "
