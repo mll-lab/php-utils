@@ -31,6 +31,11 @@ parameters:
     paths:
     - tests/Enum
 
+  # Test fixtures intentionally contain ID capitalization violations
+  - message: '#should use "ID" instead of "Id"#'
+    paths:
+    - tests/PHPStan/data/
+
   # Test fixtures intentionally contain Lab ID capitalization violations
   - message: '#should use "Lab ID" instead of#'
     paths:

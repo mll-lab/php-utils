@@ -2,4 +2,8 @@ parameters:
     customRulesetUsed: true
 
 rules:
+    - MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
+    - MLL\Utils\PHPStan\Rules\ParameterNameIdToIDRule
+    - MLL\Utils\PHPStan\Rules\MethodNameIdToIDRule
+    - MLL\Utils\PHPStan\Rules\ClassNameIdToIDRule
     - MLL\Utils\PHPStan\Rules\LabIDCapitalizationRule
