@@ -19,13 +19,8 @@ final class LabIDCapitalizationRuleTest extends TestCase
     #[DataProvider('wrongCapitalizations')]
     public function testDetectsWrongCapitalizations(string $input, string $wrongVariant, string $expected): void
     {
-        $findWrongVariant = new \ReflectionMethod($this->rule, 'findWrongVariant');
-        $findWrongVariant->setAccessible(true);
-        $fixCapitalization = new \ReflectionMethod($this->rule, 'fixCapitalization');
-        $fixCapitalization->setAccessible(true);
-
-        self::assertSame($wrongVariant, $findWrongVariant->invoke($this->rule, $input));
-        self::assertSame($expected, $fixCapitalization->invoke($this->rule, $input, $wrongVariant));
+        self::assertSame($wrongVariant, $this->rule->findWrongVariant($input));
+        self::assertSame($expected, $this->rule->fixCapitalization($input, $wrongVariant));
     }
 
     /** @return iterable<array{string, string, string}> */
@@ -43,10 +38,7 @@ final class LabIDCapitalizationRuleTest extends TestCase
     #[DataProvider('correctCapitalizations')]
     public function testAllowsCorrectCapitalizations(string $input): void
     {
-        $findWrongVariant = new \ReflectionMethod($this->rule, 'findWrongVariant');
-        $findWrongVariant->setAccessible(true);
-
-        self::assertNull($findWrongVariant->invoke($this->rule, $input));
+        self::assertNull($this->rule->findWrongVariant($input));
     }
 
     /** @return iterable<array{string}> */

@@ -85,7 +85,7 @@ abstract class CanonicalCapitalizationRule implements Rule
         return false;
     }
 
-    protected function findWrongVariant(string $value): ?string
+    public function findWrongVariant(string $value): ?string
     {
         foreach ($this->getWrongVariants() as $wrongVariant) {
             if (Str::contains($value, $wrongVariant)) {
@@ -96,7 +96,7 @@ abstract class CanonicalCapitalizationRule implements Rule
         return null;
     }
 
-    protected function fixCapitalization(string $value, string $wrongVariant): string
+    public function fixCapitalization(string $value, string $wrongVariant): string
     {
         return str_replace($wrongVariant, $this->getCanonicalForm(), $value);
     }
