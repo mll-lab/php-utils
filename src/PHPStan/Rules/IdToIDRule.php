@@ -23,7 +23,6 @@ abstract class IdToIDRule implements Rule
 
     abstract protected function extractName(Node $node): ?string;
 
-    /** Override for custom formatting (e.g., adding $ prefix for variables). */
     protected function formatNameForMessage(string $name): string
     {
         return $name;
