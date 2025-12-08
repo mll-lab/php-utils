@@ -6,7 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
 
-final class ClassNameIdToIDRule extends CapitalizationOfIDRule
+final class ClassNameIdToIDRule extends IdToIDRule
 {
     public function getNodeType(): string
     {

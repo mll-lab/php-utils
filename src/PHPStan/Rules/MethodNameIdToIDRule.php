@@ -5,7 +5,7 @@ namespace MLL\Utils\PHPStan\Rules;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 
-final class MethodNameIdToIDRule extends CapitalizationOfIDRule
+final class MethodNameIdToIDRule extends IdToIDRule
 {
     public function getNodeType(): string
     {

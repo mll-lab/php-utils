@@ -9,7 +9,7 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
 /** @implements Rule<Node> */
-abstract class CapitalizationOfIDRule implements Rule
+abstract class IdToIDRule implements Rule
 {
     /** @var array<int, string> */
     protected const FALSE_POSITIVES = [
