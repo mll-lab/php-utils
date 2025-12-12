@@ -119,8 +119,12 @@ jobs:
           cp build/composer-php-74.json composer.json
           rm -f composer.lock
 
-      - name: "Remove PHPStan tests (require PHPStan framework)"
-        run: rm -rf tests/PHPStan
+      - name: "Remove tests incompatible with PHP 7.4"
+        run: |
+          rm -rf tests/PHPStan      # Requires PHPStan testing framework
+          rm -rf tests/Enum         # PHP 8.1+ enums cannot be downgraded
+          rm -rf tests/FluidXPlate  # Requires graphql-php-scalars (optional)
+          rm -rf tests/Qiaxcel      # Requires phpspreadsheet (optional)
 
       - name: "Setup PHP 7.4"
         uses: shivammathur/setup-php@v2
