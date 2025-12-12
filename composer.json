@@ -31,6 +31,7 @@
     "mll-lab/graphql-php-scalars": "^6.4",
     "mll-lab/php-cs-fixer-config": "^5.10",
     "orchestra/testbench": "^6.47.1 || ^7.52 || ^8.33 || ^9.11 || ^10",
+    "phpoffice/phpspreadsheet": "^1.2 || ^5.1",
     "phpstan/extension-installer": "^1",
     "phpstan/phpstan": "^1.8.11 || ^2.1.6",
     "phpstan/phpstan-deprecation-rules": "^1 || ^2.0.1",
@@ -38,11 +39,12 @@
     "phpstan/phpstan-strict-rules": "^1 || ^2.0.3",
     "phpunit/phpunit": "^9.6.22 || ^10.5.45 || ^11.5.10 || ^12.0.5",
     "rector/rector": "^1.2.10 || ^2.0.9",
-    "spaze/phpstan-disallowed-calls": "^4.4",
+    "spaze/phpstan-disallowed-calls": "^2 || ^4.4",
     "thecodingmachine/phpstan-safe-rule": "^1.2.0"
   },
   "suggest": {
     "mll-lab/graphql-php-scalars": "To use the provided scalar types for GraphQL servers, requires version ^6.3",
+    "phpoffice/phpspreadsheet": "Required if using QiaxcelImport",
     "spaze/phpstan-disallowed-calls": "Required when using the PHPStan configuration from rules.neon directly or through the extension installer"
   },
   "autoload": {
@@ -62,6 +64,13 @@
       "ocramius/package-versions": true,
       "phpstan/extension-installer": true
     },
+    "audit": {
+      "ignore": [
+        "PKSA-8qx3-n5y5-vvnd"
+      ],
+      "abandoned": "ignore"
+    },
+    "block-insecure": false,
     "sort-packages": true
   },
   "extra": {

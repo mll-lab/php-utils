@@ -24,7 +24,6 @@ return RectorConfig::configure()
         Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector::class,
     ])
     ->withSkip([
-        Rector\PHPUnit\CodeQuality\Rector\Class_\RemoveDataProviderParamKeysRector::class, // breaks tests
         Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector::class, // breaks tests
         Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class => [
             __DIR__ . '/tests/CSVArrayTest.php', // keep `\r\n` for readability

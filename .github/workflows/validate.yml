@@ -42,6 +42,7 @@ jobs:
       - uses: ramsey/composer-install@v3
         with:
           dependency-versions: "${{ matrix.dependencies }}"
+
       - run: vendor/bin/phpstan analyse --configuration=phpstan.neon
 
   tests:
@@ -67,6 +68,7 @@ jobs:
       - uses: ramsey/composer-install@v3
         with:
           dependency-versions: "${{ matrix.dependencies }}"
+
       - run: vendor/bin/phpunit
 
   code-coverage:
@@ -82,6 +84,7 @@ jobs:
           php-version: 8.3
 
       - uses: ramsey/composer-install@v3
+
       - run: vendor/bin/phpunit --coverage-clover=.build/logs/clover.xml
 
       # Not using v4 due to the breaking changes described in https://github.com/codecov/codecov-action/releases/tag/v4.0.0
@@ -92,27 +95,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: "Setup PHP 8.3 (Rector)"
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.3
           coverage: none
+
       - uses: ramsey/composer-install@v3
+
       - name: "Downgrade src and tests"
         run: |
           vendor/bin/rector process src tests --config build/rector-downgrade-php-74.php --ansi
+
       - name: "Prepare downgraded composer.json"
         run: |
           cp build/composer-php-74.json composer.json
           rm -f composer.lock
+
       - name: "Setup PHP 7.4"
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4
           coverage: none
+
       - name: "Install downgraded dependencies"
         run: composer install --no-interaction --prefer-dist
+
       - name: "Validate downgraded composer.json"
         run: composer validate --no-check-publish
+
       - name: "Run PHPUnit on downgraded src"
         run: vendor/bin/phpunit

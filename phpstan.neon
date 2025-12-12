@@ -1,6 +1,7 @@
 includes:
+- phpstan/include-by-php-version.php
 - extension.neon
-- rules.neon
+# rules.neon is conditionally included by include-by-php-version.php (PHP 8.0+ only)
 rules:
 #- MLL\Utils\PHPStan\Rules\ThrowableClassNameRule
 - MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
@@ -12,15 +13,31 @@ parameters:
   - tests
   tmpDir: .build/phpstan
   # Install https://plugins.jetbrains.com/plugin/7677-awesome-console to make those links clickable
-  # TODO restore when we can require a newer PHPStan version
   editorUrl: '%%relFile%%:%%line%%'
-  editorUrlTitle: '%%relFile%%:%%line%%'
   # As long as we support multiple PHP versions, there will be some dead spots
   reportUnmatchedIgnoredErrors: false
   ignoreErrors:
   # This is a library, so it should be extendable
   - '#Unsafe usage of new static.*#'
+
   # Not in older PHPUnit versions
   - '#Attribute class PHPUnit\\Framework\\Attributes\\DataProvider does not exist\.#'
+
   # Allows assert() calls to assist IDE autocompletion
   - message: '#Call to function assert\(\) with true.* will always evaluate to true\.#'
+
+  # Optional parts of the library use enums
+  - message: '#Enumerations are only allowed since PHP 8\.1\.#'
+    paths:
+    - tests/Enum
+
+  # Test fixtures intentionally contain ID capitalization violations
+  - message: '#should use "ID" instead of "Id"#'
+    paths:
+    - tests/PHPStan/data/
+
+  # PHPStan internal API usage is acceptable in tests
+  - message: '#is not covered by backward compatibility promise#'
+    paths:
+    - tests/PHPStan/
+

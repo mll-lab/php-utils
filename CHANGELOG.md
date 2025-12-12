@@ -17,6 +17,34 @@ Users on PHP 7.4 or 8.0 should use the `.74` tagged releases:
 composer require mll-lab/php-utils:v6.0.0.74
 ```
 
+# [5.23.0](https://github.com/mll-lab/php-utils/compare/v5.22.0...v5.23.0) (2025-12-08)
+
+
+### Features
+
+* **phpstan:** add separate ID capitalization rules for variables, parameters, methods, and classes ([#64](https://github.com/mll-lab/php-utils/issues/64)) ([02b2f53](https://github.com/mll-lab/php-utils/commit/02b2f535882b8ccb10503a029487ddb485ae478e))
+
+# [5.22.0](https://github.com/mll-lab/php-utils/compare/v5.21.0...v5.22.0) (2025-12-04)
+
+
+### Features
+
+* **phpstan:** add 'Idt' to VariableNameIdToIDRule false positives ([99b1d2d](https://github.com/mll-lab/php-utils/commit/99b1d2dd38c543fb61325198a8bfa0ed7b78e5ef))
+
+# [5.21.0](https://github.com/mll-lab/php-utils/compare/v5.20.0...v5.21.0) (2025-12-02)
+
+
+### Features
+
+* add TryFromNameTrait for enum name lookup ([45e08c3](https://github.com/mll-lab/php-utils/commit/45e08c376e912c3ea64809d918b7e322911d6a5a))
+
+# [5.20.0](https://github.com/mll-lab/php-utils/compare/v5.19.1...v5.20.0) (2025-09-25)
+
+
+### Features
+
+* QiaxcelImport allows to create an import file for a Qiaxcel device from Qiagen ([433eea3](https://github.com/mll-lab/php-utils/commit/433eea30de399662089681efa7da9a56f51c7f65))
+
 ## [5.19.1](https://github.com/mll-lab/php-utils/compare/v5.19.0...v5.19.1) (2025-08-22)
 
 ### Bug Fixes
