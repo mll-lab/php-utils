@@ -4,7 +4,7 @@ namespace MLL\Utils\Tecan\LiquidClass;
 
 class CustomLiquidClass implements LiquidClass
 {
-    private string $name;
+    private readonly string $name;
 
     public function __construct(string $name)
     {

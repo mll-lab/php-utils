@@ -13,9 +13,9 @@ use MLL\Utils\Tecan\TecanProtocol;
 
 class TransferWithAutoWash extends Command implements UsesTipMask
 {
-    private Aspirate $aspirate;
+    private readonly Aspirate $aspirate;
 
-    private Dispense $dispense;
+    private readonly Dispense $dispense;
 
     public function __construct(float $volume, LiquidClass $liquidClass, Location $aspirateLocation, Location $dispenseLocation)
     {

@@ -4,7 +4,7 @@ namespace MLL\Utils\Tecan\BasicCommands;
 
 class Comment extends Command
 {
-    private string $comment;
+    private readonly string $comment;
 
     public function __construct(string $comment)
     {

@@ -13,7 +13,7 @@ use PHPStan\Rules\RuleErrorBuilder;
 /** @implements Rule<Class_> */
 class ThrowableClassNameRule implements Rule
 {
-    private ReflectionProvider $reflectionProvider;
+    private readonly ReflectionProvider $reflectionProvider;
 
     public function __construct(
         ReflectionProvider $reflectionProvider

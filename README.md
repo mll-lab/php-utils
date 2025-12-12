@@ -18,6 +18,16 @@ Install through composer
 composer require mll-lab/php-utils
 ```
 
+### PHP 7.4 / 8.0 Support
+
+The main package requires PHP ^8.1. For PHP 7.4 or 8.0, use the automatically generated `.74` releases:
+
+```sh
+composer require mll-lab/php-utils:v6.0.0.74
+```
+
+These releases are automatically downgraded using [Rector](https://getrector.org) and published alongside each main release.
+
 ## Usage
 
 See [tests](tests).
