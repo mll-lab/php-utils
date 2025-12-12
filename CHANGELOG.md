@@ -1,3 +1,22 @@
+## v6.0.0
+
+### Changed
+
+- Require PHP ^8.1 for the main package
+- Use PHP 8.1 features: `readonly` properties, union type syntax
+
+### Added
+
+- Automatic PHP 7.4 downgraded releases via `.74` tag suffix (e.g., `v6.0.0.74`)
+- GitHub Actions workflow for automated downgrade releases
+
+### Migration
+
+Users on PHP 7.4 or 8.0 should use the `.74` tagged releases:
+```sh
+composer require mll-lab/php-utils:v6.0.0.74
+```
+
 ## [5.19.1](https://github.com/mll-lab/php-utils/compare/v5.19.0...v5.19.1) (2025-08-22)
 
 ### Bug Fixes
