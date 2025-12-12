@@ -127,7 +127,7 @@ jobs:
 
       - name: "Install downgraded dependencies"
         run: |
-          composer update --no-interaction --prefer-dist --prefer-${{ matrix.dependencies }}
+          composer update --no-interaction --prefer-dist ${{ matrix.dependencies == 'lowest' && '--prefer-lowest --prefer-stable' || '' }}
 
       - name: "Validate downgraded composer.json"
         run: composer validate --no-check-publish
