@@ -24,6 +24,10 @@
     "ramsey/uuid": "^3 || ^4",
     "thecodingmachine/safe": "^1 || ^2"
   },
+  "require-dev": {
+    "orchestra/testbench": "^6.47.1 || ^7.52",
+    "phpunit/phpunit": "^9.6"
+  },
   "suggest": {
     "mll-lab/graphql-php-scalars": "To use the provided scalar types for GraphQL servers, requires version ^6.3",
     "phpoffice/phpspreadsheet": "Required if using QiaxcelImport",
@@ -32,6 +36,11 @@
   "autoload": {
     "psr-4": {
       "MLL\\Utils\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MLL\\Utils\\Tests\\": "tests/"
     }
   },
   "config": {
