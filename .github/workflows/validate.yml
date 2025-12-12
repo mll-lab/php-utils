@@ -119,6 +119,9 @@ jobs:
           cp build/composer-php-74.json composer.json
           rm -f composer.lock
 
+      - name: "Remove PHPStan tests (require PHPStan framework)"
+        run: rm -rf tests/PHPStan
+
       - name: "Setup PHP 7.4"
         uses: shivammathur/setup-php@v2
         with:
