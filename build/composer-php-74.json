@@ -25,7 +25,6 @@
     "thecodingmachine/safe": "^1 || ^2"
   },
   "require-dev": {
-    "orchestra/testbench": "^6.47.1 || ^7.52",
     "phpunit/phpunit": "^9.6"
   },
   "suggest": {
@@ -44,6 +43,13 @@
     }
   },
   "config": {
+    "audit": {
+      "ignore": [
+        "PKSA-8qx3-n5y5-vvnd"
+      ],
+      "abandoned": "ignore"
+    },
+    "block-insecure": false,
     "sort-packages": true
   },
   "extra": {
