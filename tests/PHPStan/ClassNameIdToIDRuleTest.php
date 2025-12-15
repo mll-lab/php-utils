@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ClassNameIdToIDRuleTest extends TestCase
 {
+    /** @dataProvider wrongToRight */
     #[DataProvider('wrongToRight')]
     public function testFixIDCapitalization(string $wrong, string $right): void
     {

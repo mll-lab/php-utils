@@ -8,8 +8,16 @@ use PHPUnit\Framework\TestCase;
 
 final class NumberTest extends TestCase
 {
+    /**
+     * @dataProvider clampProvider
+     *
+     * @param float|int $min
+     * @param float|int $max
+     * @param float|int $current
+     * @param float|int $expected
+     */
     #[DataProvider('clampProvider')]
-    public function testClamp(int|float $min, int|float $max, int|float $current, int|float $expected): void
+    public function testClamp($min, $max, $current, $expected): void
     {
         self::assertSame($expected, Number::clamp($min, $max, $current));
     }

@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CoordinateSystemTest extends TestCase
 {
+    /** @dataProvider firstLast */
     #[DataProvider('firstLast')]
     public function testFirstLast(CoordinateSystem $coordinateSystem, string $expectedFirst, string $expectedLast): void
     {

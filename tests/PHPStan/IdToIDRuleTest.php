@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class IdToIDRuleTest extends TestCase
 {
+    /** @dataProvider wrongID */
     #[DataProvider('wrongID')]
     public function testRecognizesWrongCapitalizations(string $variableName): void
     {
@@ -22,6 +23,7 @@ final class IdToIDRuleTest extends TestCase
         yield ['labIds'];
     }
 
+    /** @dataProvider correctID */
     #[DataProvider('correctID')]
     public function testAllowsCorrectCapitalizations(string $variableName): void
     {
@@ -42,6 +44,7 @@ final class IdToIDRuleTest extends TestCase
         yield ['hasIdentity'];
     }
 
+    /** @dataProvider wrongToRight */
     #[DataProvider('wrongToRight')]
     public function testFixIDCapitalization(string $wrong, string $right): void
     {

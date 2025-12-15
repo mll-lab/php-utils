@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DualIndexTest extends TestCase
 {
+    /** @dataProvider provideValidDualIndexes */
     #[DataProvider('provideValidDualIndexes')]
     public function testValidate(
         string $i7IndexID,

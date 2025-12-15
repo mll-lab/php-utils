@@ -76,7 +76,11 @@ final class RackTest extends TestCase
         yield 'MPWater' => [new MPWater(), 'MPWasser', 'Trough 300ml MCA Portrait', 1];
     }
 
-    /** @param BaseRack<mixed> $rack */
+    /**
+     * @param BaseRack<mixed> $rack
+     *
+     * @dataProvider rackDataProvider
+     */
     #[DataProvider('rackDataProvider')]
     public function testRackProperties(BaseRack $rack, string $expectedName, string $expectedType, int $expectedPositionCount): void
     {

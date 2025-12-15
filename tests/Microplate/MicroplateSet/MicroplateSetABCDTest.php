@@ -47,6 +47,7 @@ final class MicroplateSetABCDTest extends TestCase
         $microplateSet->locationFromPosition($setPositionLowerThanMin, FlowDirection::COLUMN());
     }
 
+    /** @dataProvider dataProvider12Well */
     #[DataProvider('dataProvider12Well')]
     public function testSetLocationFromSetPositionFor12Wells(int $position, string $coordinatesString, string $plateID): void
     {
@@ -92,6 +93,7 @@ final class MicroplateSetABCDTest extends TestCase
         ];
     }
 
+    /** @dataProvider dataProvider12x8 */
     #[DataProvider('dataProvider12x8')]
     public function testSetLocationFromSetPositionFor12x8(int $position, string $coordinatesString, string $plateID): void
     {

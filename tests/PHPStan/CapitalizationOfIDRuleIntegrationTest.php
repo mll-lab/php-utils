@@ -34,7 +34,11 @@ final class CapitalizationOfIDRuleIntegrationTest extends PHPStanTestCase
         yield [__DIR__ . '/data/correct-capitalization.php', []];
     }
 
-    /** @param array<int, array<int, string>> $expectedErrors */
+    /**
+     * @param array<int, array<int, string>> $expectedErrors
+     *
+     * @dataProvider dataIntegrationTests
+     */
     #[DataProvider('dataIntegrationTests')]
     public function testIntegration(string $file, array $expectedErrors): void
     {

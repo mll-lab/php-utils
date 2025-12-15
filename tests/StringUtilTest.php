@@ -9,7 +9,11 @@ use PHPUnit\Framework\TestCase;
 
 final class StringUtilTest extends TestCase
 {
-    /** @param iterable<string|int|null> $parts */
+    /**
+     * @dataProvider joinNonEmpty
+     *
+     * @param iterable<string|int|null> $parts
+     */
     #[DataProvider('joinNonEmpty')]
     public function testJoinNonEmpty(string $expectedJoined, string $glue, iterable $parts): void
     {
@@ -27,6 +31,7 @@ final class StringUtilTest extends TestCase
         yield ['a,b,2', ',', new Collection(['a', 'b', 2, null, ''])];
     }
 
+    /** @dataProvider shortenFirstname */
     #[DataProvider('shortenFirstname')]
     public function testShortenFirstname(string $expectedShortened, string $input): void
     {
@@ -46,7 +51,11 @@ final class StringUtilTest extends TestCase
         yield ['', ''];
     }
 
-    /** @param array<int, string> $expectedLines */
+    /**
+     * @dataProvider splitLines
+     *
+     * @param array<int, string> $expectedLines
+     */
     #[DataProvider('splitLines')]
     public function testSplitLines(array $expectedLines, string $input): void
     {
