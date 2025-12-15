@@ -9,12 +9,9 @@ class CycleType
     public const UMI_CYCLE = 'U';
     public const INDEX_CYCLE = 'I';
 
-    public string $value;
-
-    public function __construct(string $value)
-    {
-        $this->value = $value;
-    }
+    public function __construct(
+        public string $value
+    ) {}
 
     public static function READ_CYCLE(): self
     {

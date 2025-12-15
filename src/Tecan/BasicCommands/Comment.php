@@ -4,12 +4,9 @@ namespace MLL\Utils\Tecan\BasicCommands;
 
 class Comment extends Command
 {
-    private readonly string $comment;
-
-    public function __construct(string $comment)
-    {
-        $this->comment = $comment;
-    }
+    public function __construct(
+        private readonly string $comment
+    ) {}
 
     public function toString(): string
     {

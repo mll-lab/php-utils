@@ -6,15 +6,10 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 
 class ReadsSection implements Section
 {
-    private readonly int $read1Cycles;
-
-    private readonly int $read2Cycles;
-
-    public function __construct(int $read1Cycles, int $read2Cycles)
-    {
-        $this->read1Cycles = $read1Cycles;
-        $this->read2Cycles = $read2Cycles;
-    }
+    public function __construct(
+        private readonly int $read1Cycles,
+        private readonly int $read2Cycles
+    ) {}
 
     public function convertSectionToString(): string
     {

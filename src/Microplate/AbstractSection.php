@@ -7,16 +7,13 @@ use Illuminate\Support\Collection;
 /** @template TSectionWell */
 abstract class AbstractSection
 {
-    /** @var SectionedMicroplate<TSectionWell, CoordinateSystem, static> */
-    public SectionedMicroplate $sectionedMicroplate;
-
     /** @var Collection<int, TSectionWell|null> */
     public Collection $sectionItems;
 
     /** @param SectionedMicroplate<TSectionWell, CoordinateSystem, static> $sectionedMicroplate */
-    public function __construct(SectionedMicroplate $sectionedMicroplate)
-    {
-        $this->sectionedMicroplate = $sectionedMicroplate;
+    public function __construct(
+        public SectionedMicroplate $sectionedMicroplate
+    ) {
         $this->sectionItems = new Collection();
     }
 

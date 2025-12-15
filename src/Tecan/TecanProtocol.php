@@ -22,28 +22,22 @@ class TecanProtocol
 
     public const GEMINI_WORKLIST_FILENAME_SUFFIX = '.gwl';
 
-    private readonly TipMask $tipMask;
-
     private readonly string $protocolName;
 
     /** @var Collection<int, Command> */
     private readonly Collection $commands;
 
-    public ?int $defaultDiTiTypeIndex;
-
     public ?int $currentDiTiTypeIndex;
 
     public function __construct(
-        TipMask $tipMask,
+        private readonly TipMask $tipMask,
         ?string $protocolName = null,
         ?string $userName = null,
-        ?int $defaultDiTiTypeIndex = null
+        public ?int $defaultDiTiTypeIndex = null
     ) {
-        $this->tipMask = $tipMask;
         $this->protocolName = $protocolName ?? Str::uuid()->toString();
         $this->commands = $this->buildHeader($userName, $protocolName);
-        $this->defaultDiTiTypeIndex = $defaultDiTiTypeIndex;
-        $this->currentDiTiTypeIndex = $defaultDiTiTypeIndex;
+        $this->currentDiTiTypeIndex = $this->defaultDiTiTypeIndex;
     }
 
     public function addCommand(Command $command): void

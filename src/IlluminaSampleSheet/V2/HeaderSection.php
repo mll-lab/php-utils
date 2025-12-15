@@ -11,8 +11,6 @@ class HeaderSection implements Section
 
     protected string $fileFormatVersion = self::FILE_FORMAT_VERSION;
 
-    public string $runName;
-
     public ?string $runDescription = null;
 
     public ?string $instrumentType = null;
@@ -22,10 +20,9 @@ class HeaderSection implements Section
     /** @var array<string, string> */
     protected array $customParams = [];
 
-    public function __construct(string $runName)
-    {
-        $this->runName = $runName;
-    }
+    public function __construct(
+        public string $runName
+    ) {}
 
     public static function isForwardIndexOrientation(): bool
     {

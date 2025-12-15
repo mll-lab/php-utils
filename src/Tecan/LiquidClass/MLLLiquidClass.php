@@ -8,14 +8,11 @@ class MLLLiquidClass implements LiquidClass
     public const DNA_DILUTION_WATER = 'DNA_Dilution_Water';
     public const TRANSFER_PCR_PRODUKT = 'Transfer_PCR_Produkt';
     public const TRANSFER_MASTERMIX_MP = 'Transfer_Mastermix_MP';
-    public const TRANSFER_TEMPLATE = 'Transfer_Template'; // DNA-templates and BUFFER!
+    public const TRANSFER_TEMPLATE = 'Transfer_Template';
 
-    public string $value;
-
-    public function __construct(string $value)
-    {
-        $this->value = $value;
-    }
+    public function __construct(
+        public string $value
+    ) {}
 
     public static function DNA_DILUTION(): self
     {

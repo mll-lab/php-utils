@@ -42,11 +42,7 @@ final class CSVArrayTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider csvAndArrayStringValues
-     *
-     * @param array<int, array<string, string>> $array
-     */
+    /** @param array<int, array<string, string>> $array */
     #[DataProvider('csvAndArrayStringValues')]
     public function testStringValues(string $csv, array $array): void
     {

@@ -6,15 +6,10 @@ use MLL\Utils\Tecan\Rack\ScannedRack;
 
 class BarcodeLocation implements Location
 {
-    private readonly string $barcode;
-
-    private readonly ScannedRack $rack;
-
-    public function __construct(string $barcode, ScannedRack $rack)
-    {
-        $this->barcode = $barcode;
-        $this->rack = $rack;
-    }
+    public function __construct(
+        private readonly string $barcode,
+        private readonly ScannedRack $rack
+    ) {}
 
     public function tubeID(): string
     {

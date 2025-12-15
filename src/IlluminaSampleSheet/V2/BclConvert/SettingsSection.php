@@ -7,19 +7,12 @@ use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
 
 class SettingsSection implements Section
 {
-    public string $softwareVersion;
-
-    public FastQCompressionFormat $fastqCompressionFormat;
-
     public ?bool $trimUMI = null;
 
     public function __construct(
-        string $softwareVersion,
-        FastQCompressionFormat $fastqCompressionFormat
-    ) {
-        $this->softwareVersion = $softwareVersion;
-        $this->fastqCompressionFormat = $fastqCompressionFormat;
-    }
+        public string $softwareVersion,
+        public FastQCompressionFormat $fastqCompressionFormat
+    ) {}
 
     public function convertSectionToString(): string
     {

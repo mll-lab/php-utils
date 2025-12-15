@@ -19,7 +19,7 @@ class DnaSequence
         $parts = mb_str_split($this->sequence); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
         $reversedParts = array_reverse($parts);
 
-        return implode($reversedParts);
+        return implode('', $reversedParts);
     }
 
     public function complement(): string

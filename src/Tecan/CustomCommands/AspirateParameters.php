@@ -7,15 +7,10 @@ use MLL\Utils\Tecan\Rack\Rack;
 
 class AspirateParameters
 {
-    private readonly Rack $rack;
-
-    private readonly int $sourcePosition;
-
-    public function __construct(Rack $rack, int $sourcePosition)
-    {
-        $this->rack = $rack;
-        $this->sourcePosition = $sourcePosition;
-    }
+    public function __construct(
+        private readonly Rack $rack,
+        private readonly int $sourcePosition
+    ) {}
 
     public function formatToAspirateAndDispenseParameters(): AspirateAndDispenseParameters
     {

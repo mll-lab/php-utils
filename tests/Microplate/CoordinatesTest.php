@@ -24,11 +24,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CoordinatesTest extends TestCase
 {
-    /**
-     * @dataProvider dataProviderWells
-     *
-     * @param array<WellData> $wells
-     */
+    /** @param array<WellData> $wells */
     #[DataProvider('dataProviderWells')]
     public function testConstruct(CoordinateSystem $coordinateSystem, array $wells): void
     {
@@ -38,11 +34,7 @@ final class CoordinatesTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider dataProviderWells
-     *
-     * @param array<WellData> $wells
-     */
+    /** @param array<WellData> $wells */
     #[DataProvider('dataProviderWells')]
     public function testFromArray(CoordinateSystem $coordinateSystem, array $wells): void
     {
@@ -52,11 +44,7 @@ final class CoordinatesTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider dataProviderWells
-     *
-     * @param array<WellData> $wells
-     */
+    /** @param array<WellData> $wells */
     #[DataProvider('dataProviderWells')]
     public function testFromPosition(CoordinateSystem $coordinateSystem, array $wells): void
     {
@@ -81,11 +69,7 @@ final class CoordinatesTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider dataProviderWells
-     *
-     * @param array<WellData> $wells
-     */
+    /** @param array<WellData> $wells */
     #[DataProvider('dataProviderWells')]
     public function testFromString(CoordinateSystem $coordinateSystem, array $wells): void
     {
@@ -97,8 +81,6 @@ final class CoordinatesTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProviderPaddedWells
-     *
      * @param array<array{
      *     paddedCoordinates: string,
      *     row: string,
@@ -116,11 +98,7 @@ final class CoordinatesTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider dataProviderWells
-     *
-     * @param array<WellData> $wells
-     */
+    /** @param array<WellData> $wells */
     #[DataProvider('dataProviderWells')]
     public function testPosition(CoordinateSystem $coordinateSystem, array $wells): void
     {
@@ -220,11 +198,7 @@ final class CoordinatesTest extends TestCase
         yield '12x8' => [new CoordinateSystem12x8(), self::data12x8()];
     }
 
-    /**
-     * @dataProvider invalidRowsOrColumns
-     *
-     * @param array<int, array{string, int}> $rowsAndColumns
-     */
+    /** @param array<int, array{string, int}> $rowsAndColumns */
     #[DataProvider('invalidRowsOrColumns')]
     public function testThrowsOnInvalidRowsOrColumns(CoordinateSystem $coordinateSystem, array $rowsAndColumns): void
     {
@@ -244,11 +218,7 @@ final class CoordinatesTest extends TestCase
         yield '12x8' => [new CoordinateSystem12x8(), [['X', 2], ['B', 0], ['B', 13], ['B', -1], ['B', 1000], ['rolf', 2]]];
     }
 
-    /**
-     * @dataProvider invalidPositions
-     *
-     * @param array<int> $positions
-     */
+    /** @param array<int> $positions */
     #[DataProvider('invalidPositions')]
     public function testThrowsOnInvalidPositions(CoordinateSystem $coordinateSystem, array $positions): void
     {
@@ -268,11 +238,7 @@ final class CoordinatesTest extends TestCase
         yield '12x8' => [new CoordinateSystem12x8(), [0, -1, 97, 10000]];
     }
 
-    /**
-     * @dataProvider invalidCoordinates
-     *
-     * @param array<string> $coordinatesAsString
-     */
+    /** @param array<string> $coordinatesAsString */
     #[DataProvider('invalidCoordinates')]
     public function testThrowsOnInvalidCoordinates(CoordinateSystem $coordinateSystem, array $coordinatesAsString): void
     {

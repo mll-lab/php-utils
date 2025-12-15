@@ -7,17 +7,11 @@ use MLL\Utils\Tecan\Rack\Rack;
 
 class DispenseParameters
 {
-    public Rack $rack;
-
-    /** @var non-empty-array<int> */
-    public array $dispensePositions;
-
     /** @param non-empty-array<int> $dispensePositions */
-    public function __construct(Rack $rack, array $dispensePositions)
-    {
-        $this->rack = $rack;
-        $this->dispensePositions = $dispensePositions;
-    }
+    public function __construct(
+        public Rack $rack,
+        public array $dispensePositions
+    ) {}
 
     public function formatToAspirateAndDispenseParameters(): AspirateAndDispenseParameters
     {

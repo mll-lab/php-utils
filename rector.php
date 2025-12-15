@@ -9,6 +9,7 @@ return RectorConfig::configure()
         SetList::CODE_QUALITY,
         SetList::TYPE_DECLARATION,
         SetList::RECTOR_PRESET,
+        SetList::PHP_80,
         SetList::PHP_81,
         PHPUnitSetList::PHPUNIT_40,
         PHPUnitSetList::PHPUNIT_50,
@@ -27,6 +28,9 @@ return RectorConfig::configure()
         Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector::class, // breaks tests
         Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class => [
             __DIR__ . '/tests/CSVArrayTest.php', // keep `\r\n` for readability
+        ],
+        Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class => [
+            __DIR__ . '/src/IlluminaSampleSheet/V2/BclConvert/BclSample.php', // currently relies on `get_object_vars()` and breaks behaviour.
         ],
     ])
     ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])

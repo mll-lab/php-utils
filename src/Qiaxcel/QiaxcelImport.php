@@ -9,23 +9,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class QiaxcelImport
 {
-    public string $fileName;
-
-    /** @var list<string> */
-    protected array $entries;
-
-    public string $valueForEmptyCell;
-
     /** @param list<string> $entries */
     public function __construct(
-        string $fileName,
-        array $entries,
-        string $valueForEmptyCell = 'Leer'
-    ) {
-        $this->fileName = $fileName;
-        $this->entries = $entries;
-        $this->valueForEmptyCell = $valueForEmptyCell;
-    }
+        public string $fileName,
+        protected array $entries,
+        public string $valueForEmptyCell = 'Leer'
+    ) {}
 
     public function generate(): SpreadSheet
     {

@@ -6,15 +6,10 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 
 class SettingsSection implements Section
 {
-    private readonly ?string $adapter;
-
-    private readonly ?string $adapterRead2;
-
-    public function __construct(?string $adapter = null, ?string $adapterRead2 = null)
-    {
-        $this->adapter = $adapter;
-        $this->adapterRead2 = $adapterRead2;
-    }
+    public function __construct(
+        private readonly ?string $adapter = null,
+        private readonly ?string $adapterRead2 = null
+    ) {}
 
     public function convertSectionToString(): string
     {

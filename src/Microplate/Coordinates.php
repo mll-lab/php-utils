@@ -84,7 +84,7 @@ class Coordinates
         if ($valid === 0) {
             $firstValidExample = Arr::first($rows) . Arr::first($columns);
             $lastValidExample = Arr::last($rows) . Arr::last($columns);
-            $coordinateSystemClass = get_class($coordinateSystem);
+            $coordinateSystemClass = $coordinateSystem::class;
             throw new \InvalidArgumentException("Expected coordinates between {$firstValidExample} and {$lastValidExample} for {$coordinateSystemClass}, got: {$coordinatesString}.");
         }
         /** @var array{1: string, 2: string} $matches */
@@ -103,25 +103,19 @@ class Coordinates
     {
         self::assertPositionInRange($coordinateSystem, $position);
 
-        switch ($direction->value) {
-            case FlowDirection::COLUMN:
-                return new static(
-                    $coordinateSystem->rowForColumnFlowPosition($position),
-                    $coordinateSystem->columnForColumnFlowPosition($position),
-                    $coordinateSystem
-                );
-
-            case FlowDirection::ROW:
-                return new static(
-                    $coordinateSystem->rowForRowFlowPosition($position),
-                    $coordinateSystem->columnForRowFlowPosition($position),
-                    $coordinateSystem
-                );
-                // @codeCoverageIgnoreStart all Enums are listed and this should never happen
-            default:
-                throw new UnexpectedFlowDirection($direction);
-                // @codeCoverageIgnoreEnd
-        }
+        return match ($direction->value) {
+            FlowDirection::COLUMN => new static(
+                $coordinateSystem->rowForColumnFlowPosition($position),
+                $coordinateSystem->columnForColumnFlowPosition($position),
+                $coordinateSystem
+            ),
+            FlowDirection::ROW => new static(
+                $coordinateSystem->rowForRowFlowPosition($position),
+                $coordinateSystem->columnForRowFlowPosition($position),
+                $coordinateSystem
+            ),
+            default => throw new UnexpectedFlowDirection($direction),
+        };
     }
 
     public function toString(): string
@@ -143,16 +137,11 @@ class Coordinates
         /** @var int<0, max> $columnIndex Must be found, since __construct enforces $this->column is valid */
         $columnIndex = array_search($this->column, $this->coordinateSystem->columns(), true);
 
-        switch ($direction->value) {
-            case FlowDirection::ROW:
-                return $rowIndex * count($this->coordinateSystem->columns()) + $columnIndex + 1;
-            case FlowDirection::COLUMN:
-                return $columnIndex * count($this->coordinateSystem->rows()) + $rowIndex + 1;
-                // @codeCoverageIgnoreStart all Enums are listed and this should never happen
-            default:
-                throw new UnexpectedFlowDirection($direction);
-                // @codeCoverageIgnoreEnd
-        }
+        return match ($direction->value) {
+            FlowDirection::ROW => $rowIndex * count($this->coordinateSystem->columns()) + $columnIndex + 1,
+            FlowDirection::COLUMN => $columnIndex * count($this->coordinateSystem->rows()) + $rowIndex + 1,
+            default => throw new UnexpectedFlowDirection($direction),
+        };
     }
 
     /**

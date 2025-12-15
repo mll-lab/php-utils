@@ -59,7 +59,7 @@ class DataSection implements Section
         $samplePropertiesOfFirstSample = array_filter($samplePropertiesOfFirstSample, fn (string $value): bool // @phpstan-ignore-next-line Variable property access on a non-object required here
         => $this->dataRows[0]->$value !== null);
 
-        $samplePropertiesOfFirstSample = array_map(fn (string $value): string => ucfirst($value), $samplePropertiesOfFirstSample);
+        $samplePropertiesOfFirstSample = array_map(ucfirst(...), $samplePropertiesOfFirstSample);
 
         return implode(',', $samplePropertiesOfFirstSample);
     }

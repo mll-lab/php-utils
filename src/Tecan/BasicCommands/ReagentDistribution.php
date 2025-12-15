@@ -7,22 +7,7 @@ use MLL\Utils\Tecan\ReagentDistribution\ReagentDistributionDirection;
 
 class ReagentDistribution extends Command
 {
-    private readonly AspirateAndDispenseParameters $source;
-
-    private readonly AspirateAndDispenseParameters $target;
-
-    private readonly float $volume;
-
-    private readonly LiquidClass $liquidClass;
-
-    private readonly ?int $numberOfDitiReuses;
-
-    private readonly ?int $numberOfMultiDisp;
-
     private readonly ReagentDistributionDirection $direction;
-
-    /** @var array<int>|null */
-    private readonly ?array $excludedTargetWells;
 
     /**
      * @param int|null $numberOfDitiReuses optional maximum number of DiTi reuses allowed (default 1 = no DiTi reuse)
@@ -31,23 +16,16 @@ class ReagentDistribution extends Command
      * @param array<int>|null $excludedTargetWells Optional list of wells in destination labware to be excluded from pipetting
      */
     public function __construct(
-        AspirateAndDispenseParameters $source,
-        AspirateAndDispenseParameters $target,
-        float $dispenseVolume,
-        LiquidClass $liquidClass,
-        ?int $numberOfDitiReuses = null,
-        ?int $numberOfMultiDisp = null,
+        private readonly AspirateAndDispenseParameters $source,
+        private readonly AspirateAndDispenseParameters $target,
+        private readonly float $volume,
+        private readonly LiquidClass $liquidClass,
+        private readonly ?int $numberOfDitiReuses = null,
+        private readonly ?int $numberOfMultiDisp = null,
         ?ReagentDistributionDirection $direction = null,
-        ?array $excludedTargetWells = null
+        private readonly ?array $excludedTargetWells = null
     ) {
-        $this->source = $source;
-        $this->target = $target;
-        $this->volume = $dispenseVolume;
-        $this->liquidClass = $liquidClass;
-        $this->numberOfDitiReuses = $numberOfDitiReuses;
-        $this->numberOfMultiDisp = $numberOfMultiDisp;
         $this->direction = $direction ?? ReagentDistributionDirection::LEFT_TO_RIGHT();
-        $this->excludedTargetWells = $excludedTargetWells;
     }
 
     public function toString(): string
