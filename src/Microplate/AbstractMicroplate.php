@@ -16,14 +16,10 @@ abstract class AbstractMicroplate
 {
     public const EMPTY_WELL = null;
 
-    /** @var TCoordinateSystem */
-    public CoordinateSystem $coordinateSystem;
-
     /** @param TCoordinateSystem $coordinateSystem */
-    public function __construct(CoordinateSystem $coordinateSystem)
-    {
-        $this->coordinateSystem = $coordinateSystem;
-    }
+    public function __construct(
+        public CoordinateSystem $coordinateSystem
+    ) {}
 
     /** @return WellsCollection */
     abstract public function wells(): Collection;

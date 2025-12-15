@@ -13,13 +13,9 @@ use PHPStan\Rules\RuleErrorBuilder;
 /** @implements Rule<Class_> */
 class ThrowableClassNameRule implements Rule
 {
-    private ReflectionProvider $reflectionProvider;
-
     public function __construct(
-        ReflectionProvider $reflectionProvider
-    ) {
-        $this->reflectionProvider = $reflectionProvider;
-    }
+        private readonly ReflectionProvider $reflectionProvider
+    ) {}
 
     public function getNodeType(): string
     {

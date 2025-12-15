@@ -7,15 +7,10 @@ use MLL\Utils\Microplate\CoordinateSystem12x8;
 
 class FilledWell
 {
-    private FilledRow $famRow;
-
-    private FilledRow $hexRow;
-
-    public function __construct(FilledRow $famRow, FilledRow $hexRow)
-    {
-        $this->famRow = $famRow;
-        $this->hexRow = $hexRow;
-    }
+    public function __construct(
+        private readonly FilledRow $famRow,
+        private readonly FilledRow $hexRow
+    ) {}
 
     /** @param Coordinates<CoordinateSystem12x8> $coordinates */
     public function toString(Coordinates $coordinates): string

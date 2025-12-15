@@ -7,12 +7,9 @@ class ReagentDistributionDirection
     public const LEFT_TO_RIGHT = 0;
     public const RIGHT_TO_LEFT = 1;
 
-    public int $value;
-
-    public function __construct(int $value)
-    {
-        $this->value = $value;
-    }
+    public function __construct(
+        public int $value
+    ) {}
 
     public static function LEFT_TO_RIGHT(): self
     {

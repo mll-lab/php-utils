@@ -6,14 +6,10 @@ use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 
 class OverrideCycle
 {
-    /** @var array<CycleTypeWithCount> */
-    public array $cycles;
-
     /** @param array<CycleTypeWithCount> $cycles */
-    public function __construct(array $cycles)
-    {
-        $this->cycles = $cycles;
-    }
+    public function __construct(
+        public array $cycles
+    ) {}
 
     /** @param bool|null $isSecondIndexAndForwardDirection null if it is not the secondIndex, true if it is the secondIndex and forwardDirection, false if it is the secondIndex and reverseDirection */
     public function toString(int $fillUpToMax, ?bool $isSecondIndexAndForwardDirection): string

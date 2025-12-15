@@ -13,11 +13,9 @@ abstract class BaseRack implements Rack
     /** @var Collection<int, TContent|null> */
     public Collection $positions;
 
-    public CoordinateSystem $coordinateSystem;
-
-    public function __construct(CoordinateSystem $coordinateSystem)
-    {
-        $this->coordinateSystem = $coordinateSystem;
+    public function __construct(
+        public CoordinateSystem $coordinateSystem
+    ) {
         /** @phpstan-ignore-next-line types are correct, but phpstan doesn't understand it */
         $this->positions = Collection::times($this->positionCount(), fn () => self::EMPTY_POSITION)
             ->mapWithKeys(fn ($content, int $position): array => [$position + 1 => $content]); /** @phpstan-ignore missingType.parameter (is in template context) */

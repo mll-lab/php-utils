@@ -6,45 +6,17 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 
 class HeaderSection implements Section
 {
-    public ?string $iemFileVersion;
-
-    public ?string $experimentName;
-
-    public ?string $investigatorName;
-
-    public string $date;
-
-    public string $workflow;
-
-    public string $application;
-
-    public string $assay;
-
-    public string $description;
-
-    public string $chemistry;
-
     public function __construct(
-        string $iemFileVersion,
-        string $investigatorName,
-        string $experimentName,
-        string $date,
-        string $workflow,
-        string $application,
-        string $assay,
-        string $description,
-        string $chemistry
-    ) {
-        $this->chemistry = $chemistry;
-        $this->description = $description;
-        $this->assay = $assay;
-        $this->application = $application;
-        $this->workflow = $workflow;
-        $this->date = $date;
-        $this->investigatorName = $investigatorName;
-        $this->experimentName = $experimentName;
-        $this->iemFileVersion = $iemFileVersion;
-    }
+        public ?string $iemFileVersion,
+        public ?string $investigatorName,
+        public ?string $experimentName,
+        public string $date,
+        public string $workflow,
+        public string $application,
+        public string $assay,
+        public string $description,
+        public string $chemistry
+    ) {}
 
     public function convertSectionToString(): string
     {

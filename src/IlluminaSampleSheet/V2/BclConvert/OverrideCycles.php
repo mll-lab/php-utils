@@ -15,15 +15,17 @@ class OverrideCycles
 
     public ?OverrideCycle $read2;
 
-    private DataSection $dataSection;
-
-    public function __construct(DataSection $dataSection, string $read1, string $index1, ?string $index2, ?string $read2)
-    {
+    public function __construct(
+        private readonly DataSection $dataSection,
+        string $read1,
+        string $index1,
+        ?string $index2,
+        ?string $read2
+    ) {
         $this->read1 = $this->makeOverrideCycle($read1);
         $this->index1 = $this->makeOverrideCycle($index1);
         $this->index2 = $index2 !== null ? $this->makeOverrideCycle($index2) : null;
         $this->read2 = $read2 !== null ? $this->makeOverrideCycle($read2) : null;
-        $this->dataSection = $dataSection;
     }
 
     public function toString(): string

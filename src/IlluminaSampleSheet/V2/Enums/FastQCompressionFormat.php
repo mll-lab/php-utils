@@ -7,12 +7,9 @@ class FastQCompressionFormat
     public const GZIP = 'gzip';
     public const DRAGEN = 'dragen';
 
-    public string $value;
-
-    public function __construct(string $value)
-    {
-        $this->value = $value;
-    }
+    public function __construct(
+        public string $value
+    ) {}
 
     public static function GZIP(): self
     {

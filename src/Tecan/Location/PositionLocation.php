@@ -6,15 +6,10 @@ use MLL\Utils\Tecan\Rack\Rack;
 
 class PositionLocation implements Location
 {
-    private int $position;
-
-    private Rack $rack;
-
-    public function __construct(int $position, Rack $rack)
-    {
-        $this->position = $position;
-        $this->rack = $rack;
-    }
+    public function __construct(
+        private readonly int $position,
+        private readonly Rack $rack
+    ) {}
 
     public function tubeID(): ?string
     {

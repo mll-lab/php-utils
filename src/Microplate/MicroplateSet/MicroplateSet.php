@@ -9,14 +9,10 @@ use MLL\Utils\Microplate\Enums\FlowDirection;
 /** @template TCoordinateSystem of CoordinateSystem */
 abstract class MicroplateSet
 {
-    /** @var TCoordinateSystem */
-    public CoordinateSystem $coordinateSystem;
-
     /** @param TCoordinateSystem $coordinateSystem */
-    public function __construct(CoordinateSystem $coordinateSystem)
-    {
-        $this->coordinateSystem = $coordinateSystem;
-    }
+    public function __construct(
+        public CoordinateSystem $coordinateSystem
+    ) {}
 
     /** @return list<string> */
     abstract public function plateIDs(): array;

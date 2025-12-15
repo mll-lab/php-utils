@@ -4,27 +4,16 @@ namespace MLL\Utils\IlluminaSampleSheet\V1;
 
 class RowForDualIndexWithoutLane extends Row
 {
-    public DualIndex $dualIndex;
-
-    public string $sampleName;
-
-    public string $samplePlate;
-
-    public string $sampleWell;
-
-    public string $sampleProject;
-
-    public string $description;
-
-    public function __construct(DualIndex $dualIndex, string $sampleID, string $sampleName, string $samplePlate, string $sampleWell, string $sampleProject, string $description)
-    {
-        $this->dualIndex = $dualIndex;
+    public function __construct(
+        public DualIndex $dualIndex,
+        string $sampleID,
+        public string $sampleName,
+        public string $samplePlate,
+        public string $sampleWell,
+        public string $sampleProject,
+        public string $description
+    ) {
         $this->sampleID = $sampleID;
-        $this->sampleName = $sampleName;
-        $this->samplePlate = $samplePlate;
-        $this->sampleWell = $sampleWell;
-        $this->sampleProject = $sampleProject;
-        $this->description = $description;
     }
 
     public function toString(): string

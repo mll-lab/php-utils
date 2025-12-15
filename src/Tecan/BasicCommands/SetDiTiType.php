@@ -9,12 +9,9 @@ namespace MLL\Utils\Tecan\BasicCommands;
  */
 class SetDiTiType extends Command
 {
-    private int $indexOfDiTi;
-
-    public function __construct(int $indexOfDiTi)
-    {
-        $this->indexOfDiTi = $indexOfDiTi;
-    }
+    public function __construct(
+        private readonly int $indexOfDiTi
+    ) {}
 
     public function toString(): string
     {

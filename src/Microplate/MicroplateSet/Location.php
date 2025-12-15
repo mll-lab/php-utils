@@ -8,15 +8,9 @@ use MLL\Utils\Microplate\CoordinateSystem;
 /** @template TCoordinateSystem of CoordinateSystem */
 class Location
 {
-    public string $plateID;
-
-    /** @var \MLL\Utils\Microplate\Coordinates<TCoordinateSystem> */
-    public Coordinates $coordinates;
-
     /** @param \MLL\Utils\Microplate\Coordinates<TCoordinateSystem> $coordinates */
-    public function __construct(Coordinates $coordinates, string $plateID)
-    {
-        $this->coordinates = $coordinates;
-        $this->plateID = $plateID;
-    }
+    public function __construct(
+        public Coordinates $coordinates,
+        public string $plateID
+    ) {}
 }

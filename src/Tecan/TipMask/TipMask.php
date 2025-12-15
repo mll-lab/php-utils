@@ -9,14 +9,11 @@ class TipMask
     public const FOUR_TIPS = 'FOUR_TIPS';
     public const EIGHT_TIPS = 'EIGHT_TIPS';
 
-    public string $value;
-
     public ?int $currentTip = null;
 
-    public function __construct(string $value)
-    {
-        $this->value = $value;
-    }
+    public function __construct(
+        public string $value
+    ) {}
 
     public static function FOUR_TIPS(): self
     {
@@ -35,14 +32,11 @@ class TipMask
 
     public function isLastTip(): bool
     {
-        switch ($this->value) {
-            case self::FOUR_TIPS:
-                return $this->currentTip === 8;
-            case self::EIGHT_TIPS:
-                return $this->currentTip === 128;
-            default:
-                throw new TecanException("isLastTip not defined for {$this->value}.");
-        }
+        return match ($this->value) {
+            self::FOUR_TIPS => $this->currentTip === 8,
+            self::EIGHT_TIPS => $this->currentTip === 128,
+            default => throw new TecanException("isLastTip not defined for {$this->value}."),
+        };
     }
 
     public function nextTip(): int

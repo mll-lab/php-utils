@@ -12,25 +12,12 @@ class MLLReagentDistribution extends Command
     public const NUMBER_OF_DITI_REUSES = 6;
     public const NUMBER_OF_MULTI_DISP = 1;
 
-    private AspirateParameters $source;
-
-    private DispenseParameters $target;
-
-    private float $volume;
-
-    private LiquidClass $liquidClass;
-
     public function __construct(
-        AspirateParameters $source,
-        DispenseParameters $target,
-        float $dispenseVolume,
-        LiquidClass $liquidClass
-    ) {
-        $this->source = $source;
-        $this->target = $target;
-        $this->volume = $dispenseVolume;
-        $this->liquidClass = $liquidClass;
-    }
+        private readonly AspirateParameters $source,
+        private readonly DispenseParameters $target,
+        private readonly float $volume,
+        private readonly LiquidClass $liquidClass
+    ) {}
 
     public function toString(): string
     {

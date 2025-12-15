@@ -7,15 +7,10 @@ use MLL\Utils\IlluminaSampleSheet\V2\ReadsSection;
 
 class BclConvertSection implements Section
 {
-    protected SettingsSection $settingsSection;
-
-    protected DataSection $dataSection;
-
-    public function __construct(SettingsSection $settingsSection, DataSection $dataSection)
-    {
-        $this->settingsSection = $settingsSection;
-        $this->dataSection = $dataSection;
-    }
+    public function __construct(
+        protected SettingsSection $settingsSection,
+        protected DataSection $dataSection
+    ) {}
 
     public function convertSectionToString(): string
     {

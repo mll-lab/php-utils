@@ -19,7 +19,7 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 class NoAssignmentInIfRule implements Rule
 {
-    private NodeFinder $nodeFinder;
+    private readonly NodeFinder $nodeFinder;
 
     public function __construct()
     {
