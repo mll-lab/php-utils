@@ -21,6 +21,7 @@ final class IdToIDRuleTest extends TestCase
         yield ['Id'];
         yield ['labId'];
         yield ['labIds'];
+        yield ['TestIdEntry'];
     }
 
     /** @dataProvider correctID */
@@ -42,6 +43,8 @@ final class IdToIDRuleTest extends TestCase
         yield ['openIdtPanelAnalyses'];
         yield ['isIdenticalThing'];
         yield ['hasIdentity'];
+        yield ['andIdentify'];
+        yield ['withIdentification'];
     }
 
     /** @dataProvider wrongToRight */
