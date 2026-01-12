@@ -16,6 +16,8 @@ abstract class IdToIDRule implements Rule
         'Identifier',
         'Identical',
         'Identity',
+        'Identify',
+        'Identification',
         'Idt', // IDT is an abbreviation for the brand "Integrated DNA Technologies, Inc."
     ];
 
