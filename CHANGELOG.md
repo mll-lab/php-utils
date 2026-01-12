@@ -1,3 +1,10 @@
+## [5.23.1](https://github.com/mll-lab/php-utils/compare/v5.23.0...v5.23.1) (2026-01-12)
+
+
+### Bug Fixes
+
+* **phpstan:** extend VariableNameIdToIDRule with additional false positives ([c4108db](https://github.com/mll-lab/php-utils/commit/c4108db7fd41a2acbf6b52d374827b6fb4287d67))
+
 # [5.23.0](https://github.com/mll-lab/php-utils/compare/v5.22.0...v5.23.0) (2025-12-08)
 
 
