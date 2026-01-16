@@ -43,6 +43,12 @@ SafeCast::toFloat('abc');      // throws InvalidArgumentException
 // Safe string casting
 SafeCast::toString(42);        // '42'
 SafeCast::toString(null);      // ''
+
+// Safe boolean casting
+SafeCast::toBool(true);        // true
+SafeCast::toBool(1);           // true
+SafeCast::toBool('0');         // false
+SafeCast::toBool('true');      // throws InvalidArgumentException
 ```
 
 See [tests](tests/SafeCastTest.php) for more examples.

@@ -143,6 +143,38 @@ class SafeCast
     }
 
     /**
+     * Safely cast a value to a boolean.
+     *
+     * Only accepts:
+     * - Booleans (returned as-is)
+     * - Integer 0 or 1
+     * - String "0" or "1"
+     *
+     * @param mixed $value The value to cast
+     *
+     * @throws \InvalidArgumentException If the value cannot be safely cast to a boolean
+     */
+    public static function toBool($value): bool
+    {
+        if (is_bool($value)) {
+            return $value;
+        }
+
+        if ($value === 0 || $value === '0') {
+            return false;
+        }
+
+        if ($value === 1 || $value === '1') {
+            return true;
+        }
+
+        throw new \InvalidArgumentException(
+            'Cannot safely cast value of type "' . gettype($value) . '" to bool. '
+            . 'Only bool, int 0/1, or string "0"/"1" are accepted.'
+        );
+    }
+
+    /**
      * Check if a string represents a valid integer.
      *
      * Accepts optional leading/trailing whitespace, optional sign, and digits only.

@@ -176,4 +176,56 @@ final class SafeCastTest extends TestCase
         yield ['Cannot cast value of type "boolean" to string', true];
         yield ['Cannot cast value of type "boolean" to string', false];
     }
+
+    /**
+     * @dataProvider validBoolProvider
+     *
+     * @param mixed $input can be anything
+     */
+    #[DataProvider('validBoolProvider')]
+    public function testToBoolWithValidInput(bool $expected, $input): void
+    {
+        self::assertSame($expected, SafeCast::toBool($input));
+    }
+
+    /** @return iterable<array{bool, mixed}> */
+    public static function validBoolProvider(): iterable
+    {
+        yield [true, true];
+        yield [false, false];
+        yield [true, 1];
+        yield [false, 0];
+        yield [true, '1'];
+        yield [false, '0'];
+    }
+
+    /**
+     * @dataProvider invalidBoolProvider
+     *
+     * @param mixed $input can be anything
+     */
+    #[DataProvider('invalidBoolProvider')]
+    public function testToBoolThrowsExceptionForInvalidInput(string $expectedMessage, $input): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage($expectedMessage);
+        SafeCast::toBool($input);
+    }
+
+    /** @return iterable<array{string, mixed}> */
+    public static function invalidBoolProvider(): iterable
+    {
+        yield ['Cannot safely cast value of type "string" to bool', 'true'];
+        yield ['Cannot safely cast value of type "string" to bool', 'false'];
+        yield ['Cannot safely cast value of type "string" to bool', 'yes'];
+        yield ['Cannot safely cast value of type "string" to bool', 'no'];
+        yield ['Cannot safely cast value of type "string" to bool', ''];
+        yield ['Cannot safely cast value of type "NULL" to bool', null];
+        yield ['Cannot safely cast value of type "integer" to bool', 2];
+        yield ['Cannot safely cast value of type "integer" to bool', -1];
+        yield ['Cannot safely cast value of type "array" to bool', []];
+        yield ['Cannot safely cast value of type "object" to bool', new \stdClass()];
+        yield ['Cannot safely cast value of type "double" to bool', 1.0];
+        yield ['Cannot safely cast value of type "double" to bool', 0.0];
+    }
 }
