@@ -168,10 +168,7 @@ class SafeCast
             return true;
         }
 
-        throw new \InvalidArgumentException(
-            'Cannot safely cast value of type "' . gettype($value) . '" to bool. '
-            . 'Only bool, int 0/1, or string "0"/"1" are accepted.'
-        );
+        throw new \InvalidArgumentException('Cannot safely cast value of type "' . gettype($value) . '" to bool. Only bool, int 0/1, or string "0"/"1" are accepted.');
     }
 
     /**
