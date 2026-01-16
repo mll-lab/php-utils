@@ -22,6 +22,37 @@ composer require mll-lab/php-utils
 
 See [tests](tests).
 
+### SafeCast
+
+PHP's native type casts like `(int)` and `(float)` can produce unexpected results, especially when casting from strings.
+The `SafeCast` utility provides safe alternatives that validate input before casting:
+
+```php
+use MLL\Utils\SafeCast;
+
+// Safe integer casting
+SafeCast::toInt(42);           // 42
+SafeCast::toInt('42');         // 42
+SafeCast::toInt('hello');      // throws InvalidArgumentException
+
+// Safe float casting
+SafeCast::toFloat(3.14);       // 3.14
+SafeCast::toFloat('3.14');     // 3.14
+SafeCast::toFloat('abc');      // throws InvalidArgumentException
+
+// Safe string casting
+SafeCast::toString(42);        // '42'
+SafeCast::toString(null);      // ''
+
+// Safe boolean casting
+SafeCast::toBool(true);        // true
+SafeCast::toBool(1);           // true
+SafeCast::toBool('0');         // false
+SafeCast::toBool('true');      // throws InvalidArgumentException
+```
+
+See [tests](tests/SafeCastTest.php) for more examples.
+
 ### Holidays
 
 You can add custom holidays by registering a method that returns a map of holidays for a given year.
