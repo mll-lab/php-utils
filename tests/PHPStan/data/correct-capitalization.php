@@ -4,9 +4,11 @@ namespace MLL\Utils\Tests\PHPStan\data;
 
 class CorrectCapitalization
 {
+    private int $patientID = 1;
+
     public function getLabID(): int
     {
-        return 1;
+        return $this->patientID;
     }
 
     public function processLabID(int $labID): void

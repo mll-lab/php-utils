@@ -41,3 +41,13 @@ parameters:
     paths:
     - tests/PHPStan/
 
+  # TODO remove when minimum PHPStan is bumped to ^2
+  # PropertyProperty is the primary class in php-parser v4 (PHPStan 1.x) - no warning
+  # PropertyProperty is an alias to PropertyItem in php-parser v5 (PHPStan 2.x) - triggers these warnings
+  - message: '#Class PhpParser\\Node\\Stmt\\PropertyProperty not found\. It has been renamed to PhpParser\\Node\\PropertyItem#'
+    paths:
+    - src/PHPStan/Rules/PropertyNameIdToIDRule.php
+  - message: '#Fetching class constant class of deprecated class PhpParser\\Node\\Stmt\\PropertyProperty#'
+    paths:
+    - src/PHPStan/Rules/PropertyNameIdToIDRule.php
+
