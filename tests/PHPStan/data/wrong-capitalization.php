@@ -4,9 +4,11 @@ namespace MLL\Utils\Tests\PHPStan\data;
 
 class LabIdProcessor
 {
+    private int $patientId = 1;
+
     public function getLabId(): int
     {
-        return 1;
+        return $this->patientId;
     }
 
     public function processLabId(int $labId): void
