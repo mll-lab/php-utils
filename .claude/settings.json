@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(make fix:*)",
+      "Bash(make stan:*)",
+      "Bash(make test:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
