@@ -1,3 +1,10 @@
+# [5.24.0](https://github.com/mll-lab/php-utils/compare/v5.23.1...v5.24.0) (2026-01-28)
+
+
+### Features
+
+* Add PropertyNameIdToIDRule for class property naming ([deb7c56](https://github.com/mll-lab/php-utils/commit/deb7c56a4ea8f0adf3dc046637db76bfe4867fd7))
+
 ## [5.23.1](https://github.com/mll-lab/php-utils/compare/v5.23.0...v5.23.1) (2026-01-12)
 
 
