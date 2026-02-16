@@ -122,4 +122,38 @@ class Microplate extends AbstractMicroplate
 
         return Coordinates::fromString($coordinatesString, $this->coordinateSystem);
     }
+
+    /**
+     * @param TWell $content
+     * @param list<Coordinates<TCoordinateSystem>> $candidatePositions
+     *
+     * @throws MicroplateIsFullException
+     *
+     * @return Coordinates<TCoordinateSystem>
+     */
+    public function addToNextFreeWellAmong($content, array $candidatePositions): Coordinates
+    {
+        $coordinates = $this->nextFreeWellAmong($candidatePositions);
+        $this->wells[$coordinates->toString()] = $content;
+
+        return $coordinates;
+    }
+
+    /**
+     * @param list<Coordinates<TCoordinateSystem>> $candidatePositions
+     *
+     * @throws MicroplateIsFullException
+     *
+     * @return Coordinates<TCoordinateSystem>
+     */
+    public function nextFreeWellAmong(array $candidatePositions): Coordinates
+    {
+        foreach ($candidatePositions as $coordinates) {
+            if ($this->isWellEmpty($coordinates)) {
+                return $coordinates;
+            }
+        }
+
+        throw new MicroplateIsFullException();
+    }
 }
