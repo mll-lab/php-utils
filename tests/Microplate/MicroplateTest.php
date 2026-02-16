@@ -12,7 +12,9 @@ use MLL\Utils\Microplate\Microplate;
 use MLL\Utils\Microplate\WellWithCoordinates;
 use PHPUnit\Framework\TestCase;
 
-/** @phpstan-import-type WellData from CoordinatesTest */
+/**
+ * @phpstan-import-type WellData from CoordinatesTest
+ */
 final class MicroplateTest extends TestCase
 {
     public function testCanAddAndRetrieveWellBasedOnCoordinateSystem(): void

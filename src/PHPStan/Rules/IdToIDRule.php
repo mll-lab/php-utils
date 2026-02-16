@@ -8,7 +8,9 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
-/** @implements Rule<Node> */
+/**
+ * @implements Rule<Node>
+ */
 abstract class IdToIDRule implements Rule
 {
     /** @var array<int, string> */

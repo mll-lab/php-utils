@@ -10,7 +10,9 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
-/** @implements Rule<Class_> */
+/**
+ * @implements Rule<Class_>
+ */
 class ThrowableClassNameRule implements Rule
 {
     private ReflectionProvider $reflectionProvider;
