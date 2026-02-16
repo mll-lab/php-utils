@@ -139,10 +139,7 @@ final class NonAdjacentPositionsTest extends TestCase
         $columnStrings = array_map(static fn (Coordinates $coordinates): string => $coordinates->toString(), $columnPositions);
         $rowStrings = array_map(static fn (Coordinates $coordinates): string => $coordinates->toString(), $rowPositions);
 
-        sort($columnStrings);
-        sort($rowStrings);
-
-        self::assertSame($columnStrings, $rowStrings);
+        self::assertEqualsCanonicalizing($columnStrings, $rowStrings);
     }
 
     public function test1x1ReturnsA1(): void
