@@ -5,7 +5,7 @@ namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 use Illuminate\Support\Collection;
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 use MLL\Utils\IlluminaSampleSheet\Section;
-use MLL\Utils\IlluminaSampleSheet\V2\ReadsSection;
+use MLL\Utils\IlluminaSampleSheet\V2\Sections\ReadsSection;
 
 class DataSection implements Section
 {

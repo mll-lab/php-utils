@@ -3,7 +3,7 @@
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
-use MLL\Utils\IlluminaSampleSheet\V2\HeaderSection;
+use MLL\Utils\IlluminaSampleSheet\V2\Sections\HeaderSection;
 
 class OverrideCycles
 {

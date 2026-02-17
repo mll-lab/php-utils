@@ -3,7 +3,7 @@
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 use MLL\Utils\IlluminaSampleSheet\Section;
-use MLL\Utils\IlluminaSampleSheet\V2\ReadsSection;
+use MLL\Utils\IlluminaSampleSheet\V2\Sections\ReadsSection;
 
 class BclConvertSection implements Section
 {

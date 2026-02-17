@@ -4,6 +4,7 @@ namespace MLL\Utils\IlluminaSampleSheet\V2;
 
 use MLL\Utils\IlluminaSampleSheet\BaseSampleSheet;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclConvertSection;
+use MLL\Utils\IlluminaSampleSheet\V2\Sections\HeaderSection;
 
 class NovaSeqXSampleSheet extends BaseSampleSheet
 {

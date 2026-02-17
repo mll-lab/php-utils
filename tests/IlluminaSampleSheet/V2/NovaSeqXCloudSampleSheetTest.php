@@ -8,7 +8,6 @@ use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\DataSection;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycles;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\SettingsSection;
 use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
-use MLL\Utils\IlluminaSampleSheet\V2\HeaderSection;
 use MLL\Utils\IlluminaSampleSheet\V2\NovaSeqXSampleSheet;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +15,7 @@ final class NovaSeqXCloudSampleSheetTest extends TestCase
 {
     public function testNovaSeqXCloudSampleSheetToStringReturnsExpectedResult(): void
     {
-        $headerSection = new HeaderSection('Run1');
+        $headerSection = new \MLL\Utils\IlluminaSampleSheet\V2\Sections\HeaderSection('Run1');
         $headerSection->instrumentPlatform = 'NovaSeqXSeries';
         $headerSection->setCustomParam('TestKey', 'TestValue');
 
