@@ -4,7 +4,9 @@ namespace MLL\Utils\Microplate;
 
 use Illuminate\Support\Collection;
 
-/** @template TSectionWell */
+/**
+ * @template TSectionWell
+ */
 abstract class AbstractSection
 {
     /** @var SectionedMicroplate<TSectionWell, CoordinateSystem, static> */

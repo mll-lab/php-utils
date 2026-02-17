@@ -5,7 +5,9 @@ namespace MLL\Utils\Tecan\Rack;
 use Illuminate\Support\Collection;
 use MLL\Utils\Microplate\CoordinateSystem;
 
-/** @template TContent */
+/**
+ * @template TContent
+ */
 abstract class BaseRack implements Rack
 {
     public const EMPTY_POSITION = null;

@@ -8,7 +8,9 @@ use MLL\Utils\FluidXPlate\FluidXPlate;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\StringUtil;
 
-/** The plate scanner on a tecan worktable. */
+/**
+ * The plate scanner on a tecan worktable.
+ */
 class TecanScanner
 {
     public const NO_READ = 'NO READ';

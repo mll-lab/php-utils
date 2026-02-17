@@ -16,7 +16,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
 {
     public function testHeaderSectionVersion2ToStringReturnsExpectedResult(): void
     {
-        $headerSection = new class extends HeaderSectionVersion2 {};
+        $headerSection = new class() extends HeaderSectionVersion2 {};
         $headerSection->setRunName('TestRun1');
         $headerSection->setInstrumentPlatform(InstrumentPlatform::NOVASEQ_X_SERIES);
 
@@ -27,7 +27,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
 
     public function testHeaderSectionVersion2WithCustomAttribute(): void
     {
-        $headerSection = new class extends HeaderSectionVersion2 {};
+        $headerSection = new class() extends HeaderSectionVersion2 {};
         $headerSection->setRunName('TestRun1');
         $headerSection->setInstrumentPlatform(InstrumentPlatform::NOVASEQ_X_SERIES);
         $headerSection->setCustomAttribute('Custom_TestKey', 'TestValue');
@@ -39,7 +39,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
 
     public function testHeaderSectionVersion2ThrowsOnMissingRunName(): void
     {
-        $headerSection = new class extends HeaderSectionVersion2 {};
+        $headerSection = new class() extends HeaderSectionVersion2 {};
         $headerSection->setInstrumentPlatform(InstrumentPlatform::NOVASEQ_X_SERIES);
 
         $this->expectException(MissingRequiredFieldException::class);
@@ -49,7 +49,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
 
     public function testHeaderSectionVersion2ThrowsOnMissingInstrumentPlatform(): void
     {
-        $headerSection = new class extends HeaderSectionVersion2 {};
+        $headerSection = new class() extends HeaderSectionVersion2 {};
         $headerSection->setRunName('TestRun1');
 
         $this->expectException(MissingRequiredFieldException::class);
@@ -59,7 +59,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
 
     public function testHeaderSectionVersion2SetInstrumentPlatformMiSeq(): void
     {
-        $headerSection = new class extends HeaderSectionVersion2 {};
+        $headerSection = new class() extends HeaderSectionVersion2 {};
         $headerSection->setRunName('TestRun1');
         $headerSection->setInstrumentPlatform(InstrumentPlatform::MISEQ_I100_SERIES);
 

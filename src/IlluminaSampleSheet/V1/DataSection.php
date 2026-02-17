@@ -6,7 +6,9 @@ use Illuminate\Support\Collection;
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 use MLL\Utils\IlluminaSampleSheet\Section;
 
-/** @template TRow of Row */
+/**
+ * @template TRow of Row
+ */
 class DataSection implements Section
 {
     /** @var Collection<int, TRow> */

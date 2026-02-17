@@ -6,7 +6,9 @@ use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem;
 use MLL\Utils\Microplate\Enums\FlowDirection;
 
-/** @template TCoordinateSystem of CoordinateSystem */
+/**
+ * @template TCoordinateSystem of CoordinateSystem
+ */
 abstract class MicroplateSet
 {
     /** @var TCoordinateSystem */

@@ -2,5 +2,7 @@
 
 namespace MLL\Utils\Microplate;
 
-/** @deprecated use CoordinateSystem4x3 */
+/**
+ * @deprecated use CoordinateSystem4x3
+ */
 class CoordinateSystem12Well extends CoordinateSystem4x3 {}
