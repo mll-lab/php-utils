@@ -11,7 +11,9 @@ use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
-/** @implements Rule<CallLike> */
+/**
+ * @implements Rule<CallLike>
+ */
 final class OneThingPerLineRule implements Rule
 {
     public function getNodeType(): string
