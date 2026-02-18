@@ -20,13 +20,20 @@ final class OneThingPerLineRuleTest extends PHPStanTestCase
             26 => [self::ERROR_MESSAGE],
             31 => [self::ERROR_MESSAGE, self::ERROR_MESSAGE],
             36 => [self::ERROR_MESSAGE],
-            41 => [self::ERROR_MESSAGE],
-            46 => [self::ERROR_MESSAGE],
-            53 => [self::ERROR_MESSAGE],
-            60 => [self::ERROR_MESSAGE],
+            43 => [self::ERROR_MESSAGE],
+            50 => [self::ERROR_MESSAGE],
         ]];
 
         yield [__DIR__ . '/data/method-chain-correct.php', []];
+
+        if (PHP_VERSION_ID >= 80000) {
+            yield [__DIR__ . '/data/method-chain-nullsafe-violations.php', [
+                19 => [self::ERROR_MESSAGE],
+                24 => [self::ERROR_MESSAGE],
+            ]];
+
+            yield [__DIR__ . '/data/method-chain-nullsafe-correct.php', []];
+        }
     }
 
     /**

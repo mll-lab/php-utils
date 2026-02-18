@@ -64,12 +64,6 @@ class MethodChainCorrect
         )->bar();
     }
 
-    public function properlySplitNullSafeChain(?self $nullable): void
-    {
-        $nullable?->foo()
-            ?->bar();
-    }
-
     public function properlySplitChainInClosure(): void
     {
         /** @var list<self> $items */

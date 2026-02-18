@@ -36,16 +36,6 @@ class MethodChainViolations
         self::create()->foo()->bar();
     }
 
-    public function nullSafeChain(?self $nullable): void
-    {
-        $nullable?->foo()?->bar();
-    }
-
-    public function mixedNullSafeAndRegularChain(?self $nullable): void
-    {
-        $nullable?->foo()->bar();
-    }
-
     public function arrowFunctionInternalChain(): void
     {
         /** @var list<self> $items */
