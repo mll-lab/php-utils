@@ -4,6 +4,7 @@ namespace MLL\Utils\IlluminaSampleSheet\V2\Sections;
 
 use Illuminate\Support\Collection;
 use MLL\Utils\IlluminaSampleSheet\Section;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclSample;
 
 final class CloudDataSection implements Section
 {
@@ -16,6 +17,11 @@ final class CloudDataSection implements Section
     {
         return $this->cloudDataItems
             ->map(fn (CloudDataItem $cloudDataItem): string => $cloudDataItem->toString())
-            ->join(PHP_EOL);
+            ->join(PHP_EOL) . PHP_EOL;
+    }
+
+    public function sectionName(): string
+    {
+        return 'Cloud_Data';
     }
 }

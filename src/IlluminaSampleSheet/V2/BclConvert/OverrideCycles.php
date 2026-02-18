@@ -2,88 +2,50 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
-use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
-use MLL\Utils\IlluminaSampleSheet\V2\Sections\HeaderSection;
+use MLL\Utils\IlluminaSampleSheet\V2\IndexOrientation;
 
 class OverrideCycles
 {
-    public OverrideCycle $read1;
+    public function __construct(
+        public OverrideCycle $overrideCycleRead1,
+        public OverrideCycle $overrideCycleIndex1,
+        public ?OverrideCycle $overrideCycleIndex2,
+        public ?OverrideCycle $overrideCycleRead2
+    )
+    {}
 
-    public OverrideCycle $index1;
-
-    public ?OverrideCycle $index2;
-
-    public ?OverrideCycle $read2;
-
-    private DataSection $dataSection;
-
-    public function __construct(DataSection $dataSection, string $read1, string $index1, ?string $index2, ?string $read2)
+    public static function fromString(string $overrideCyclesAsString, IndexOrientation $indexOrientation): self
     {
-        $this->read1 = $this->makeOverrideCycle($read1);
-        $this->index1 = $this->makeOverrideCycle($index1);
-        $this->index2 = $index2 !== null ? $this->makeOverrideCycle($index2) : null;
-        $this->read2 = $read2 !== null ? $this->makeOverrideCycle($read2) : null;
-        $this->dataSection = $dataSection;
-    }
-
-    public function toString(): string
-    {
-        $dataSection = $this->dataSection;
-        $dataSection->assertNotEmpty();
-
-        $filledParts = array_filter([ // @phpstan-ignore arrayFilter.strict (we want truthy comparison)
-            $this->read1->toString($dataSection->maxRead1Cycles(), null),
-            $this->index1->toString($dataSection->maxIndex1Cycles(), null),
-            $this->index2(),
-            $this->read2(),
-        ]);
-
-        return implode(';', $filledParts);
-    }
-
-    public function makeOverrideCycle(string $cycleString): OverrideCycle
-    {
-        \Safe\preg_match_all('/([YNUI]+)(\d+)/', $cycleString, $matches, PREG_SET_ORDER);
-
-        if (count($matches) > 3) {
-            throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have less than 4 parts: {$cycleString}.");
-        }
-
-        if (count($matches) === 0) {
-            throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have at least 1 part: {$cycleString}.");
-        }
-
-        return new OverrideCycle(
-            array_map(
-                fn (array $match): CycleTypeWithCount => new CycleTypeWithCount(new CycleType($match[1]), (int) $match[2]),
-                $matches
-            )
+        $overrideCyclesAsArray = explode(";", $overrideCyclesAsString);
+        return new self(
+            OverrideCycle::fromString($overrideCyclesAsArray[0], $indexOrientation),
+            OverrideCycle::fromString($overrideCyclesAsArray[1], $indexOrientation),
+            isset($overrideCyclesAsArray[2])
+                ? OverrideCycle::fromString($overrideCyclesAsArray[2], $indexOrientation)
+                : null,
+            isset($overrideCyclesAsArray[3])
+                ? OverrideCycle::fromString($overrideCyclesAsArray[3], $indexOrientation)
+                : null,
         );
     }
 
-    private function index2(): ?string
+    public function toString(OverrideCycleCounter $overrideCycleCounter): string
     {
-        if (! $this->index2 instanceof OverrideCycle) {
-            return null;
-        }
-        $maxIndex2Cycles = $this->dataSection->maxIndex2Cycles();
-        if ($maxIndex2Cycles === null) {
-            throw new IlluminaSampleSheetException('MaxIndex2Cycles is required when Index2 is set.');
-        }
+        $filledParts = array_filter([ // @phpstan-ignore arrayFilter.strict (we want truthy comparison)
+            $this->overrideCycleRead1
+                ->fillUpTo($overrideCycleCounter->maxRead1CycleCount())
+                ->toString(),
+            $this->overrideCycleIndex1
+                ->fillUpTo($overrideCycleCounter->maxIndex1CycleCount())
+                ->toString(),
+            $this->overrideCycleIndex2
+                ?->fillUpTo($overrideCycleCounter->maxIndex2CycleCount())
+                ?->toString() ?? null,
+            $this->overrideCycleRead2
+                ?->fillUpTo($overrideCycleCounter->maxRead2CycleCount())
+                ?->toString() ?? null,
+        ]);
 
-        return $this->index2->toString($maxIndex2Cycles, HeaderSection::isForwardIndexOrientation());
-    }
-
-    private function read2(): ?string
-    {
-        if (! $this->read2 instanceof OverrideCycle) {
-            return null;
-        }
-        $maxIndex2Cycles = $this->dataSection->maxRead2Cycles();
-        if ($maxIndex2Cycles === null) {
-            throw new IlluminaSampleSheetException('MaxRead2Cycles is required when Read2 is set.');
-        }
-
-        return $this->read2->toString($maxIndex2Cycles, null);
+        return implode(';', $filledParts);
     }
 }

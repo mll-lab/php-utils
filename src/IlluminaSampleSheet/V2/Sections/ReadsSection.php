@@ -2,54 +2,58 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\Sections;
 
+use Illuminate\Support\Collection;
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
-use MLL\Utils\IlluminaSampleSheet\Section;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycleCounter;
 
-class ReadsSection implements Section
+class ReadsSection extends SimpleKeyValueSection
 {
-    protected int $read1Cycles;
-
-    protected int $index1Cycles;
-
-    protected ?int $read2Cycles;
-
-    protected ?int $index2Cycles;
-
-    public function __construct(int $read1Cycles, int $index1Cycles, ?int $read2Cycles = null, ?int $index2Cycles = null)
-    {
-        if ($read1Cycles < 1) {
+    public function __construct(
+        int  $read1CycleCount,
+        int  $index1CycleCount,
+        ?int $read2CycleCount,
+        ?int $index2CycleCount
+    ){
+        if ($read1CycleCount < 1) {
             throw new IlluminaSampleSheetException('Read1Cycles must be a positive integer.');
         }
-        if ($read2Cycles !== null && $read2Cycles < 1) {
+        if ($read2CycleCount !== null && $read2CycleCount < 1) {
             throw new IlluminaSampleSheetException('Read2Cycles must be a positive integer or null.');
         }
-        if ($index1Cycles < 6) {
+        if ($index1CycleCount < 6) {
             throw new IlluminaSampleSheetException('Index1Cycles must be at least 6.');
         }
-        if ($index2Cycles !== null && ($index2Cycles < 6)) {
+        if ($index2CycleCount !== null && ($index2CycleCount < 6)) {
             throw new IlluminaSampleSheetException('Index2Cycles must be at least 6.');
         }
-        $this->read1Cycles = $read1Cycles;
-        $this->read2Cycles = $read2Cycles;
-        $this->index1Cycles = $index1Cycles;
-        $this->index2Cycles = $index2Cycles;
+
+        $fields = new Collection();
+
+        $fields->put('Read1Cycles', $read1CycleCount);
+        if(is_int($read2CycleCount)){
+            $fields->put('Read2Cycles', $read2CycleCount);
+        }
+
+        $fields->put('Index1Cycles', $index1CycleCount);
+        if(is_int($index2CycleCount)){
+            $fields->put('Index2Cycles', $index2CycleCount);
+        }
+
+        parent::__construct($fields);
     }
 
-    public function convertSectionToString(): string
+    public static function fromOverrideCycleCounter(OverrideCycleCounter $overrideCycleCounter): self
     {
-        $readsLines = ['[Reads]'];
-        $readsLines[] = "Read1Cycles,{$this->read1Cycles}";
+        return new self(
+            read1CycleCount: $overrideCycleCounter->maxRead1CycleCount(),
+            index1CycleCount: $overrideCycleCounter->maxIndex1CycleCount(),
+            read2CycleCount: $overrideCycleCounter->maxRead2CycleCount(),
+            index2CycleCount: $overrideCycleCounter->maxIndex2CycleCount()
+        );
+    }
 
-        if ($this->read2Cycles !== null) {
-            $readsLines[] = "Read2Cycles,{$this->read2Cycles}";
-        }
-
-        $readsLines[] = "Index1Cycles,{$this->index1Cycles}";
-
-        if ($this->index2Cycles !== null) {
-            $readsLines[] = "Index2Cycles,{$this->index2Cycles}";
-        }
-
-        return implode("\n", $readsLines) . "\n";
+    public function sectionName(): string
+    {
+        return 'Reads';
     }
 }

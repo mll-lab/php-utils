@@ -15,7 +15,7 @@ abstract class BaseSampleSheet
     public function toString(): string
     {
         $sectionStrings = array_map(
-            fn (Section $section): string => $section->convertSectionToString(),
+            fn (Section $section): string => "[{$section->sectionName()}]".PHP_EOL.$section->convertSectionToString(),
             $this->sections
         );
 

@@ -4,53 +4,51 @@ namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 class BclSample
 {
-    public int $lane;
+    /** @var string  */
+    public const HEADER_ROW = 'Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2,BarcodeMismatchesIndex1,BarcodeMismatchesIndex2';
 
-    /** Not using camelCase because the property names of this class must match the CSV file. */
-    public string $sample_ID;
-
-    public string $index;
-
-    public ?string $index2 = null;
-
-    public OverrideCycles $overrideCycles;
-
-    public ?string $adapterRead1 = null;
-
-    public ?string $adapterRead2 = null;
-
-    public ?string $barcodeMismatchesIndex1 = null;
-
-    public ?string $barcodeMismatchesIndex2 = null;
-
-    public ?string $project = null;
-
+    /**
+     * @param array<int, int> $lanes
+     * @param string $sampleID
+     * @param string $indexRead1
+     * @param string $indexRead2
+     * @param OverrideCycles $overrideCycles
+     * @param string $adapterRead1
+     * @param string $adapterRead2
+     * @param string $barcodeMismatchesIndex1
+     * @param string $barcodeMismatchesIndex2
+     */
     public function __construct(
-        int $lane,
-        string $sample_ID,
-        string $index,
-        OverrideCycles $overrideCycles
-    ) {
-        $this->lane = $lane;
-        $this->sample_ID = $sample_ID;
-        $this->index = $index;
-        $this->overrideCycles = $overrideCycles;
-    }
+        public array          $lanes,
+        public string         $sampleID,
+        public string         $indexRead1,
+        public string         $indexRead2,
+        public OverrideCycles $overrideCycles,
+        public string         $adapterRead1,
+        public string         $adapterRead2,
+        public string         $barcodeMismatchesIndex1,
+        public string         $barcodeMismatchesIndex2,
+    ) {}
 
-    /** @return array<int|string> */
-    public function toArray(): array
+    public function toString(OverrideCycleCounter $overrideCycleCounter): string
     {
-        return array_filter([ // @phpstan-ignore arrayFilter.strict (we want truthy comparison)
-            $this->lane,
-            $this->sample_ID,
-            $this->index,
-            $this->index2,
-            $this->overrideCycles->toString(),
-            $this->adapterRead1,
-            $this->adapterRead2,
-            $this->barcodeMismatchesIndex1,
-            $this->barcodeMismatchesIndex2,
-            $this->project,
-        ]);
+        $content = [];
+        foreach($this->lanes as $lane) {
+            $content[] = join(
+                ',',
+                [
+                    $lane,
+                    $this->sampleID,
+                    $this->indexRead1,
+                    $this->indexRead2,
+                    $this->overrideCycles->toString($overrideCycleCounter),
+                    $this->adapterRead1,
+                    $this->adapterRead2,
+                    $this->barcodeMismatchesIndex1,
+                    $this->barcodeMismatchesIndex2,
+                ]
+            );
+        }
+        return implode(PHP_EOL, $content);
     }
 }

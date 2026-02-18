@@ -3,39 +3,68 @@
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
+use MLL\Utils\IlluminaSampleSheet\V2\IndexOrientation;
 
 class OverrideCycle
 {
-    /** @var array<CycleTypeWithCount> */
-    public array $cycles;
+    /**
+     * @param array<int, CycleTypeWithCount> $cycleTypeWithCountList
+     */
+    public function __construct(public NucleotideType $nucleotideType, public array $cycleTypeWithCountList, public IndexOrientation $indexOrientation)
+    {}
 
-    /** @param array<CycleTypeWithCount> $cycles */
-    public function __construct(array $cycles)
+    public static function fromString(
+        string $nucleotideAndCycleString,
+        IndexOrientation $indexOrientation
+    ): self
     {
-        $this->cycles = $cycles;
+        [$nucleotideTypeAsString, $cycleString] = explode(':', $nucleotideAndCycleString);
+        \Safe\preg_match_all('/([YNUI]+)(\d+)/', $cycleString, $matches, PREG_SET_ORDER);
+
+        if (count($matches) > 4) {
+            throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have less than 4 parts: {$cycleString}.");
+        }
+
+        if (count($matches) === 0) {
+            throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have at least 1 part: {$cycleString}.");
+        }
+
+        $nucleotideType = NucleotideType::from($nucleotideTypeAsString);
+
+        return new self(
+            $nucleotideType,
+            array_map(
+                fn (array $match): CycleTypeWithCount => new CycleTypeWithCount(CycleType::from($match[1]), (int) $match[2]),
+                $matches
+            ),
+            $indexOrientation
+        );
     }
 
-    /** @param bool|null $isSecondIndexAndForwardDirection null if it is not the secondIndex, true if it is the secondIndex and forwardDirection, false if it is the secondIndex and reverseDirection */
-    public function toString(int $fillUpToMax, ?bool $isSecondIndexAndForwardDirection): string
+    public function fillUpTo(int $fillUpToMaxNucleotideCount): self
     {
         $countOfAllCycleTypes = $this->sumCountOfAllCycles();
-        if ($countOfAllCycleTypes > $fillUpToMax) {
-            throw new IlluminaSampleSheetException("The sum of all cycle types must be less than or equal to the fill up to max value. \$countOfAllCycleTypes: {$countOfAllCycleTypes} > \$fillUpToMax: {$fillUpToMax}");
-        }
-        $rawOverrideCycle = implode('', array_map(
-            fn (CycleTypeWithCount $cycle): string => $cycle->toString(),
-            $this->cycles
-        ));
-
-        if ($countOfAllCycleTypes === $fillUpToMax) {
-            return $rawOverrideCycle;
+        if ($countOfAllCycleTypes > $fillUpToMaxNucleotideCount) {
+            throw new IlluminaSampleSheetException("The sum of all cycle types must be less than or equal to the fill up to max value. \$countOfAllCycleTypes: {$countOfAllCycleTypes} > \$fillUpToMax: {$fillUpToMaxNucleotideCount}");
         }
 
-        $remainingCycles = 'N' . ($fillUpToMax - $countOfAllCycleTypes);
+        if ($countOfAllCycleTypes === $fillUpToMaxNucleotideCount) {
+            return $this;
+        }
 
-        return (bool) $isSecondIndexAndForwardDirection
-            ? $remainingCycles . $rawOverrideCycle
-            : $rawOverrideCycle . $remainingCycles;
+        $trimmedCycle = new CycleTypeWithCount(
+            CycleType::TRIMMED_CYCLE,
+            ($fillUpToMaxNucleotideCount - $countOfAllCycleTypes)
+        );
+
+        if($this->nucleotideType === NucleotideType::I2 && $this->indexOrientation === IndexOrientation::FORWARD){
+            array_unshift($this->cycleTypeWithCountList, $trimmedCycle);
+        }
+        else{
+            $this->cycleTypeWithCountList[] = $trimmedCycle;
+        }
+
+        return $this;
     }
 
     public function sumCountOfAllCycles(): int
@@ -43,8 +72,19 @@ class OverrideCycle
         return array_sum(
             array_map(
                 fn (CycleTypeWithCount $cycleTypeWithCount): int => $cycleTypeWithCount->count,
-                $this->cycles
+                $this->cycleTypeWithCountList
             )
         );
+    }
+
+    public function toString(): string
+    {
+
+        return
+            "{$this->nucleotideType->value}:"
+            .implode('', array_map(
+                fn(CycleTypeWithCount $cycle): string => $cycle->toString(),
+                $this->cycleTypeWithCountList
+            ));
     }
 }

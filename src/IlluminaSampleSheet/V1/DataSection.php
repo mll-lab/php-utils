@@ -48,7 +48,7 @@ class DataSection implements Section
             ->map(fn (Row $row): string => $row->toString())
             ->implode("\n");
 
-        return "[Data]\n{$firstRow->headerLine()}\n{$rowsData}\n";
+        return "{$firstRow->headerLine()}\n{$rowsData}\n";
     }
 
     protected function validateDuplicatedSampleIDs(): void
@@ -64,5 +64,10 @@ class DataSection implements Section
         if ($duplicates->isNotEmpty()) {
             throw new IlluminaSampleSheetException("Sample_ID values must be distinct. Duplicated SampleIDs: {$duplicateIDsAsString}");
         }
+    }
+
+    public function sectionName(): string
+    {
+        return 'Data';
     }
 }

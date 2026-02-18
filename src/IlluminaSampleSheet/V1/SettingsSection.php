@@ -18,7 +18,7 @@ class SettingsSection implements Section
 
     public function convertSectionToString(): string
     {
-        $settingsLines = ['[Settings]'];
+        $settingsLines = [];
 
         if ($this->adapter !== null) {
             $settingsLines[] = 'Adapter,' . $this->adapter;
@@ -29,5 +29,10 @@ class SettingsSection implements Section
         }
 
         return implode("\n", $settingsLines);
+    }
+
+    public function sectionName(): string
+    {
+        return 'Settings';
     }
 }

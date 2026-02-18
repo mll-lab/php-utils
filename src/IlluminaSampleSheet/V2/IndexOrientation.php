@@ -5,4 +5,5 @@ namespace MLL\Utils\IlluminaSampleSheet\V2;
 enum IndexOrientation: string
 {
     case FORWARD = 'Forward';
+    case REVERSE = 'Reverse';
 }

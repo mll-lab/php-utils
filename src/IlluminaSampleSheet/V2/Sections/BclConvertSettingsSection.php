@@ -2,22 +2,25 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\Sections;
 
+use Illuminate\Support\Collection;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvertSoftwareVersion;
+use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
+
 final class BclConvertSettingsSection extends SimpleKeyValueSection
 {
-    public function headerFields(): array
+    public function __construct(
+        ?BclConvertSoftwareVersion $bclConvertSoftwareVersion
+    )
     {
-        return [
-            'SoftwareVersion' => '4.1.23',
-            'FastqCompressionFormat' => 'gzip',
-        ];
-    }
+        $fields = new Collection([
+            'FastqCompressionFormat' => FastQCompressionFormat::GZIP->value,
+            'GenerateFastqcMetrics' => 'true'
+        ]);
+        if($bclConvertSoftwareVersion instanceof BclConvertSoftwareVersion) {
+            $fields->put('SoftwareVersion', $bclConvertSoftwareVersion->value);
+        }
 
-    public function requiredFields(): array
-    {
-        return [
-            'SoftwareVersion',
-            'FastqCompressionFormat',
-        ];
+        parent::__construct($fields);
     }
 
     public function sectionName(): string
