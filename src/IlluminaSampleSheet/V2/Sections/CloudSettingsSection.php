@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 final class CloudSettingsSection extends SimpleKeyValueSection
 {
-    /** @var string  */
+    /** @var string */
     public const GENERATED_VERSION = '2.6.0.202308300002';
     public const CLOUD_WORKFLOW = 'ica_workflow_1';
     public const BCL_CONVERT_PIPELINE = 'urn:ilmn:ica:pipeline:d5c7e407-d439-48c8-bce5-b7aec225f6a7#BclConvert_v4_1_23_patch1';

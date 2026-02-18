@@ -26,9 +26,7 @@ final class OverrideCycleTest extends TestCase
         self::assertSame(94, $overrideCycle->cycleTypeWithCountList[2]->count);
     }
 
-    /**
-     * @dataProvider provideCasesForFillUpTest
-     */
+    /** @dataProvider provideCasesForFillUpTest */
     #[DataProvider('provideCasesForFillUpTest')]
     public function testFillUp(string $overrideCycleAsString, int $diff, IndexOrientation $indexOrientation, string $expected): void
     {
@@ -37,7 +35,7 @@ final class OverrideCycleTest extends TestCase
 
         self::assertSame(
             $expected,
-                $overrideCycle
+            $overrideCycle
                 ->fillUpTo($total)
                 ->toString()
         );
@@ -53,23 +51,23 @@ final class OverrideCycleTest extends TestCase
      */
     public static function provideCasesForFillUpTest(): iterable
     {
-        yield "R1 diff in length" => [
-            "overrideCycleAsString" => 'R1:U5N2Y94', 'diff' => 4, 'indexOrientation' => IndexOrientation::FORWARD, "expected" => 'R1:U5N2Y94N4'
+        yield 'R1 diff in length' => [
+            'overrideCycleAsString' => 'R1:U5N2Y94', 'diff' => 4, 'indexOrientation' => IndexOrientation::FORWARD, 'expected' => 'R1:U5N2Y94N4',
         ];
-        yield "I1 diff in length" => [
-            "overrideCycleAsString" => 'I1:I6', 'diff' => 2, 'indexOrientation' => IndexOrientation::FORWARD, "expected" => 'I1:I6N2'
+        yield 'I1 diff in length' => [
+            'overrideCycleAsString' => 'I1:I6', 'diff' => 2, 'indexOrientation' => IndexOrientation::FORWARD, 'expected' => 'I1:I6N2',
         ];
-        yield "R1 UMI diff in length" => [
-            "overrideCycleAsString" => 'R1:U4N2Y98', 'diff' => 1, 'indexOrientation' => IndexOrientation::FORWARD, "expected" => 'R1:U4N2Y98N1'
+        yield 'R1 UMI diff in length' => [
+            'overrideCycleAsString' => 'R1:U4N2Y98', 'diff' => 1, 'indexOrientation' => IndexOrientation::FORWARD, 'expected' => 'R1:U4N2Y98N1',
         ];
-        yield "R2 diff in length" => [
-            "overrideCycleAsString" => 'R2:Y241', 'diff' => 10, 'indexOrientation' => IndexOrientation::FORWARD, "expected" => 'R2:Y241N10'
+        yield 'R2 diff in length' => [
+            'overrideCycleAsString' => 'R2:Y241', 'diff' => 10, 'indexOrientation' => IndexOrientation::FORWARD, 'expected' => 'R2:Y241N10',
         ];
-        yield "I2 diff in length - IndexOrientation Forward" => [
-            "overrideCycleAsString" => 'I2:I6', 'diff' => 2, 'indexOrientation' => IndexOrientation::FORWARD, "expected" => 'I2:N2I6'
+        yield 'I2 diff in length - IndexOrientation Forward' => [
+            'overrideCycleAsString' => 'I2:I6', 'diff' => 2, 'indexOrientation' => IndexOrientation::FORWARD, 'expected' => 'I2:N2I6',
         ];
-        yield "I2 diff in length - IndexOrientation Reverse" => [
-            "overrideCycleAsString" => 'I2:I6', 'diff' => 2, 'indexOrientation' => IndexOrientation::REVERSE, "expected" => 'I2:I6N2'
+        yield 'I2 diff in length - IndexOrientation Reverse' => [
+            'overrideCycleAsString' => 'I2:I6', 'diff' => 2, 'indexOrientation' => IndexOrientation::REVERSE, 'expected' => 'I2:I6N2',
         ];
     }
 }

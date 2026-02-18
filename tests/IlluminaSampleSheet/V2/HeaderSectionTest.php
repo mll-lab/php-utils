@@ -12,7 +12,7 @@ final class HeaderSectionTest extends TestCase
     public function testToString(): void
     {
         $headerSection = new HeaderSection(
-            runName: "Test1234",
+            runName: 'Test1234',
             indexOrientation: IndexOrientation::FORWARD,
             instrumentPlatform: InstrumentPlatform::NOVASEQ_X_SERIES,
             runDescription: null

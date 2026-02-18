@@ -10,21 +10,21 @@ use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycleCounter;
 
 class BclConvertDataSection implements Section
 {
-    /**
-     * @param Collection<int, BclSample> $dataRows
-     */
-    public function __construct(public Collection $dataRows, public OverrideCycleCounter $overrideCycleCounter)
-    {}
+    /** @param Collection<int, BclSample> $dataRows */
+    public function __construct(
+        public Collection $dataRows,
+        public OverrideCycleCounter $overrideCycleCounter
+    ) {}
 
     public function convertSectionToString(): string
     {
         $this->assertNotEmpty();
 
         return
-            BclSample::HEADER_ROW . PHP_EOL .
-            $this->dataRows
-            ->map(fn (BclSample $bclSample): string => $bclSample->toString($this->overrideCycleCounter))
-            ->join(PHP_EOL) . PHP_EOL;
+            BclSample::HEADER_ROW . PHP_EOL
+            . $this->dataRows
+                ->map(fn (BclSample $bclSample): string => $bclSample->toString($this->overrideCycleCounter))
+                ->join(PHP_EOL) . PHP_EOL;
     }
 
     public function assertNotEmpty(): void

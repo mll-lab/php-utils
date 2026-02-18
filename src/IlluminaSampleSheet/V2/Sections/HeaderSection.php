@@ -15,8 +15,7 @@ class HeaderSection extends SimpleKeyValueSection
         public IndexOrientation $indexOrientation,
         public InstrumentPlatform $instrumentPlatform,
         public ?string $runDescription
-    )
-    {
+    ) {
         $fields = new Collection([
             'FileFormatVersion' => self::FILE_FORMAT_VERSION,
             'RunName' => $this->runName,

@@ -43,7 +43,8 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
         $bclSample1 = new BclSample(
             lanes: [2],
             sampleID: 'Sample2',
-            indexRead1: 'Index3', indexRead2: 'Index4',
+            indexRead1: 'Index3',
+            indexRead2: 'Index4',
             overrideCycles: $overrideCycles1,
             adapterRead1: 'Adapter3',
             adapterRead2: 'Adapter4',
@@ -53,7 +54,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
 
         $overrideCycles2 = OverrideCycles::fromString('R1:Y151;I1:I8;I2:I8;R2:U10N12Y127', $indexOrientation);
         $bclSample2 = new BclSample(
-            lanes: [1,2],
+            lanes: [1, 2],
             sampleID: 'Sample3',
             indexRead1: 'Index5',
             indexRead2: 'Index6',
@@ -66,7 +67,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
 
         $overrideCycles3 = OverrideCycles::fromString('R1:Y101;I1:I8;I2:I8;R2:Y101', $indexOrientation);
         $bclSample3 = new BclSample(
-            lanes: [7,8],
+            lanes: [7, 8],
             sampleID: 'Sample4',
             indexRead1: 'Index5',
             indexRead2: 'Index6',
@@ -114,10 +115,10 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
             bclConvertDataSection: $bclConvertDataSection,
             cloudSettingsSection: new CloudSettingsSection(),
             cloudDataSection: new CloudDataSection(new Collection([
-                new CloudDataItem(bioSampleName: $bclSample0->sampleID, projectName: "test", libraryName: "foo"),
-                new CloudDataItem(bioSampleName: $bclSample1->sampleID, projectName: "test", libraryName: "foo"),
-                new CloudDataItem(bioSampleName: $bclSample2->sampleID, projectName: "test", libraryName: "foo"),
-                new CloudDataItem(bioSampleName: $bclSample3->sampleID, projectName: "test", libraryName: "foo"),
+                new CloudDataItem(bioSampleName: $bclSample0->sampleID, projectName: 'test', libraryName: 'foo'),
+                new CloudDataItem(bioSampleName: $bclSample1->sampleID, projectName: 'test', libraryName: 'foo'),
+                new CloudDataItem(bioSampleName: $bclSample2->sampleID, projectName: 'test', libraryName: 'foo'),
+                new CloudDataItem(bioSampleName: $bclSample3->sampleID, projectName: 'test', libraryName: 'foo'),
             ])),
         );
 

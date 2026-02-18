@@ -4,36 +4,28 @@ namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 class BclSample
 {
-    /** @var string  */
+    /** @var string */
     public const HEADER_ROW = 'Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2,BarcodeMismatchesIndex1,BarcodeMismatchesIndex2';
 
     /**
      * @param array<int, int> $lanes
-     * @param string $sampleID
-     * @param string $indexRead1
-     * @param string $indexRead2
-     * @param OverrideCycles $overrideCycles
-     * @param string $adapterRead1
-     * @param string $adapterRead2
-     * @param string $barcodeMismatchesIndex1
-     * @param string $barcodeMismatchesIndex2
      */
     public function __construct(
-        public array          $lanes,
-        public string         $sampleID,
-        public string         $indexRead1,
-        public string         $indexRead2,
+        public array $lanes,
+        public string $sampleID,
+        public string $indexRead1,
+        public string $indexRead2,
         public OverrideCycles $overrideCycles,
-        public string         $adapterRead1,
-        public string         $adapterRead2,
-        public string         $barcodeMismatchesIndex1,
-        public string         $barcodeMismatchesIndex2,
+        public string $adapterRead1,
+        public string $adapterRead2,
+        public string $barcodeMismatchesIndex1,
+        public string $barcodeMismatchesIndex2,
     ) {}
 
     public function toString(OverrideCycleCounter $overrideCycleCounter): string
     {
         $content = [];
-        foreach($this->lanes as $lane) {
+        foreach ($this->lanes as $lane) {
             $content[] = join(
                 ',',
                 [
@@ -49,6 +41,7 @@ class BclSample
                 ]
             );
         }
+
         return implode(PHP_EOL, $content);
     }
 }

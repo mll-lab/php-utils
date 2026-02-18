@@ -10,13 +10,12 @@ final class BclConvertSettingsSection extends SimpleKeyValueSection
 {
     public function __construct(
         ?BclConvertSoftwareVersion $bclConvertSoftwareVersion
-    )
-    {
+    ) {
         $fields = new Collection([
             'FastqCompressionFormat' => FastQCompressionFormat::GZIP->value,
-            'GenerateFastqcMetrics' => 'true'
+            'GenerateFastqcMetrics' => 'true',
         ]);
-        if($bclConvertSoftwareVersion instanceof BclConvertSoftwareVersion) {
+        if ($bclConvertSoftwareVersion instanceof BclConvertSoftwareVersion) {
             $fields->put('SoftwareVersion', $bclConvertSoftwareVersion->value);
         }
 

@@ -2,8 +2,6 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\Sections;
 
-use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclSample;
-
 final class CloudDataItem
 {
     public function __construct(

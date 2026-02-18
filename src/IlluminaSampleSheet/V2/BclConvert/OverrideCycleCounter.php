@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
@@ -6,11 +6,10 @@ use Illuminate\Support\Collection;
 
 class OverrideCycleCounter
 {
-    /**
-     * @param Collection<int, OverrideCycles> $overrideCyclesList
-     */
-    public function __construct(public Collection $overrideCyclesList)
-    {}
+    /** @param Collection<int, OverrideCycles> $overrideCyclesList */
+    public function __construct(
+        public Collection $overrideCyclesList
+    ) {}
 
     public function maxRead1CycleCount(): int
     {
@@ -37,9 +36,10 @@ class OverrideCycleCounter
     public function maxIndex2CycleCount(): int
     {
         $max = $this->overrideCyclesList
-            ->max(fn (OverrideCycles $overrideCycles): int => $overrideCycles
-                ->overrideCycleIndex2
-                ?->sumCountOfAllCycles() ?? 0
+            ->max(
+                fn (OverrideCycles $overrideCycles): int => $overrideCycles
+                    ->overrideCycleIndex2
+                    ?->sumCountOfAllCycles() ?? 0
             );
         assert(is_int($max));
 
@@ -49,9 +49,10 @@ class OverrideCycleCounter
     public function maxRead2CycleCount(): int
     {
         $max = $this->overrideCyclesList
-            ->max(fn (OverrideCycles $overrideCycles): int => $overrideCycles
-                ->overrideCycleRead2
-                ?->sumCountOfAllCycles() ?? 0
+            ->max(
+                fn (OverrideCycles $overrideCycles): int => $overrideCycles
+                    ->overrideCycleRead2
+                    ?->sumCountOfAllCycles() ?? 0
             );
         assert(is_int($max));
 

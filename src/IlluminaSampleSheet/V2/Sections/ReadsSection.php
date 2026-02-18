@@ -9,11 +9,11 @@ use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycleCounter;
 class ReadsSection extends SimpleKeyValueSection
 {
     public function __construct(
-        int  $read1CycleCount,
-        int  $index1CycleCount,
+        int $read1CycleCount,
+        int $index1CycleCount,
         ?int $read2CycleCount,
         ?int $index2CycleCount
-    ){
+    ) {
         if ($read1CycleCount < 1) {
             throw new IlluminaSampleSheetException('Read1Cycles must be a positive integer.');
         }
@@ -30,12 +30,12 @@ class ReadsSection extends SimpleKeyValueSection
         $fields = new Collection();
 
         $fields->put('Read1Cycles', $read1CycleCount);
-        if(is_int($read2CycleCount)){
+        if (is_int($read2CycleCount)) {
             $fields->put('Read2Cycles', $read2CycleCount);
         }
 
         $fields->put('Index1Cycles', $index1CycleCount);
-        if(is_int($index2CycleCount)){
+        if (is_int($index2CycleCount)) {
             $fields->put('Index2Cycles', $index2CycleCount);
         }
 

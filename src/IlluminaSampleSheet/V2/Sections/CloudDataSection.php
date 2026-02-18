@@ -4,7 +4,6 @@ namespace MLL\Utils\IlluminaSampleSheet\V2\Sections;
 
 use Illuminate\Support\Collection;
 use MLL\Utils\IlluminaSampleSheet\Section;
-use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclSample;
 
 final class CloudDataSection implements Section
 {

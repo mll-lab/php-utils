@@ -7,17 +7,17 @@ use MLL\Utils\IlluminaSampleSheet\V2\IndexOrientation;
 
 class OverrideCycle
 {
-    /**
-     * @param array<int, CycleTypeWithCount> $cycleTypeWithCountList
-     */
-    public function __construct(public NucleotideType $nucleotideType, public array $cycleTypeWithCountList, public IndexOrientation $indexOrientation)
-    {}
+    /** @param array<int, CycleTypeWithCount> $cycleTypeWithCountList */
+    public function __construct(
+        public NucleotideType $nucleotideType,
+        public array $cycleTypeWithCountList,
+        public IndexOrientation $indexOrientation
+    ) {}
 
     public static function fromString(
         string $nucleotideAndCycleString,
         IndexOrientation $indexOrientation
-    ): self
-    {
+    ): self {
         [$nucleotideTypeAsString, $cycleString] = explode(':', $nucleotideAndCycleString);
         \Safe\preg_match_all('/([YNUI]+)(\d+)/', $cycleString, $matches, PREG_SET_ORDER);
 
@@ -54,13 +54,12 @@ class OverrideCycle
 
         $trimmedCycle = new CycleTypeWithCount(
             CycleType::TRIMMED_CYCLE,
-            ($fillUpToMaxNucleotideCount - $countOfAllCycleTypes)
+            $fillUpToMaxNucleotideCount - $countOfAllCycleTypes
         );
 
-        if($this->nucleotideType === NucleotideType::I2 && $this->indexOrientation === IndexOrientation::FORWARD){
+        if ($this->nucleotideType === NucleotideType::I2 && $this->indexOrientation === IndexOrientation::FORWARD) {
             array_unshift($this->cycleTypeWithCountList, $trimmedCycle);
-        }
-        else{
+        } else {
             $this->cycleTypeWithCountList[] = $trimmedCycle;
         }
 
@@ -79,11 +78,10 @@ class OverrideCycle
 
     public function toString(): string
     {
-
         return
             "{$this->nucleotideType->value}:"
-            .implode('', array_map(
-                fn(CycleTypeWithCount $cycle): string => $cycle->toString(),
+            . implode('', array_map(
+                fn (CycleTypeWithCount $cycle): string => $cycle->toString(),
                 $this->cycleTypeWithCountList
             ));
     }
