@@ -6,7 +6,9 @@ use Illuminate\Support\Str;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\StringUtil;
 
-/** Communicates with a FluidX scanner device and fetches results from it. */
+/**
+ * Communicates with a FluidX scanner device and fetches results from it.
+ */
 class FluidXScanner
 {
     private const READING = 'Reading...';

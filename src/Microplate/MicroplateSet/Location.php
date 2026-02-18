@@ -5,7 +5,9 @@ namespace MLL\Utils\Microplate\MicroplateSet;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem;
 
-/** @template TCoordinateSystem of CoordinateSystem */
+/**
+ * @template TCoordinateSystem of CoordinateSystem
+ */
 class Location
 {
     public string $plateID;
