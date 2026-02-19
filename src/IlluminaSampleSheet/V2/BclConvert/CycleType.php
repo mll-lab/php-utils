@@ -2,10 +2,23 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
-enum CycleType: string
+class CycleType
 {
-    case READ_CYCLE = 'Y';
-    case TRIMMED_CYCLE = 'N';
-    case UMI_CYCLE = 'U';
-    case INDEX_CYCLE = 'I';
+    public const READ_CYCLE = 'Y';
+    public const TRIMMED_CYCLE = 'N';
+    public const UMI_CYCLE = 'U';
+    public const INDEX_CYCLE = 'I';
+
+    /** @var string */
+    public $value;
+
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
+
+    public static function from(string $value): self
+    {
+        return new self($value);
+    }
 }

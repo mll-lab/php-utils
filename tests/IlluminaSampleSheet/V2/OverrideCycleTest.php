@@ -11,22 +11,24 @@ final class OverrideCycleTest extends TestCase
 {
     public function testFromString(): void
     {
-        $overrideCycle = OverrideCycle::fromString('R1:Y251', IndexOrientation::FORWARD);
+        $overrideCycle = OverrideCycle::fromString('R1:Y251', IndexOrientation::FORWARD());
         self::assertCount(1, $overrideCycle->cycleTypeWithCountList);
         self::assertSame(251, $overrideCycle->cycleTypeWithCountList[0]->count);
 
-        $overrideCycle = OverrideCycle::fromString('I2:I6', IndexOrientation::FORWARD);
+        $overrideCycle = OverrideCycle::fromString('I2:I6', IndexOrientation::FORWARD());
         self::assertCount(1, $overrideCycle->cycleTypeWithCountList);
         self::assertSame(6, $overrideCycle->cycleTypeWithCountList[0]->count);
 
-        $overrideCycle = OverrideCycle::fromString('R1:U5N2Y94', IndexOrientation::FORWARD);
+        $overrideCycle = OverrideCycle::fromString('R1:U5N2Y94', IndexOrientation::FORWARD());
         self::assertCount(3, $overrideCycle->cycleTypeWithCountList);
         self::assertSame(5, $overrideCycle->cycleTypeWithCountList[0]->count);
         self::assertSame(2, $overrideCycle->cycleTypeWithCountList[1]->count);
         self::assertSame(94, $overrideCycle->cycleTypeWithCountList[2]->count);
     }
 
-    /** @dataProvider provideCasesForFillUpTest */
+    /**
+     * @dataProvider provideCasesForFillUpTest
+     */
     #[DataProvider('provideCasesForFillUpTest')]
     public function testFillUp(string $overrideCycleAsString, int $diff, IndexOrientation $indexOrientation, string $expected): void
     {
@@ -35,39 +37,34 @@ final class OverrideCycleTest extends TestCase
 
         self::assertSame(
             $expected,
-            $overrideCycle
+                $overrideCycle
                 ->fillUpTo($total)
                 ->toString()
         );
     }
 
     /**
-     * @return iterable<string, array{
-     *    overrideCycleAsString: string,
-     *    diff: int,
-     *    indexOrientation: IndexOrientation,
-     *    expected: string
-     * }>
+     * @return iterable<string, array{string, int, IndexOrientation, string}>
      */
     public static function provideCasesForFillUpTest(): iterable
     {
         yield 'R1 diff in length' => [
-            'overrideCycleAsString' => 'R1:U5N2Y94', 'diff' => 4, 'indexOrientation' => IndexOrientation::FORWARD, 'expected' => 'R1:U5N2Y94N4',
+            'R1:U5N2Y94', 4, IndexOrientation::FORWARD(), 'R1:U5N2Y94N4',
         ];
         yield 'I1 diff in length' => [
-            'overrideCycleAsString' => 'I1:I6', 'diff' => 2, 'indexOrientation' => IndexOrientation::FORWARD, 'expected' => 'I1:I6N2',
+            'I1:I6', 2, IndexOrientation::FORWARD(), 'I1:I6N2',
         ];
         yield 'R1 UMI diff in length' => [
-            'overrideCycleAsString' => 'R1:U4N2Y98', 'diff' => 1, 'indexOrientation' => IndexOrientation::FORWARD, 'expected' => 'R1:U4N2Y98N1',
+            'R1:U4N2Y98', 1, IndexOrientation::FORWARD(), 'R1:U4N2Y98N1',
         ];
         yield 'R2 diff in length' => [
-            'overrideCycleAsString' => 'R2:Y241', 'diff' => 10, 'indexOrientation' => IndexOrientation::FORWARD, 'expected' => 'R2:Y241N10',
+            'R2:Y241', 10, IndexOrientation::FORWARD(), 'R2:Y241N10',
         ];
         yield 'I2 diff in length - IndexOrientation Forward' => [
-            'overrideCycleAsString' => 'I2:I6', 'diff' => 2, 'indexOrientation' => IndexOrientation::FORWARD, 'expected' => 'I2:N2I6',
+            'I2:I6', 2, IndexOrientation::FORWARD(), 'I2:N2I6',
         ];
         yield 'I2 diff in length - IndexOrientation Reverse' => [
-            'overrideCycleAsString' => 'I2:I6', 'diff' => 2, 'indexOrientation' => IndexOrientation::REVERSE, 'expected' => 'I2:I6N2',
+            'I2:I6', 2, IndexOrientation::REVERSE(), 'I2:I6N2',
         ];
     }
 }

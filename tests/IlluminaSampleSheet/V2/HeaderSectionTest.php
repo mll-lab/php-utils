@@ -12,10 +12,10 @@ final class HeaderSectionTest extends TestCase
     public function testToString(): void
     {
         $headerSection = new HeaderSection(
-            runName: 'Test1234',
-            indexOrientation: IndexOrientation::FORWARD,
-            instrumentPlatform: InstrumentPlatform::NOVASEQ_X_SERIES,
-            runDescription: null
+            'Test1234',
+            IndexOrientation::FORWARD(),
+            InstrumentPlatform::NOVASEQ_X_SERIES(),
+            null
         );
 
         $expected = <<<'CSV'

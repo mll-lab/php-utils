@@ -4,10 +4,17 @@ namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 class CycleTypeWithCount
 {
-    public function __construct(
-        public CycleType $cycleType,
-        public int $count
-    ) {}
+    /** @var CycleType */
+    public $cycleType;
+
+    /** @var int */
+    public $count;
+
+    public function __construct(CycleType $cycleType, int $count)
+    {
+        $this->cycleType = $cycleType;
+        $this->count = $count;
+    }
 
     public function toString(): string
     {

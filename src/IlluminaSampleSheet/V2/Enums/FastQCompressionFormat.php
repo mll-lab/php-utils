@@ -2,8 +2,16 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\Enums;
 
-enum FastQCompressionFormat: string
+class FastQCompressionFormat
 {
-    case GZIP = 'gzip';
-    case DRAGEN = 'dragen';
+    public const GZIP = 'gzip';
+    public const DRAGEN = 'dragen';
+
+    /** @var string */
+    public $value;
+
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
 }

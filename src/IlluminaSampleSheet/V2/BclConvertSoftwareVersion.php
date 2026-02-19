@@ -2,7 +2,20 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2;
 
-enum BclConvertSoftwareVersion: string
+class BclConvertSoftwareVersion
 {
-    case V4_1_23 = '4.1.23';
+    public const V4_1_23 = '4.1.23';
+
+    /** @var string */
+    public $value;
+
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
+
+    public static function V4_1_23(): self
+    {
+        return new self(self::V4_1_23);
+    }
 }

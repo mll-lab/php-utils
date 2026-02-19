@@ -6,10 +6,16 @@ use Illuminate\Support\Collection;
 
 class OverrideCycleCounter
 {
-    /** @param Collection<int, OverrideCycles> $overrideCyclesList */
-    public function __construct(
-        public Collection $overrideCyclesList
-    ) {}
+    /** @var Collection<int, OverrideCycles> */
+    public $overrideCyclesList;
+
+    /**
+     * @param Collection<int, OverrideCycles> $overrideCyclesList
+     */
+    public function __construct(Collection $overrideCyclesList)
+    {
+        $this->overrideCyclesList = $overrideCyclesList;
+    }
 
     public function maxRead1CycleCount(): int
     {
@@ -36,10 +42,9 @@ class OverrideCycleCounter
     public function maxIndex2CycleCount(): int
     {
         $max = $this->overrideCyclesList
-            ->max(
-                fn (OverrideCycles $overrideCycles): int => $overrideCycles
-                    ->overrideCycleIndex2
-                    ?->sumCountOfAllCycles() ?? 0
+            ->max(fn (OverrideCycles $overrideCycles): int => $overrideCycles->overrideCycleIndex2 !== null
+                ? $overrideCycles->overrideCycleIndex2->sumCountOfAllCycles()
+                : 0
             );
         assert(is_int($max));
 
@@ -49,10 +54,9 @@ class OverrideCycleCounter
     public function maxRead2CycleCount(): int
     {
         $max = $this->overrideCyclesList
-            ->max(
-                fn (OverrideCycles $overrideCycles): int => $overrideCycles
-                    ->overrideCycleRead2
-                    ?->sumCountOfAllCycles() ?? 0
+            ->max(fn (OverrideCycles $overrideCycles): int => $overrideCycles->overrideCycleRead2 !== null
+                ? $overrideCycles->overrideCycleRead2->sumCountOfAllCycles()
+                : 0
             );
         assert(is_int($max));
 

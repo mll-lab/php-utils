@@ -7,29 +7,41 @@ use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 use MLL\Utils\IlluminaSampleSheet\Section;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclSample;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycleCounter;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycles;
 
 class BclConvertDataSection implements Section
 {
-    /** @param Collection<int, BclSample> $dataRows */
-    public function __construct(
-        public Collection $dataRows,
-        public OverrideCycleCounter $overrideCycleCounter
-    ) {}
+    /** @var Collection<int, BclSample> */
+    public $bclSampleList;
+
+    /** @var OverrideCycleCounter */
+    public $overrideCycleCounter;
+
+    /**
+     * @param Collection<int, BclSample> $bclSampleList
+     */
+    public function __construct(Collection $bclSampleList)
+    {
+        $this->bclSampleList = $bclSampleList;
+        $this->overrideCycleCounter = new OverrideCycleCounter(
+            $this->bclSampleList->map(fn (BclSample $bclSample): OverrideCycles => $bclSample->overrideCycles)
+        );
+    }
 
     public function convertSectionToString(): string
     {
         $this->assertNotEmpty();
 
         return
-            BclSample::HEADER_ROW . PHP_EOL
-            . $this->dataRows
-                ->map(fn (BclSample $bclSample): string => $bclSample->toString($this->overrideCycleCounter))
-                ->join(PHP_EOL) . PHP_EOL;
+            BclSample::HEADER_ROW . PHP_EOL .
+            $this->bclSampleList
+            ->map(fn (BclSample $bclSample): string => $bclSample->toString($this->overrideCycleCounter))
+            ->join(PHP_EOL) . PHP_EOL;
     }
 
     public function assertNotEmpty(): void
     {
-        if ($this->dataRows->isEmpty()) {
+        if ($this->bclSampleList->isEmpty()) {
             throw new IlluminaSampleSheetException('At least one sample must be added to the DataSection.');
         }
     }

@@ -2,10 +2,23 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
-enum NucleotideType: string
+class NucleotideType
 {
-    case R1 = 'R1';
-    case I1 = 'I1';
-    case I2 = 'I2';
-    case R2 = 'R2';
+    public const R1 = 'R1';
+    public const I1 = 'I1';
+    public const I2 = 'I2';
+    public const R2 = 'R2';
+
+    /** @var string */
+    public $value;
+
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
+
+    public static function from(string $value): self
+    {
+        return new self($value);
+    }
 }

@@ -7,10 +7,16 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 
 final class CloudDataSection implements Section
 {
-    /** @param Collection<int, CloudDataItem> $cloudDataItems */
-    public function __construct(
-        private readonly Collection $cloudDataItems
-    ) {}
+    /** @var Collection<int, CloudDataItem> */
+    private $cloudDataItems;
+
+    /**
+     * @param Collection<int, CloudDataItem> $cloudDataItems
+     */
+    public function __construct(Collection $cloudDataItems)
+    {
+        $this->cloudDataItems = $cloudDataItems;
+    }
 
     public function convertSectionToString(): string
     {

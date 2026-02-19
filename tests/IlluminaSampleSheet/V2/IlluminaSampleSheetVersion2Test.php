@@ -4,7 +4,7 @@ namespace MLL\Utils\Tests\IlluminaSampleSheet\V2;
 
 use Illuminate\Support\Collection;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclSample;
-use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycleCounter;
+use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\NovaSeqX1_5B;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycles;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvertSoftwareVersion;
 use MLL\Utils\IlluminaSampleSheet\V2\IlluminaSampleSheetVersion2;
@@ -23,59 +23,59 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
 {
     public function testNovaSeqXCloudSampleSheetToStringReturnsExpectedResult(): void
     {
-        $indexOrientation = IndexOrientation::FORWARD;
+        $indexOrientation = IndexOrientation::FORWARD();
 
         $overrideCycles0 = OverrideCycles::fromString('R1:U7N1Y143;I1:I8;I2:I8;R2:U7N1Y143', $indexOrientation);
 
         $bclSample0 = new BclSample(
-            lanes: [1],
-            sampleID: 'Sample1',
-            indexRead1: 'Index1',
-            indexRead2: 'Index2',
-            overrideCycles: $overrideCycles0,
-            adapterRead1: 'Adapter1',
-            adapterRead2: 'Adapter2',
-            barcodeMismatchesIndex1: '0',
-            barcodeMismatchesIndex2: '0'
+            new NovaSeqX1_5B([1]),
+            'Sample1',
+            'Index1',
+            'Index2',
+            $overrideCycles0,
+            'Adapter1',
+            'Adapter2',
+            '0',
+            '0'
         );
 
         $overrideCycles1 = OverrideCycles::fromString('R1:Y151;I1:I8;I2:I10;R2:Y151', $indexOrientation);
         $bclSample1 = new BclSample(
-            lanes: [2],
-            sampleID: 'Sample2',
-            indexRead1: 'Index3',
-            indexRead2: 'Index4',
-            overrideCycles: $overrideCycles1,
-            adapterRead1: 'Adapter3',
-            adapterRead2: 'Adapter4',
-            barcodeMismatchesIndex1: '0',
-            barcodeMismatchesIndex2: '0'
+            new NovaSeqX1_5B([2]),
+            'Sample2',
+            'Index3',
+            'Index4',
+            $overrideCycles1,
+            'Adapter3',
+            'Adapter4',
+            '0',
+            '0'
         );
 
         $overrideCycles2 = OverrideCycles::fromString('R1:Y151;I1:I8;I2:I8;R2:U10N12Y127', $indexOrientation);
         $bclSample2 = new BclSample(
-            lanes: [1, 2],
-            sampleID: 'Sample3',
-            indexRead1: 'Index5',
-            indexRead2: 'Index6',
-            overrideCycles: $overrideCycles2,
-            adapterRead1: 'Adapter5',
-            adapterRead2: 'Adapter6',
-            barcodeMismatchesIndex1: '0',
-            barcodeMismatchesIndex2: '0'
+            new NovaSeqX1_5B(null),
+            'Sample3',
+            'Index5',
+            'Index6',
+            $overrideCycles2,
+            'Adapter5',
+            'Adapter6',
+            '0',
+            '0'
         );
 
         $overrideCycles3 = OverrideCycles::fromString('R1:Y101;I1:I8;I2:I8;R2:Y101', $indexOrientation);
         $bclSample3 = new BclSample(
-            lanes: [7, 8],
-            sampleID: 'Sample4',
-            indexRead1: 'Index5',
-            indexRead2: 'Index6',
-            overrideCycles: $overrideCycles3,
-            adapterRead1: 'Adapter5',
-            adapterRead2: 'Adapter6',
-            barcodeMismatchesIndex1: '1',
-            barcodeMismatchesIndex2: '1'
+            new NovaSeqX1_5B(null),
+            'Sample4',
+            'Index5',
+            'Index6',
+            $overrideCycles3,
+            'Adapter5',
+            'Adapter6',
+            '1',
+            '1'
         );
 
         $bclSampleList = new Collection([
@@ -86,40 +86,30 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
         ]);
 
         $headerSection = new HeaderSection(
-            runName: 'Run1',
-            indexOrientation: $indexOrientation,
-            instrumentPlatform: InstrumentPlatform::NOVASEQ_X_SERIES,
-            runDescription: null
+            'Run1',
+            $indexOrientation,
+            InstrumentPlatform::NOVASEQ_X_SERIES(),
+            null
         );
 
-        $overrideCycleCounter = new OverrideCycleCounter(new Collection([
-            $overrideCycles0,
-            $overrideCycles1,
-            $overrideCycles2,
-            $overrideCycles3,
-        ]));
+        $bclConvertSettingsSection = new BclConvertSettingsSection(BclConvertSoftwareVersion::V4_1_23());
 
-        $readsSection = ReadsSection::fromOverrideCycleCounter($overrideCycleCounter);
+        $bclConvertDataSection = new BclConvertDataSection($bclSampleList);
 
-        $bclConvertSettingsSection = new BclConvertSettingsSection(bclConvertSoftwareVersion: BclConvertSoftwareVersion::V4_1_23);
-
-        $bclConvertDataSection = new BclConvertDataSection(
-            dataRows: $bclSampleList,
-            overrideCycleCounter: $overrideCycleCounter
-        );
+        $readsSection = ReadsSection::fromOverrideCycleCounter($bclConvertDataSection->overrideCycleCounter);
 
         $sampleSheet = new IlluminaSampleSheetVersion2(
-            headerSection: $headerSection,
-            readsSection: $readsSection,
-            bclConvertSettingsSection: $bclConvertSettingsSection,
-            bclConvertDataSection: $bclConvertDataSection,
-            cloudSettingsSection: new CloudSettingsSection(),
-            cloudDataSection: new CloudDataSection(new Collection([
-                new CloudDataItem(bioSampleName: $bclSample0->sampleID, projectName: 'test', libraryName: 'foo'),
-                new CloudDataItem(bioSampleName: $bclSample1->sampleID, projectName: 'test', libraryName: 'foo'),
-                new CloudDataItem(bioSampleName: $bclSample2->sampleID, projectName: 'test', libraryName: 'foo'),
-                new CloudDataItem(bioSampleName: $bclSample3->sampleID, projectName: 'test', libraryName: 'foo'),
-            ])),
+            $headerSection,
+            $readsSection,
+            $bclConvertSettingsSection,
+            $bclConvertDataSection,
+            new CloudSettingsSection(),
+            new CloudDataSection(new Collection([
+                new CloudDataItem($bclSample0->sampleID, 'test', 'foo'),
+                new CloudDataItem($bclSample1->sampleID, 'test', 'foo'),
+                new CloudDataItem($bclSample2->sampleID, 'test', 'foo'),
+                new CloudDataItem($bclSample3->sampleID, 'test', 'foo'),
+            ]))
         );
 
         $expected = '[Header]
@@ -145,8 +135,8 @@ Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2,BarcodeMism
 2,Sample2,Index3,Index4,R1:Y151;I1:I8;I2:I10;R2:Y151,Adapter3,Adapter4,0,0
 1,Sample3,Index5,Index6,R1:Y151;I1:I8;I2:N2I8;R2:U10N12Y127N2,Adapter5,Adapter6,0,0
 2,Sample3,Index5,Index6,R1:Y151;I1:I8;I2:N2I8;R2:U10N12Y127N2,Adapter5,Adapter6,0,0
-7,Sample4,Index5,Index6,R1:Y101N50;I1:I8;I2:N2I8;R2:Y101N50,Adapter5,Adapter6,1,1
-8,Sample4,Index5,Index6,R1:Y101N50;I1:I8;I2:N2I8;R2:Y101N50,Adapter5,Adapter6,1,1
+1,Sample4,Index5,Index6,R1:Y101N50;I1:I8;I2:N2I8;R2:Y101N50,Adapter5,Adapter6,1,1
+2,Sample4,Index5,Index6,R1:Y101N50;I1:I8;I2:N2I8;R2:Y101N50,Adapter5,Adapter6,1,1
 
 [Cloud_Settings]
 GeneratedVersion,2.6.0.202308300002

@@ -2,8 +2,26 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2;
 
-enum InstrumentPlatform: string
+class InstrumentPlatform
 {
-    case NOVASEQ_X_SERIES = 'NovaSeqXSeries';
-    case MISEQ_I100_SERIES = 'MiSeqi100Series';
+    public const NOVASEQ_X_SERIES = 'NovaSeqXSeries';
+    public const MISEQ_I100_SERIES = 'MiSeqi100Series';
+
+    /** @var string */
+    public $value;
+
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
+
+    public static function NOVASEQ_X_SERIES(): self
+    {
+        return new self(self::NOVASEQ_X_SERIES);
+    }
+
+    public static function MISEQ_I100_SERIES(): self
+    {
+        return new self(self::MISEQ_I100_SERIES);
+    }
 }

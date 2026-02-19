@@ -11,7 +11,7 @@ final class BclConvertSettingsSectionTest extends TestCase
     public function testToStringWithSoftwareVersion(): void
     {
         $bclConvertSettingsSection = new BclConvertSettingsSection(
-            BclConvertSoftwareVersion::V4_1_23
+            BclConvertSoftwareVersion::V4_1_23()
         );
 
         $expected = <<<'CSV'

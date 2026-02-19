@@ -7,12 +7,24 @@ use MLL\Utils\IlluminaSampleSheet\V2\IndexOrientation;
 
 class OverrideCycle
 {
-    /** @param array<int, CycleTypeWithCount> $cycleTypeWithCountList */
-    public function __construct(
-        public NucleotideType $nucleotideType,
-        public array $cycleTypeWithCountList,
-        public IndexOrientation $indexOrientation
-    ) {}
+    /** @var NucleotideType */
+    public $nucleotideType;
+
+    /** @var array<int, CycleTypeWithCount> */
+    public $cycleTypeWithCountList;
+
+    /** @var IndexOrientation */
+    public $indexOrientation;
+
+    /**
+     * @param array<int, CycleTypeWithCount> $cycleTypeWithCountList
+     */
+    public function __construct(NucleotideType $nucleotideType, array $cycleTypeWithCountList, IndexOrientation $indexOrientation)
+    {
+        $this->nucleotideType = $nucleotideType;
+        $this->cycleTypeWithCountList = $cycleTypeWithCountList;
+        $this->indexOrientation = $indexOrientation;
+    }
 
     public static function fromString(
         string $nucleotideAndCycleString,
@@ -53,11 +65,11 @@ class OverrideCycle
         }
 
         $trimmedCycle = new CycleTypeWithCount(
-            CycleType::TRIMMED_CYCLE,
-            $fillUpToMaxNucleotideCount - $countOfAllCycleTypes
+            new CycleType(CycleType::TRIMMED_CYCLE),
+            ($fillUpToMaxNucleotideCount - $countOfAllCycleTypes)
         );
 
-        if ($this->nucleotideType === NucleotideType::I2 && $this->indexOrientation === IndexOrientation::FORWARD) {
+        if ($this->nucleotideType->value === NucleotideType::I2 && $this->indexOrientation->value === IndexOrientation::FORWARD) {
             array_unshift($this->cycleTypeWithCountList, $trimmedCycle);
         } else {
             $this->cycleTypeWithCountList[] = $trimmedCycle;

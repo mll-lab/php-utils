@@ -45,10 +45,10 @@ class ReadsSection extends SimpleKeyValueSection
     public static function fromOverrideCycleCounter(OverrideCycleCounter $overrideCycleCounter): self
     {
         return new self(
-            read1CycleCount: $overrideCycleCounter->maxRead1CycleCount(),
-            index1CycleCount: $overrideCycleCounter->maxIndex1CycleCount(),
-            read2CycleCount: $overrideCycleCounter->maxRead2CycleCount(),
-            index2CycleCount: $overrideCycleCounter->maxIndex2CycleCount()
+            $overrideCycleCounter->maxRead1CycleCount(),
+            $overrideCycleCounter->maxIndex1CycleCount(),
+            $overrideCycleCounter->maxRead2CycleCount(),
+            $overrideCycleCounter->maxIndex2CycleCount()
         );
     }
 

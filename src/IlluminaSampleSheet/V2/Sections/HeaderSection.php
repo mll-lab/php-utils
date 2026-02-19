@@ -10,12 +10,29 @@ class HeaderSection extends SimpleKeyValueSection
 {
     protected const FILE_FORMAT_VERSION = '2';
 
+    /** @var string */
+    public $runName;
+
+    /** @var IndexOrientation */
+    public $indexOrientation;
+
+    /** @var InstrumentPlatform */
+    public $instrumentPlatform;
+
+    /** @var string|null */
+    public $runDescription;
+
     public function __construct(
-        public string $runName,
-        public IndexOrientation $indexOrientation,
-        public InstrumentPlatform $instrumentPlatform,
-        public ?string $runDescription
+        string $runName,
+        IndexOrientation $indexOrientation,
+        InstrumentPlatform $instrumentPlatform,
+        ?string $runDescription
     ) {
+        $this->runName = $runName;
+        $this->indexOrientation = $indexOrientation;
+        $this->instrumentPlatform = $instrumentPlatform;
+        $this->runDescription = $runDescription;
+
         $fields = new Collection([
             'FileFormatVersion' => self::FILE_FORMAT_VERSION,
             'RunName' => $this->runName,

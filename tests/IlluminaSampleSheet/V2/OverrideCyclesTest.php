@@ -13,7 +13,6 @@ final class OverrideCyclesTest extends TestCase
 {
     /**
      * @param Collection<int, string> $overrideCyclesList
-     *
      * @dataProvider provideCasesForFromStringToString
      */
     #[DataProvider('provideCasesForFromStringToString')]
@@ -27,62 +26,57 @@ final class OverrideCyclesTest extends TestCase
     }
 
     /**
-     * @return iterable<string, array{
-     *    overrideCyclesAsString: string,
-     *    overrideCyclesList: Collection<int, string>,
-     *    indexOrientation: IndexOrientation,
-     *    expected: string
-     * }>
+     * @return iterable<string, array{string, Collection<int, string>, IndexOrientation, string}>
      */
     public static function provideCasesForFromStringToString(): iterable
     {
         yield 'L1 diff in length' => [
-            'overrideCyclesAsString' => 'R1:U5N2Y94;I1:I6;I2:I8;R2:Y251',
-            'overrideCyclesList' => new Collection(['R1:U5N2Y94;I1:I6;I2:I8;R2:Y251', 'R1:U5N2Y94;I1:I8;I2:I8;R2:Y251']),
-            'indexOrientation' => IndexOrientation::FORWARD,
-            'expected' => 'R1:U5N2Y94;I1:I6N2;I2:I8;R2:Y251',
+            'R1:U5N2Y94;I1:I6;I2:I8;R2:Y251',
+            new Collection(['R1:U5N2Y94;I1:I6;I2:I8;R2:Y251', 'R1:U5N2Y94;I1:I8;I2:I8;R2:Y251']),
+            IndexOrientation::FORWARD(),
+            'R1:U5N2Y94;I1:I6N2;I2:I8;R2:Y251',
         ];
 
         yield 'R1 read diff in length' => [
-            'overrideCyclesAsString' => 'R1:U5N2Y94;I1:I8;I2:I8;R2:Y251',
-            'overrideCyclesList' => new Collection(['R1:U5N2Y94;I1:I8;I2:I8;R2:Y251', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
-            'indexOrientation' => IndexOrientation::FORWARD,
-            'expected' => 'R1:U5N2Y94N4;I1:I8;I2:I8;R2:Y251',
+            'R1:U5N2Y94;I1:I8;I2:I8;R2:Y251',
+            new Collection(['R1:U5N2Y94;I1:I8;I2:I8;R2:Y251', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
+            IndexOrientation::FORWARD(),
+            'R1:U5N2Y94N4;I1:I8;I2:I8;R2:Y251',
         ];
 
         yield 'R1 UMI diff in length' => [
-            'overrideCyclesAsString' => 'R1:U4N2Y98;I1:I8;I2:I8;R2:Y251',
-            'overrideCyclesList' => new Collection(['R1:U4N2Y98;I1:I8;I2:I8;R2:Y251', 'R1:U5N2Y98;I1:I6;I2:I8;R2:Y251']),
-            'indexOrientation' => IndexOrientation::FORWARD,
-            'expected' => 'R1:U4N2Y98N1;I1:I8;I2:I8;R2:Y251',
+            'R1:U4N2Y98;I1:I8;I2:I8;R2:Y251',
+            new Collection(['R1:U4N2Y98;I1:I8;I2:I8;R2:Y251', 'R1:U5N2Y98;I1:I6;I2:I8;R2:Y251']),
+            IndexOrientation::FORWARD(),
+            'R1:U4N2Y98N1;I1:I8;I2:I8;R2:Y251',
         ];
 
         yield 'R2 read diff in length' => [
-            'overrideCyclesAsString' => 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y241',
-            'overrideCyclesList' => new Collection(['R1:U5N2Y98;I1:I8;I2:I8;R2:Y241', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
-            'indexOrientation' => IndexOrientation::FORWARD,
-            'expected' => 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y241N10',
+            'R1:U5N2Y98;I1:I8;I2:I8;R2:Y241',
+            new Collection(['R1:U5N2Y98;I1:I8;I2:I8;R2:Y241', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
+            IndexOrientation::FORWARD(),
+            'R1:U5N2Y98;I1:I8;I2:I8;R2:Y241N10',
         ];
 
         yield 'I2 Changed - Index Forward' => [
-            'overrideCyclesAsString' => 'R1:U5N2Y98;I1:I8;I2:I6;R2:Y251',
-            'overrideCyclesList' => new Collection(['R1:U5N2Y98;I1:I8;I2:I6;R2:Y251', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
-            'indexOrientation' => IndexOrientation::FORWARD,
-            'expected' => 'R1:U5N2Y98;I1:I8;I2:N2I6;R2:Y251',
+            'R1:U5N2Y98;I1:I8;I2:I6;R2:Y251',
+            new Collection(['R1:U5N2Y98;I1:I8;I2:I6;R2:Y251', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
+            IndexOrientation::FORWARD(),
+            'R1:U5N2Y98;I1:I8;I2:N2I6;R2:Y251',
         ];
 
         yield 'I2 Changed - Index Reverse' => [
-            'overrideCyclesAsString' => 'R1:U5N2Y98;I1:I8;I2:I6;R2:Y251',
-            'overrideCyclesList' => new Collection(['R1:U5N2Y98;I1:I8;I2:I6;R2:Y251', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
-            'indexOrientation' => IndexOrientation::REVERSE,
-            'expected' => 'R1:U5N2Y98;I1:I8;I2:I6N2;R2:Y251',
+            'R1:U5N2Y98;I1:I8;I2:I6;R2:Y251',
+            new Collection(['R1:U5N2Y98;I1:I8;I2:I6;R2:Y251', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
+            IndexOrientation::REVERSE(),
+            'R1:U5N2Y98;I1:I8;I2:I6N2;R2:Y251',
         ];
 
         yield 'R1 changed, I1 Changed, I2 Changed, R2 Changed' => [
-            'overrideCyclesAsString' => 'R1:U4N2Y98;I1:I6;I2:I6;R2:Y251',
-            'overrideCyclesList' => new Collection(['R1:U4N2Y98;I1:I6;I2:I8;R2:Y251', 'R1:U5N2Y100;I1:I8;I2:I6;R2:Y241']),
-            'indexOrientation' => IndexOrientation::REVERSE,
-            'expected' => 'R1:U4N2Y98N3;I1:I6N2;I2:I6N2;R2:Y251',
+            'R1:U4N2Y98;I1:I6;I2:I6;R2:Y251',
+            new Collection(['R1:U4N2Y98;I1:I6;I2:I8;R2:Y251', 'R1:U5N2Y100;I1:I8;I2:I6;R2:Y241']),
+            IndexOrientation::REVERSE(),
+            'R1:U4N2Y98N3;I1:I6N2;I2:I6N2;R2:Y251',
         ];
     }
 }

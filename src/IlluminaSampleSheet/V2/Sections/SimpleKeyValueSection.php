@@ -7,10 +7,16 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 
 abstract class SimpleKeyValueSection implements Section
 {
-    /** @param Collection<string, string> $keyValues */
-    public function __construct(
-        private readonly Collection $keyValues
-    ) {}
+    /** @var Collection<string, string> */
+    private $keyValues;
+
+    /**
+     * @param Collection<string, string> $keyValues
+     */
+    public function __construct(Collection $keyValues)
+    {
+        $this->keyValues = $keyValues;
+    }
 
     public function convertSectionToString(): string
     {
