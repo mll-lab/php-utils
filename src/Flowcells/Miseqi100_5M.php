@@ -2,7 +2,7 @@
 
 namespace MLL\Utils\Flowcells;
 
-class Miseqi1005M extends FlowcellType
+class Miseqi100_5M extends FlowcellType
 {
     public function totalLaneCount(): int
     {
