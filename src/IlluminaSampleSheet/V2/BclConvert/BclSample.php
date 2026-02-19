@@ -2,6 +2,8 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
+use MLL\Utils\Flowcells\FlowcellType;
+
 class BclSample
 {
     /** @var string */

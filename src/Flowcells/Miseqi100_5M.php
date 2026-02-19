@@ -1,0 +1,16 @@
+<?php
+
+namespace MLL\Utils\Flowcells;
+
+class Miseqi1005M extends FlowcellType
+{
+    public function totalLaneCount(): int
+    {
+        return 1;
+    }
+
+    public function name(): string
+    {
+        return '5M';
+    }
+}
