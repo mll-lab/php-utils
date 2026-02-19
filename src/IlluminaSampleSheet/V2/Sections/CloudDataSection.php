@@ -7,6 +7,9 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 
 final class CloudDataSection implements Section
 {
+    /** @var string */
+    public const HEADER_ROW = 'Sample_ID,ProjectName,LibraryName';
+
     /** @var Collection<int, CloudDataItem> */
     private $cloudDataItems;
 
@@ -18,7 +21,9 @@ final class CloudDataSection implements Section
 
     public function convertSectionToString(): string
     {
-        return $this->cloudDataItems
+        return
+            self::HEADER_ROW . PHP_EOL
+            . $this->cloudDataItems
             ->map(fn (CloudDataItem $cloudDataItem): string => $cloudDataItem->toString())
             ->join(PHP_EOL) . PHP_EOL;
     }

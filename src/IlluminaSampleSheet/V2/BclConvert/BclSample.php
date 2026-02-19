@@ -6,9 +6,6 @@ use MLL\Utils\Flowcells\FlowcellType;
 
 class BclSample
 {
-    /** @var string */
-    public const HEADER_ROW = 'Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2,BarcodeMismatchesIndex1,BarcodeMismatchesIndex2';
-
     /** @var FlowcellType */
     public $flowcellType;
 

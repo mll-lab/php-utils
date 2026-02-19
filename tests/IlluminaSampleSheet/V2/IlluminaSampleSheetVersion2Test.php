@@ -144,6 +144,7 @@ Cloud_Workflow,ica_workflow_1
 BCLConvert_Pipeline,urn:ilmn:ica:pipeline:d5c7e407-d439-48c8-bce5-b7aec225f6a7#BclConvert_v4_1_23_patch1
 
 [Cloud_Data]
+Sample_ID,ProjectName,LibraryName
 Sample1,test,foo
 Sample2,test,foo
 Sample3,test,foo

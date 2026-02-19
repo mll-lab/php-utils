@@ -11,6 +11,9 @@ use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycles;
 
 class BclConvertDataSection implements Section
 {
+    /** @var string */
+    public const HEADER_ROW = 'Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2,BarcodeMismatchesIndex1,BarcodeMismatchesIndex2';
+
     /** @var Collection<int, BclSample> */
     public $bclSampleList;
 
@@ -31,7 +34,7 @@ class BclConvertDataSection implements Section
         $this->assertNotEmpty();
 
         return
-            BclSample::HEADER_ROW . PHP_EOL
+            self::HEADER_ROW . PHP_EOL
             . $this->bclSampleList
                 ->map(fn (BclSample $bclSample): string => $bclSample->toString($this->overrideCycleCounter))
                 ->join(PHP_EOL) . PHP_EOL;
