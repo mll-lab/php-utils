@@ -24,8 +24,8 @@ final class CloudDataSection implements Section
         return
             self::HEADER_ROW . PHP_EOL
             . $this->cloudDataItems
-            ->map(fn (CloudDataItem $cloudDataItem): string => $cloudDataItem->toString())
-            ->join(PHP_EOL) . PHP_EOL;
+                ->map(fn (CloudDataItem $cloudDataItem): string => $cloudDataItem->toString())
+                ->join(PHP_EOL) . PHP_EOL;
     }
 
     public function sectionName(): string
