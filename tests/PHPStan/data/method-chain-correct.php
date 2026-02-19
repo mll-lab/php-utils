@@ -16,6 +16,11 @@ class MethodChainCorrect
 
     public function baz(): void {}
 
+    public function name(): string
+    {
+        return 'test';
+    }
+
     public static function create(): self
     {
         return new self();
@@ -62,6 +67,11 @@ class MethodChainCorrect
         $this->foo(
             1
         )->bar();
+    }
+
+    public function chainInsideStringInterpolation(): string
+    {
+        return "value: {$this->foo()->name()}";
     }
 
     public function properlySplitChainInClosure(): void
