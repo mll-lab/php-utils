@@ -17,9 +17,7 @@ class BclConvertDataSection implements Section
     /** @var OverrideCycleCounter */
     public $overrideCycleCounter;
 
-    /**
-     * @param Collection<int, BclSample> $bclSampleList
-     */
+    /** @param Collection<int, BclSample> $bclSampleList */
     public function __construct(Collection $bclSampleList)
     {
         $this->bclSampleList = $bclSampleList;
@@ -33,10 +31,10 @@ class BclConvertDataSection implements Section
         $this->assertNotEmpty();
 
         return
-            BclSample::HEADER_ROW . PHP_EOL .
-            $this->bclSampleList
-            ->map(fn (BclSample $bclSample): string => $bclSample->toString($this->overrideCycleCounter))
-            ->join(PHP_EOL) . PHP_EOL;
+            BclSample::HEADER_ROW . PHP_EOL
+            . $this->bclSampleList
+                ->map(fn (BclSample $bclSample): string => $bclSample->toString($this->overrideCycleCounter))
+                ->join(PHP_EOL) . PHP_EOL;
     }
 
     public function assertNotEmpty(): void

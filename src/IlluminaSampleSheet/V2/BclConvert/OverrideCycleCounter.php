@@ -9,9 +9,7 @@ class OverrideCycleCounter
     /** @var Collection<int, OverrideCycles> */
     public $overrideCyclesList;
 
-    /**
-     * @param Collection<int, OverrideCycles> $overrideCyclesList
-     */
+    /** @param Collection<int, OverrideCycles> $overrideCyclesList */
     public function __construct(Collection $overrideCyclesList)
     {
         $this->overrideCyclesList = $overrideCyclesList;
@@ -42,7 +40,8 @@ class OverrideCycleCounter
     public function maxIndex2CycleCount(): int
     {
         $max = $this->overrideCyclesList
-            ->max(fn (OverrideCycles $overrideCycles): int => $overrideCycles->overrideCycleIndex2 !== null
+            ->max(
+                fn (OverrideCycles $overrideCycles): int => $overrideCycles->overrideCycleIndex2 !== null
                 ? $overrideCycles->overrideCycleIndex2->sumCountOfAllCycles()
                 : 0
             );
@@ -54,7 +53,8 @@ class OverrideCycleCounter
     public function maxRead2CycleCount(): int
     {
         $max = $this->overrideCyclesList
-            ->max(fn (OverrideCycles $overrideCycles): int => $overrideCycles->overrideCycleRead2 !== null
+            ->max(
+                fn (OverrideCycles $overrideCycles): int => $overrideCycles->overrideCycleRead2 !== null
                 ? $overrideCycles->overrideCycleRead2->sumCountOfAllCycles()
                 : 0
             );

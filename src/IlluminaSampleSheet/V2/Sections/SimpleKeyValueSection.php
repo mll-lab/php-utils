@@ -10,9 +10,7 @@ abstract class SimpleKeyValueSection implements Section
     /** @var Collection<string, string> */
     private $keyValues;
 
-    /**
-     * @param Collection<string, string> $keyValues
-     */
+    /** @param Collection<string, string> $keyValues */
     public function __construct(Collection $keyValues)
     {
         $this->keyValues = $keyValues;

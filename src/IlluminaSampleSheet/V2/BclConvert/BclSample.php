@@ -75,6 +75,7 @@ class BclSample
                 ]
             );
         }
+
         return implode(PHP_EOL, $content);
     }
 }

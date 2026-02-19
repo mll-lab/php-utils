@@ -16,9 +16,7 @@ class OverrideCycle
     /** @var IndexOrientation */
     public $indexOrientation;
 
-    /**
-     * @param array<int, CycleTypeWithCount> $cycleTypeWithCountList
-     */
+    /** @param array<int, CycleTypeWithCount> $cycleTypeWithCountList */
     public function __construct(NucleotideType $nucleotideType, array $cycleTypeWithCountList, IndexOrientation $indexOrientation)
     {
         $this->nucleotideType = $nucleotideType;
@@ -66,7 +64,7 @@ class OverrideCycle
 
         $trimmedCycle = new CycleTypeWithCount(
             new CycleType(CycleType::TRIMMED_CYCLE),
-            ($fillUpToMaxNucleotideCount - $countOfAllCycleTypes)
+            $fillUpToMaxNucleotideCount - $countOfAllCycleTypes
         );
 
         if ($this->nucleotideType->value === NucleotideType::I2 && $this->indexOrientation->value === IndexOrientation::FORWARD) {

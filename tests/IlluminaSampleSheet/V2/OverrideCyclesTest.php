@@ -13,6 +13,7 @@ final class OverrideCyclesTest extends TestCase
 {
     /**
      * @param Collection<int, string> $overrideCyclesList
+     *
      * @dataProvider provideCasesForFromStringToString
      */
     #[DataProvider('provideCasesForFromStringToString')]
@@ -25,9 +26,7 @@ final class OverrideCyclesTest extends TestCase
         self::assertSame($expected, $overrideCycles->toString($overrideCycleCounter));
     }
 
-    /**
-     * @return iterable<string, array{string, Collection<int, string>, IndexOrientation, string}>
-     */
+    /** @return iterable<string, array{string, Collection<int, string>, IndexOrientation, string}> */
     public static function provideCasesForFromStringToString(): iterable
     {
         yield 'L1 diff in length' => [

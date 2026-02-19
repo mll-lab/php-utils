@@ -10,9 +10,7 @@ final class CloudDataSection implements Section
     /** @var Collection<int, CloudDataItem> */
     private $cloudDataItems;
 
-    /**
-     * @param Collection<int, CloudDataItem> $cloudDataItems
-     */
+    /** @param Collection<int, CloudDataItem> $cloudDataItems */
     public function __construct(Collection $cloudDataItems)
     {
         $this->cloudDataItems = $cloudDataItems;

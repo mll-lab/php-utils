@@ -26,9 +26,7 @@ final class OverrideCycleTest extends TestCase
         self::assertSame(94, $overrideCycle->cycleTypeWithCountList[2]->count);
     }
 
-    /**
-     * @dataProvider provideCasesForFillUpTest
-     */
+    /** @dataProvider provideCasesForFillUpTest */
     #[DataProvider('provideCasesForFillUpTest')]
     public function testFillUp(string $overrideCycleAsString, int $diff, IndexOrientation $indexOrientation, string $expected): void
     {
@@ -37,15 +35,13 @@ final class OverrideCycleTest extends TestCase
 
         self::assertSame(
             $expected,
-                $overrideCycle
+            $overrideCycle
                 ->fillUpTo($total)
                 ->toString()
         );
     }
 
-    /**
-     * @return iterable<string, array{string, int, IndexOrientation, string}>
-     */
+    /** @return iterable<string, array{string, int, IndexOrientation, string}> */
     public static function provideCasesForFillUpTest(): iterable
     {
         yield 'R1 diff in length' => [
