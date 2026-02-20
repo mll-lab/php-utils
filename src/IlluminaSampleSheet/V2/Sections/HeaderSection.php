@@ -47,4 +47,9 @@ class HeaderSection extends SimpleKeyValueSection
     {
         return 'Header';
     }
+
+    public function performAnalysisLocal(): void
+    {
+        $this->keyValues['AnalysisLocation'] = 'Local';
+    }
 }
