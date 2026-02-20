@@ -8,13 +8,21 @@ use MLL\Utils\Flowcells\FlowcellType;
 class BclSample
 {
     public FlowcellType $flowcellType;
+
     public string $sampleID;
+
     public string $indexRead1;
+
     public string $indexRead2;
+
     public OverrideCycles $overrideCycles;
+
     public string $adapterRead1;
+
     public string $adapterRead2;
+
     public string $barcodeMismatchesIndex1;
+
     public string $barcodeMismatchesIndex2;
 
     public function __construct(
@@ -43,7 +51,8 @@ class BclSample
     {
         $content = new Collection();
         foreach ($this->flowcellType->lanes as $lane) {
-            $bclSampleAsString = join(',',
+            $bclSampleAsString = join(
+                ',',
                 [
                     $lane,
                     $this->sampleID,
