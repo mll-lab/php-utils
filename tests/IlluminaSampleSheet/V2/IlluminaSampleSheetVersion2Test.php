@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use MLL\Utils\Flowcells\NovaSeqX1_5B;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclSample;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycles;
-use MLL\Utils\IlluminaSampleSheet\V2\BclConvertSoftwareVersion;
 use MLL\Utils\IlluminaSampleSheet\V2\IlluminaSampleSheetVersion2;
 use MLL\Utils\IlluminaSampleSheet\V2\IndexOrientation;
 use MLL\Utils\IlluminaSampleSheet\V2\InstrumentPlatform;
