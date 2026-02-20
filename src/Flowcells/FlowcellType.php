@@ -21,16 +21,14 @@ abstract class FlowcellType
         $this->lanes = $lanes;
     }
 
-    /**
-     * @param array<int, int> $specificLanes
-     */
+    /** @param array<int, int> $specificLanes */
     public function validate(array $specificLanes): void
     {
         $validLanes = range(1, $this->totalLaneCount());
         $invalidLanes = array_diff($specificLanes, $validLanes);
 
-        if (count($invalidLanes) > 0){
-            $invalidLanesAsString = count($invalidLanes) > 1 ? "Lanes: " : "Lane: ".implode(', ', $invalidLanes);
+        if (count($invalidLanes) > 0) {
+            $invalidLanesAsString = count($invalidLanes) > 1 ? 'Lanes: ' : 'Lane: ' . implode(', ', $invalidLanes);
             throw new FlowcellLaneNotExistsException("Der Flowcell-Typ: '{$this->name()}' besitzt keine {$invalidLanesAsString}");
         }
     }
