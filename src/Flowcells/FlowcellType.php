@@ -29,7 +29,7 @@ abstract class FlowcellType
 
         if (count($invalidLanes) > 0){
             $invalidLanesAsString = count($invalidLanes) > 1 ? "lanes: " : "lane: ".implode(', ', $invalidLanes);
-            throw new FlowcellLaneNotExistsException("The Flowcell-Type: '{$this->name()}' doesn't contain {$invalidLanesAsString}");
+            throw new FlowcellLaneDoesNotExistsException("The Flowcell-Type: '{$this->name()}' doesn't contain {$invalidLanesAsString}");
         }
     }
 }
