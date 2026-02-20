@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace IlluminaSampleSheet\V2;
+namespace MLL\Utils\Tests\IlluminaSampleSheet\V2;
 
 use MLL\Utils\IlluminaSampleSheet\V2\IndexOrientation;
 use MLL\Utils\IlluminaSampleSheet\V2\InstrumentPlatform;
