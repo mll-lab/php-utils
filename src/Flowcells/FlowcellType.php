@@ -27,9 +27,9 @@ abstract class FlowcellType
         $validLanes = range(1, $this->totalLaneCount());
         $invalidLanes = array_diff($specificLanes, $validLanes);
 
-        if (count($invalidLanes) > 0) {
-            $invalidLanesAsString = count($invalidLanes) > 1 ? 'Lanes: ' : 'Lane: ' . implode(', ', $invalidLanes);
-            throw new FlowcellLaneNotExistsException("Der Flowcell-Typ: '{$this->name()}' besitzt keine {$invalidLanesAsString}");
+        if (count($invalidLanes) > 0){
+            $invalidLanesAsString = count($invalidLanes) > 1 ? "lanes: " : "lane: ".implode(', ', $invalidLanes);
+            throw new FlowcellLaneNotExistsException("The Flowcell-Type: '{$this->name()}' doesn't contain {$invalidLanesAsString}");
         }
     }
 }
