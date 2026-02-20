@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class HeaderSectionTest extends TestCase
 {
-    public function testToString(): void
+    public function testToStringOnCloud(): void
     {
         $headerSection = new HeaderSection(
             'Test1234',
@@ -23,6 +23,27 @@ FileFormatVersion,2
 RunName,Test1234
 IndexOrientation,Forward
 InstrumentPlatform,NovaSeqXSeries
+
+CSV;
+        self::assertSame($expected, $headerSection->convertSectionToString());
+    }
+
+    public function testToStringLocal(): void
+    {
+        $headerSection = new HeaderSection(
+            'Test1234',
+            IndexOrientation::FORWARD(),
+            InstrumentPlatform::NOVASEQ_X_SERIES(),
+            null
+        );
+        $headerSection->performAnalysisLocal();
+
+        $expected = <<<'CSV'
+FileFormatVersion,2
+RunName,Test1234
+IndexOrientation,Forward
+InstrumentPlatform,NovaSeqXSeries
+AnalysisLocation,Local
 
 CSV;
         self::assertSame($expected, $headerSection->convertSectionToString());

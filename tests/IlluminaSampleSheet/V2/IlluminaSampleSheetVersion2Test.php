@@ -92,7 +92,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
             null
         );
 
-        $bclConvertSettingsSection = new BclConvertSettingsSection(BclConvertSoftwareVersion::V4_1_23());
+        $bclConvertSettingsSection = new BclConvertSettingsSection();
 
         $bclConvertDataSection = new BclConvertDataSection($bclSampleList);
 
@@ -126,7 +126,6 @@ Index2Cycles,10
 
 [BCLConvert_Settings]
 FastqCompressionFormat,gzip
-GenerateFastqcMetrics,true
 SoftwareVersion,4.1.23
 
 [BCLConvert_Data]
