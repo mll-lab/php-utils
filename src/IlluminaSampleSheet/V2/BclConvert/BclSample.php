@@ -2,26 +2,19 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
+use Illuminate\Support\Collection;
 use MLL\Utils\Flowcells\FlowcellType;
 
 class BclSample
 {
     public FlowcellType $flowcellType;
-
     public string $sampleID;
-
     public string $indexRead1;
-
     public string $indexRead2;
-
     public OverrideCycles $overrideCycles;
-
     public string $adapterRead1;
-
     public string $adapterRead2;
-
     public string $barcodeMismatchesIndex1;
-
     public string $barcodeMismatchesIndex2;
 
     public function __construct(
@@ -48,10 +41,9 @@ class BclSample
 
     public function toString(OverrideCycleCounter $overrideCycleCounter): string
     {
-        $content = [];
+        $content = new Collection();
         foreach ($this->flowcellType->lanes as $lane) {
-            $content[] = join(
-                ',',
+            $bclSampleAsString = join(',',
                 [
                     $lane,
                     $this->sampleID,
@@ -64,8 +56,9 @@ class BclSample
                     $this->barcodeMismatchesIndex2,
                 ]
             );
+            $content->add($bclSampleAsString);
         }
 
-        return implode(PHP_EOL, $content);
+        return $content->join(PHP_EOL);
     }
 }
