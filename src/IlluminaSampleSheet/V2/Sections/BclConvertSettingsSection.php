@@ -8,9 +8,10 @@ use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
 
 final class BclConvertSettingsSection extends SimpleKeyValueSection
 {
-    public function __construct() {
+    public function __construct()
+    {
         $fields = new Collection([
-            'FastqCompressionFormat' => FastQCompressionFormat::GZIP
+            'FastqCompressionFormat' => FastQCompressionFormat::GZIP,
         ]);
 
         parent::__construct($fields);

@@ -24,10 +24,9 @@ final class IlluminaSampleSheetVersion2 extends BaseSampleSheet
         ?CloudSettingsSection $cloudSettingsSection,
         ?CloudDataSection $cloudDataSection
     ) {
-        if($cloudSettingsSection instanceof CloudSettingsSection){
+        if ($cloudSettingsSection instanceof CloudSettingsSection) {
             $bclConvertSettingsSection->performAnalysisOnCloud();
-        }
-        else{
+        } else {
             $headerSection->performAnalysisLocal();
             $bclConvertSettingsSection->performAnalysisLocal();
         }
