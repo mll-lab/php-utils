@@ -7,8 +7,7 @@ class InstrumentPlatform
     public const NOVASEQ_X_SERIES = 'NovaSeqXSeries';
     public const MISEQ_I100_SERIES = 'MiSeqi100Series';
 
-    /** @var string */
-    public $value;
+    public string $value;
 
     public function __construct(string $value)
     {

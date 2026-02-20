@@ -8,7 +8,7 @@ use MLL\Utils\IlluminaSampleSheet\Section;
 abstract class SimpleKeyValueSection implements Section
 {
     /** @var Collection<string, string> */
-    private $keyValues;
+    private Collection $keyValues;
 
     /** @param Collection<string, string> $keyValues */
     public function __construct(Collection $keyValues)

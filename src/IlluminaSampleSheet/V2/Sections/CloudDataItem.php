@@ -4,14 +4,11 @@ namespace MLL\Utils\IlluminaSampleSheet\V2\Sections;
 
 final class CloudDataItem
 {
-    /** @var string */
-    public $bioSampleName;
+    public string $bioSampleName;
 
-    /** @var string */
-    public $projectName;
+    public string $projectName;
 
-    /** @var string */
-    public $libraryName;
+    public string $libraryName;
 
     public function __construct(
         string $bioSampleName,

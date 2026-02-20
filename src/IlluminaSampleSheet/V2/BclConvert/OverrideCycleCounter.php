@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 class OverrideCycleCounter
 {
     /** @var Collection<int, OverrideCycles> */
-    public $overrideCyclesList;
+    public Collection $overrideCyclesList;
 
     /** @param Collection<int, OverrideCycles> $overrideCyclesList */
     public function __construct(Collection $overrideCyclesList)

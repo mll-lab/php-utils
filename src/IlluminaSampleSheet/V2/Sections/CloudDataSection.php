@@ -11,7 +11,7 @@ final class CloudDataSection implements Section
     public const HEADER_ROW = 'Sample_ID,ProjectName,LibraryName';
 
     /** @var Collection<int, CloudDataItem> */
-    private $cloudDataItems;
+    private Collection $cloudDataItems;
 
     /** @param Collection<int, CloudDataItem> $cloudDataItems */
     public function __construct(Collection $cloudDataItems)

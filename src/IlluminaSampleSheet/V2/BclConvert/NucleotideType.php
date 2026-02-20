@@ -9,8 +9,7 @@ class NucleotideType
     public const I2 = 'I2';
     public const R2 = 'R2';
 
-    /** @var string */
-    public $value;
+    public string $value;
 
     public function __construct(string $value)
     {

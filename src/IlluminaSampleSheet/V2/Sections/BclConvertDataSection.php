@@ -15,10 +15,9 @@ class BclConvertDataSection implements Section
     public const HEADER_ROW = 'Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2,BarcodeMismatchesIndex1,BarcodeMismatchesIndex2';
 
     /** @var Collection<int, BclSample> */
-    public $bclSampleList;
+    public Collection $bclSampleList;
 
-    /** @var OverrideCycleCounter */
-    public $overrideCycleCounter;
+    public OverrideCycleCounter $overrideCycleCounter;
 
     /** @param Collection<int, BclSample> $bclSampleList */
     public function __construct(Collection $bclSampleList)

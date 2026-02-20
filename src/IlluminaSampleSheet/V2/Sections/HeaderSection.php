@@ -10,17 +10,13 @@ class HeaderSection extends SimpleKeyValueSection
 {
     protected const FILE_FORMAT_VERSION = '2';
 
-    /** @var string */
-    public $runName;
+    public string $runName;
 
-    /** @var IndexOrientation */
-    public $indexOrientation;
+    public IndexOrientation $indexOrientation;
 
-    /** @var InstrumentPlatform */
-    public $instrumentPlatform;
+    public InstrumentPlatform $instrumentPlatform;
 
-    /** @var string|null */
-    public $runDescription;
+    public ?string $runDescription;
 
     public function __construct(
         string $runName,

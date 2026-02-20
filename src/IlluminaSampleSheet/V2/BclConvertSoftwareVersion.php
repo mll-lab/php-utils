@@ -6,8 +6,7 @@ class BclConvertSoftwareVersion
 {
     public const V4_1_23 = '4.1.23';
 
-    /** @var string */
-    public $value;
+    public string $value;
 
     public function __construct(string $value)
     {

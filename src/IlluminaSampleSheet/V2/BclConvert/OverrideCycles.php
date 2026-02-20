@@ -6,17 +6,13 @@ use MLL\Utils\IlluminaSampleSheet\V2\IndexOrientation;
 
 class OverrideCycles
 {
-    /** @var OverrideCycle */
-    public $overrideCycleRead1;
+    public OverrideCycle $overrideCycleRead1;
 
-    /** @var OverrideCycle */
-    public $overrideCycleIndex1;
+    public OverrideCycle $overrideCycleIndex1;
 
-    /** @var OverrideCycle|null */
-    public $overrideCycleIndex2;
+    public ?OverrideCycle $overrideCycleIndex2;
 
-    /** @var OverrideCycle|null */
-    public $overrideCycleRead2;
+    public ?OverrideCycle $overrideCycleRead2;
 
     public function __construct(
         OverrideCycle $overrideCycleRead1,

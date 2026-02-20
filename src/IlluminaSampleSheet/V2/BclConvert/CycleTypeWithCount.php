@@ -4,11 +4,9 @@ namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 class CycleTypeWithCount
 {
-    /** @var CycleType */
-    public $cycleType;
+    public CycleType $cycleType;
 
-    /** @var int */
-    public $count;
+    public int $count;
 
     public function __construct(CycleType $cycleType, int $count)
     {

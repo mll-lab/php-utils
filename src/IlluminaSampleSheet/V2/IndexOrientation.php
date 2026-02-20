@@ -7,8 +7,7 @@ class IndexOrientation
     public const FORWARD = 'Forward';
     public const REVERSE = 'Reverse';
 
-    /** @var string */
-    public $value;
+    public string $value;
 
     public function __construct(string $value)
     {

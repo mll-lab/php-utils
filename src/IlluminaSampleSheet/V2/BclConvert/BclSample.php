@@ -6,32 +6,23 @@ use MLL\Utils\Flowcells\FlowcellType;
 
 class BclSample
 {
-    /** @var FlowcellType */
-    public $flowcellType;
+    public FlowcellType $flowcellType;
 
-    /** @var string */
-    public $sampleID;
+    public string $sampleID;
 
-    /** @var string */
-    public $indexRead1;
+    public string $indexRead1;
 
-    /** @var string */
-    public $indexRead2;
+    public string $indexRead2;
 
-    /** @var OverrideCycles */
-    public $overrideCycles;
+    public OverrideCycles $overrideCycles;
 
-    /** @var string */
-    public $adapterRead1;
+    public string $adapterRead1;
 
-    /** @var string */
-    public $adapterRead2;
+    public string $adapterRead2;
 
-    /** @var string */
-    public $barcodeMismatchesIndex1;
+    public string $barcodeMismatchesIndex1;
 
-    /** @var string */
-    public $barcodeMismatchesIndex2;
+    public string $barcodeMismatchesIndex2;
 
     public function __construct(
         FlowcellType $flowcellType,

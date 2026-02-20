@@ -9,8 +9,7 @@ class CycleType
     public const UMI_CYCLE = 'U';
     public const INDEX_CYCLE = 'I';
 
-    /** @var string */
-    public $value;
+    public string $value;
 
     public function __construct(string $value)
     {

@@ -7,14 +7,12 @@ use MLL\Utils\IlluminaSampleSheet\V2\IndexOrientation;
 
 class OverrideCycle
 {
-    /** @var NucleotideType */
-    public $nucleotideType;
+    public NucleotideType $nucleotideType;
 
     /** @var array<int, CycleTypeWithCount> */
-    public $cycleTypeWithCountList;
+    public array $cycleTypeWithCountList;
 
-    /** @var IndexOrientation */
-    public $indexOrientation;
+    public IndexOrientation $indexOrientation;
 
     /** @param array<int, CycleTypeWithCount> $cycleTypeWithCountList */
     public function __construct(NucleotideType $nucleotideType, array $cycleTypeWithCountList, IndexOrientation $indexOrientation)
