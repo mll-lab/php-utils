@@ -13,7 +13,7 @@ class BclSample
 
     public string $indexRead1;
 
-    public string $indexRead2;
+    public ?string $indexRead2;
 
     public OverrideCycles $overrideCycles;
 
@@ -29,7 +29,7 @@ class BclSample
         FlowcellType $flowcellType,
         string $sampleID,
         string $indexRead1,
-        string $indexRead2,
+        ?string $indexRead2,
         OverrideCycles $overrideCycles,
         string $adapterRead1,
         string $adapterRead2,
@@ -57,7 +57,7 @@ class BclSample
                     $lane,
                     $this->sampleID,
                     $this->indexRead1,
-                    $this->indexRead2,
+                    $this->indexRead2 ?? '',
                     $this->overrideCycles->toString($overrideCycleCounter),
                     $this->adapterRead1,
                     $this->adapterRead2,
