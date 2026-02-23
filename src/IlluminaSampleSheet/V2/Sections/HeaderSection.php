@@ -20,12 +20,12 @@ class HeaderSection extends SimpleKeyValueSection
 
     public function __construct(
         string             $runName,
-        IndexOrientation   $indexOrientationForIndex1,
+        IndexOrientation   $indexOrientation,
         InstrumentPlatform $instrumentPlatform,
         ?string            $runDescription
     ) {
         $this->runName = $runName;
-        $this->indexOrientation = $indexOrientationForIndex1;
+        $this->indexOrientation = $indexOrientation;
         $this->instrumentPlatform = $instrumentPlatform;
         $this->runDescription = $runDescription;
 
