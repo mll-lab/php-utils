@@ -10,7 +10,6 @@ final class BclConvertSettingsSection extends SimpleKeyValueSection
 {
     use RequiresAnalysisLocationTobeSet;
 
-
     public function __construct()
     {
         $fields = new Collection([
