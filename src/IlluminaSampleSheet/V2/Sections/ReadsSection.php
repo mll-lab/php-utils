@@ -19,26 +19,26 @@ class ReadsSection extends SimpleKeyValueSection
         }
         /**
          * Maximum cycle count for read 2 can be 0 (Single Read sequencing mode), but it the maximum cycle count for
-         * read 2 exists (Paired read sequencing mode) it has to be at least 6
+         * read 2 exists (Paired read sequencing mode) it has to be at least 6.
          */
         if (
             $maximumCycleCountForRead2 < 0
             || ($maximumCycleCountForRead2 > 0 && $maximumCycleCountForRead2 < 6)
-        ){
+        ) {
             throw new IlluminaSampleSheetException('Read2Cycles must be a positive integer.');
         }
 
-        if ($maximumCycleCountForIndex1 < 6){
+        if ($maximumCycleCountForIndex1 < 6) {
             throw new IlluminaSampleSheetException('Index1Cycles must be at least 6.');
         }
         /**
          * Maximum cycle count for index2 can be 0 (Single Indexing), but it the maximum cycle count for index 2
-         * exists (Dual indexing) it has to be at least 6
+         * exists (Dual indexing) it has to be at least 6.
          */
         if (
             $maximumCycleCountForIndex2 < 0
             || ($maximumCycleCountForIndex2 > 0 && $maximumCycleCountForIndex2 < 6)
-        ){
+        ) {
             throw new IlluminaSampleSheetException('Index2Cycles must be at least 6.');
         }
 
