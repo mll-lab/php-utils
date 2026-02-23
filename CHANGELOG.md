@@ -1,3 +1,10 @@
+# [5.25.0](https://github.com/mll-lab/php-utils/compare/v5.24.0...v5.25.0) (2026-02-23)
+
+
+### Features
+
+* Add CoordinateSystem::nonAdjacentPositions() ([76169d6](https://github.com/mll-lab/php-utils/commit/76169d67a68af85468265110c4cab297842b63a2))
+
 # [5.24.0](https://github.com/mll-lab/php-utils/compare/v5.23.1...v5.24.0) (2026-01-28)
 
 
