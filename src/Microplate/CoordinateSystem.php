@@ -3,6 +3,8 @@
 namespace MLL\Utils\Microplate;
 
 use Illuminate\Support\Arr;
+use MLL\Utils\Microplate\Enums\FlowDirection;
+use MLL\Utils\Microplate\Exceptions\UnexpectedFlowDirection;
 
 /**
  * Children should be called `CoordinateSystemXxY`, where X is the number of columns and Y is the number of rows.
@@ -82,6 +84,47 @@ abstract class CoordinateSystem
                 yield new Coordinates($row, $column, $this);
             }
         }
+    }
+
+    /**
+     * Coordinates where no two positions share an edge to e.g. reduce contamination risk between two wells.
+     *
+     * Picks the checkerboard configuration that always starts with A1.
+     *
+     * @return list<Coordinates<$this>>
+     */
+    public function nonAdjacentPositions(FlowDirection $flowDirection): array
+    {
+        $rows = $this->rows();
+        $columns = $this->columns();
+        $positions = [];
+
+        switch ($flowDirection->value) {
+            case FlowDirection::COLUMN:
+                foreach ($columns as $columnIndex => $column) {
+                    foreach ($rows as $rowIndex => $row) {
+                        if (($columnIndex + $rowIndex) % 2 === 0) {
+                            $positions[] = new Coordinates($row, $column, $this);
+                        }
+                    }
+                }
+                break;
+            case FlowDirection::ROW:
+                foreach ($rows as $rowIndex => $row) {
+                    foreach ($columns as $columnIndex => $column) {
+                        if (($columnIndex + $rowIndex) % 2 === 0) {
+                            $positions[] = new Coordinates($row, $column, $this);
+                        }
+                    }
+                }
+                break;
+                // @codeCoverageIgnoreStart all FlowDirection values are listed and this should never happen
+            default:
+                throw new UnexpectedFlowDirection($flowDirection);
+                // @codeCoverageIgnoreEnd
+        }
+
+        return $positions;
     }
 
     /**

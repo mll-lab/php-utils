@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\Microplate\CoordinateSystem4x3;
+use MLL\Utils\Microplate\CoordinateSystem6x8;
 use MLL\Utils\Microplate\Enums\FlowDirection;
 use MLL\Utils\Microplate\Exceptions\MicroplateIsFullException;
 use MLL\Utils\Microplate\Microplate;
@@ -273,5 +274,87 @@ final class MicroplateTest extends TestCase
 
         self::assertTrue($microplate->isConsecutive(FlowDirection::ROW()));
         self::assertTrue($microplate->isConsecutive(FlowDirection::COLUMN()));
+    }
+
+    public function testNextFreeWellAmong(): void
+    {
+        $coordinateSystem = new CoordinateSystem6x8();
+        $microplate = new Microplate($coordinateSystem);
+        $candidates = $coordinateSystem->nonAdjacentPositions(FlowDirection::COLUMN());
+
+        $first = $microplate->nextFreeWellAmong($candidates);
+        self::assertSame('A1', $first->toString());
+
+        $microplate->addWell($first, 'control-1');
+
+        $second = $microplate->nextFreeWellAmong($candidates);
+        self::assertSame('C1', $second->toString());
+
+        $microplate->addWell($second, 'control-2');
+
+        $third = $microplate->nextFreeWellAmong($candidates);
+        self::assertSame('E1', $third->toString());
+    }
+
+    public function testAddToNextFreeWellAmong(): void
+    {
+        $coordinateSystem = new CoordinateSystem6x8();
+        $microplate = new Microplate($coordinateSystem);
+        $candidates = $coordinateSystem->nonAdjacentPositions(FlowDirection::COLUMN());
+
+        $first = $microplate->addToNextFreeWellAmong('sample-1', $candidates);
+        self::assertSame('A1', $first->toString());
+        self::assertSame('sample-1', $microplate->well($first));
+
+        $second = $microplate->addToNextFreeWellAmong('sample-2', $candidates);
+        self::assertSame('C1', $second->toString());
+        self::assertSame('sample-2', $microplate->well($second));
+
+        $third = $microplate->addToNextFreeWellAmong('sample-3', $candidates);
+        self::assertSame('E1', $third->toString());
+    }
+
+    public function testNextFreeWellAmongSkipsFilledPositions(): void
+    {
+        $coordinateSystem = new CoordinateSystem6x8();
+        $microplate = new Microplate($coordinateSystem);
+        $candidates = $coordinateSystem->nonAdjacentPositions(FlowDirection::COLUMN());
+
+        $microplate->setWell(new Coordinates('A', 1, $coordinateSystem), 'occupied-1');
+        $microplate->setWell(new Coordinates('C', 1, $coordinateSystem), 'occupied-2');
+
+        $next = $microplate->nextFreeWellAmong($candidates);
+        self::assertSame('E1', $next->toString());
+    }
+
+    public function testNextFreeWellAmongThrowsWhenAllCandidatesFilled(): void
+    {
+        $coordinateSystem = new CoordinateSystem4x3();
+        $microplate = new Microplate($coordinateSystem);
+        $candidates = $coordinateSystem->nonAdjacentPositions(FlowDirection::COLUMN());
+
+        foreach ($candidates as $coordinates) {
+            $microplate->setWell($coordinates, 'filled');
+        }
+
+        $this->expectException(MicroplateIsFullException::class);
+        $microplate->nextFreeWellAmong($candidates);
+    }
+
+    public function testNextFreeWellAmongWorksWithArbitraryPositionSubset(): void
+    {
+        $coordinateSystem = new CoordinateSystem12x8();
+        $microplate = new Microplate($coordinateSystem);
+
+        $customCandidates = [
+            new Coordinates('A', 3, $coordinateSystem),
+            new Coordinates('B', 5, $coordinateSystem),
+            new Coordinates('D', 7, $coordinateSystem),
+        ];
+
+        $microplate->setWell($customCandidates[0], 'taken');
+
+        $next = $microplate->nextFreeWellAmong($customCandidates);
+        self::assertSame('B5', $next->toString());
     }
 }
