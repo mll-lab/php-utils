@@ -8,6 +8,9 @@ use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
 
 final class BclConvertSettingsSection extends SimpleKeyValueSection
 {
+    use RequiresAnalysisLocationTobeSet;
+
+
     public function __construct()
     {
         $fields = new Collection([
@@ -17,18 +20,28 @@ final class BclConvertSettingsSection extends SimpleKeyValueSection
         parent::__construct($fields);
     }
 
-    public function performAnalysisOnCloud(): void
+    public function performAnalysisOn(AnalysisLocation $analysisLocation): void
+    {
+        $this->analysisLocation = $analysisLocation;
+        $analysisLocation->value === AnalysisLocation::LOCAL_MACHINE
+            ? $this->performAnalysisOnLocalMachine()
+            : $this->performAnalysisOnCloud();
+    }
+
+    private function performAnalysisOnCloud(): void
     {
         $this->keyValues['SoftwareVersion'] = BclConvertSoftwareVersion::V4_1_23;
     }
 
-    public function performAnalysisLocal(): void
+    private function performAnalysisOnLocalMachine(): void
     {
         $this->keyValues['GenerateFastqcMetrics'] = 'true';
     }
 
     public function sectionName(): string
     {
+        $this->checkIfAnalysisLocationIsSet();
+
         return 'BCLConvert_Settings';
     }
 }

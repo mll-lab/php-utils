@@ -36,7 +36,7 @@ CSV;
             InstrumentPlatform::NOVASEQ_X_SERIES(),
             null
         );
-        $headerSection->performAnalysisLocal();
+        $headerSection->performAnalysisOnLocalMachine();
 
         $expected = <<<'CSV'
 FileFormatVersion,2

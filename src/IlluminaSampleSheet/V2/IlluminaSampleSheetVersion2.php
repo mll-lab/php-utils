@@ -3,6 +3,7 @@
 namespace MLL\Utils\IlluminaSampleSheet\V2;
 
 use MLL\Utils\IlluminaSampleSheet\BaseSampleSheet;
+use MLL\Utils\IlluminaSampleSheet\V2\Sections\AnalysisLocation;
 use MLL\Utils\IlluminaSampleSheet\V2\Sections\BclConvertDataSection;
 use MLL\Utils\IlluminaSampleSheet\V2\Sections\BclConvertSettingsSection;
 use MLL\Utils\IlluminaSampleSheet\V2\Sections\CloudDataSection;
@@ -25,10 +26,10 @@ final class IlluminaSampleSheetVersion2 extends BaseSampleSheet
         ?CloudDataSection $cloudDataSection
     ) {
         if ($cloudSettingsSection instanceof CloudSettingsSection) {
-            $bclConvertSettingsSection->performAnalysisOnCloud();
+            $bclConvertSettingsSection->performAnalysisOn(AnalysisLocation::CLOUD());
         } else {
-            $headerSection->performAnalysisLocal();
-            $bclConvertSettingsSection->performAnalysisLocal();
+            $headerSection->performAnalysisOnLocalMachine();
+            $bclConvertSettingsSection->performAnalysisOn(AnalysisLocation::LOCAL_MACHINE());
         }
 
         $this->addSection($headerSection);
