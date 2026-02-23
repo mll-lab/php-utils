@@ -9,34 +9,49 @@ use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycleCounter;
 class ReadsSection extends SimpleKeyValueSection
 {
     public function __construct(
-        int $read1CycleCount,
-        int $index1CycleCount,
-        ?int $read2CycleCount,
-        ?int $index2CycleCount
+        int $maximumCycleCountForRead1,
+        int $maximumCycleCountForIndex1,
+        int $maximumCycleCountForRead2,
+        int $maximumCycleCountForIndex2
     ) {
-        if ($read1CycleCount < 1) {
+        if ($maximumCycleCountForRead1 < 1) {
             throw new IlluminaSampleSheetException('Read1Cycles must be a positive integer.');
         }
-        if ($read2CycleCount !== null && $read2CycleCount < 1) {
-            throw new IlluminaSampleSheetException('Read2Cycles must be a positive integer or null.');
+        /**
+         * Maximum cycle count for read 2 can be 0 (Single Read sequencing mode), but it the maximum cycle count for
+         * read 2 exists (Paired read sequencing mode) it has to be at least 6
+         */
+        if (
+            $maximumCycleCountForRead2 < 0
+            || ($maximumCycleCountForRead2 > 0 && $maximumCycleCountForRead2 < 6)
+        ){
+            throw new IlluminaSampleSheetException('Read2Cycles must be a positive integer.');
         }
-        if ($index1CycleCount < 6) {
+
+        if ($maximumCycleCountForIndex1 < 6){
             throw new IlluminaSampleSheetException('Index1Cycles must be at least 6.');
         }
-        if ($index2CycleCount !== null && ($index2CycleCount < 6)) {
+        /**
+         * Maximum cycle count for index2 can be 0 (Single Indexing), but it the maximum cycle count for index 2
+         * exists (Dual indexing) it has to be at least 6
+         */
+        if (
+            $maximumCycleCountForIndex2 < 0
+            || ($maximumCycleCountForIndex2 > 0 && $maximumCycleCountForIndex2 < 6)
+        ){
             throw new IlluminaSampleSheetException('Index2Cycles must be at least 6.');
         }
 
         $fields = new Collection();
 
-        $fields->put('Read1Cycles', $read1CycleCount);
-        if (is_int($read2CycleCount)) {
-            $fields->put('Read2Cycles', $read2CycleCount);
+        $fields->put('Read1Cycles', $maximumCycleCountForRead1);
+        if ($maximumCycleCountForRead2 > 0) {
+            $fields->put('Read2Cycles', $maximumCycleCountForRead2);
         }
 
-        $fields->put('Index1Cycles', $index1CycleCount);
-        if (is_int($index2CycleCount)) {
-            $fields->put('Index2Cycles', $index2CycleCount);
+        $fields->put('Index1Cycles', $maximumCycleCountForIndex1);
+        if ($maximumCycleCountForIndex2 > 0) {
+            $fields->put('Index2Cycles', $maximumCycleCountForIndex2);
         }
 
         parent::__construct($fields);
