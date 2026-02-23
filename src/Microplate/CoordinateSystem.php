@@ -89,6 +89,8 @@ abstract class CoordinateSystem
     /**
      * Coordinates where no two positions share an edge to e.g. reduce contamination risk between two wells.
      *
+     * Picks the checkerboard configuration that always starts with A1.
+     *
      * @return list<Coordinates<$this>>
      */
     public function nonAdjacentPositions(FlowDirection $flowDirection): array
