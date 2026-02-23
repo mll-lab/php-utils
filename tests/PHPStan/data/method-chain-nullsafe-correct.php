@@ -19,4 +19,14 @@ class MethodChainNullsafeCorrect
         $nullable?->foo()
             ?->bar();
     }
+
+    public function noArgNullSafeChain(?self $nullable): void
+    {
+        $nullable?->foo()?->bar();
+    }
+
+    public function mixedNoArgNullSafeChain(?self $nullable): void
+    {
+        $nullable?->foo()->bar();
+    }
 }

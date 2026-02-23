@@ -18,10 +18,9 @@ final class OneThingPerLineRuleTest extends PHPStanTestCase
 
         yield [__DIR__ . '/data/method-chain-violations.php', [
             26 => [self::ERROR_MESSAGE],
-            31 => [self::ERROR_MESSAGE, self::ERROR_MESSAGE],
-            36 => [self::ERROR_MESSAGE],
-            43 => [self::ERROR_MESSAGE],
-            50 => [self::ERROR_MESSAGE],
+            31 => [self::ERROR_MESSAGE],
+            38 => [self::ERROR_MESSAGE],
+            45 => [self::ERROR_MESSAGE],
         ]];
 
         yield [__DIR__ . '/data/method-chain-correct.php', []];

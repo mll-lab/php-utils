@@ -8,11 +8,6 @@ if (version_compare(PHP_VERSION, '8.0', '>=')) {
     $includes[] = __DIR__ . '/../rules.neon';
 }
 
-// PHP < 8.0: exclude test fixtures using nullsafe operator syntax
-if (version_compare(PHP_VERSION, '8.0', '<')) {
-    $includes[] = __DIR__ . '/php-below-8.0.neon';
-}
-
 // PHP < 8.1: exclude enums, add ignores for older PHPStan versions
 if (version_compare(PHP_VERSION, '8.1', '<')) {
     $includes[] = __DIR__ . '/php-below-8.1.neon';

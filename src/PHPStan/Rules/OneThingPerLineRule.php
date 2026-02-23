@@ -47,6 +47,10 @@ final class OneThingPerLineRule implements Rule
             return [];
         }
 
+        if ($var->getArgs() === []) {
+            return [];
+        }
+
         if ($this->isInsideStringInterpolation($scope->getFile(), $node)) {
             return [];
         }

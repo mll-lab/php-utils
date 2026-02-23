@@ -69,6 +69,45 @@ class MethodChainCorrect
         )->bar();
     }
 
+    public function noArgAccessorThenAction(): void
+    {
+        $this->foo()->baz();
+    }
+
+    public function noArgAccessorThenActionWithArgs(): void
+    {
+        $this->foo()->foo(1);
+    }
+
+    public function noArgChainAllAccessors(): void
+    {
+        $this->foo()->bar()->baz();
+    }
+
+    public function staticPlusNoArgChain(): void
+    {
+        self::create()->foo()->bar();
+    }
+
+    public function propertyThenNoArgAccessorThenAction(): void
+    {
+        $this->relation->foo()->baz();
+    }
+
+    public function noArgAccessorChainInArrowFunction(): void
+    {
+        /** @var list<self> $items */
+        $items = [];
+        array_map(fn (self $x): self => $x->foo()->bar(), $items);
+    }
+
+    public function noArgAccessorChainInClosure(): void
+    {
+        /** @var list<self> $items */
+        $items = [];
+        array_map(fn (self $x): int => spl_object_id($x->foo()->bar()), $items);
+    }
+
     public function chainInsideStringInterpolation(): string
     {
         return "value: {$this->foo()->name()}";

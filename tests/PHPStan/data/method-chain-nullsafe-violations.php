@@ -4,23 +4,23 @@ namespace MLL\Utils\Tests\PHPStan\data;
 
 class MethodChainNullsafeViolations
 {
-    public function foo(): self
+    public function foo(int $arg = 0): self
     {
         return $this;
     }
 
-    public function bar(): self
+    public function bar(int $arg = 0): self
     {
         return $this;
     }
 
-    public function nullSafeChain(?self $nullable): void
+    public function nullSafeChainWithArgs(?self $nullable): void
     {
-        $nullable?->foo()?->bar();
+        $nullable?->foo(1)?->bar(2);
     }
 
-    public function mixedNullSafeAndRegularChain(?self $nullable): void
+    public function mixedNullSafeChainWithArgs(?self $nullable): void
     {
-        $nullable?->foo()->bar();
+        $nullable?->foo(1)->bar(2);
     }
 }
