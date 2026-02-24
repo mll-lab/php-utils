@@ -23,7 +23,7 @@ class BclSample
 
     public string $barcodeMismatchesIndex1;
 
-    public string $barcodeMismatchesIndex2;
+    public ?string $barcodeMismatchesIndex2;
 
     public function __construct(
         FlowcellType $flowcellType,
@@ -34,7 +34,7 @@ class BclSample
         string $adapterRead1,
         string $adapterRead2,
         string $barcodeMismatchesIndex1,
-        string $barcodeMismatchesIndex2
+        ?string $barcodeMismatchesIndex2
     ) {
         $this->flowcellType = $flowcellType;
         $this->sampleID = $sampleID;
@@ -62,7 +62,7 @@ class BclSample
                     $this->adapterRead1,
                     $this->adapterRead2,
                     $this->barcodeMismatchesIndex1,
-                    $this->barcodeMismatchesIndex2,
+                    $this->barcodeMismatchesIndex2 ?? '',
                 ]
             );
             $content->add($bclSampleAsString);
