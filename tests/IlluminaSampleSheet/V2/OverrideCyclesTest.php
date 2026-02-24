@@ -30,52 +30,52 @@ final class OverrideCyclesTest extends TestCase
     public static function provideCasesForFromStringToString(): iterable
     {
         yield 'L1 diff in length' => [
-            'R1:U5N2Y94;I1:I6;I2:I8;R2:Y251',
-            new Collection(['R1:U5N2Y94;I1:I6;I2:I8;R2:Y251', 'R1:U5N2Y94;I1:I8;I2:I8;R2:Y251']),
+            'U5N2Y94;I6;I8;Y251',
+            new Collection(['U5N2Y94;I6;I8;Y251', 'U5N2Y94;I8;I8;Y251']),
             IndexOrientation::FORWARD(),
-            'R1:U5N2Y94;I1:I6N2;I2:I8;R2:Y251',
+            'U5N2Y94;I6N2;I8;Y251',
         ];
 
         yield 'R1 read diff in length' => [
-            'R1:U5N2Y94;I1:I8;I2:I8;R2:Y251',
-            new Collection(['R1:U5N2Y94;I1:I8;I2:I8;R2:Y251', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
+            'U5N2Y94;I8;I8;Y251',
+            new Collection(['U5N2Y94;I8;I8;Y251', 'U5N2Y98;I8;I8;Y251']),
             IndexOrientation::FORWARD(),
-            'R1:U5N2Y94N4;I1:I8;I2:I8;R2:Y251',
+            'U5N2Y94N4;I8;I8;Y251',
         ];
 
         yield 'R1 UMI diff in length' => [
-            'R1:U4N2Y98;I1:I8;I2:I8;R2:Y251',
-            new Collection(['R1:U4N2Y98;I1:I8;I2:I8;R2:Y251', 'R1:U5N2Y98;I1:I6;I2:I8;R2:Y251']),
+            'U4N2Y98;I8;I8;Y251',
+            new Collection(['U4N2Y98;I8;I8;Y251', 'U5N2Y98;I6;I8;Y251']),
             IndexOrientation::FORWARD(),
-            'R1:U4N2Y98N1;I1:I8;I2:I8;R2:Y251',
+            'U4N2Y98N1;I8;I8;Y251',
         ];
 
         yield 'R2 read diff in length' => [
-            'R1:U5N2Y98;I1:I8;I2:I8;R2:Y241',
-            new Collection(['R1:U5N2Y98;I1:I8;I2:I8;R2:Y241', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
+            'U5N2Y98;I8;I8;Y241',
+            new Collection(['U5N2Y98;I8;I8;Y241', 'U5N2Y98;I8;I8;Y251']),
             IndexOrientation::FORWARD(),
-            'R1:U5N2Y98;I1:I8;I2:I8;R2:Y241N10',
+            'U5N2Y98;I8;I8;Y241N10',
         ];
 
         yield 'I2 Changed - Index Forward' => [
-            'R1:U5N2Y98;I1:I8;I2:I6;R2:Y251',
-            new Collection(['R1:U5N2Y98;I1:I8;I2:I6;R2:Y251', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
+            'U5N2Y98;I8;I6;Y251',
+            new Collection(['U5N2Y98;I8;I6;Y251', 'U5N2Y98;I8;I8;Y251']),
             IndexOrientation::FORWARD(),
-            'R1:U5N2Y98;I1:I8;I2:N2I6;R2:Y251',
+            'U5N2Y98;I8;N2I6;Y251',
         ];
 
         yield 'I2 Changed - Index Reverse' => [
-            'R1:U5N2Y98;I1:I8;I2:I6;R2:Y251',
-            new Collection(['R1:U5N2Y98;I1:I8;I2:I6;R2:Y251', 'R1:U5N2Y98;I1:I8;I2:I8;R2:Y251']),
+            'U5N2Y98;I8;I6;Y251',
+            new Collection(['U5N2Y98;I8;I6;Y251', 'U5N2Y98;I8;I8;Y251']),
             IndexOrientation::REVERSE(),
-            'R1:U5N2Y98;I1:I8;I2:I6N2;R2:Y251',
+            'U5N2Y98;I8;I6N2;Y251',
         ];
 
         yield 'R1 changed, I1 Changed, I2 Changed, R2 Changed' => [
-            'R1:U4N2Y98;I1:I6;I2:I6;R2:Y251',
-            new Collection(['R1:U4N2Y98;I1:I6;I2:I8;R2:Y251', 'R1:U5N2Y100;I1:I8;I2:I6;R2:Y241']),
+            'U4N2Y98;I6;I6;Y251',
+            new Collection(['U4N2Y98;I6;I8;Y251', 'U5N2Y100;I8;I6;Y241']),
             IndexOrientation::REVERSE(),
-            'R1:U4N2Y98N3;I1:I6N2;I2:I6N2;R2:Y251',
+            'U4N2Y98N3;I6N2;I6N2;Y251',
         ];
     }
 }

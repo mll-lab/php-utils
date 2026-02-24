@@ -46,16 +46,20 @@ class OverrideCycles
     {
         $filledParts = array_filter([ // @phpstan-ignore arrayFilter.strict (we want truthy comparison)
             $this->overrideCycleRead1
-                ->fillUpTo($overrideCycleCounter->maxRead1CycleCount())
+                ->fillUpTo($overrideCycleCounter->maxRead1CycleCount(), new NucleotideType(NucleotideType::R1))
                 ->toString(),
             $this->overrideCycleIndex1
-                ->fillUpTo($overrideCycleCounter->maxIndex1CycleCount())
+                ->fillUpTo($overrideCycleCounter->maxIndex1CycleCount(), new NucleotideType(NucleotideType::I1))
                 ->toString(),
             $this->overrideCycleIndex2 !== null
-                ? $this->overrideCycleIndex2->fillUpTo($overrideCycleCounter->maxIndex2CycleCount())->toString()
+                ? $this->overrideCycleIndex2
+                    ->fillUpTo($overrideCycleCounter->maxIndex2CycleCount(), new NucleotideType(NucleotideType::I2))
+                    ->toString()
                 : null,
             $this->overrideCycleRead2 !== null
-                ? $this->overrideCycleRead2->fillUpTo($overrideCycleCounter->maxRead2CycleCount())->toString()
+                ? $this->overrideCycleRead2
+                    ->fillUpTo($overrideCycleCounter->maxRead2CycleCount(), new NucleotideType(NucleotideType::R2))
+                    ->toString()
                 : null,
         ]);
 

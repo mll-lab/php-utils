@@ -24,7 +24,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
     {
         $indexOrientation = IndexOrientation::FORWARD();
 
-        $overrideCycles0 = OverrideCycles::fromString('R1:U7N1Y143;I1:I8;I2:I8;R2:U7N1Y143', $indexOrientation);
+        $overrideCycles0 = OverrideCycles::fromString('U7N1Y143;I8;I8;U7N1Y143', $indexOrientation);
 
         $bclSample0 = new BclSample(
             new NovaSeqX1_5B([1]),
@@ -38,7 +38,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
             '0'
         );
 
-        $overrideCycles1 = OverrideCycles::fromString('R1:Y151;I1:I8;I2:I10;R2:Y151', $indexOrientation);
+        $overrideCycles1 = OverrideCycles::fromString('Y151;I8;I10;Y151', $indexOrientation);
         $bclSample1 = new BclSample(
             new NovaSeqX1_5B([2]),
             'Sample2',
@@ -51,7 +51,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
             '0'
         );
 
-        $overrideCycles2 = OverrideCycles::fromString('R1:Y151;I1:I8;I2:I8;R2:U10N12Y127', $indexOrientation);
+        $overrideCycles2 = OverrideCycles::fromString('Y151;I8;I8;U10N12Y127', $indexOrientation);
         $bclSample2 = new BclSample(
             new NovaSeqX1_5B(null),
             'Sample3',
@@ -64,7 +64,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
             '0'
         );
 
-        $overrideCycles3 = OverrideCycles::fromString('R1:Y101;I1:I8;I2:I8;R2:Y101', $indexOrientation);
+        $overrideCycles3 = OverrideCycles::fromString('Y101;I8;I8;Y101', $indexOrientation);
         $bclSample3 = new BclSample(
             new NovaSeqX1_5B(null),
             'Sample4',
@@ -129,12 +129,12 @@ SoftwareVersion,4.1.23
 
 [BCLConvert_Data]
 Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2,BarcodeMismatchesIndex1,BarcodeMismatchesIndex2
-1,Sample1,Index1,Index2,R1:U7N1Y143;I1:I8;I2:N2I8;R2:U7N1Y143,Adapter1,Adapter2,0,0
-2,Sample2,Index3,Index4,R1:Y151;I1:I8;I2:I10;R2:Y151,Adapter3,Adapter4,0,0
-1,Sample3,Index5,Index6,R1:Y151;I1:I8;I2:N2I8;R2:U10N12Y127N2,Adapter5,Adapter6,0,0
-2,Sample3,Index5,Index6,R1:Y151;I1:I8;I2:N2I8;R2:U10N12Y127N2,Adapter5,Adapter6,0,0
-1,Sample4,Index5,Index6,R1:Y101N50;I1:I8;I2:N2I8;R2:Y101N50,Adapter5,Adapter6,1,1
-2,Sample4,Index5,Index6,R1:Y101N50;I1:I8;I2:N2I8;R2:Y101N50,Adapter5,Adapter6,1,1
+1,Sample1,Index1,Index2,U7N1Y143;I8;N2I8;U7N1Y143,Adapter1,Adapter2,0,0
+2,Sample2,Index3,Index4,Y151;I8;I10;Y151,Adapter3,Adapter4,0,0
+1,Sample3,Index5,Index6,Y151;I8;N2I8;U10N12Y127N2,Adapter5,Adapter6,0,0
+2,Sample3,Index5,Index6,Y151;I8;N2I8;U10N12Y127N2,Adapter5,Adapter6,0,0
+1,Sample4,Index5,Index6,Y101N50;I8;N2I8;Y101N50,Adapter5,Adapter6,1,1
+2,Sample4,Index5,Index6,Y101N50;I8;N2I8;Y101N50,Adapter5,Adapter6,1,1
 
 [Cloud_Settings]
 GeneratedVersion,2.6.0.202308300002
