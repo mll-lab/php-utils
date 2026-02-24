@@ -65,13 +65,15 @@ class OverrideCycle
             $fillUpToMaxNucleotideCount - $countOfAllCycleTypes
         );
 
+        $newCycleTypeWithCountList = $this->cycleTypeWithCountList;
+
         if ($this->nucleotideType->value === NucleotideType::I2 && $this->indexOrientation->value === IndexOrientation::FORWARD) {
-            array_unshift($this->cycleTypeWithCountList, $trimmedCycle);
+            array_unshift($newCycleTypeWithCountList, $trimmedCycle);
         } else {
-            $this->cycleTypeWithCountList[] = $trimmedCycle;
+            $newCycleTypeWithCountList[] = $trimmedCycle;
         }
 
-        return $this;
+        return new self($this->nucleotideType, $newCycleTypeWithCountList, $this->indexOrientation);
     }
 
     public function sumCountOfAllCycles(): int

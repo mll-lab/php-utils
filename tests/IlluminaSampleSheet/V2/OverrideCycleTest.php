@@ -41,6 +41,17 @@ final class OverrideCycleTest extends TestCase
         );
     }
 
+    public function testFillUpDoesNotMutateOriginal(): void
+    {
+        $overrideCycle = OverrideCycle::fromString('R1:U5N2Y94', IndexOrientation::FORWARD());
+        $originalSum = $overrideCycle->sumCountOfAllCycles();
+
+        $overrideCycle->fillUpTo($originalSum + 4);
+
+        self::assertSame($originalSum, $overrideCycle->sumCountOfAllCycles());
+        self::assertCount(3, $overrideCycle->cycleTypeWithCountList);
+    }
+
     /** @return iterable<string, array{string, int, IndexOrientation, string}> */
     public static function provideCasesForFillUpTest(): iterable
     {
