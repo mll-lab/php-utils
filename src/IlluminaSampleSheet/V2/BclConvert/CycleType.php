@@ -15,5 +15,4 @@ class CycleType
     {
         $this->value = $value;
     }
-
 }

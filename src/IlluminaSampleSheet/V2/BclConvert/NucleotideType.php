@@ -15,5 +15,4 @@ class NucleotideType
     {
         $this->value = $value;
     }
-
 }
