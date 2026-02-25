@@ -26,7 +26,7 @@ class OverrideCycle
         \Safe\preg_match_all('/([YNUI])(\d+)/', $cycleString, $matches, PREG_SET_ORDER);
 
         if (count($matches) > 4) {
-            throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have less than 4 parts: {$cycleString}.");
+            throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have at most 4 parts: {$cycleString}.");
         }
 
         if (count($matches) === 0) {

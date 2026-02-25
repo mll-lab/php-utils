@@ -2,6 +2,7 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
+use MLL\Utils\IlluminaSampleSheet\IlluminaSampleSheetException;
 use MLL\Utils\IlluminaSampleSheet\V2\IndexOrientation;
 
 class OverrideCycles
@@ -29,6 +30,10 @@ class OverrideCycles
     public static function fromString(string $overrideCyclesAsString, IndexOrientation $indexOrientation): self
     {
         $overrideCyclesAsArray = explode(';', $overrideCyclesAsString);
+
+        if (count($overrideCyclesAsArray) < 2) {
+            throw new IlluminaSampleSheetException("Invalid OverrideCycles string. Must contain at least 2 semicolon-separated parts (Read1 and Index1): {$overrideCyclesAsString}");
+        }
 
         return new self(
             OverrideCycle::fromString($overrideCyclesAsArray[0], $indexOrientation),

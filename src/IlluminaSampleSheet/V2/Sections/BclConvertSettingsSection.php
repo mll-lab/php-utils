@@ -8,7 +8,7 @@ use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
 
 final class BclConvertSettingsSection extends SimpleKeyValueSection
 {
-    use RequiresAnalysisLocationTobeSet;
+    use RequiresAnalysisLocationToBeSet;
 
     public function __construct()
     {

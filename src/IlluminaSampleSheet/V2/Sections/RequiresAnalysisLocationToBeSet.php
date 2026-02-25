@@ -2,9 +2,9 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\Sections;
 
-trait RequiresAnalysisLocationTobeSet
+trait RequiresAnalysisLocationToBeSet
 {
-    public ?AnalysisLocation $analysisLocation;
+    public ?AnalysisLocation $analysisLocation = null;
 
     private function checkIfAnalysisLocationIsSet(): void
     {

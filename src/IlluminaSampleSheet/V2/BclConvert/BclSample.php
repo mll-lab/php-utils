@@ -2,7 +2,6 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
-use Illuminate\Support\Collection;
 use MLL\Utils\Flowcells\FlowcellType;
 
 class BclSample
@@ -49,25 +48,21 @@ class BclSample
 
     public function toString(OverrideCycleCounter $overrideCycleCounter): string
     {
-        $content = new Collection();
-        foreach ($this->flowcellType->lanes as $lane) {
-            $bclSampleAsString = join(
-                ',',
-                [
-                    $lane,
-                    $this->sampleID,
-                    $this->indexRead1,
-                    $this->indexRead2 ?? '',
-                    $this->overrideCycles->toString($overrideCycleCounter),
-                    $this->adapterRead1,
-                    $this->adapterRead2,
-                    $this->barcodeMismatchesIndex1,
-                    $this->barcodeMismatchesIndex2 ?? '',
-                ]
-            );
-            $content->add($bclSampleAsString);
-        }
+        $lines = array_map(
+            fn (int $lane): string => implode(',', [
+                $lane,
+                $this->sampleID,
+                $this->indexRead1,
+                $this->indexRead2 ?? '',
+                $this->overrideCycles->toString($overrideCycleCounter),
+                $this->adapterRead1,
+                $this->adapterRead2,
+                $this->barcodeMismatchesIndex1,
+                $this->barcodeMismatchesIndex2 ?? '',
+            ]),
+            $this->flowcellType->lanes
+        );
 
-        return $content->join(PHP_EOL);
+        return implode(PHP_EOL, $lines);
     }
 }

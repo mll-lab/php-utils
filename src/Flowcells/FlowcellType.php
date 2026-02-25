@@ -28,8 +28,12 @@ abstract class FlowcellType
         $invalidLanes = array_diff($specificLanes, $validLanes);
 
         if (count($invalidLanes) > 0) {
-            $invalidLanesAsString = count($invalidLanes) > 1 ? 'lanes: ' : 'lane: ' . implode(', ', $invalidLanes);
-            throw new FlowcellLaneDoesNotExistsException("The Flowcell-Type: '{$this->name()}' doesn't contain {$invalidLanesAsString}");
+            $label = count($invalidLanes) > 1
+                ? 'lanes'
+                : 'lane';
+            $invalidLanesAsString = implode(', ', $invalidLanes);
+
+            throw new FlowcellLaneDoesNotExistException("The Flowcell-Type: '{$this->name()}' doesn't contain {$label}: {$invalidLanesAsString}");
         }
     }
 }

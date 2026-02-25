@@ -2,4 +2,4 @@
 
 namespace MLL\Utils\Flowcells;
 
-class FlowcellLaneDoesNotExistsException extends \Exception {}
+class FlowcellLaneDoesNotExistException extends \Exception {}
