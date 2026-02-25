@@ -16,8 +16,4 @@ class CycleType
         $this->value = $value;
     }
 
-    public static function from(string $value): self
-    {
-        return new self($value);
-    }
 }

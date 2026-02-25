@@ -23,7 +23,7 @@ class OverrideCycle
         string $cycleString,
         IndexOrientation $indexOrientation
     ): self {
-        \Safe\preg_match_all('/([YNUI]+)(\d+)/', $cycleString, $matches, PREG_SET_ORDER);
+        \Safe\preg_match_all('/([YNUI])(\d+)/', $cycleString, $matches, PREG_SET_ORDER);
 
         if (count($matches) > 4) {
             throw new IlluminaSampleSheetException("Invalid Override Cycle Part. Should have less than 4 parts: {$cycleString}.");
@@ -35,7 +35,7 @@ class OverrideCycle
 
         return new self(
             array_map(
-                fn (array $match): CycleTypeWithCount => new CycleTypeWithCount(CycleType::from($match[1]), (int) $match[2]),
+                fn (array $match): CycleTypeWithCount => new CycleTypeWithCount(new CycleType($match[1]), (int) $match[2]),
                 $matches
             ),
             $indexOrientation

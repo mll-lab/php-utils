@@ -52,7 +52,7 @@ final class OverrideCycleTest extends TestCase
         $overrideCycle = OverrideCycle::fromString('U5N2Y94', IndexOrientation::FORWARD());
         $originalSum = $overrideCycle->sumCountOfAllCycles();
 
-        $overrideCycle->fillUpTo($originalSum + 4, NucleotideType::from(NucleotideType::R1));
+        $overrideCycle->fillUpTo($originalSum + 4, new NucleotideType(NucleotideType::R1));
 
         self::assertSame($originalSum, $overrideCycle->sumCountOfAllCycles());
         self::assertCount(3, $overrideCycle->cycleTypeWithCountList);
@@ -62,22 +62,22 @@ final class OverrideCycleTest extends TestCase
     public static function provideCasesForFillUpTest(): iterable
     {
         yield 'R1 diff in length' => [
-            ['U5N2Y94', NucleotideType::from(NucleotideType::R1)], 4, IndexOrientation::FORWARD(), 'U5N2Y94N4',
+            ['U5N2Y94', new NucleotideType(NucleotideType::R1)], 4, IndexOrientation::FORWARD(), 'U5N2Y94N4',
         ];
         yield 'I1 diff in length' => [
-            ['I6', NucleotideType::from(NucleotideType::I1)], 2, IndexOrientation::FORWARD(), 'I6N2',
+            ['I6', new NucleotideType(NucleotideType::I1)], 2, IndexOrientation::FORWARD(), 'I6N2',
         ];
         yield 'R1 UMI diff in length' => [
-            ['U4N2Y98', NucleotideType::from(NucleotideType::R1)], 1, IndexOrientation::FORWARD(), 'U4N2Y98N1',
+            ['U4N2Y98', new NucleotideType(NucleotideType::R1)], 1, IndexOrientation::FORWARD(), 'U4N2Y98N1',
         ];
         yield 'R2 diff in length' => [
-            ['Y241', NucleotideType::from(NucleotideType::R2)], 10, IndexOrientation::FORWARD(), 'Y241N10',
+            ['Y241', new NucleotideType(NucleotideType::R2)], 10, IndexOrientation::FORWARD(), 'Y241N10',
         ];
         yield 'I2 diff in length - IndexOrientation Forward' => [
-            ['I6', NucleotideType::from(NucleotideType::I2)], 2, IndexOrientation::FORWARD(), 'N2I6',
+            ['I6', new NucleotideType(NucleotideType::I2)], 2, IndexOrientation::FORWARD(), 'N2I6',
         ];
         yield 'I2 diff in length - IndexOrientation Reverse' => [
-            ['I6', NucleotideType::from(NucleotideType::I2)], 2, IndexOrientation::REVERSE(), 'I6N2',
+            ['I6', new NucleotideType(NucleotideType::I2)], 2, IndexOrientation::REVERSE(), 'I6N2',
         ];
     }
 }
