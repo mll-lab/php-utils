@@ -155,6 +155,18 @@ final class SafeCastTest extends TestCase
         self::assertSame('object-string', SafeCast::toString($object));
     }
 
+    public function testTryStringWithObjectHavingToStringMethod(): void
+    {
+        $object = new class() implements \Stringable {
+            public function __toString(): string
+            {
+                return 'object-string';
+            }
+        };
+
+        self::assertSame('object-string', SafeCast::tryString($object));
+    }
+
     /**
      * @dataProvider invalidStringProvider
      *
@@ -175,6 +187,94 @@ final class SafeCastTest extends TestCase
         yield ['Cannot cast value of type "array" to string', []];
         yield ['Cannot cast value of type "boolean" to string', true];
         yield ['Cannot cast value of type "boolean" to string', false];
+    }
+
+    /**
+     * @dataProvider validIntProvider
+     *
+     * @param mixed $input can be anything
+     */
+    #[DataProvider('validIntProvider')]
+    public function testTryIntWithValidInput(int $expected, $input): void
+    {
+        self::assertSame($expected, SafeCast::tryInt($input));
+    }
+
+    /**
+     * @dataProvider invalidIntProvider
+     *
+     * @param mixed $input can be anything
+     */
+    #[DataProvider('invalidIntProvider')]
+    public function testTryIntReturnsNullForInvalidInput(string $expectedMessage, $input): void
+    {
+        self::assertNull(SafeCast::tryInt($input));
+    }
+
+    /**
+     * @dataProvider validFloatProvider
+     *
+     * @param mixed $input can be anything
+     */
+    #[DataProvider('validFloatProvider')]
+    public function testTryFloatWithValidInput(float $expected, $input): void
+    {
+        self::assertSame($expected, SafeCast::tryFloat($input));
+    }
+
+    /**
+     * @dataProvider invalidFloatProvider
+     *
+     * @param mixed $input can be anything
+     */
+    #[DataProvider('invalidFloatProvider')]
+    public function testTryFloatReturnsNullForInvalidInput(string $expectedMessage, $input): void
+    {
+        self::assertNull(SafeCast::tryFloat($input));
+    }
+
+    /**
+     * @dataProvider validStringProvider
+     *
+     * @param mixed $input can be anything
+     */
+    #[DataProvider('validStringProvider')]
+    public function testTryStringWithValidInput(string $expected, $input): void
+    {
+        self::assertSame($expected, SafeCast::tryString($input));
+    }
+
+    /**
+     * @dataProvider invalidStringProvider
+     *
+     * @param mixed $input can be anything
+     */
+    #[DataProvider('invalidStringProvider')]
+    public function testTryStringReturnsNullForInvalidInput(string $expectedMessage, $input): void
+    {
+        self::assertNull(SafeCast::tryString($input));
+    }
+
+    /**
+     * @dataProvider validBoolProvider
+     *
+     * @param mixed $input can be anything
+     */
+    #[DataProvider('validBoolProvider')]
+    public function testTryBoolWithValidInput(bool $expected, $input): void
+    {
+        self::assertSame($expected, SafeCast::tryBool($input));
+    }
+
+    /**
+     * @dataProvider invalidBoolProvider
+     *
+     * @param mixed $input can be anything
+     */
+    #[DataProvider('invalidBoolProvider')]
+    public function testTryBoolReturnsNullForInvalidInput(string $expectedMessage, $input): void
+    {
+        self::assertNull(SafeCast::tryBool($input));
     }
 
     /**

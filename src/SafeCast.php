@@ -16,13 +16,25 @@ use function Safe\preg_match;
  * - (int)"123abc" returns 123 (partial conversion, data loss)
  * - (float)"1.23.45" returns 1.23 (invalid format accepted)
  *
- * The methods in this class throw exceptions for invalid inputs instead of
- * silently producing incorrect values.
+ * Each type has two variants:
+ * - toX($value): returns the cast value or throws \InvalidArgumentException
+ * - tryX($value): returns the cast value or null (like Enum::tryFrom)
  */
 class SafeCast
 {
     /**
-     * Safely cast a value to an integer.
+     * Safely cast a value to an integer, or throw.
+     *
+     * @param mixed $value The value to cast
+     */
+    public static function toInt($value): int
+    {
+        return self::tryInt($value)
+            ?? throw self::failedToCastToInt($value);
+    }
+
+    /**
+     * Safely cast a value to an integer, or return null.
      *
      * Only accepts:
      * - Integers (returned as-is)
@@ -30,45 +42,41 @@ class SafeCast
      * - Floats that are exact integer values (e.g., 5.0)
      *
      * @param mixed $value The value to cast
-     *
-     * @throws \InvalidArgumentException If the value cannot be safely cast to an integer
      */
-    public static function toInt($value): int
+    public static function tryInt($value): ?int
     {
         if (is_int($value)) {
             return $value;
         }
 
-        // Allow floats that represent exact integers (e.g., 5.0 -> 5)
-        if (is_float($value)) {
-            if ($value === floor($value) && is_finite($value)) {
-                return (int) $value;
-            }
-
-            throw new \InvalidArgumentException('Float value "' . $value . '" cannot be safely cast to int (not a whole number or not finite)');
+        if (is_float($value) && $value === floor($value) && is_finite($value)) {
+            return (int) $value;
         }
 
         if (is_string($value)) {
             $trimmed = trim($value);
 
-            // Empty string is not a valid integer
-            if ($trimmed === '') {
-                throw new \InvalidArgumentException('Empty string cannot be cast to int');
+            if ($trimmed !== '' && self::isIntegerString($trimmed)) {
+                return (int) $trimmed;
             }
-
-            // Check if the string represents a valid integer
-            if (! self::isIntegerString($trimmed)) {
-                throw new \InvalidArgumentException('String value "' . $value . '" is not a valid integer format');
-            }
-
-            return (int) $trimmed;
         }
 
-        throw new \InvalidArgumentException('Cannot cast value of type "' . gettype($value) . '" to int');
+        return null;
     }
 
     /**
-     * Safely cast a value to a float.
+     * Safely cast a value to a float, or throw.
+     *
+     * @param mixed $value The value to cast
+     */
+    public static function toFloat($value): float
+    {
+        return self::tryFloat($value)
+            ?? throw self::failedToCastToFloat($value);
+    }
+
+    /**
+     * Safely cast a value to a float, or return null.
      *
      * Only accepts:
      * - Floats (returned as-is)
@@ -76,10 +84,8 @@ class SafeCast
      * - Numeric strings that represent valid floats
      *
      * @param mixed $value The value to cast
-     *
-     * @throws \InvalidArgumentException If the value cannot be safely cast to a float
      */
-    public static function toFloat($value): float
+    public static function tryFloat($value): ?float
     {
         if (is_float($value)) {
             return $value;
@@ -92,24 +98,27 @@ class SafeCast
         if (is_string($value)) {
             $trimmed = trim($value);
 
-            // Empty string is not a valid float
-            if ($trimmed === '') {
-                throw new \InvalidArgumentException('Empty string cannot be cast to float');
+            if ($trimmed !== '' && self::isNumericString($trimmed)) {
+                return (float) $trimmed;
             }
-
-            // Check if the string represents a valid numeric value
-            if (! self::isNumericString($trimmed)) {
-                throw new \InvalidArgumentException('String value "' . $value . '" is not a valid numeric format');
-            }
-
-            return (float) $trimmed;
         }
 
-        throw new \InvalidArgumentException('Cannot cast value of type "' . gettype($value) . '" to float');
+        return null;
     }
 
     /**
-     * Safely cast a value to a string.
+     * Safely cast a value to a string, or throw.
+     *
+     * @param mixed $value The value to cast
+     */
+    public static function toString($value): string
+    {
+        return self::tryString($value)
+            ?? throw self::failedToCastToString($value);
+    }
+
+    /**
+     * Safely cast a value to a string, or return null.
      *
      * Only accepts:
      * - Strings (returned as-is)
@@ -118,10 +127,8 @@ class SafeCast
      * - null (converted to empty string)
      *
      * @param mixed $value The value to cast
-     *
-     * @throws \InvalidArgumentException If the value cannot be safely cast to a string
      */
-    public static function toString($value): string
+    public static function tryString($value): ?string
     {
         if (is_string($value)) {
             return $value;
@@ -139,11 +146,22 @@ class SafeCast
             return (string) $value;
         }
 
-        throw new \InvalidArgumentException('Cannot cast value of type "' . gettype($value) . '" to string');
+        return null;
     }
 
     /**
-     * Safely cast a value to a boolean.
+     * Safely cast a value to a boolean, or throw.
+     *
+     * @param mixed $value The value to cast
+     */
+    public static function toBool($value): bool
+    {
+        return self::tryBool($value)
+            ?? throw self::failedToCastToBool($value);
+    }
+
+    /**
+     * Safely cast a value to a boolean, or return null.
      *
      * Only accepts:
      * - Booleans (returned as-is)
@@ -151,10 +169,8 @@ class SafeCast
      * - String "0" or "1"
      *
      * @param mixed $value The value to cast
-     *
-     * @throws \InvalidArgumentException If the value cannot be safely cast to a boolean
      */
-    public static function toBool($value): bool
+    public static function tryBool($value): ?bool
     {
         if (is_bool($value)) {
             return $value;
@@ -168,32 +184,65 @@ class SafeCast
             return true;
         }
 
-        throw new \InvalidArgumentException('Cannot safely cast value of type "' . gettype($value) . '" to bool. Only bool, int 0/1, or string "0"/"1" are accepted.');
+        return null;
     }
 
-    /**
-     * Check if a string represents a valid integer.
-     *
-     * Accepts optional leading/trailing whitespace, optional sign, and digits only.
-     */
     private static function isIntegerString(string $value): bool
     {
         return preg_match('/^[+-]?\d+$/', $value) === 1;
     }
 
-    /**
-     * Check if a string represents a valid numeric value (integer or float).
-     *
-     * Accepts scientific notation, decimals with optional sign.
-     */
     private static function isNumericString(string $value): bool
     {
         if (! is_numeric($value)) {
             return false;
         }
 
-        // is_numeric accepts some formats we want to reject, like hexadecimal (0x1F) or binary (0b1010).
-        // Check for these and reject them for stricter validation
+        // is_numeric accepts some formats we want to reject, like hexadecimal (0x1F) or binary (0b1010)
         return preg_match('/^0[xXbB]/', $value) !== 1;
+    }
+
+    /** @param mixed $value The value that failed to cast */
+    private static function failedToCastToInt($value): \InvalidArgumentException
+    {
+        if (is_float($value)) {
+            return new \InvalidArgumentException("Float value \"{$value}\" cannot be safely cast to int (not a whole number or not finite)");
+        }
+
+        if (is_string($value)) {
+            if (trim($value) === '') {
+                return new \InvalidArgumentException('Empty string cannot be cast to int');
+            }
+
+            return new \InvalidArgumentException("String value \"{$value}\" is not a valid integer format");
+        }
+
+        return new \InvalidArgumentException('Cannot cast value of type "' . gettype($value) . '" to int');
+    }
+
+    /** @param mixed $value The value that failed to cast */
+    private static function failedToCastToFloat($value): \InvalidArgumentException
+    {
+        if (is_string($value)) {
+            if (trim($value) === '') {
+                return new \InvalidArgumentException('Empty string cannot be cast to float');
+            }
+
+            return new \InvalidArgumentException("String value \"{$value}\" is not a valid numeric format");
+        }
+
+        return new \InvalidArgumentException('Cannot cast value of type "' . gettype($value) . '" to float');
+    }
+
+    /** @param mixed $value The value that failed to cast */
+    private static function failedToCastToString($value): \InvalidArgumentException
+    {
+        return new \InvalidArgumentException('Cannot cast value of type "' . gettype($value) . '" to string');
+    }
+
+    /** @param mixed $value The value that failed to cast */
+    private static function failedToCastToBool($value): \InvalidArgumentException
+    {
+        return new \InvalidArgumentException('Cannot safely cast value of type "' . gettype($value) . '" to bool. Only bool, int 0/1, or string "0"/"1" are accepted.');
     }
 }
