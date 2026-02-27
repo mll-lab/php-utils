@@ -49,7 +49,6 @@ class HeaderSection implements Section
     public function convertSectionToString(): string
     {
         $headerLines = [
-            '[Header]',
             "IEMFileVersion,{$this->iemFileVersion}",
             "Investigator Name,{$this->investigatorName}",
             "Experiment Name,{$this->experimentName}",
@@ -62,5 +61,10 @@ class HeaderSection implements Section
         ];
 
         return implode("\n", $headerLines);
+    }
+
+    public function sectionName(): string
+    {
+        return 'Header';
     }
 }

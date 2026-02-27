@@ -4,7 +4,7 @@ namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
 class CycleTypeWithCount
 {
-    protected CycleType $cycleType;
+    public CycleType $cycleType;
 
     public int $count;
 

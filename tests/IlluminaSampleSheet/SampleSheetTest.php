@@ -12,14 +12,16 @@ final class SampleSheetTest extends TestCase
     {
         $sectionMock1 = $this->createMock(Section::class);
         $sectionMock1->method('convertSectionToString')->willReturn('section1');
+        $sectionMock1->method('sectionName')->willReturn('section1');
 
         $sectionMock2 = $this->createMock(Section::class);
         $sectionMock2->method('convertSectionToString')->willReturn('section2');
+        $sectionMock2->method('sectionName')->willReturn('section2');
 
         $sampleSheet = $this->createPartialMock(BaseSampleSheet::class, []);
         $sampleSheet->addSection($sectionMock1);
         $sampleSheet->addSection($sectionMock2);
 
-        self::assertSame("section1\nsection2", $sampleSheet->toString());
+        self::assertSame("[section1]\nsection1\n[section2]\nsection2", $sampleSheet->toString());
     }
 }
