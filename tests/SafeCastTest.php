@@ -140,7 +140,16 @@ final class SafeCastTest extends TestCase
         yield ['0', 0];
         yield ['3.14', 3.14];
         yield ['-2.5', -2.5];
-        yield ['', null];
+    }
+
+    public function testToStringWithNull(): void
+    {
+        self::assertSame('', SafeCast::toString(null));
+    }
+
+    public function testTryStringWithNullReturnsNull(): void
+    {
+        self::assertNull(SafeCast::tryString(null));
     }
 
     public function testToStringWithObjectHavingToStringMethod(): void

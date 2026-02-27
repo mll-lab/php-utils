@@ -113,6 +113,10 @@ class SafeCast
      */
     public static function toString($value): string
     {
+        if ($value === null) {
+            return '';
+        }
+
         return self::tryString($value)
             ?? throw self::failedToCastToString($value);
     }
@@ -124,7 +128,6 @@ class SafeCast
      * - Strings (returned as-is)
      * - Integers and floats (converted to string)
      * - Objects with __toString() method
-     * - null (converted to empty string)
      *
      * @param mixed $value The value to cast
      */
@@ -136,10 +139,6 @@ class SafeCast
 
         if (is_int($value) || is_float($value)) {
             return (string) $value;
-        }
-
-        if ($value === null) {
-            return '';
         }
 
         if (is_object($value) && method_exists($value, '__toString')) {
