@@ -5,7 +5,7 @@ it: fix stan test ## Run the commonly used targets
 help: ## Displays this list of targets with descriptions
 	@grep --extended-regexp '^[a-zA-Z0-9_-]+:.*?## .*$$' $(firstword $(MAKEFILE_LIST)) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
-setup: vendor ## Set up the repository
+setup: composer-update vendor ## Set up the repository
 
 .PHONY: coverage
 coverage: vendor ## Collects coverage from running unit tests with phpunit
@@ -14,14 +14,14 @@ coverage: vendor ## Collects coverage from running unit tests with phpunit
 	vendor/bin/phpunit --coverage-text --prepend=.build/phpunit/xdebug-filter.php
 
 .PHONY: fix
-fix: rector php-cs-fixer
+fix: rector php-cs-fixer ## Fix code automatically
 
 .PHONY: rector
-rector: vendor
+rector: vendor ## Refactor code with rector
 	vendor/bin/rector process
 
 .PHONY: php-cs-fixer
-php-cs-fixer:
+php-cs-fixer: vendor ## Fix code style with php-cs-fixer
 	mkdir --parents .build/php-cs-fixer
 	vendor/bin/php-cs-fixer fix
 
@@ -35,7 +35,11 @@ test: vendor ## Runs auto-review, unit, and integration tests with phpunit
 	mkdir --parents .build/phpunit
 	vendor/bin/phpunit --cache-directory=.build/phpunit
 
-vendor: composer.json
+.PHONY: composer-update
+composer-update: ## Update dependencies with composer
 	composer update
+
+vendor: composer.json
+	composer install
 	composer validate --strict
 	composer normalize
