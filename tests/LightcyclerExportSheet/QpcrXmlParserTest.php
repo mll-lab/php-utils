@@ -219,7 +219,7 @@ final class QpcrXmlParserTest extends TestCase
             </root>
             XML;
 
-        $this->expectExceptionObject(new \InvalidArgumentException("Invalid float value: 'invalid'"));
+        $this->expectExceptionObject(new \InvalidArgumentException('String value "invalid" is not a valid numeric format'));
 
         $parser = new LightcyclerXmlParser();
         $parser->parse($xmlWithInvalidFloat);

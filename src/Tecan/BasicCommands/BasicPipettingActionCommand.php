@@ -2,6 +2,7 @@
 
 namespace MLL\Utils\Tecan\BasicCommands;
 
+use MLL\Utils\SafeCast;
 use MLL\Utils\Tecan\LiquidClass\LiquidClass;
 use MLL\Utils\Tecan\Location\Location;
 
@@ -36,6 +37,6 @@ abstract class BasicPipettingActionCommand extends Command implements UsesTipMas
 
     public function setTipMask(int $tipMask): void
     {
-        $this->tipMask = (string) $tipMask;
+        $this->tipMask = SafeCast::toString($tipMask);
     }
 }

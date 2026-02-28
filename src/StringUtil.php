@@ -171,11 +171,12 @@ class StringUtil
      */
     public static function leftPadNumber($number, int $length): string
     {
-        if (is_string($number) && ! is_numeric($number)) {
-            throw new \InvalidArgumentException("Expected numeric string, got: {$number}");
+        // For strings, validate they're numeric by casting to float first
+        if (is_string($number)) {
+            $number = SafeCast::toFloat($number);
         }
 
-        return str_pad((string) $number, $length, '0', STR_PAD_LEFT);
+        return str_pad(SafeCast::toString($number), $length, '0', STR_PAD_LEFT);
     }
 
     /** Remove forbidden chars (<,>,:,",/,\,|,?,*) from file name. */
