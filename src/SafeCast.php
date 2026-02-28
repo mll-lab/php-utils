@@ -29,8 +29,12 @@ class SafeCast
      */
     public static function toInt($value): int
     {
-        return self::tryInt($value)
-            ?? throw self::failedToCastToInt($value);
+        $result = self::tryInt($value);
+        if ($result === null) {
+            throw self::failedToCastToInt($value);
+        }
+
+        return $result;
     }
 
     /**
@@ -71,8 +75,12 @@ class SafeCast
      */
     public static function toFloat($value): float
     {
-        return self::tryFloat($value)
-            ?? throw self::failedToCastToFloat($value);
+        $result = self::tryFloat($value);
+        if ($result === null) {
+            throw self::failedToCastToFloat($value);
+        }
+
+        return $result;
     }
 
     /**
@@ -117,8 +125,12 @@ class SafeCast
             return '';
         }
 
-        return self::tryString($value)
-            ?? throw self::failedToCastToString($value);
+        $result = self::tryString($value);
+        if ($result === null) {
+            throw self::failedToCastToString($value);
+        }
+
+        return $result;
     }
 
     /**
@@ -155,8 +167,12 @@ class SafeCast
      */
     public static function toBool($value): bool
     {
-        return self::tryBool($value)
-            ?? throw self::failedToCastToBool($value);
+        $result = self::tryBool($value);
+        if ($result === null) {
+            throw self::failedToCastToBool($value);
+        }
+
+        return $result;
     }
 
     /**
