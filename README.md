@@ -27,6 +27,10 @@ See [tests](tests).
 PHP's native type casts like `(int)` and `(float)` can produce unexpected results, especially when casting from strings.
 The `SafeCast` utility provides safe alternatives that validate input before casting:
 
+Each type has two variants:
+- `toX()`: returns the cast value or throws `\InvalidArgumentException`
+- `tryX()`: returns the cast value or `null` (like `Enum::tryFrom()`)
+
 ```php
 use MLL\Utils\SafeCast;
 
@@ -34,21 +38,25 @@ use MLL\Utils\SafeCast;
 SafeCast::toInt(42);           // 42
 SafeCast::toInt('42');         // 42
 SafeCast::toInt('hello');      // throws InvalidArgumentException
+SafeCast::tryInt('hello');     // null
 
 // Safe float casting
 SafeCast::toFloat(3.14);       // 3.14
 SafeCast::toFloat('3.14');     // 3.14
 SafeCast::toFloat('abc');      // throws InvalidArgumentException
+SafeCast::tryFloat('abc');     // null
 
 // Safe string casting
 SafeCast::toString(42);        // '42'
 SafeCast::toString(null);      // ''
+SafeCast::tryString([1, 2]);   // null
 
 // Safe boolean casting
 SafeCast::toBool(true);        // true
 SafeCast::toBool(1);           // true
 SafeCast::toBool('0');         // false
 SafeCast::toBool('true');      // throws InvalidArgumentException
+SafeCast::tryBool('true');     // null
 ```
 
 See [tests](tests/SafeCastTest.php) for more examples.
