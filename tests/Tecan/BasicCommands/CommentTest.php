@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tecan\BasicCommands;
+namespace MLL\Utils\Tests\Tecan\BasicCommands;
 
 use MLL\Utils\Tecan\BasicCommands\Comment;
 use PHPUnit\Framework\TestCase;

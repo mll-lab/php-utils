@@ -18,6 +18,11 @@ class ReadsSection implements Section
 
     public function convertSectionToString(): string
     {
-        return "[Reads]\n" . $this->read1Cycles . "\n" . $this->read2Cycles;
+        return $this->read1Cycles . "\n" . $this->read2Cycles;
+    }
+
+    public function sectionName(): string
+    {
+        return 'Reads';
     }
 }

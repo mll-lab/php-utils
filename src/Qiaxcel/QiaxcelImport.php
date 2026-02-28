@@ -27,7 +27,7 @@ class QiaxcelImport
         $this->valueForEmptyCell = $valueForEmptyCell;
     }
 
-    public function generate(): SpreadSheet
+    public function generate(): Spreadsheet
     {
         $sampleSheetData = [];
         foreach (array_chunk($this->entries, 12) as $entryChunks) {

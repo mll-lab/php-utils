@@ -2,55 +2,67 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
+use MLL\Utils\Flowcells\FlowcellType;
+
 class BclSample
 {
-    public int $lane;
+    public FlowcellType $flowcellType;
 
-    /** Not using camelCase because the property names of this class must match the CSV file. */
-    public string $sample_ID;
+    public string $sampleID;
 
-    public string $index;
+    public string $indexRead1;
 
-    public ?string $index2 = null;
+    public ?string $indexRead2;
 
     public OverrideCycles $overrideCycles;
 
-    public ?string $adapterRead1 = null;
+    public string $adapterRead1;
 
-    public ?string $adapterRead2 = null;
+    public string $adapterRead2;
 
-    public ?string $barcodeMismatchesIndex1 = null;
+    public string $barcodeMismatchesIndex1;
 
-    public ?string $barcodeMismatchesIndex2 = null;
-
-    public ?string $project = null;
+    public ?string $barcodeMismatchesIndex2;
 
     public function __construct(
-        int $lane,
-        string $sample_ID,
-        string $index,
-        OverrideCycles $overrideCycles
+        FlowcellType $flowcellType,
+        string $sampleID,
+        string $indexRead1,
+        ?string $indexRead2,
+        OverrideCycles $overrideCycles,
+        string $adapterRead1,
+        string $adapterRead2,
+        string $barcodeMismatchesIndex1,
+        ?string $barcodeMismatchesIndex2
     ) {
-        $this->lane = $lane;
-        $this->sample_ID = $sample_ID;
-        $this->index = $index;
+        $this->flowcellType = $flowcellType;
+        $this->sampleID = $sampleID;
+        $this->indexRead1 = $indexRead1;
+        $this->indexRead2 = $indexRead2;
         $this->overrideCycles = $overrideCycles;
+        $this->adapterRead1 = $adapterRead1;
+        $this->adapterRead2 = $adapterRead2;
+        $this->barcodeMismatchesIndex1 = $barcodeMismatchesIndex1;
+        $this->barcodeMismatchesIndex2 = $barcodeMismatchesIndex2;
     }
 
-    /** @return array<int|string> */
-    public function toArray(): array
+    public function toString(OverrideCycleCounter $overrideCycleCounter): string
     {
-        return array_filter([ // @phpstan-ignore arrayFilter.strict (we want truthy comparison)
-            $this->lane,
-            $this->sample_ID,
-            $this->index,
-            $this->index2,
-            $this->overrideCycles->toString(),
-            $this->adapterRead1,
-            $this->adapterRead2,
-            $this->barcodeMismatchesIndex1,
-            $this->barcodeMismatchesIndex2,
-            $this->project,
-        ]);
+        $lines = array_map(
+            fn (int $lane): string => implode(',', [
+                $lane,
+                $this->sampleID,
+                $this->indexRead1,
+                $this->indexRead2 ?? '',
+                $this->overrideCycles->toString($overrideCycleCounter),
+                $this->adapterRead1,
+                $this->adapterRead2,
+                $this->barcodeMismatchesIndex1,
+                $this->barcodeMismatchesIndex2 ?? '',
+            ]),
+            $this->flowcellType->lanes
+        );
+
+        return implode(PHP_EOL, $lines);
     }
 }

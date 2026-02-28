@@ -2,12 +2,12 @@
 
 namespace MLL\Utils\IlluminaSampleSheet\V2\BclConvert;
 
-class CycleType
+class NucleotideType
 {
-    public const READ_CYCLE = 'Y';
-    public const TRIMMED_CYCLE = 'N';
-    public const UMI_CYCLE = 'U';
-    public const INDEX_CYCLE = 'I';
+    public const R1 = 'R1';
+    public const I1 = 'I1';
+    public const I2 = 'I2';
+    public const R2 = 'R2';
 
     public string $value;
 

@@ -1,0 +1,35 @@
+<?php declare(strict_types=1);
+
+namespace MLL\Utils\IlluminaSampleSheet\V2\Sections;
+
+use Illuminate\Support\Collection;
+use MLL\Utils\IlluminaSampleSheet\Section;
+
+final class CloudDataSection implements Section
+{
+    /** @var string */
+    public const HEADER_ROW = 'Sample_ID,ProjectName,LibraryName';
+
+    /** @var Collection<int, CloudDataItem> */
+    private Collection $cloudDataItems;
+
+    /** @param Collection<int, CloudDataItem> $cloudDataItems */
+    public function __construct(Collection $cloudDataItems)
+    {
+        $this->cloudDataItems = $cloudDataItems;
+    }
+
+    public function convertSectionToString(): string
+    {
+        return
+            self::HEADER_ROW . PHP_EOL
+            . $this->cloudDataItems
+                ->map(fn (CloudDataItem $cloudDataItem): string => $cloudDataItem->toString())
+                ->join(PHP_EOL) . PHP_EOL;
+    }
+
+    public function sectionName(): string
+    {
+        return 'Cloud_Data';
+    }
+}

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace FluidXPlate;
+namespace MLL\Utils\Tests\FluidXPlate;
 
 use MLL\Utils\FluidXPlate\FluidXScanner;
 use PHPUnit\Framework\TestCase;

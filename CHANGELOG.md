@@ -1,3 +1,18 @@
+## [6.0.0](https://github.com/mll-lab/php-utils/compare/v5.25.0...v6.0.0) (2026-02-27)
+
+### ⚠ BREAKING CHANGES
+
+* **release:** Illumina sample sheet V2 API was redesigned in the previous commit for NovaSeq X and cloud support
+* **samplesheet:** Update Illumina sample sheets for NovaSeq X and cloud support (#72)
+
+### Features
+
+* **samplesheet:** Update Illumina sample sheets for NovaSeq X and cloud support ([#72](https://github.com/mll-lab/php-utils/issues/72)) ([b27d6f8](https://github.com/mll-lab/php-utils/commit/b27d6f86533f2f5cb71147786a12ac16929daa4f))
+
+### Bug Fixes
+
+* **release:** use conventionalcommits preset for semantic-release ([96519b7](https://github.com/mll-lab/php-utils/commit/96519b7b9b79e2d6a9cc40c07a20c34d919172e8))
+
 # [5.25.0](https://github.com/mll-lab/php-utils/compare/v5.24.0...v5.25.0) (2026-02-23)
 
 
