@@ -38,4 +38,22 @@ final class DnaSequenceTest extends TestCase
         self::assertSame('', $dnaSequence->complement());
         self::assertSame('', $dnaSequence->reverseComplement());
     }
+
+    public function testWithLowercaseLetters(): void
+    {
+        $dnaSequence = new DnaSequence('gcat');
+        self::assertSame('GCAT', $dnaSequence->toString());
+    }
+
+    public function testWithTrimmableCharacters(): void
+    {
+        $dnaSequence = new DnaSequence(' GCAT ');
+        self::assertSame('GCAT', $dnaSequence->toString());
+    }
+
+    public function testLength(): void
+    {
+        $dnaSequence = new DnaSequence(' GCAT ');
+        self::assertSame(4, $dnaSequence->length());
+    }
 }
