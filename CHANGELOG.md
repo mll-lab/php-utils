@@ -1,3 +1,9 @@
+## [6.1.0](https://github.com/mll-lab/php-utils/compare/v6.0.0...v6.1.0) (2026-03-02)
+
+### Features
+
+* Increase logic on Class DnaSequence.php by length and lowercase sequence input ([#75](https://github.com/mll-lab/php-utils/issues/75)) ([729a30c](https://github.com/mll-lab/php-utils/commit/729a30c0ae0cf5e7cc1c1113cf3725303923ff77))
+
 ## [6.0.0](https://github.com/mll-lab/php-utils/compare/v5.25.0...v6.0.0) (2026-02-27)
 
 ### ⚠ BREAKING CHANGES
