@@ -21,17 +21,17 @@ class Chromosome
         $this->value = strtoupper($matches[2]);
     }
 
-    public function toString(?NamingConvention $referenceGenome = null): string
+    public function toString(?NamingConvention $namingConvention = null): string
     {
-        $referenceGenome ??= $this->namingConvention;
+        $namingConvention ??= $this->namingConvention;
 
-        switch ($referenceGenome->value) {
+        switch ($namingConvention->value) {
             case NamingConvention::ENSEMBL:
                 return $this->value === 'M' ? 'MT' : $this->value;
             case NamingConvention::UCSC:
                 return "chr{$this->value}";
             default:
-                throw new \InvalidArgumentException("Invalid reference genome: {$referenceGenome->value}");
+                throw new \InvalidArgumentException("No toString logic implemented for valid naming convention: {$namingConvention->value}");
         }
     }
 }

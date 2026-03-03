@@ -82,8 +82,8 @@ final class GenomicRegion
         return $position >= $this->start && $position <= $this->end;
     }
 
-    public function toString(?NamingConvention $referenceGenome = null): string
+    public function toString(?NamingConvention $namingConvention = null): string
     {
-        return "{$this->chromosome->toString($referenceGenome)}:{$this->start}-{$this->end}";
+        return "{$this->chromosome->toString($namingConvention)}:{$this->start}-{$this->end}";
     }
 }

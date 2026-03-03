@@ -11,6 +11,13 @@ class NamingConvention
 
     public function __construct(string $value)
     {
-        $this->value = $value;
+        switch ($value) {
+            case NamingConvention::ENSEMBL:
+            case NamingConvention::UCSC:
+                $this->value = $value;
+                break;
+            default:
+                throw new \InvalidArgumentException("Invalid naming convention: {$value}");
+        }
     }
 }
