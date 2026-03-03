@@ -19,7 +19,7 @@ final class GenomicPositionTest extends TestCase
 
     public function testParseOnSuccessHGVSg(): void
     {
-        $genomicPosition = GenomicPosition::parse('chr11:g1');
+        $genomicPosition = GenomicPosition::parse('chr11:g.1');
         self::assertSame('chr11:1', $genomicPosition->toString());
     }
 
