@@ -34,12 +34,8 @@ final class GenomicRegion
         $this->end = $end;
     }
 
-    public static function parse(?string $genomicRegion): ?self
+    public static function parse(string $genomicRegion): self
     {
-        if ($genomicRegion === null || $genomicRegion === '') {
-            return null;
-        }
-
         if (preg_match('/^(.+):(g|)(\d+)(-(\d+)|)$/', $genomicRegion, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid genomic region format: {$genomicRegion}. Expected format: chr1:123-456.");
         }
@@ -78,7 +74,7 @@ final class GenomicRegion
         return $position >= $this->start && $position <= $this->end;
     }
 
-    public function toString(?ReferenzGenome $referenceGenome = null): string
+    public function toString(?NamingConvention $referenceGenome = null): string
     {
         return "{$this->chromosome->toString($referenceGenome)}:{$this->start}-{$this->end}";
     }

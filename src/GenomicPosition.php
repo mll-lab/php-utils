@@ -28,7 +28,7 @@ class GenomicPosition
         return new self(new Chromosome($matches[1]), (int) $matches[3]);
     }
 
-    public function toString(?ReferenzGenome $referenceGenome = null): string
+    public function toString(?NamingConvention $referenceGenome = null): string
     {
         return "{$this->chromosome->toString($referenceGenome)}:{$this->position}";
     }

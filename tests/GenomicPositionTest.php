@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use MLL\Utils\GenomicPosition;
+use MLL\Utils\NamingConvention;
 use PHPUnit\Framework\TestCase;
 
 final class GenomicPositionTest extends TestCase

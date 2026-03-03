@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 use MLL\Utils\Chromosome;
-use MLL\Utils\ReferenzGenome;
+use MLL\Utils\NamingConvention;
 use PHPUnit\Framework\TestCase;
 
 final class ChromosomeTest extends TestCase
@@ -15,7 +15,7 @@ final class ChromosomeTest extends TestCase
     public function testToStringWithGRC37(): void
     {
         $chromosome = new Chromosome('chr11');
-        self::assertSame('11', $chromosome->toString(new ReferenzGenome(ReferenzGenome::GRCH_37)));
+        self::assertSame('11', $chromosome->toString(new NamingConvention(NamingConvention::UCSC)));
     }
 
     public function testInitWithGRC37(): void

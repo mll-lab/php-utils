@@ -9,28 +9,28 @@ class Chromosome
 
     private string $value;
 
-    private ReferenzGenome $referenceGenome;
+    private NamingConvention $namingConvention;
 
     public function __construct(string $chromosomeAsString)
     {
         if (\Safe\preg_match(self::CHROMOSOME_REGEX, $chromosomeAsString, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid chromosome: {$chromosomeAsString}. Expected format: chr1-chr22, chrX, chrY, chrM, or without chr prefix.");
         }
-        $this->referenceGenome = $matches[1] === 'chr'
-            ? new ReferenzGenome(ReferenzGenome::HG_19)
-            : new ReferenzGenome(ReferenzGenome::GRCH_37);
+        $this->namingConvention = $matches[1] === 'chr'
+            ? new NamingConvention(NamingConvention::ENSEMBL)
+            : new NamingConvention(NamingConvention::UCSC);
 
         $this->value = $matches[2];
     }
 
-    public function toString(?ReferenzGenome $referenceGenome = null): string
+    public function toString(?NamingConvention $referenceGenome = null): string
     {
-        $referenceGenome ??= $this->referenceGenome;
+        $referenceGenome ??= $this->namingConvention;
 
         switch ($referenceGenome->value) {
-            case ReferenzGenome::HG_19:
+            case NamingConvention::ENSEMBL:
                 return "chr{$this->value}";
-            case ReferenzGenome::GRCH_37:
+            case NamingConvention::UCSC:
                 return $this->value;
             default:
                 throw new \InvalidArgumentException("Invalid reference genome: {$referenceGenome->value}");
