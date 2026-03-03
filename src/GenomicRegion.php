@@ -26,7 +26,7 @@ final class GenomicRegion
         }
 
         if ($start > $end) {
-            throw new \InvalidArgumentException("End ({$end}) must be greater then start ({$start})");
+            throw new \InvalidArgumentException("End ({$end}) must be greater than start ({$start})");
         }
 
         $this->chromosome = $chromosome;
