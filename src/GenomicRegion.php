@@ -36,7 +36,7 @@ final class GenomicRegion
 
     public static function parse(string $genomicRegion): self
     {
-        if (preg_match('/^(.+):(g|)(\d+)(-(\d+)|)$/', $genomicRegion, $matches) === 0) {
+        if (preg_match('/^(.+):(g\.|)(\d+)(-(\d+)|)$/', $genomicRegion, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid genomic region format: {$genomicRegion}. Expected format: chr1:123-456.");
         }
 
@@ -60,11 +60,19 @@ final class GenomicRegion
             && $this->positionIsBetweenStartAndEnd($genomicRegion->end);
     }
 
+    public function isCoveredByGenomicRegion(GenomicRegion $genomicRegion): bool
+    {
+        return $this->chromosome->toString() === $genomicRegion->chromosome->toString()
+            && $genomicRegion->start <= $this->start
+            && $genomicRegion->end >= $this->end;
+    }
+
     public function intersectsWithGenomicRegion(GenomicRegion $genomicRegion): bool
     {
         return $this->chromosome->toString() === $genomicRegion->chromosome->toString()
             && (
-                $this->positionIsBetweenStartAndEnd($genomicRegion->start)
+                $this->isCoveredByGenomicRegion($genomicRegion)
+                || $this->positionIsBetweenStartAndEnd($genomicRegion->start)
                 || $this->positionIsBetweenStartAndEnd($genomicRegion->end)
             );
     }

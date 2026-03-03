@@ -6,13 +6,13 @@ use PHPUnit\Framework\TestCase;
 
 final class GenomicRegionTest extends TestCase
 {
-    public function testParseOnSuccessHG19(): void
+    public function testParseOnSuccessUCSC(): void
     {
         $genomicRegion = GenomicRegion::parse('chr11:1-2');
         self::assertSame('chr11:1-2', $genomicRegion->toString());
     }
 
-    public function testParseOnSuccessGRC37(): void
+    public function testParseOnSuccessEnsembl(): void
     {
         $genomicRegion = GenomicRegion::parse('11:1-2');
         self::assertSame('11:1-2', $genomicRegion->toString());
@@ -20,7 +20,7 @@ final class GenomicRegionTest extends TestCase
 
     public function testParseOnSuccessHGVSg(): void
     {
-        $genomicRegion = GenomicRegion::parse('chr11:g1-2');
+        $genomicRegion = GenomicRegion::parse('chr11:g.1-2');
         self::assertSame('chr11:1-2', $genomicRegion->toString());
     }
 
@@ -42,37 +42,43 @@ final class GenomicRegionTest extends TestCase
 
     public function testContainsGenomicPositionIsTrue(): void
     {
-        $genomicRegion = GenomicRegion::parse('chr11:g1-20');
+        $genomicRegion = GenomicRegion::parse('chr11:g.1-20');
         self::assertTrue($genomicRegion->containsGenomicPosition(GenomicPosition::parse('chr11:20')));
     }
 
     public function testContainsGenomicPositionIsFalse(): void
     {
-        $genomicRegion = GenomicRegion::parse('chr11:g1-20');
+        $genomicRegion = GenomicRegion::parse('chr11:g.1-20');
         self::assertFalse($genomicRegion->containsGenomicPosition(GenomicPosition::parse('chr11:21')));
     }
 
     public function testContainsGenomicRegionIsTrue(): void
     {
-        $genomicRegion = GenomicRegion::parse('chr11:g1-20');
+        $genomicRegion = GenomicRegion::parse('chr11:g.1-20');
         self::assertTrue($genomicRegion->containsGenomicRegion(GenomicRegion::parse('chr11:19-20')));
     }
 
     public function testContainsGenomicRegionIsFalse(): void
     {
-        $genomicRegion = GenomicRegion::parse('chr11:g1-20');
+        $genomicRegion = GenomicRegion::parse('chr11:g.1-20');
         self::assertFalse($genomicRegion->containsGenomicRegion(GenomicRegion::parse('chr11:21-22')));
     }
 
-    public function testIntersectsWithGenomicRegionIsTrue(): void
+    public function testCoversGenomicRegionIsTrue(): void
     {
-        $genomicRegion = GenomicRegion::parse('chr11:g20-30');
-        self::assertTrue($genomicRegion->intersectsWithGenomicRegion(GenomicRegion::parse('chr11:15-25')));
+        $genomicRegion = GenomicRegion::parse('chr11:g.20-30');
+        self::assertTrue($genomicRegion->isCoveredByGenomicRegion(GenomicRegion::parse('chr11:g.15-35')));
+    }
+
+    public function testIntersectsFullyWithGenomicRegionIsTrue(): void
+    {
+        $genomicRegion = GenomicRegion::parse('chr11:g.20-30');
+        self::assertTrue($genomicRegion->intersectsWithGenomicRegion(GenomicRegion::parse('chr11:g.15-35')));
     }
 
     public function testIntersectsWithGenomicRegionIsFalse(): void
     {
-        $genomicRegion = GenomicRegion::parse('chr11:g20-30');
+        $genomicRegion = GenomicRegion::parse('chr11:g.20-30');
         self::assertFalse($genomicRegion->intersectsWithGenomicRegion(GenomicRegion::parse('chr11:15-19')));
     }
 }
