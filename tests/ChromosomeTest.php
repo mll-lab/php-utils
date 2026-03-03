@@ -12,16 +12,22 @@ final class ChromosomeTest extends TestCase
         self::assertSame('chr11', $chromosome->toString());
     }
 
-    public function testToStringWithGRC37(): void
+    public function testToStringForEnsembl(): void
     {
         $chromosome = new Chromosome('chr11');
-        self::assertSame('11', $chromosome->toString(new NamingConvention(NamingConvention::UCSC)));
+        self::assertSame('11', $chromosome->toString(new NamingConvention(NamingConvention::ENSEMBL)));
     }
 
-    public function testInitWithGRC37(): void
+    public function testInitWithUCSC(): void
     {
         $chromosome = new Chromosome('11');
         self::assertSame('11', $chromosome->toString());
+    }
+
+    public function testToStringWithUCSCAndMitochondrialChromosome(): void
+    {
+        $chromosome = new Chromosome('chrM');
+        self::assertSame('MT', $chromosome->toString(new NamingConvention(NamingConvention::ENSEMBL)));
     }
 
     public function testFailedInit(): void

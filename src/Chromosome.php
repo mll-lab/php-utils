@@ -4,23 +4,21 @@ namespace MLL\Utils;
 
 class Chromosome
 {
-    /** Matches human chromosomes with or without "chr" prefix: chr1-chr22, chrX, chrY, chrM, chrMT, or 1-22, X, Y, M, MT. */
-    public const CHROMOSOME_REGEX = '/^(chr)?(1[0-9]|[1-9]|2[0-2]|X|Y|M|MT)$/i';
-
     private string $value;
 
     private NamingConvention $namingConvention;
 
     public function __construct(string $chromosomeAsString)
     {
-        if (\Safe\preg_match(self::CHROMOSOME_REGEX, $chromosomeAsString, $matches) === 0) {
+        /** Matches human chromosomes with or without "chr" prefix: chr1-chr22, chrX, chrY, chrM, chrMT, or 1-22, X, Y, M, MT. */
+        if (\Safe\preg_match('/^(chr)?(1[0-9]|[1-9]|2[0-2]|X|Y|M|MT)$/i', $chromosomeAsString, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid chromosome: {$chromosomeAsString}. Expected format: chr1-chr22, chrX, chrY, chrM, or without chr prefix.");
         }
         $this->namingConvention = $matches[1] === 'chr'
-            ? new NamingConvention(NamingConvention::ENSEMBL)
-            : new NamingConvention(NamingConvention::UCSC);
+            ? new NamingConvention(NamingConvention::UCSC)
+            : new NamingConvention(NamingConvention::ENSEMBL);
 
-        $this->value = $matches[2];
+        $this->value = strtoupper($matches[2]);
     }
 
     public function toString(?NamingConvention $referenceGenome = null): string
@@ -29,9 +27,9 @@ class Chromosome
 
         switch ($referenceGenome->value) {
             case NamingConvention::ENSEMBL:
-                return "chr{$this->value}";
+                return $this->value === 'M' ? 'MT' : $this->value;
             case NamingConvention::UCSC:
-                return $this->value;
+                return "chr{$this->value}";
             default:
                 throw new \InvalidArgumentException("Invalid reference genome: {$referenceGenome->value}");
         }
