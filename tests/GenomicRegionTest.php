@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 use MLL\Utils\GenomicPosition;
 use MLL\Utils\GenomicRegion;
 use PHPUnit\Framework\TestCase;
@@ -37,7 +36,7 @@ final class GenomicRegionTest extends TestCase
     {
         $genomicRegionAsString = '11:2-1';
         self::expectException(\InvalidArgumentException::class);
-        self::expectExceptionMessage("End (1) must be greater then start (2)");
+        self::expectExceptionMessage('End (1) must be greater then start (2)');
         GenomicRegion::parse($genomicRegionAsString);
     }
 

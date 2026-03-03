@@ -8,6 +8,7 @@ class Chromosome
     public const CHROMOSOME_REGEX = '/^(chr)?(1[0-9]|[1-9]|2[0-2]|X|Y|M|MT)$/i';
 
     private string $value;
+
     private ReferenzGenome $referenceGenome;
 
     public function __construct(string $chromosomeAsString)
@@ -24,9 +25,9 @@ class Chromosome
 
     public function toString(?ReferenzGenome $referenceGenome = null): string
     {
-        $referenceGenome = $referenceGenome ?? $this->referenceGenome;
+        $referenceGenome ??= $this->referenceGenome;
 
-        switch($referenceGenome->value){
+        switch ($referenceGenome->value) {
             case ReferenzGenome::HG_19:
                 return "chr{$this->value}";
             case ReferenzGenome::GRCH_37:

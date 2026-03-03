@@ -7,7 +7,9 @@ use function Safe\preg_match;
 final class GenomicRegion
 {
     public Chromosome $chromosome;
+
     public int $start;
+
     public int $end;
 
     public function __construct(
