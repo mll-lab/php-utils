@@ -1,7 +1,7 @@
 - [ ] Added automated tests
 - [ ] Documented for all relevant versions
 
-<!-- Link to related issues this PR resolves, e.g. "Resolves #236"-->
+<!-- Resolves #ISSUE -->
 
 **Changes**
 
