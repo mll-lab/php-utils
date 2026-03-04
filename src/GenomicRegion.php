@@ -4,7 +4,7 @@ namespace MLL\Utils;
 
 use function Safe\preg_match;
 
-final class GenomicRegion
+class GenomicRegion
 {
     public Chromosome $chromosome;
 
@@ -49,27 +49,27 @@ final class GenomicRegion
 
     public function containsGenomicPosition(GenomicPosition $genomicPosition): bool
     {
-        return $this->chromosome->toString() === $genomicPosition->chromosome->toString()
+        return $this->chromosome->equals($genomicPosition->chromosome)
             && $this->positionIsBetweenStartAndEnd($genomicPosition->position);
     }
 
     public function containsGenomicRegion(GenomicRegion $genomicRegion): bool
     {
-        return $this->chromosome->toString() === $genomicRegion->chromosome->toString()
+        return $this->chromosome->equals($genomicRegion->chromosome)
             && $this->positionIsBetweenStartAndEnd($genomicRegion->start)
             && $this->positionIsBetweenStartAndEnd($genomicRegion->end);
     }
 
     public function isCoveredByGenomicRegion(GenomicRegion $genomicRegion): bool
     {
-        return $this->chromosome->toString() === $genomicRegion->chromosome->toString()
+        return $this->chromosome->equals($genomicRegion->chromosome)
             && $genomicRegion->start <= $this->start
             && $genomicRegion->end >= $this->end;
     }
 
     public function intersectsWithGenomicRegion(GenomicRegion $genomicRegion): bool
     {
-        return $this->chromosome->toString() === $genomicRegion->chromosome->toString()
+        return $this->chromosome->equals($genomicRegion->chromosome)
             && (
                 $this->isCoveredByGenomicRegion($genomicRegion)
                 || $this->positionIsBetweenStartAndEnd($genomicRegion->start)

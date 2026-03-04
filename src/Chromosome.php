@@ -14,11 +14,12 @@ class Chromosome
         if (\Safe\preg_match('/^(chr)?(1[0-9]|[1-9]|2[0-2]|X|Y|M|MT)$/i', $chromosomeAsString, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid chromosome: {$chromosomeAsString}. Expected format: chr1-chr22, chrX, chrY, chrM, or without chr prefix.");
         }
-        $this->namingConvention = $matches[1] === 'chr'
+        $this->namingConvention = $matches[1] !== ''
             ? new NamingConvention(NamingConvention::UCSC)
             : new NamingConvention(NamingConvention::ENSEMBL);
 
-        $this->value = strtoupper($matches[2]);
+        $value = strtoupper($matches[2]);
+        $this->value = $value === 'MT' ? 'M': $value;
     }
 
     public function toString(?NamingConvention $namingConvention = null): string
@@ -33,5 +34,15 @@ class Chromosome
             default:
                 throw new \InvalidArgumentException("No toString logic implemented for valid naming convention: {$namingConvention->value}");
         }
+    }
+
+    public function getRawValue(): string
+    {
+        return $this->value;
+    }
+
+    public function equals(Chromosome $chromosome): bool
+    {
+        return $this->value === $chromosome->getRawValue();
     }
 }

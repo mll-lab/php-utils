@@ -52,6 +52,18 @@ final class GenomicRegionTest extends TestCase
         self::assertFalse($genomicRegion->containsGenomicPosition(GenomicPosition::parse('chr11:21')));
     }
 
+    public function testContainsGenomicPositionAcrossNamingConventions(): void
+    {
+        $genomicRegion = GenomicRegion::parse('chr11:1-20');
+        self::assertTrue($genomicRegion->containsGenomicPosition(GenomicPosition::parse('11:15')));
+    }
+
+    public function testContainsGenomicPositionOnDifferentChromosome(): void
+    {
+        $genomicRegion = GenomicRegion::parse('chr11:1-20');
+        self::assertFalse($genomicRegion->containsGenomicPosition(GenomicPosition::parse('chr12:15')));
+    }
+
     public function testContainsGenomicRegionIsTrue(): void
     {
         $genomicRegion = GenomicRegion::parse('chr11:g.1-20');
@@ -76,9 +88,21 @@ final class GenomicRegionTest extends TestCase
         self::assertTrue($genomicRegion->intersectsWithGenomicRegion(GenomicRegion::parse('chr11:g.15-35')));
     }
 
+    public function testIntersectsPartiallyWithGenomicRegion(): void
+    {
+        $genomicRegion = GenomicRegion::parse('chr11:20-30');
+        self::assertTrue($genomicRegion->intersectsWithGenomicRegion(GenomicRegion::parse('chr11:25-35')));
+    }
+
     public function testIntersectsWithGenomicRegionIsFalse(): void
     {
         $genomicRegion = GenomicRegion::parse('chr11:g.20-30');
         self::assertFalse($genomicRegion->intersectsWithGenomicRegion(GenomicRegion::parse('chr11:15-19')));
+    }
+
+    public function testIntersectsWithGenomicRegionOnDifferentChromosome(): void
+    {
+        $genomicRegion = GenomicRegion::parse('chr11:20-30');
+        self::assertFalse($genomicRegion->intersectsWithGenomicRegion(GenomicRegion::parse('chr12:20-30')));
     }
 }
