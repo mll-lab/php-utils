@@ -31,6 +31,19 @@ final class GenomicPositionTest extends TestCase
         self::assertSame('11:12345', $genomicPosition->toString(new NamingConvention(NamingConvention::ENSEMBL)));
     }
 
+    public function testEquals(): void
+    {
+        self::assertTrue(
+            GenomicPosition::parse('chr11:100')->equals(GenomicPosition::parse('11:100'))
+        );
+        self::assertFalse(
+            GenomicPosition::parse('chr11:100')->equals(GenomicPosition::parse('chr11:101'))
+        );
+        self::assertFalse(
+            GenomicPosition::parse('chr11:100')->equals(GenomicPosition::parse('chr12:100'))
+        );
+    }
+
     public function testParseOnError(): void
     {
         $genomicPositionAsString = '11:1test';

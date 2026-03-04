@@ -20,6 +20,11 @@ class Chromosome
         $this->value = $value === self::MITOCHONDRIAL_ENSEMBL ? self::MITOCHONDRIAL : $value;
     }
 
+    public function value(): string
+    {
+        return $this->value;
+    }
+
     public function equals(self $other): bool
     {
         return $this->value === $other->value;

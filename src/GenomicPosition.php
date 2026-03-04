@@ -28,6 +28,12 @@ class GenomicPosition
         return new self(new Chromosome($matches[1]), (int) $matches[3]);
     }
 
+    public function equals(self $other): bool
+    {
+        return $this->chromosome->equals($other->chromosome)
+            && $this->position === $other->position;
+    }
+
     public function toString(NamingConvention $namingConvention): string
     {
         return "{$this->chromosome->toString($namingConvention)}:{$this->position}";

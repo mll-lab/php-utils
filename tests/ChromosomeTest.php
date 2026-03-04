@@ -25,6 +25,16 @@ final class ChromosomeTest extends TestCase
         self::assertSame('chr11', $chromosome->toString(new NamingConvention(NamingConvention::UCSC)));
     }
 
+    public function testValueReturnsCanonicalForm(): void
+    {
+        self::assertSame('11', (new Chromosome('chr11'))->value());
+        self::assertSame('11', (new Chromosome('11'))->value());
+        self::assertSame('X', (new Chromosome('chrx'))->value());
+        self::assertSame('M', (new Chromosome('chrM'))->value());
+        self::assertSame('M', (new Chromosome('MT'))->value());
+        self::assertSame('M', (new Chromosome('chrMT'))->value());
+    }
+
     public function testMitochondrialNormalization(): void
     {
         $fromChrM = new Chromosome('chrM');
@@ -65,15 +75,10 @@ final class ChromosomeTest extends TestCase
 
     public function testBoundaryChromosomes(): void
     {
-        $chr1 = new Chromosome('chr1');
-        $chr22 = new Chromosome('chr22');
-        $chrX = new Chromosome('X');
-        $chrY = new Chromosome('chrY');
-
-        self::assertSame('chr1', $chr1->toString(new NamingConvention(NamingConvention::UCSC)));
-        self::assertSame('chr22', $chr22->toString(new NamingConvention(NamingConvention::UCSC)));
-        self::assertSame('chrX', $chrX->toString(new NamingConvention(NamingConvention::UCSC)));
-        self::assertSame('Y', $chrY->toString(new NamingConvention(NamingConvention::ENSEMBL)));
+        self::assertSame('1', (new Chromosome('chr1'))->value());
+        self::assertSame('22', (new Chromosome('chr22'))->value());
+        self::assertSame('X', (new Chromosome('X'))->value());
+        self::assertSame('Y', (new Chromosome('chrY'))->value());
     }
 
     public function testRejectsInvalidChromosomeNumbers(): void

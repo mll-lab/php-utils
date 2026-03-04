@@ -47,6 +47,32 @@ class GenomicRegion
         );
     }
 
+    public function equals(self $other): bool
+    {
+        return $this->chromosome->equals($other->chromosome)
+            && $this->start === $other->start
+            && $this->end === $other->end;
+    }
+
+    public function length(): int
+    {
+        return $this->end - $this->start + 1;
+    }
+
+    /** Returns the overlapping region, or null if the regions do not intersect. */
+    public function overlap(self $other): ?self
+    {
+        if (! $this->intersectsWithGenomicRegion($other)) {
+            return null;
+        }
+
+        return new self(
+            $this->chromosome,
+            max($this->start, $other->start),
+            min($this->end, $other->end)
+        );
+    }
+
     public function containsGenomicPosition(GenomicPosition $genomicPosition): bool
     {
         return $this->chromosome->equals($genomicPosition->chromosome)

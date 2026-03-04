@@ -103,6 +103,7 @@ final class GenomicRegionTest extends TestCase
         $region = GenomicRegion::parse('chr1:100');
         self::assertSame(100, $region->start);
         self::assertSame(100, $region->end);
+        self::assertSame(1, $region->length());
         self::assertSame('chr1:100-100', $region->toString(new NamingConvention(NamingConvention::UCSC)));
     }
 
@@ -116,6 +117,74 @@ final class GenomicRegionTest extends TestCase
     {
         $region = GenomicRegion::parse('chr11:10-20');
         self::assertTrue($region->containsGenomicPosition(GenomicPosition::parse('chr11:10')));
+    }
+
+    public function testEquals(): void
+    {
+        self::assertTrue(
+            GenomicRegion::parse('chr11:10-20')->equals(GenomicRegion::parse('11:10-20'))
+        );
+        self::assertFalse(
+            GenomicRegion::parse('chr11:10-20')->equals(GenomicRegion::parse('chr11:10-21'))
+        );
+        self::assertFalse(
+            GenomicRegion::parse('chr11:10-20')->equals(GenomicRegion::parse('chr12:10-20'))
+        );
+    }
+
+    public function testLength(): void
+    {
+        self::assertSame(11, GenomicRegion::parse('chr11:20-30')->length());
+        self::assertSame(1, GenomicRegion::parse('chr1:5-5')->length());
+        self::assertSame(100, GenomicRegion::parse('chr1:1-100')->length());
+    }
+
+    public function testOverlapPartial(): void
+    {
+        $a = GenomicRegion::parse('chr11:10-20');
+        $b = GenomicRegion::parse('chr11:15-25');
+
+        $overlap = $a->overlap($b);
+        self::assertNotNull($overlap);
+        self::assertTrue($overlap->equals(GenomicRegion::parse('chr11:15-20')));
+        self::assertSame(6, $overlap->length());
+    }
+
+    public function testOverlapFullyContained(): void
+    {
+        $outer = GenomicRegion::parse('chr11:10-30');
+        $inner = GenomicRegion::parse('chr11:15-20');
+
+        $overlap = $outer->overlap($inner);
+        self::assertNotNull($overlap);
+        self::assertTrue($overlap->equals($inner));
+    }
+
+    public function testOverlapSinglePoint(): void
+    {
+        $a = GenomicRegion::parse('chr1:10-20');
+        $b = GenomicRegion::parse('chr1:20-30');
+
+        $overlap = $a->overlap($b);
+        self::assertNotNull($overlap);
+        self::assertTrue($overlap->equals(GenomicRegion::parse('chr1:20-20')));
+        self::assertSame(1, $overlap->length());
+    }
+
+    public function testOverlapReturnsNullWhenNoIntersection(): void
+    {
+        $a = GenomicRegion::parse('chr11:10-20');
+        $b = GenomicRegion::parse('chr11:21-30');
+
+        self::assertNull($a->overlap($b));
+    }
+
+    public function testOverlapReturnsNullForDifferentChromosomes(): void
+    {
+        $a = GenomicRegion::parse('chr11:10-20');
+        $b = GenomicRegion::parse('chr12:10-20');
+
+        self::assertNull($a->overlap($b));
     }
 
     public function testDifferentChromosomesNeverMatch(): void
