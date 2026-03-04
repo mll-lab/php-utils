@@ -1,3 +1,9 @@
+## [6.2.0](https://github.com/mll-lab/php-utils/compare/v6.1.0...v6.2.0) (2026-03-04)
+
+### Features
+
+* Implement logic for Chromosome.php, GenomicPosition.php and GenomicRegion ([2d28bca](https://github.com/mll-lab/php-utils/commit/2d28bca2619ffe97c91f97c9cf9a7e52dbeac1ef))
+
 ## [6.1.0](https://github.com/mll-lab/php-utils/compare/v6.0.0...v6.1.0) (2026-03-02)
 
 ### Features
