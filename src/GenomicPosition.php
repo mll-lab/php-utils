@@ -21,14 +21,14 @@ class GenomicPosition
     /** @example GenomicPosition::parse('chr1:123456') */
     public static function parse(string $genomicPosition): self
     {
-        if (\Safe\preg_match('/^(.+):(g\.|)(\d+)$/', $genomicPosition, $matches) === 0) {
+        if (\Safe\preg_match('/^([^:]+):(g\.|)(\d+)$/', $genomicPosition, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid genomic position format: {$genomicPosition}. Expected format: chr1:123456.");
         }
 
         return new self(new Chromosome($matches[1]), (int) $matches[3]);
     }
 
-    public function toString(?NamingConvention $namingConvention = null): string
+    public function toString(NamingConvention $namingConvention): string
     {
         return "{$this->chromosome->toString($namingConvention)}:{$this->position}";
     }

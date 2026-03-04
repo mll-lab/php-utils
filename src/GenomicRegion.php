@@ -36,7 +36,7 @@ class GenomicRegion
 
     public static function parse(string $genomicRegion): self
     {
-        if (preg_match('/^(.+):(g\.|)(\d+)(-(\d+)|)$/', $genomicRegion, $matches) === 0) {
+        if (preg_match('/^([^:]+):(g\.|)(\d+)(-(\d+)|)$/', $genomicRegion, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid genomic region format: {$genomicRegion}. Expected format: chr1:123-456.");
         }
 
@@ -53,28 +53,25 @@ class GenomicRegion
             && $this->positionIsBetweenStartAndEnd($genomicPosition->position);
     }
 
-    public function containsGenomicRegion(GenomicRegion $genomicRegion): bool
+    public function containsGenomicRegion(self $genomicRegion): bool
     {
         return $this->chromosome->equals($genomicRegion->chromosome)
             && $this->positionIsBetweenStartAndEnd($genomicRegion->start)
             && $this->positionIsBetweenStartAndEnd($genomicRegion->end);
     }
 
-    public function isCoveredByGenomicRegion(GenomicRegion $genomicRegion): bool
+    public function isCoveredByGenomicRegion(self $genomicRegion): bool
     {
         return $this->chromosome->equals($genomicRegion->chromosome)
             && $genomicRegion->start <= $this->start
             && $genomicRegion->end >= $this->end;
     }
 
-    public function intersectsWithGenomicRegion(GenomicRegion $genomicRegion): bool
+    public function intersectsWithGenomicRegion(self $genomicRegion): bool
     {
         return $this->chromosome->equals($genomicRegion->chromosome)
-            && (
-                $this->isCoveredByGenomicRegion($genomicRegion)
-                || $this->positionIsBetweenStartAndEnd($genomicRegion->start)
-                || $this->positionIsBetweenStartAndEnd($genomicRegion->end)
-            );
+            && $this->start <= $genomicRegion->end
+            && $genomicRegion->start <= $this->end;
     }
 
     private function positionIsBetweenStartAndEnd(int $position): bool
@@ -82,7 +79,7 @@ class GenomicRegion
         return $position >= $this->start && $position <= $this->end;
     }
 
-    public function toString(?NamingConvention $namingConvention = null): string
+    public function toString(NamingConvention $namingConvention): string
     {
         return "{$this->chromosome->toString($namingConvention)}:{$this->start}-{$this->end}";
     }
