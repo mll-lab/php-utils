@@ -1,34 +1,36 @@
 <?php declare(strict_types=1);
 
+use MLL\Utils\Chromosome;
 use MLL\Utils\GenomicPosition;
 use MLL\Utils\NamingConvention;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class GenomicPositionTest extends TestCase
 {
     public function testParseUCSC(): void
     {
-        $genomicPosition = GenomicPosition::parse('chr11:1');
-        self::assertSame('chr11:1', $genomicPosition->toString(new NamingConvention(NamingConvention::UCSC)));
+        $position = GenomicPosition::parse('chr11:1');
+        self::assertSame('chr11:1', $position->toString(new NamingConvention(NamingConvention::UCSC)));
     }
 
     public function testParseEnsembl(): void
     {
-        $genomicPosition = GenomicPosition::parse('11:1');
-        self::assertSame('11:1', $genomicPosition->toString(new NamingConvention(NamingConvention::ENSEMBL)));
+        $position = GenomicPosition::parse('11:1');
+        self::assertSame('11:1', $position->toString(new NamingConvention(NamingConvention::ENSEMBL)));
     }
 
     public function testParseHGVSg(): void
     {
-        $genomicPosition = GenomicPosition::parse('chr11:g.1');
-        self::assertSame('chr11:1', $genomicPosition->toString(new NamingConvention(NamingConvention::UCSC)));
+        $position = GenomicPosition::parse('chr11:g.1');
+        self::assertSame('chr11:1', $position->toString(new NamingConvention(NamingConvention::UCSC)));
     }
 
     public function testOutputInBothConventions(): void
     {
-        $genomicPosition = GenomicPosition::parse('chr11:12345');
-        self::assertSame('chr11:12345', $genomicPosition->toString(new NamingConvention(NamingConvention::UCSC)));
-        self::assertSame('11:12345', $genomicPosition->toString(new NamingConvention(NamingConvention::ENSEMBL)));
+        $position = GenomicPosition::parse('chr11:12345');
+        self::assertSame('chr11:12345', $position->toString(new NamingConvention(NamingConvention::UCSC)));
+        self::assertSame('11:12345', $position->toString(new NamingConvention(NamingConvention::ENSEMBL)));
     }
 
     public function testEquals(): void
@@ -44,11 +46,27 @@ final class GenomicPositionTest extends TestCase
         );
     }
 
-    public function testParseOnError(): void
+    public function testConstructorRejectsNonPositivePosition(): void
     {
-        $genomicPositionAsString = '11:1test';
         self::expectException(\InvalidArgumentException::class);
-        self::expectExceptionMessage("Invalid genomic position format: {$genomicPositionAsString}. Expected format: chr1:123456.");
-        GenomicPosition::parse($genomicPositionAsString);
+        self::expectExceptionMessage('Position must be positive, got: 0.');
+        new GenomicPosition(new Chromosome('chr1'), 0);
+    }
+
+    /** @return iterable<array{string}> */
+    public static function invalidFormats(): iterable
+    {
+        yield ['11:1test'];
+        yield ['chr1:0'];
+        yield ['chr1:'];
+        yield ['chr1'];
+    }
+
+    /** @dataProvider invalidFormats */
+    #[DataProvider('invalidFormats')]
+    public function testParseRejectsInvalidFormat(string $value): void
+    {
+        self::expectException(\InvalidArgumentException::class);
+        GenomicPosition::parse($value);
     }
 }

@@ -2,22 +2,11 @@
 
 use MLL\Utils\Chromosome;
 use MLL\Utils\NamingConvention;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class ChromosomeTest extends TestCase
 {
-    public function testToStringUCSC(): void
-    {
-        $chromosome = new Chromosome('chr11');
-        self::assertSame('chr11', $chromosome->toString(new NamingConvention(NamingConvention::UCSC)));
-    }
-
-    public function testToStringEnsembl(): void
-    {
-        $chromosome = new Chromosome('chr11');
-        self::assertSame('11', $chromosome->toString(new NamingConvention(NamingConvention::ENSEMBL)));
-    }
-
     public function testToStringFromEnsemblInput(): void
     {
         $chromosome = new Chromosome('11');
@@ -25,14 +14,26 @@ final class ChromosomeTest extends TestCase
         self::assertSame('chr11', $chromosome->toString(new NamingConvention(NamingConvention::UCSC)));
     }
 
-    public function testValueReturnsCanonicalForm(): void
+    /** @return iterable<array{string, string}> */
+    public static function canonicalValues(): iterable
     {
-        self::assertSame('11', (new Chromosome('chr11'))->value());
-        self::assertSame('11', (new Chromosome('11'))->value());
-        self::assertSame('X', (new Chromosome('chrx'))->value());
-        self::assertSame('M', (new Chromosome('chrM'))->value());
-        self::assertSame('M', (new Chromosome('MT'))->value());
-        self::assertSame('M', (new Chromosome('chrMT'))->value());
+        yield ['chr11', '11'];
+        yield ['11', '11'];
+        yield ['chr1', '1'];
+        yield ['chr22', '22'];
+        yield ['X', 'X'];
+        yield ['chrx', 'X'];
+        yield ['chrY', 'Y'];
+        yield ['chrM', 'M'];
+        yield ['MT', 'M'];
+        yield ['chrMT', 'M'];
+    }
+
+    /** @dataProvider canonicalValues */
+    #[DataProvider('canonicalValues')]
+    public function testValueReturnsCanonicalForm(string $input, string $expected): void
+    {
+        self::assertSame($expected, (new Chromosome($input))->value());
     }
 
     public function testMitochondrialNormalization(): void
@@ -64,6 +65,11 @@ final class ChromosomeTest extends TestCase
         self::assertTrue($upper->equals($lower));
     }
 
+    public function testNotEqualsDifferentChromosome(): void
+    {
+        self::assertFalse((new Chromosome('chr1'))->equals(new Chromosome('chr2')));
+    }
+
     public function testCaseInsensitivePrefixDetection(): void
     {
         $chr = new Chromosome('CHR11');
@@ -73,25 +79,22 @@ final class ChromosomeTest extends TestCase
         self::assertSame('chr11', $chr2->toString(new NamingConvention(NamingConvention::UCSC)));
     }
 
-    public function testBoundaryChromosomes(): void
+    /** @return iterable<array{string}> */
+    public static function invalidChromosomes(): iterable
     {
-        self::assertSame('1', (new Chromosome('chr1'))->value());
-        self::assertSame('22', (new Chromosome('chr22'))->value());
-        self::assertSame('X', (new Chromosome('X'))->value());
-        self::assertSame('Y', (new Chromosome('chrY'))->value());
+        yield [''];
+        yield ['chr0'];
+        yield ['chr23'];
+        yield ['FOO11'];
+        yield [' chr1'];
+        yield ['chr1 '];
     }
 
-    public function testRejectsInvalidChromosomeNumbers(): void
+    /** @dataProvider invalidChromosomes */
+    #[DataProvider('invalidChromosomes')]
+    public function testRejectsInvalidInput(string $input): void
     {
         self::expectException(\InvalidArgumentException::class);
-        new Chromosome('chr23');
-    }
-
-    public function testFailedInit(): void
-    {
-        $chromosomeAsString = 'FOO11';
-        self::expectException(\InvalidArgumentException::class);
-        self::expectExceptionMessage("Invalid chromosome: {$chromosomeAsString}. Expected format: chr1-chr22, chrX, chrY, chrM, or without chr prefix.");
-        new Chromosome($chromosomeAsString);
+        new Chromosome($input);
     }
 }

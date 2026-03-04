@@ -26,7 +26,7 @@ class GenomicRegion
         }
 
         if ($start > $end) {
-            throw new \InvalidArgumentException("End ({$end}) must be greater than start ({$start})");
+            throw new \InvalidArgumentException("End ({$end}) must not be less than start ({$start}).");
         }
 
         $this->chromosome = $chromosome;
@@ -34,10 +34,10 @@ class GenomicRegion
         $this->end = $end;
     }
 
-    public static function parse(string $genomicRegion): self
+    public static function parse(string $value): self
     {
-        if (preg_match('/^([^:]+):(g\.|)(\d+)(-(\d+)|)$/', $genomicRegion, $matches) === 0) {
-            throw new \InvalidArgumentException("Invalid genomic region format: {$genomicRegion}. Expected format: chr1:123-456.");
+        if (preg_match('/^([^:]+):(g\.|)(\d+)(-(\d+)|)$/', $value, $matches) === 0) {
+            throw new \InvalidArgumentException("Invalid genomic region format: {$value}. Expected format: chr1:123-456.");
         }
 
         return new self(
@@ -59,10 +59,40 @@ class GenomicRegion
         return $this->end - $this->start + 1;
     }
 
-    /** Returns the overlapping region, or null if the regions do not intersect. */
-    public function overlap(self $other): ?self
+    public function toString(NamingConvention $namingConvention): string
     {
-        if (! $this->intersectsWithGenomicRegion($other)) {
+        return "{$this->chromosome->toString($namingConvention)}:{$this->start}-{$this->end}";
+    }
+
+    public function containsPosition(GenomicPosition $other): bool
+    {
+        return $this->chromosome->equals($other->chromosome)
+            && $this->containsCoordinate($other->position);
+    }
+
+    public function containsRegion(self $other): bool
+    {
+        return $other->isCoveredBy($this);
+    }
+
+    public function isCoveredBy(self $other): bool
+    {
+        return $this->chromosome->equals($other->chromosome)
+            && $other->start <= $this->start
+            && $other->end >= $this->end;
+    }
+
+    public function intersects(self $other): bool
+    {
+        return $this->chromosome->equals($other->chromosome)
+            && $this->start <= $other->end
+            && $other->start <= $this->end;
+    }
+
+    /** Returns the intersecting region, or null if the regions do not intersect. */
+    public function intersection(self $other): ?self
+    {
+        if (! $this->intersects($other)) {
             return null;
         }
 
@@ -73,40 +103,8 @@ class GenomicRegion
         );
     }
 
-    public function containsGenomicPosition(GenomicPosition $genomicPosition): bool
-    {
-        return $this->chromosome->equals($genomicPosition->chromosome)
-            && $this->positionIsBetweenStartAndEnd($genomicPosition->position);
-    }
-
-    public function containsGenomicRegion(self $genomicRegion): bool
-    {
-        return $this->chromosome->equals($genomicRegion->chromosome)
-            && $this->positionIsBetweenStartAndEnd($genomicRegion->start)
-            && $this->positionIsBetweenStartAndEnd($genomicRegion->end);
-    }
-
-    public function isCoveredByGenomicRegion(self $genomicRegion): bool
-    {
-        return $this->chromosome->equals($genomicRegion->chromosome)
-            && $genomicRegion->start <= $this->start
-            && $genomicRegion->end >= $this->end;
-    }
-
-    public function intersectsWithGenomicRegion(self $genomicRegion): bool
-    {
-        return $this->chromosome->equals($genomicRegion->chromosome)
-            && $this->start <= $genomicRegion->end
-            && $genomicRegion->start <= $this->end;
-    }
-
-    private function positionIsBetweenStartAndEnd(int $position): bool
+    private function containsCoordinate(int $position): bool
     {
         return $position >= $this->start && $position <= $this->end;
-    }
-
-    public function toString(NamingConvention $namingConvention): string
-    {
-        return "{$this->chromosome->toString($namingConvention)}:{$this->start}-{$this->end}";
     }
 }
