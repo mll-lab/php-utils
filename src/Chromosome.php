@@ -19,7 +19,7 @@ class Chromosome
             : new NamingConvention(NamingConvention::ENSEMBL);
 
         $value = strtoupper($matches[2]);
-        $this->value = $value === 'MT' ? 'M': $value;
+        $this->value = $value === 'MT' ? 'M' : $value;
     }
 
     public function toString(?NamingConvention $namingConvention = null): string
