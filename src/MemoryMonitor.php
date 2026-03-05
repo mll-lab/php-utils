@@ -44,7 +44,7 @@ class MemoryMonitor
 
     public static function convertToBytes(string $memoryLimit): int
     {
-        $unit = strtoupper(substr($memoryLimit, -1));
+        $unit = strtoupper($memoryLimit[strlen($memoryLimit) - 1]);
 
         switch ($unit) {
             case 'G':
