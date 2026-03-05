@@ -82,4 +82,11 @@ final class MemoryMonitorTest extends TestCase
         self::assertStringStartsWith('Memory Usage:', $formatted);
         self::assertStringContainsString('/', $formatted);
     }
+
+    public function testFormattedUsageWithContext(): void
+    {
+        $formatted = MemoryMonitor::formattedUsage('After loading worklist');
+
+        self::assertStringStartsWith('After loading worklist - Memory Usage:', $formatted);
+    }
 }

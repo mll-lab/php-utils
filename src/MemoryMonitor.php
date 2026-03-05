@@ -31,7 +31,7 @@ class MemoryMonitor
         return self::convertToBytes($memoryLimit);
     }
 
-    public static function formattedUsage(): string
+    public static function formattedUsage(?string $context = null): string
     {
         $current = self::formatBytes(self::usage());
         $available = self::availableMemory();
@@ -39,7 +39,13 @@ class MemoryMonitor
             ? 'Unlimited'
             : self::formatBytes($available);
 
-        return "Memory Usage: {$current} / {$availableFormatted}";
+        $usage = "Memory Usage: {$current} / {$availableFormatted}";
+
+        if ($context !== null) {
+            return "{$context} - {$usage}";
+        }
+
+        return $usage;
     }
 
     public static function convertToBytes(string $memoryLimit): int
