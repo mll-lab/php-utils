@@ -111,43 +111,45 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
             ]))
         );
 
-        $expected = '[Header]
-FileFormatVersion,2
-RunName,Run1
-IndexOrientation,Forward
-InstrumentPlatform,NovaSeqXSeries
+        $expected = <<<'CSV'
+            [Header]
+            FileFormatVersion,2
+            RunName,Run1
+            IndexOrientation,Forward
+            InstrumentPlatform,NovaSeqXSeries
 
-[Reads]
-Read1Cycles,151
-Read2Cycles,151
-Index1Cycles,8
-Index2Cycles,10
+            [Reads]
+            Read1Cycles,151
+            Read2Cycles,151
+            Index1Cycles,8
+            Index2Cycles,10
 
-[BCLConvert_Settings]
-FastqCompressionFormat,gzip
-SoftwareVersion,4.1.23
+            [BCLConvert_Settings]
+            FastqCompressionFormat,gzip
+            SoftwareVersion,4.1.23
 
-[BCLConvert_Data]
-Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2,BarcodeMismatchesIndex1,BarcodeMismatchesIndex2
-1,Sample1,Index1,Index2,U7N1Y143;I8;N2I8;U7N1Y143,Adapter1,Adapter2,0,0
-2,Sample2,Index3,Index4,Y151;I8;I10;Y151,Adapter3,Adapter4,0,0
-1,Sample3,Index5,Index6,Y151;I8;N2I8;U10N12Y127N2,Adapter5,Adapter6,0,0
-2,Sample3,Index5,Index6,Y151;I8;N2I8;U10N12Y127N2,Adapter5,Adapter6,0,0
-1,Sample4,Index5,Index6,Y101N50;I8;N2I8;Y101N50,Adapter5,Adapter6,1,1
-2,Sample4,Index5,Index6,Y101N50;I8;N2I8;Y101N50,Adapter5,Adapter6,1,1
+            [BCLConvert_Data]
+            Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2,BarcodeMismatchesIndex1,BarcodeMismatchesIndex2
+            1,Sample1,Index1,Index2,U7N1Y143;I8;N2I8;U7N1Y143,Adapter1,Adapter2,0,0
+            2,Sample2,Index3,Index4,Y151;I8;I10;Y151,Adapter3,Adapter4,0,0
+            1,Sample3,Index5,Index6,Y151;I8;N2I8;U10N12Y127N2,Adapter5,Adapter6,0,0
+            2,Sample3,Index5,Index6,Y151;I8;N2I8;U10N12Y127N2,Adapter5,Adapter6,0,0
+            1,Sample4,Index5,Index6,Y101N50;I8;N2I8;Y101N50,Adapter5,Adapter6,1,1
+            2,Sample4,Index5,Index6,Y101N50;I8;N2I8;Y101N50,Adapter5,Adapter6,1,1
 
-[Cloud_Settings]
-GeneratedVersion,2.6.0.202308300002
-Cloud_Workflow,ica_workflow_1
-BCLConvert_Pipeline,urn:ilmn:ica:pipeline:d5c7e407-d439-48c8-bce5-b7aec225f6a7#BclConvert_v4_1_23_patch1
+            [Cloud_Settings]
+            GeneratedVersion,2.6.0.202308300002
+            Cloud_Workflow,ica_workflow_1
+            BCLConvert_Pipeline,urn:ilmn:ica:pipeline:d5c7e407-d439-48c8-bce5-b7aec225f6a7#BclConvert_v4_1_23_patch1
 
-[Cloud_Data]
-Sample_ID,ProjectName,LibraryName
-Sample1,test,foo
-Sample2,test,foo
-Sample3,test,foo
-Sample4,test,foo
-';
+            [Cloud_Data]
+            Sample_ID,ProjectName,LibraryName
+            Sample1,test,foo
+            Sample2,test,foo
+            Sample3,test,foo
+            Sample4,test,foo
+
+            CSV;
         self::assertSame($expected, $sampleSheet->toString());
     }
 }
