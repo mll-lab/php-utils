@@ -24,13 +24,15 @@ final class DrewSampleSheetTest extends TestCase
             new DrewBclConvertDataSection($samples),
         );
 
-        $expected = '[BCLConvert_Data]
-Sample_Name,Description
-Sample1,700ngInput
-Sample2,700ngInput
-Control1,875ngInput
-NTC,0ngInput
-';
+        $expected = <<<'CSV'
+            [BCLConvert_Data]
+            Sample_Name,Description
+            Sample1,700ngInput
+            Sample2,700ngInput
+            Control1,875ngInput
+            NTC,0ngInput
+
+            CSV;
         self::assertSame($expected, $sampleSheet->toString());
     }
 
