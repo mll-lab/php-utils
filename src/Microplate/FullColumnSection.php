@@ -4,6 +4,7 @@ namespace MLL\Utils\Microplate;
 
 use MLL\Utils\Microplate\Exceptions\MicroplateIsFullException;
 use MLL\Utils\Microplate\Exceptions\SectionIsFullException;
+use MLL\Utils\SafeCast;
 
 /**
  * A section that occupies all wells of a column if one sample exists in this column.
@@ -90,6 +91,6 @@ class FullColumnSection extends AbstractSection
 
     private function reservedColumns(): int
     {
-        return (int) ceil($this->sectionItems->count() / $this->sectionedMicroplate->coordinateSystem->rowsCount());
+        return SafeCast::toInt(ceil($this->sectionItems->count() / $this->sectionedMicroplate->coordinateSystem->rowsCount()));
     }
 }

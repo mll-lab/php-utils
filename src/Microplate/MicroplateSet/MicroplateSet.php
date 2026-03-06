@@ -5,6 +5,7 @@ namespace MLL\Utils\Microplate\MicroplateSet;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem;
 use MLL\Utils\Microplate\Enums\FlowDirection;
+use MLL\Utils\SafeCast;
 
 /**
  * @template TCoordinateSystem of CoordinateSystem
@@ -41,7 +42,7 @@ abstract class MicroplateSet
             throw new \OutOfRangeException("Expected a position between 1-{$positionsCount}, got: {$setPosition}.");
         }
 
-        $plateIndex = (int) floor(($setPosition - 1) / $this->coordinateSystem->positionsCount());
+        $plateIndex = SafeCast::toInt(floor(($setPosition - 1) / $this->coordinateSystem->positionsCount()));
         $positionOnSinglePlate = $setPosition - ($plateIndex * $this->coordinateSystem->positionsCount());
 
         return new Location(
