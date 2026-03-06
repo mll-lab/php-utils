@@ -1,0 +1,4 @@
+parameters:
+  excludePaths:
+    - ../tests/PHPStan/data/method-chain-nullsafe-violations.php
+    - ../tests/PHPStan/data/method-chain-nullsafe-correct.php
