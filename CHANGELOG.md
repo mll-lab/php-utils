@@ -1,3 +1,9 @@
+## [6.4.0](https://github.com/mll-lab/php-utils/compare/v6.3.0...v6.4.0) (2026-03-09)
+
+### Features
+
+* add MemoryMonitor utility ([f20f967](https://github.com/mll-lab/php-utils/commit/f20f9678505c8781de4ed7bb8af22aace7991fa9))
+
 ## [6.3.0](https://github.com/mll-lab/php-utils/compare/v6.2.0...v6.3.0) (2026-03-06)
 
 ### Features
