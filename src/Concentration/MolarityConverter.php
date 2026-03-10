@@ -8,18 +8,25 @@ class MolarityConverter
     public const AVERAGE_DALTONS_PER_BASE_PAIR = 660.0;
 
     /** Convert mass concentration (ng/µL) to molar concentration (nmol/L). */
-    public static function ngPerUlToNmolPerL(float $concentrationNgPerUl, int $averageFragmentSizeBp): float
+    public static function ngPerUlToNmolPerL(float $concentrationNgPerUl, float $averageFragmentSize): float
     {
-        assert($averageFragmentSizeBp > 0);
+        self::assertPositiveFragmentSize($averageFragmentSize);
 
-        return ($concentrationNgPerUl / (self::AVERAGE_DALTONS_PER_BASE_PAIR * $averageFragmentSizeBp)) * 1_000_000;
+        return ($concentrationNgPerUl / (self::AVERAGE_DALTONS_PER_BASE_PAIR * $averageFragmentSize)) * 1_000_000;
     }
 
     /** Convert molar concentration (nmol/L) to mass concentration (ng/µL). */
-    public static function nmolPerLToNgPerUl(float $molarityNmolPerL, int $averageFragmentSizeBp): float
+    public static function nmolPerLToNgPerUl(float $molarityNmolPerL, float $averageFragmentSize): float
     {
-        assert($averageFragmentSizeBp > 0);
+        self::assertPositiveFragmentSize($averageFragmentSize);
 
-        return ($molarityNmolPerL * self::AVERAGE_DALTONS_PER_BASE_PAIR * $averageFragmentSizeBp) / 1_000_000;
+        return ($molarityNmolPerL * self::AVERAGE_DALTONS_PER_BASE_PAIR * $averageFragmentSize) / 1_000_000;
+    }
+
+    private static function assertPositiveFragmentSize(float $averageFragmentSize): void
+    {
+        if ($averageFragmentSize <= 0.0) {
+            throw new \InvalidArgumentException("Fragment size must be positive, got {$averageFragmentSize}");
+        }
     }
 }

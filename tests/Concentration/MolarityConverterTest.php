@@ -25,6 +25,22 @@ final class MolarityConverterTest extends TestCase
         self::assertEqualsWithDelta($ngPerUl, $backToNgPerUl, 0.001);
     }
 
+    public function testThrowsOnZeroFragmentSize(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Fragment size must be positive');
+
+        MolarityConverter::ngPerUlToNmolPerL(10.0, 0);
+    }
+
+    public function testThrowsOnNegativeFragmentSize(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Fragment size must be positive');
+
+        MolarityConverter::nmolPerLToNgPerUl(10.0, -100);
+    }
+
     /** @return iterable<string, array{float, float, int}> */
     public static function conversionPairs(): iterable
     {
