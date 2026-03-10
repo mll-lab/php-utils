@@ -13,14 +13,14 @@ class CompactRegionTableRecord
     /** @var string */
     public $sampleDescription;
 
-    /** @var int */
-    public $fromBp;
+    /** @var int Region start in bp (DNA) or nt (RNA). */
+    public $from;
 
-    /** @var int */
-    public $toBp;
+    /** @var int Region end in bp (DNA) or nt (RNA). */
+    public $to;
 
-    /** @var int */
-    public $averageSizeBp;
+    /** @var int Average fragment size in bp (DNA) or nt (RNA). */
+    public $averageSize;
 
     /** @var float */
     public $concentrationNgPerUl;
@@ -38,9 +38,9 @@ class CompactRegionTableRecord
         string $fileName,
         string $wellID,
         string $sampleDescription,
-        int $fromBp,
-        int $toBp,
-        int $averageSizeBp,
+        int $from,
+        int $to,
+        int $averageSize,
         float $concentrationNgPerUl,
         float $regionMolarityNmolPerL,
         float $percentOfTotal,
@@ -49,9 +49,9 @@ class CompactRegionTableRecord
         $this->fileName = $fileName;
         $this->wellID = $wellID;
         $this->sampleDescription = $sampleDescription;
-        $this->fromBp = $fromBp;
-        $this->toBp = $toBp;
-        $this->averageSizeBp = $averageSizeBp;
+        $this->from = $from;
+        $this->to = $to;
+        $this->averageSize = $averageSize;
         $this->concentrationNgPerUl = $concentrationNgPerUl;
         $this->regionMolarityNmolPerL = $regionMolarityNmolPerL;
         $this->percentOfTotal = $percentOfTotal;

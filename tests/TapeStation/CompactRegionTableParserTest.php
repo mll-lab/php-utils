@@ -24,9 +24,9 @@ final class CompactRegionTableParserTest extends TestCase
         self::assertInstanceOf(CompactRegionTableRecord::class, $first);
         self::assertSame('A1', $first->wellID);
         self::assertSame('Poko_FLT3-ITD_A1', $first->sampleDescription);
-        self::assertSame(200, $first->fromBp);
-        self::assertSame(1000, $first->toBp);
-        self::assertSame(505, $first->averageSizeBp);
+        self::assertSame(200, $first->from);
+        self::assertSame(1000, $first->to);
+        self::assertSame(505, $first->averageSize);
         self::assertSame(15.0, $first->concentrationNgPerUl);
         self::assertSame(46.6, $first->regionMolarityNmolPerL);
         self::assertEqualsWithDelta(87.94, $first->percentOfTotal, 0.01);
@@ -48,7 +48,7 @@ final class CompactRegionTableParserTest extends TestCase
         self::assertInstanceOf(CompactRegionTableRecord::class, $record);
         self::assertSame('A8', $record->wellID);
         self::assertSame('22-000001', $record->sampleDescription);
-        self::assertSame(320, $record->averageSizeBp);
+        self::assertSame(320, $record->averageSize);
         self::assertSame(7.61, $record->concentrationNgPerUl);
         self::assertSame(36.1, $record->regionMolarityNmolPerL);
     }
@@ -66,15 +66,15 @@ final class CompactRegionTableParserTest extends TestCase
 
         $record = $records->first();
         self::assertInstanceOf(CompactRegionTableRecord::class, $record);
-        self::assertSame(1800, $record->averageSizeBp);
+        self::assertSame(1800, $record->averageSize);
         self::assertSame(34.7, $record->concentrationNgPerUl);
     }
 
-    public function testParseWithCorruptedMuCharacter(): void
+    public function testParseWithMuAsLatin1Byte(): void
     {
-        // The µ character (U+00B5) sometimes degrades to replacement character
-        $corruptedHeader = "FileName;WellId;Sample Description;From [bp];To [bp];Average Size [bp];Conc. [ng/\xC2\xB5l];Region Molarity [nmol/l];% of Total;Region Comment";
-        $csv = $corruptedHeader . "\n" . '2026-02-25.D1000;A1;Sample1;200;1000;500;12.5;38.0;90.0;MRD';
+        // Latin-1 µ (0xB5) without UTF-8 prefix — occurs when files are saved as ISO-8859-1
+        $latin1Header = "FileName;WellId;Sample Description;From [bp];To [bp];Average Size [bp];Conc. [ng/\xB5l];Region Molarity [nmol/l];% of Total;Region Comment";
+        $csv = $latin1Header . "\n" . '2026-02-25.D1000;A1;Sample1;200;1000;500;12.5;38.0;90.0;MRD';
 
         $records = CompactRegionTableParser::parse($csv);
 
@@ -97,6 +97,17 @@ final class CompactRegionTableParserTest extends TestCase
         $records = CompactRegionTableParser::parse($csv);
 
         self::assertCount(2, $records);
+    }
+
+    public function testHeadersOnlyReturnsEmptyCollection(): void
+    {
+        $csv = <<<'CSV'
+            FileName;WellId;Sample Description;From [bp];To [bp];Average Size [bp];Conc. [ng/µl];Region Molarity [nmol/l];% of Total;Region Comment
+            CSV;
+
+        $records = CompactRegionTableParser::parse($csv);
+
+        self::assertCount(0, $records);
     }
 
     public function testThrowsOnMissingConcentrationColumn(): void
