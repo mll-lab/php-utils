@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class MolarityConverterTest extends TestCase
 {
+    /** @dataProvider conversionPairs */
     #[DataProvider('conversionPairs')]
     public function testNgPerUlToNmolPerL(float $expectedNmolPerL, float $ngPerUl, int $fragmentSizeBp): void
     {
@@ -15,6 +16,7 @@ final class MolarityConverterTest extends TestCase
         self::assertEqualsWithDelta($expectedNmolPerL, $result, 0.1);
     }
 
+    /** @dataProvider conversionPairs */
     #[DataProvider('conversionPairs')]
     public function testRoundTrip(float $expectedNmolPerL, float $ngPerUl, int $fragmentSizeBp): void
     {
