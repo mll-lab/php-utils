@@ -2,18 +2,59 @@
 
 namespace MLL\Utils\TapeStation;
 
-readonly class CompactRegionTableRecord
+class CompactRegionTableRecord
 {
+    /** @var string */
+    public $fileName;
+
+    /** @var string */
+    public $wellID;
+
+    /** @var string */
+    public $sampleDescription;
+
+    /** @var int */
+    public $fromBp;
+
+    /** @var int */
+    public $toBp;
+
+    /** @var int */
+    public $averageSizeBp;
+
+    /** @var float */
+    public $concentrationNgPerUl;
+
+    /** @var float */
+    public $regionMolarityNmolPerL;
+
+    /** @var float */
+    public $percentOfTotal;
+
+    /** @var string */
+    public $regionComment;
+
     public function __construct(
-        public string $fileName,
-        public string $wellID,
-        public string $sampleDescription,
-        public int $fromBp,
-        public int $toBp,
-        public int $averageSizeBp,
-        public float $concentrationNgPerUl,
-        public float $regionMolarityNmolPerL,
-        public float $percentOfTotal,
-        public string $regionComment,
-    ) {}
+        string $fileName,
+        string $wellID,
+        string $sampleDescription,
+        int $fromBp,
+        int $toBp,
+        int $averageSizeBp,
+        float $concentrationNgPerUl,
+        float $regionMolarityNmolPerL,
+        float $percentOfTotal,
+        string $regionComment
+    ) {
+        $this->fileName = $fileName;
+        $this->wellID = $wellID;
+        $this->sampleDescription = $sampleDescription;
+        $this->fromBp = $fromBp;
+        $this->toBp = $toBp;
+        $this->averageSizeBp = $averageSizeBp;
+        $this->concentrationNgPerUl = $concentrationNgPerUl;
+        $this->regionMolarityNmolPerL = $regionMolarityNmolPerL;
+        $this->percentOfTotal = $percentOfTotal;
+        $this->regionComment = $regionComment;
+    }
 }

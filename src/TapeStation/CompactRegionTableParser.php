@@ -35,16 +35,16 @@ class CompactRegionTableParser
     private static function recordFromRow(array $row): CompactRegionTableRecord
     {
         return new CompactRegionTableRecord(
-            fileName: $row['FileName'] ?? '',
-            wellID: $row['WellId'] ?? '',
-            sampleDescription: $row['Sample Description'] ?? '',
-            fromBp: self::parseInt($row, 'From [bp]', 'From [nt]'),
-            toBp: self::parseInt($row, 'To [bp]', 'To [nt]'),
-            averageSizeBp: self::parseInt($row, 'Average Size [bp]', 'Average Size [nt]'),
-            concentrationNgPerUl: self::parseConcentration($row),
-            regionMolarityNmolPerL: self::parseFloat($row[self::MOLARITY_KEY] ?? '0'),
-            percentOfTotal: self::parseFloat($row['% of Total'] ?? '0'),
-            regionComment: $row['Region Comment'] ?? '',
+            $row['FileName'] ?? '',
+            $row['WellId'] ?? '',
+            $row['Sample Description'] ?? '',
+            self::parseInt($row, 'From [bp]', 'From [nt]'),
+            self::parseInt($row, 'To [bp]', 'To [nt]'),
+            self::parseInt($row, 'Average Size [bp]', 'Average Size [nt]'),
+            self::parseConcentration($row),
+            self::parseFloat($row[self::MOLARITY_KEY] ?? '0'),
+            self::parseFloat($row['% of Total'] ?? '0'),
+            $row['Region Comment'] ?? ''
         );
     }
 
@@ -57,7 +57,7 @@ class CompactRegionTableParser
     private static function parseConcentration(array $row): float
     {
         foreach ($row as $key => $value) {
-            if (str_starts_with($key, self::CONCENTRATION_KEY_PREFIX)) {
+            if (strpos($key, self::CONCENTRATION_KEY_PREFIX) === 0) {
                 return self::parseFloat($value);
             }
         }
