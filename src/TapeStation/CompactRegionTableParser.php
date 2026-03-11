@@ -9,15 +9,8 @@ use MLL\Utils\StringUtil;
 /**
  * Parses Agilent TapeStation "Compact Region Table" CSV exports.
  *
- * Handles known format variations:
- * - Delimiter: comma or semicolon (auto-detected)
- * - Size columns: bp (DNA) or nt (RNA)
- * - µ character encoding: UTF-8, Latin-1, or replacement character
- * - From column: optional (absent in some exports)
- *
- * Currently only supports standard assays where concentration is in ng/µl
- * and molarity in nmol/l. High Sensitivity assays (pg/µl, pmol/l) are
- * rejected with a descriptive error — support can be added when needed.
+ * Supports D1000, D5000, and RNA assays (all ng/µl + nmol/l).
+ * Rejects High Sensitivity assays (pg/µl + pmol/l) — see parseConcentration().
  */
 class CompactRegionTableParser
 {
