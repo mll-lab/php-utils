@@ -9,7 +9,7 @@ use MLL\Utils\StringUtil;
 /**
  * Parses Agilent TapeStation "Compact Region Table" CSV exports.
  *
- * Supports D1000, D5000, and RNA assays (all ng/µl + nmol/l).
+ * Supports all standard assays (D1000, D5000, RNA, Genomic DNA, Cell-free DNA — all ng/µl + nmol/l).
  * Rejects High Sensitivity assays (pg/µl + pmol/l) — see parseConcentration().
  */
 class CompactRegionTableParser
