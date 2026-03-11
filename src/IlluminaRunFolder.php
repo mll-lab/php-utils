@@ -6,7 +6,9 @@ use Carbon\Carbon;
 
 use function Safe\preg_match;
 
-/** Parses Illumina sequencer run folder names (YYYYMMDD_InstrumentID_RunNumber_FlowcellSegment). */
+/**
+ * Parses Illumina sequencer run folder names (YYYYMMDD_InstrumentID_RunNumber_FlowcellSegment).
+ */
 class IlluminaRunFolder
 {
     private const FLOWCELL_ID_PATTERN = '/\d*-?([A-Z].+)$/';
