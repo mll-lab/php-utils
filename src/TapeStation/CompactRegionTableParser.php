@@ -27,9 +27,7 @@ class CompactRegionTableParser
         $rows = CSVArray::toArray($csvContent, $delimiter);
 
         return (new Collection($rows))
-            ->map(static function (array $row): CompactRegionTableRecord {
-                return self::recordFromRow($row);
-            });
+            ->map(static fn (array $row): CompactRegionTableRecord => self::recordFromRow($row));
     }
 
     /** @param array<string, string> $row */
@@ -70,9 +68,7 @@ class CompactRegionTableParser
         }
     }
 
-    /**
-     * @param array<string, string> $row
-     */
+    /** @param array<string, string> $row */
     private static function parseConcentration(array $row): float
     {
         foreach ($row as $key => $value) {
