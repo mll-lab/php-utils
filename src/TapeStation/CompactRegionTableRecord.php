@@ -19,7 +19,7 @@ class CompactRegionTableRecord
     /** @var int Region end in bp (DNA) or nt (RNA). */
     public $to;
 
-    /** @var int Average fragment size in bp (DNA) or nt (RNA). */
+    /** @var int Average fragment size in bp (DNA) or nt (RNA). Center of mass, not peak maximum. */
     public $averageSize;
 
     /** @var float */
