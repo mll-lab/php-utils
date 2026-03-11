@@ -1,3 +1,9 @@
+## [6.5.0](https://github.com/mll-lab/php-utils/compare/v6.4.0...v6.5.0) (2026-03-11)
+
+### Features
+
+* Implement IlluminaRunFolder - We need to Parse the run folder to get sequencing run specific flowcell to identify run ([aed2772](https://github.com/mll-lab/php-utils/commit/aed27725848d09cd569d36e88e79bcb3a6ff2f05))
+
 ## [6.4.0](https://github.com/mll-lab/php-utils/compare/v6.3.0...v6.4.0) (2026-03-09)
 
 ### Features
