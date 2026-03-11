@@ -16,7 +16,6 @@ final class IlluminaRunFolderTest extends TestCase
         self::assertSame('SH01038', $folder->instrumentID);
         self::assertSame(7, $folder->runNumber);
         self::assertSame('ASC2139476-SC3', $folder->flowcellID);
-
     }
 
     public function testParseMiSeqWithZeroPrefixedFlowcell(): void
@@ -27,7 +26,6 @@ final class IlluminaRunFolderTest extends TestCase
         self::assertSame('M01261', $folder->instrumentID);
         self::assertSame(163, $folder->runNumber);
         self::assertSame('AGKG7', $folder->flowcellID);
-
     }
 
     public function testParseNextSeq(): void
@@ -38,7 +36,6 @@ final class IlluminaRunFolderTest extends TestCase
         self::assertSame('NB501352', $folder->instrumentID);
         self::assertSame(3, $folder->runNumber);
         self::assertSame('AH7LFFAFXX', $folder->flowcellID);
-
     }
 
     public function testParseMiSeqNanoFlowcell(): void
@@ -46,7 +43,6 @@ final class IlluminaRunFolderTest extends TestCase
         $folder = IlluminaRunFolder::parse('160315_M01111_0231_000000000-D0WDA');
 
         self::assertSame('D0WDA', $folder->flowcellID);
-
     }
 
     public function testParseBrokenRfidShortFlowcell(): void
@@ -54,7 +50,6 @@ final class IlluminaRunFolderTest extends TestCase
         $folder = IlluminaRunFolder::parse('160108_M01111_0222_AGKKL');
 
         self::assertSame('AGKKL', $folder->flowcellID);
-
     }
 
     public function testParseFromForwardSlashPath(): void
@@ -73,7 +68,6 @@ final class IlluminaRunFolderTest extends TestCase
         self::assertSame('M02074', $folder->instrumentID);
         self::assertSame(1219, $folder->runNumber);
         self::assertSame('B4RJ', $folder->flowcellID);
-
     }
 
     public function testParseRejectsInvalidPartCount(): void
