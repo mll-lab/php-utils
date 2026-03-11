@@ -110,6 +110,25 @@ final class CompactRegionTableParserTest extends TestCase
         self::assertCount(0, $records);
     }
 
+    public function testParseWithMissingFromColumn(): void
+    {
+        $csv = <<<'CSV'
+            FileName,WellId,Sample Description,To [bp],Average Size [bp],Conc. [ng/µl],Region Molarity [nmol/l],% of Total,Region Comment
+            2026-02-25.D1000,A8,22-000001,550,336,7.61,36.1,80.91,IDT
+            CSV;
+
+        $records = CompactRegionTableParser::parse($csv);
+
+        self::assertCount(1, $records);
+
+        $record = $records->first();
+        self::assertInstanceOf(CompactRegionTableRecord::class, $record);
+        self::assertNull($record->from);
+        self::assertSame(550, $record->to);
+        self::assertSame(336, $record->averageSize);
+        self::assertSame(7.61, $record->concentrationNgPerUl);
+    }
+
     public function testThrowsOnMissingConcentrationColumn(): void
     {
         $csv = <<<'CSV'

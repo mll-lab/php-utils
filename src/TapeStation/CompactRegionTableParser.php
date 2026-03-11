@@ -38,7 +38,7 @@ class CompactRegionTableParser
             $row['FileName'] ?? '',
             $row['WellId'] ?? '',
             $row['Sample Description'] ?? '',
-            self::parseInt($row, 'From [bp]', 'From [nt]'),
+            self::parseNullableInt($row, 'From [bp]', 'From [nt]'),
             self::parseInt($row, 'To [bp]', 'To [nt]'),
             self::parseInt($row, 'Average Size [bp]', 'Average Size [nt]'),
             self::parseConcentration($row),
@@ -63,6 +63,23 @@ class CompactRegionTableParser
         }
 
         throw new \RuntimeException('Concentration column not found. Expected column starting with "' . self::CONCENTRATION_KEY_PREFIX . '"');
+    }
+
+    /**
+     * Try primary key first, fall back to alternative (bp vs nt).
+     * Returns null when neither column exists in the header — e.g. From [bp] is absent in some exports.
+     *
+     * @param array<string, string> $row
+     */
+    private static function parseNullableInt(array $row, string $primaryKey, string $fallbackKey): ?int
+    {
+        if (! array_key_exists($primaryKey, $row) && ! array_key_exists($fallbackKey, $row)) {
+            return null;
+        }
+
+        $value = $row[$primaryKey] ?? $row[$fallbackKey] ?? '';
+
+        return $value === '' ? null : (int) round(self::parseFloat($value));
     }
 
     /**
