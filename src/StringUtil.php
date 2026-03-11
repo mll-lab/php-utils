@@ -171,9 +171,15 @@ class StringUtil
      */
     public static function leftPadNumber($number, int $length): string
     {
-        // For strings, validate they're numeric by casting to float first
         if (is_string($number)) {
-            $number = SafeCast::toFloat($number);
+            $number = trim($number);
+            if (! is_numeric($number)
+                || \Safe\preg_match('/^[+-]?0[xXbB]/', $number) === 1
+            ) {
+                throw new \InvalidArgumentException("String value \"{$number}\" is not a valid numeric format");
+            }
+
+            return str_pad($number, $length, '0', STR_PAD_LEFT);
         }
 
         return str_pad(SafeCast::toString($number), $length, '0', STR_PAD_LEFT);

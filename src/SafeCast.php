@@ -54,14 +54,24 @@ class SafeCast
         }
 
         if (is_float($value) && $value === floor($value) && is_finite($value)) {
-            return (int) $value;
+            $intValue = (int) $value;
+            if ((float) $intValue !== $value) {
+                return null;
+            }
+
+            return $intValue;
         }
 
         if (is_string($value)) {
             $trimmed = trim($value);
 
             if ($trimmed !== '' && self::isIntegerString($trimmed)) {
-                return (int) $trimmed;
+                $intValue = (int) $trimmed;
+                if ((float) $intValue !== (float) $trimmed) {
+                    return null;
+                }
+
+                return $intValue;
             }
         }
 
@@ -96,7 +106,9 @@ class SafeCast
     public static function tryFloat($value): ?float
     {
         if (is_float($value)) {
-            return $value;
+            return is_finite($value)
+                ? $value
+                : null;
         }
 
         if (is_int($value)) {
@@ -107,7 +119,11 @@ class SafeCast
             $trimmed = trim($value);
 
             if ($trimmed !== '' && self::isNumericString($trimmed)) {
-                return (float) $trimmed;
+                $result = (float) $trimmed;
+
+                return is_finite($result)
+                    ? $result
+                    : null;
             }
         }
 
@@ -214,7 +230,7 @@ class SafeCast
         }
 
         // is_numeric accepts some formats we want to reject, like hexadecimal (0x1F) or binary (0b1010)
-        return preg_match('/^0[xXbB]/', $value) !== 1;
+        return preg_match('/^[+-]?0[xXbB]/', $value) !== 1;
     }
 
     /** @param mixed $value The value that failed to cast */

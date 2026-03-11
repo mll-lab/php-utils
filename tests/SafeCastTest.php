@@ -62,6 +62,9 @@ final class SafeCastTest extends TestCase
         yield ['Cannot cast value of type "array" to int', []];
         yield ['Cannot cast value of type "boolean" to int', true];
         yield ['Cannot cast value of type "boolean" to int', false];
+        yield ['cannot be safely cast to int', PHP_INT_MAX + 1.0];
+        yield ['cannot be safely cast to int', (float) PHP_INT_MIN * 2];
+        yield ['is not a valid integer format', '99999999999999999999'];
     }
 
     /**
@@ -115,8 +118,14 @@ final class SafeCastTest extends TestCase
         yield ['Cannot cast value of type "array" to float', []];
         yield ['is not a valid numeric format', '0x1A'];
         yield ['is not a valid numeric format', '0b1010'];
+        yield ['is not a valid numeric format', '-0x1A'];
+        yield ['is not a valid numeric format', '+0b1010'];
         yield ['Cannot cast value of type "boolean" to float', true];
         yield ['Cannot cast value of type "boolean" to float', false];
+        yield ['Cannot cast value of type "double" to float', INF];
+        yield ['Cannot cast value of type "double" to float', -INF];
+        yield ['Cannot cast value of type "double" to float', NAN];
+        yield ['is not a valid numeric format', '1e999'];
     }
 
     /**
