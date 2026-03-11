@@ -56,12 +56,12 @@ class OverrideCycles
             $this->overrideCycleIndex1
                 ->fillUpTo($overrideCycleCounter->maxIndex1CycleCount(), new NucleotideType(NucleotideType::I1))
                 ->toString(),
-            $this->overrideCycleIndex2 !== null
+            $this->overrideCycleIndex2 instanceof OverrideCycle
                 ? $this->overrideCycleIndex2
                     ->fillUpTo($overrideCycleCounter->maxIndex2CycleCount(), new NucleotideType(NucleotideType::I2))
                     ->toString()
                 : null,
-            $this->overrideCycleRead2 !== null
+            $this->overrideCycleRead2 instanceof OverrideCycle
                 ? $this->overrideCycleRead2
                     ->fillUpTo($overrideCycleCounter->maxRead2CycleCount(), new NucleotideType(NucleotideType::R2))
                     ->toString()
