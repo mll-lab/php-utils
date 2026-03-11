@@ -45,16 +45,16 @@ final class IlluminaRunFolderTest extends TestCase
         self::assertSame('D0WDA', $folder->flowcellID);
     }
 
-    public function testParseBrokenRfidShortFlowcell(): void
+    public function testParseFlowcellStartingWithL(): void
     {
-        $folder = IlluminaRunFolder::parse('160108_M01111_0222_AGKKL');
+        $folder = IlluminaRunFolder::parse('231013_M02074_0918_000000000-L6G7G');
 
-        self::assertSame('AGKKL', $folder->flowcellID);
+        self::assertSame('L6G7G', $folder->flowcellID);
     }
 
     public function testParseFromForwardSlashPath(): void
     {
-        $folder = IlluminaRunFolder::parse('/data/sequencing/20260205_SH01038_0007_ASC2139476-SC3');
+        $folder = IlluminaRunFolder::parse('/path/to/20260205_SH01038_0007_ASC2139476-SC3');
 
         self::assertSame('SH01038', $folder->instrumentID);
         self::assertSame('ASC2139476-SC3', $folder->flowcellID);
@@ -62,12 +62,12 @@ final class IlluminaRunFolderTest extends TestCase
 
     public function testParseFromBackslashPath(): void
     {
-        $folder = IlluminaRunFolder::parse('miseq_active\260310_M02074_1219_000000000-MB4RJ');
+        $folder = IlluminaRunFolder::parse('foo\bar\260310_M02074_1219_000000000-MB4RJ');
 
         self::assertSame('2026-03-10', $folder->date->format('Y-m-d'));
         self::assertSame('M02074', $folder->instrumentID);
         self::assertSame(1219, $folder->runNumber);
-        self::assertSame('B4RJ', $folder->flowcellID);
+        self::assertSame('MB4RJ', $folder->flowcellID);
     }
 
     public function testParseRejectsInvalidPartCount(): void

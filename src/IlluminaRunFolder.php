@@ -6,33 +6,18 @@ use Carbon\Carbon;
 
 use function Safe\preg_match;
 
-/**
- * Parses Illumina sequencer run folder names into structured parts.
- *
- * Folder names follow the pattern: YYYYMMDD_InstrumentID_RunNumber_FlowcellSegment
- *
- * Examples:
- * - MiSeq i100:  20260224_SH01038_0011_ASC2168863-SC3
- * - MiSeq:       151231_M01261_0163_000000000-AGKG7
- * - NextSeq:     160205_NB501352_0003_AH7LFFAFXX
- * - MiSeq Nano:  160315_M01111_0231_000000000-D0WDA
- * - Broken RFID: 160108_M01111_0222_AGKKL
- */
+/** Parses Illumina sequencer run folder names (YYYYMMDD_InstrumentID_RunNumber_FlowcellSegment). */
 class IlluminaRunFolder
 {
+    private const FLOWCELL_ID_PATTERN = '/\d*-?([A-Z].+)$/';
+
     public Carbon $date;
 
     public string $instrumentID;
 
     public int $runNumber;
 
-    /**
-     * The extracted flowcell ID (e.g., AGKG7, ASC2168863-SC3, AH7LFFAFXX).
-     *
-     * Strips the optional numeric prefix from the raw segment:
-     * - 000000000-AGKG7 → AGKG7
-     * - ASC2168863-SC3  → ASC2168863-SC3 (no prefix to strip)
-     */
+    /** Strips optional zero-prefix from raw segment: 000000000-AGKG7 → AGKG7. */
     public string $flowcellID;
 
     public function __construct(Carbon $date, string $instrumentID, int $runNumber, string $flowcellID)
@@ -44,12 +29,10 @@ class IlluminaRunFolder
     }
 
     /**
-     * Parse a run folder name or path into its structured parts.
+     * Accepts both bare folder names and paths with forward or backslashes.
      *
-     * Accepts both forward and backslash paths.
-     *
-     * @example IlluminaRunFolder::parse('miseq_active\260310_M02074_1219_000000000-MB4RJ')
-     * @example IlluminaRunFolder::parse('/data/sequencing/20260205_SH01038_0007_ASC2139476-SC3')
+     * @example IlluminaRunFolder::parse('foo\bar\260310_M02074_1219_000000000-MB4RJ')
+     * @example IlluminaRunFolder::parse('/path/to/20260205_SH01038_0007_ASC2139476-SC3')
      */
     public static function parse(string $runFolder): self
     {
@@ -64,7 +47,7 @@ class IlluminaRunFolder
 
         [$dateString, $instrumentID, $runNumberString, $flowcellSegment] = $parts;
 
-        if (preg_match('/^\d{6,8}$/', $dateString) === 0) {
+        if (preg_match('/^(\d{6}|\d{8})$/', $dateString) === 0) {
             throw new \InvalidArgumentException("Invalid date in run folder: {$dateString}. Expected 6 or 8 digit date.");
         }
 
@@ -78,30 +61,10 @@ class IlluminaRunFolder
             throw new \InvalidArgumentException("Invalid run number in run folder: {$runNumberString}. Expected a numeric value.");
         }
 
-        $flowcellID = self::extractFlowcellID($flowcellSegment);
-
-        return new self($date, $instrumentID, (int) $runNumberString, $flowcellID);
-    }
-
-    /**
-     * Extract the actual flowcell ID from the raw segment.
-     *
-     * Illumina run folders encode the flowcell ID in the last segment, optionally
-     * prefixed with zeros and a dash (broken RFID readers on older MiSeqs):
-     * - 000000000-AGKG7 → AGKG7
-     * - 000000000-D0WDA → D0WDA
-     * - ASC2168863-SC3  → ASC2168863-SC3
-     * - AH7LFFAFXX      → AH7LFFAFXX
-     * - AGKKL            → AGKKL
-     *
-     * @see https://gitlab.mll/nemo/nemo/-/blob/master/scripts/illumina/pipeline/ill-ended.php (flowcell regex)
-     */
-    private static function extractFlowcellID(string $rawSegment): string
-    {
-        if (preg_match('/\d*-?([ABCDG].+)$/', $rawSegment, $matches) !== 1) {
-            throw new \InvalidArgumentException("Cannot extract flowcell ID from: {$rawSegment}");
+        if (preg_match(self::FLOWCELL_ID_PATTERN, $flowcellSegment, $matches) !== 1) {
+            throw new \InvalidArgumentException("Cannot extract flowcell ID from: {$flowcellSegment}");
         }
 
-        return $matches[1];
+        return new self($date, $instrumentID, (int) $runNumberString, $matches[1]);
     }
 }
