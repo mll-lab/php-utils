@@ -1,3 +1,27 @@
+## [6.4.0](https://github.com/mll-lab/php-utils/compare/v6.3.0...v6.4.0) (2026-03-09)
+
+### Features
+
+* add MemoryMonitor utility ([f20f967](https://github.com/mll-lab/php-utils/commit/f20f9678505c8781de4ed7bb8af22aace7991fa9))
+
+## [6.3.0](https://github.com/mll-lab/php-utils/compare/v6.2.0...v6.3.0) (2026-03-06)
+
+### Features
+
+* Add Drew sample sheet for FLT3-ITD-MRD ([#78](https://github.com/mll-lab/php-utils/issues/78)) ([8079378](https://github.com/mll-lab/php-utils/commit/8079378e91c4e6e2a08f66b037df7bbd3945b0f3))
+
+## [6.2.0](https://github.com/mll-lab/php-utils/compare/v6.1.0...v6.2.0) (2026-03-04)
+
+### Features
+
+* Implement logic for Chromosome.php, GenomicPosition.php and GenomicRegion ([2d28bca](https://github.com/mll-lab/php-utils/commit/2d28bca2619ffe97c91f97c9cf9a7e52dbeac1ef))
+
+## [6.1.0](https://github.com/mll-lab/php-utils/compare/v6.0.0...v6.1.0) (2026-03-02)
+
+### Features
+
+* Increase logic on Class DnaSequence.php by length and lowercase sequence input ([#75](https://github.com/mll-lab/php-utils/issues/75)) ([729a30c](https://github.com/mll-lab/php-utils/commit/729a30c0ae0cf5e7cc1c1113cf3725303923ff77))
+
 ## [6.0.0](https://github.com/mll-lab/php-utils/compare/v5.25.0...v6.0.0) (2026-02-27)
 
 ### ⚠ BREAKING CHANGES

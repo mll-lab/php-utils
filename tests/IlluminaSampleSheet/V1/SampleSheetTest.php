@@ -72,28 +72,30 @@ final class SampleSheetTest extends TestCase
         $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');
         $novaSeqSampleSheet = new SampleSheet($headerSection, $readsSection, $settings, $sampleSheetData);
 
-        $expected = '[Header]
-IEMFileVersion,4
-Investigator Name,DonalDuck
-Experiment Name,MyExperiment
-Date,19.04.2024
-Workflow,MyWorkflow
-Application,MyApplication
-Assay,MyAssay
-Description,MyDescription
-Chemistry,MyChemistry
-[Reads]
-101
-101
-[Settings]
-Adapter,AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
-AdapterRead2,AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
-[Data]
-Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Index2,Sample_Project,Description
-2,1,Sample-001-M001,RunXXXX-PLATE,,UDP0090,TCAGGCTT,UDP0090,ATCATGCG,RunXXXX-PROJECT,description
-1,2,Sample-002-M002,RunXXXX-PLATE,,UDP0091,CCTTGTAG,UDP0091,CCTTGGAA,RunXXXX-PROJECT,description
-4,3,Sample-003-M003,RunXXXX-PLATE,,UDP0092,GAACATCG,UDP0092,TCGACAAG,RunXXXX-PROJECT,description
-';
+        $expected = <<<'CSV'
+            [Header]
+            IEMFileVersion,4
+            Investigator Name,DonalDuck
+            Experiment Name,MyExperiment
+            Date,19.04.2024
+            Workflow,MyWorkflow
+            Application,MyApplication
+            Assay,MyAssay
+            Description,MyDescription
+            Chemistry,MyChemistry
+            [Reads]
+            101
+            101
+            [Settings]
+            Adapter,AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+            AdapterRead2,AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+            [Data]
+            Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Index2,Sample_Project,Description
+            2,1,Sample-001-M001,RunXXXX-PLATE,,UDP0090,TCAGGCTT,UDP0090,ATCATGCG,RunXXXX-PROJECT,description
+            1,2,Sample-002-M002,RunXXXX-PLATE,,UDP0091,CCTTGTAG,UDP0091,CCTTGGAA,RunXXXX-PROJECT,description
+            4,3,Sample-003-M003,RunXXXX-PLATE,,UDP0092,GAACATCG,UDP0092,TCGACAAG,RunXXXX-PROJECT,description
+
+            CSV;
         self::assertSame($expected, $novaSeqSampleSheet->toString());
     }
 
@@ -242,28 +244,30 @@ Lane,Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_I
         $settings = new SettingsSection('AGATCGGAAGAGCACACGTCTGAACTCCAGTCA', 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT');
         $novaSeqSampleSheet = new SampleSheet($headerSection, $readsSection, $settings, $sampleSheetDataSection);
 
-        $expected = '[Header]
-IEMFileVersion,4
-Investigator Name,DonalDuck
-Experiment Name,MyExperiment
-Date,19.04.2024
-Workflow,MyWorkflow
-Application,MyApplication
-Assay,MyAssay
-Description,MyDescription
-Chemistry,MyChemistry
-[Reads]
-101
-101
-[Settings]
-Adapter,AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
-AdapterRead2,AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
-[Data]
-Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Index2,Sample_Project,Description
-1,Sample-001-M001,RunXXXX-PLATE,,UDP0090,TCAGGCTT,UDP0090,ATCATGCG,RunXXXX-PROJECT,description
-2,Sample-002-M002,RunXXXX-PLATE,,UDP0091,CCTTGTAG,UDP0091,CCTTGGAA,RunXXXX-PROJECT,description
-3,Sample-003-M003,RunXXXX-PLATE,,UDP0092,GAACATCG,UDP0092,TCGACAAG,RunXXXX-PROJECT,description
-';
+        $expected = <<<'CSV'
+            [Header]
+            IEMFileVersion,4
+            Investigator Name,DonalDuck
+            Experiment Name,MyExperiment
+            Date,19.04.2024
+            Workflow,MyWorkflow
+            Application,MyApplication
+            Assay,MyAssay
+            Description,MyDescription
+            Chemistry,MyChemistry
+            [Reads]
+            101
+            101
+            [Settings]
+            Adapter,AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+            AdapterRead2,AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+            [Data]
+            Sample_ID,Sample_Name,Sample_Plate,Sample_Well,I7_Index_ID,Index,I5_Index_ID,Index2,Sample_Project,Description
+            1,Sample-001-M001,RunXXXX-PLATE,,UDP0090,TCAGGCTT,UDP0090,ATCATGCG,RunXXXX-PROJECT,description
+            2,Sample-002-M002,RunXXXX-PLATE,,UDP0091,CCTTGTAG,UDP0091,CCTTGGAA,RunXXXX-PROJECT,description
+            3,Sample-003-M003,RunXXXX-PLATE,,UDP0092,GAACATCG,UDP0092,TCGACAAG,RunXXXX-PROJECT,description
+
+            CSV;
         self::assertSame($expected, $novaSeqSampleSheet->toString());
     }
 
