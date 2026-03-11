@@ -13,7 +13,7 @@ class CompactRegionTableRecord
     /** @var string */
     public $sampleDescription;
 
-    /** @var int Region start in bp (DNA) or nt (RNA). */
+    /** @var int|null Region start in bp (DNA) or nt (RNA). Null when the column is absent from the export. */
     public $from;
 
     /** @var int Region end in bp (DNA) or nt (RNA). */
@@ -38,7 +38,7 @@ class CompactRegionTableRecord
         string $fileName,
         string $wellID,
         string $sampleDescription,
-        int $from,
+        ?int $from,
         int $to,
         int $averageSize,
         float $concentrationNgPerUl,
