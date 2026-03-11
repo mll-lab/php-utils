@@ -7,6 +7,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is `mll-lab/php-utils`, a PHP library of shared utilities for MLL (Munich Leukemia Laboratory).
 It provides domain-specific utilities for laboratory automation equipment, sample sheets, microplates, and general PHP helpers.
 
+Root namespace: `MLL\Utils\` (PSR-4 mapped to `src/`).
+Supports PHP 7.4+, so avoid language features requiring PHP 8.1+ (enums, fibers, intersection types, etc.).
+
 ## Commands
 
 ```bash
@@ -47,47 +50,15 @@ Use scope to clarify the area of change:
 
 ## Architecture
 
-### Domain Modules
-
-- **Microplate** (`src/Microplate`) - Generic coordinate system for laboratory microplates (96-well, 48-well, etc.)
-  - `CoordinateSystem` - Abstract base defining rows/columns (e.g., `CoordinateSystem12x8` for 96-well plates)
-  - `Coordinates` - Represents a position like "A1" with row/column
-  - `Microplate` - Generic container mapping coordinates to well contents
-  - `Section` / `SectionedMicroplate` - Subdivide plates into logical regions
-  - `MicroplateSet` - Work with multiple plates as a unit (AB, ABCD, ABCDE variants)
-
-- **Tecan** (`src/Tecan`) - Generate pipetting instructions for Tecan liquid handling robots (GWL format)
-  - `BasicCommands` - Low-level commands: Aspirate, Dispense, Wash, etc.
-  - `CustomCommands` - Higher-level compound operations
-  - `Rack` - Predefined rack types (FluidXRack, DestPCR, etc.)
-  - `TecanProtocol` - Builds complete protocol files
-
-- **IlluminaSampleSheet** (`src/IlluminaSampleSheet`) - Generate sample sheets for Illumina sequencers
-  - `V1` - Classic format (MiSeq, NextSeq, etc.)
-  - `V2` - NovaSeq X format with BCL Convert sections
-
-- **LightcyclerSampleSheet** (`src/LightcyclerSampleSheet`) - Sample sheets for Roche LightCycler qPCR
-
-- **FluidXPlate** (`src/FluidXPlate`) - FluidX tube rack scanning and barcode validation
-
-- **TecanScanner** (`src/TecanScanner`) - Parse Tecan scanner output files
-
-- **Qiaxcel** (`src/Qiaxcel`) - Import Qiagen Qiaxcel capillary electrophoresis data
-
-### General Utilities
-
-- `BavarianHolidays` - Bavarian holiday calendar with business day calculations
-- `StringUtil`, `Number`, `CSVArray` - Common helpers
-- `Specification` - Specification pattern implementation
+Each subdirectory under `src/` is a self-contained module for a specific lab instrument or domain concept.
+Tests mirror the `src/` structure under `tests/`.
 
 ### PHPStan Extension
 
-Custom PHPStan rules in `src/PHPStan/Rules`:
-- `IdToIDRule` and variants - Enforce "ID" capitalization (not "Id") in variable names, method names, class names, property names
-- `MissingClosureParameterTypehintRule` - Require closure parameter type hints
-- `ThrowableClassNameRule` - Naming conventions for exception classes
+This library ships custom PHPStan rules (`src/PHPStan/Rules/`) and disallowed call configs (`rules.neon`).
+Consumer projects get these automatically via `phpstan/extension-installer`.
 
-Rules are configured in `rules.neon` and `extension.neon`.
+The `phpstan.neon` in this repo includes additional rules enabled only for this project itself.
 
 ## Conventions
 
@@ -102,5 +73,4 @@ Name coordinate systems by dimensions: `CoordinateSystem12x8` (12 columns × 8 r
 
 ### Tests
 
-Tests mirror the `src` structure under `tests`.
 Use PHPUnit attributes for data providers: `#[DataProvider('dataProviderName')]`.
