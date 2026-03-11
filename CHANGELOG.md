@@ -1,3 +1,9 @@
+## [6.5.1](https://github.com/mll-lab/php-utils/compare/v6.5.0...v6.5.1) (2026-03-11)
+
+### Bug Fixes
+
+* extract flowcell ID, handle backslash paths, support 6-digit dates ([#81](https://github.com/mll-lab/php-utils/issues/81)) ([830068d](https://github.com/mll-lab/php-utils/commit/830068dc6d3b39616677eef2ce21407a2801b969))
+
 ## [6.5.0](https://github.com/mll-lab/php-utils/compare/v6.4.0...v6.5.0) (2026-03-11)
 
 ### Features
