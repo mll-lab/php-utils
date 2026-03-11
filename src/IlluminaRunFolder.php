@@ -2,21 +2,27 @@
 
 namespace MLL\Utils;
 
-use Carbon\CarbonImmutable;
+use Carbon\Carbon;
 
 use function Safe\preg_match;
 
+/**
+ * Parses Illumina sequencer run folder names (YYYYMMDD_InstrumentID_RunNumber_FlowcellSegment).
+ */
 class IlluminaRunFolder
 {
-    public CarbonImmutable $date;
+    private const FLOWCELL_ID_PATTERN = '/\d*-?([A-Z].+)$/';
+
+    public Carbon $date;
 
     public string $instrumentID;
 
     public int $runNumber;
 
+    /** Strips optional zero-prefix from raw segment: 000000000-AGKG7 → AGKG7. */
     public string $flowcellID;
 
-    public function __construct(CarbonImmutable $date, string $instrumentID, int $runNumber, string $flowcellID)
+    public function __construct(Carbon $date, string $instrumentID, int $runNumber, string $flowcellID)
     {
         $this->date = $date;
         $this->instrumentID = $instrumentID;
@@ -24,40 +30,43 @@ class IlluminaRunFolder
         $this->flowcellID = $flowcellID;
     }
 
-    /** @example IlluminaRunFolder::parse('/path/to/20260205_SH01038_0007_ASC2139476-SC3') */
+    /**
+     * Accepts both bare folder names and paths with forward or backslashes.
+     *
+     * @example IlluminaRunFolder::parse('foo\bar\260310_M02074_1219_000000000-MB4RJ')
+     * @example IlluminaRunFolder::parse('/path/to/20260205_SH01038_0007_ASC2139476-SC3')
+     */
     public static function parse(string $runFolder): self
     {
-        $folderName = basename($runFolder);
+        // Normalize backslashes so basename() works on Linux with Windows-style paths
+        $normalized = str_replace('\\', '/', $runFolder);
+        $folderName = basename($normalized);
+
         $parts = explode('_', $folderName, 4);
         if (count($parts) !== 4) {
             throw new \InvalidArgumentException("Invalid run folder format: {$runFolder}. Expected format: YYYYMMDD_InstrumentID_RunNumber_FlowcellID.");
         }
 
-        [$dateString, $instrumentID, $runNumberString, $flowcellID] = $parts;
+        [$dateString, $instrumentID, $runNumberString, $flowcellSegment] = $parts;
 
-        if (preg_match('/^\d{8}$/', $dateString) === 0) {
-            throw new \InvalidArgumentException("Invalid date in run folder: {$dateString}. Expected format: YYYYMMDD.");
+        if (preg_match('/^(\d{6}|\d{8})$/', $dateString) === 0) {
+            throw new \InvalidArgumentException("Invalid date in run folder: {$dateString}. Expected 6 or 8 digit date.");
         }
 
-        $date = CarbonImmutable::createFromFormat('!Ymd', $dateString);
-        if (! $date instanceof \Carbon\CarbonImmutable) {
-            throw new \InvalidArgumentException("Invalid date in run folder: {$dateString}. Expected format: YYYYMMDD.");
+        $format = strlen($dateString) === 8 ? '!Ymd' : '!ymd';
+        $date = Carbon::createFromFormat($format, $dateString);
+        if (! $date instanceof Carbon) {
+            throw new \InvalidArgumentException("Invalid date in run folder: {$dateString}.");
         }
 
         if ($runNumberString === '' || ! ctype_digit($runNumberString)) {
             throw new \InvalidArgumentException("Invalid run number in run folder: {$runNumberString}. Expected a numeric value.");
         }
 
-        return new self($date, $instrumentID, (int) $runNumberString, $flowcellID);
-    }
+        if (preg_match(self::FLOWCELL_ID_PATTERN, $flowcellSegment, $matches) !== 1) {
+            throw new \InvalidArgumentException("Cannot extract flowcell ID from: {$flowcellSegment}");
+        }
 
-    public function toString(): string
-    {
-        return implode('_', [
-            $this->date->format('Ymd'),
-            $this->instrumentID,
-            str_pad((string) $this->runNumber, 4, '0', STR_PAD_LEFT),
-            $this->flowcellID,
-        ]);
+        return new self($date, $instrumentID, (int) $runNumberString, $matches[1]);
     }
 }
