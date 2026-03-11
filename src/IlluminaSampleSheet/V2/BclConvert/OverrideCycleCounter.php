@@ -40,11 +40,9 @@ class OverrideCycleCounter
     public function maxIndex2CycleCount(): int
     {
         $max = $this->overrideCyclesList
-            ->max(
-                fn (OverrideCycles $overrideCycles): int => $overrideCycles->overrideCycleIndex2 !== null
+            ->max(fn (OverrideCycles $overrideCycles): int => $overrideCycles->overrideCycleIndex2 instanceof OverrideCycle
                 ? $overrideCycles->overrideCycleIndex2->sumCountOfAllCycles()
-                : 0
-            );
+                : 0);
         assert(is_int($max));
 
         return $max;
@@ -53,11 +51,9 @@ class OverrideCycleCounter
     public function maxRead2CycleCount(): int
     {
         $max = $this->overrideCyclesList
-            ->max(
-                fn (OverrideCycles $overrideCycles): int => $overrideCycles->overrideCycleRead2 !== null
+            ->max(fn (OverrideCycles $overrideCycles): int => $overrideCycles->overrideCycleRead2 instanceof OverrideCycle
                 ? $overrideCycles->overrideCycleRead2->sumCountOfAllCycles()
-                : 0
-            );
+                : 0);
         assert(is_int($max));
 
         return $max;
