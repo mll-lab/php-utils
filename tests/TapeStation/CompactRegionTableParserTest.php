@@ -141,4 +141,30 @@ final class CompactRegionTableParserTest extends TestCase
 
         CompactRegionTableParser::parse($csv);
     }
+
+    public function testThrowsOnHighSensitivityConcentration(): void
+    {
+        $csv = <<<'CSV'
+            FileName,WellId,Sample Description,From [bp],To [bp],Average Size [bp],Conc. [pg/µl],Region Molarity [nmol/l],% of Total,Region Comment
+            2026-02-25.HSD1000,A1,Sample1,200,1000,500,125.0,38.0,90.0,MRD
+            CSV;
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('High Sensitivity assay detected (pg/µl)');
+
+        CompactRegionTableParser::parse($csv);
+    }
+
+    public function testThrowsOnHighSensitivityMolarity(): void
+    {
+        $csv = <<<'CSV'
+            FileName,WellId,Sample Description,From [bp],To [bp],Average Size [bp],Conc. [ng/µl],Region Molarity [pmol/l],% of Total,Region Comment
+            2026-02-25.HSD1000,A1,Sample1,200,1000,500,12.5,38000.0,90.0,MRD
+            CSV;
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('High Sensitivity assay detected (pmol/l)');
+
+        CompactRegionTableParser::parse($csv);
+    }
 }
