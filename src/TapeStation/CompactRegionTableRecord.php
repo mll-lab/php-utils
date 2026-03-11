@@ -4,35 +4,27 @@ namespace MLL\Utils\TapeStation;
 
 class CompactRegionTableRecord
 {
-    /** @var string */
-    public $fileName;
+    public string $fileName;
 
-    /** @var string */
-    public $wellID;
+    public string $wellID;
 
-    /** @var string */
-    public $sampleDescription;
+    public string $sampleDescription;
 
-    /** @var int|null Region start in bp (DNA) or nt (RNA). Null when the column is absent from the export. */
-    public $from;
+    /** Null when the column is absent from the export. */
+    public ?int $from;
 
-    /** @var int Region end in bp (DNA) or nt (RNA). */
-    public $to;
+    public int $to;
 
-    /** @var int Average fragment size in bp (DNA) or nt (RNA). Center of mass, not peak maximum. */
-    public $averageSize;
+    /** Center of mass, not peak maximum. */
+    public int $averageSize;
 
-    /** @var float */
-    public $concentrationNgPerUl;
+    public float $concentrationNgPerUl;
 
-    /** @var float */
-    public $regionMolarityNmolPerL;
+    public float $regionMolarityNmolPerL;
 
-    /** @var float */
-    public $percentOfTotal;
+    public float $percentOfTotal;
 
-    /** @var string */
-    public $regionComment;
+    public string $regionComment;
 
     public function __construct(
         string $fileName,

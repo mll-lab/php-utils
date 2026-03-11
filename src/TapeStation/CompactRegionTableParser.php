@@ -10,14 +10,11 @@ use MLL\Utils\StringUtil;
  * Parses Agilent TapeStation "Compact Region Table" CSV exports.
  *
  * Supports all standard assays (D1000, D5000, RNA, Genomic DNA, Cell-free DNA — all ng/µl + nmol/l).
- * Rejects High Sensitivity assays (pg/µl + pmol/l) — see parseConcentration().
+ * Rejects High Sensitivity assays (pg/µl + pmol/l) — see rejectHighSensitivityAssay().
  */
 class CompactRegionTableParser
 {
-    /**
-     * Column name prefixes — used for fuzzy matching because the µ character
-     * in "Conc. [ng/µl]" is frequently corrupted during file save/load cycles.
-     */
+    /** µ in "Conc. [ng/µl]" is frequently corrupted during file save/load cycles. */
     private const CONCENTRATION_KEY_PREFIX = 'Conc. [ng/';
     private const MOLARITY_KEY = 'Region Molarity [nmol/l]';
 
@@ -29,20 +26,16 @@ class CompactRegionTableParser
 
         $rows = CSVArray::toArray($csvContent, $delimiter);
 
-        $records = new Collection();
-        foreach ($rows as $row) {
-            $records->push(self::recordFromRow($row));
-        }
-
-        return $records;
+        return (new Collection($rows))
+            ->map(static function (array $row): CompactRegionTableRecord {
+                return self::recordFromRow($row);
+            });
     }
 
     /** @param array<string, string> $row */
     private static function recordFromRow(array $row): CompactRegionTableRecord
     {
-        if (array_key_exists('Region Molarity [pmol/l]', $row)) {
-            throw new \RuntimeException('High Sensitivity assay detected (pmol/l). This parser only supports standard assays (nmol/l).');
-        }
+        self::rejectHighSensitivityAssay($row);
 
         return new CompactRegionTableRecord(
             $row['FileName'] ?? '',
@@ -59,22 +52,30 @@ class CompactRegionTableParser
     }
 
     /**
-     * The concentration column header contains µ which may be corrupted.
-     * Match by prefix instead of exact key.
+     * HS assays use pg/µl + pmol/l (1000× smaller than ng/µl + nmol/l).
+     * Silently parsing those would produce dangerously wrong results.
      *
-     * Only standard assays (ng/µl) are supported. High Sensitivity assays
-     * export pg/µl which is 1000× smaller — using those values without
-     * conversion would produce dangerously wrong results.
-     *
+     * @param array<string, string> $row
+     */
+    private static function rejectHighSensitivityAssay(array $row): void
+    {
+        if (array_key_exists('Region Molarity [pmol/l]', $row)) {
+            throw new \RuntimeException('High Sensitivity assay detected (pmol/l). This parser only supports standard assays (nmol/l).');
+        }
+
+        foreach (array_keys($row) as $key) {
+            if (strpos($key, 'Conc. [pg/') === 0) {
+                throw new \RuntimeException('High Sensitivity assay detected (pg/µl). This parser only supports standard assays (ng/µl).');
+            }
+        }
+    }
+
+    /**
      * @param array<string, string> $row
      */
     private static function parseConcentration(array $row): float
     {
         foreach ($row as $key => $value) {
-            if (strpos($key, 'Conc. [pg/') === 0) {
-                throw new \RuntimeException('High Sensitivity assay detected (pg/µl). This parser only supports standard assays (ng/µl).');
-            }
-
             if (strpos($key, self::CONCENTRATION_KEY_PREFIX) === 0) {
                 return self::parseFloat($value);
             }
@@ -83,12 +84,7 @@ class CompactRegionTableParser
         throw new \RuntimeException('Concentration column not found. Expected column starting with "' . self::CONCENTRATION_KEY_PREFIX . '"');
     }
 
-    /**
-     * Try primary key first, fall back to alternative (bp vs nt).
-     * Returns null when neither column exists in the header — e.g. From [bp] is absent in some exports.
-     *
-     * @param array<string, string> $row
-     */
+    /** @param array<string, string> $row */
     private static function parseNullableInt(array $row, string $primaryKey, string $fallbackKey): ?int
     {
         if (! array_key_exists($primaryKey, $row) && ! array_key_exists($fallbackKey, $row)) {
@@ -100,11 +96,7 @@ class CompactRegionTableParser
         return $value === '' ? null : (int) round(self::parseFloat($value));
     }
 
-    /**
-     * Try primary key first, fall back to alternative (bp vs nt).
-     *
-     * @param array<string, string> $row
-     */
+    /** @param array<string, string> $row */
     private static function parseInt(array $row, string $primaryKey, string $fallbackKey): int
     {
         $value = $row[$primaryKey] ?? $row[$fallbackKey] ?? null;
