@@ -140,6 +140,18 @@ final class SafeCastTest extends TestCase
         yield ['0', 0];
         yield ['3.14', 3.14];
         yield ['-2.5', -2.5];
+        yield ['object-string-with-stringable-interface', new class() implements \Stringable {
+            public function __toString(): string
+            {
+                return 'object-string-with-stringable-interface';
+            }
+        }];
+        yield ['object-string-without-stringable-interface', new class() {
+            public function __toString(): string
+            {
+                return 'object-string-without-stringable-interface';
+            }
+        }];
     }
 
     public function testToStringWithNull(): void
@@ -150,30 +162,6 @@ final class SafeCastTest extends TestCase
     public function testTryStringWithNullReturnsNull(): void
     {
         self::assertNull(SafeCast::tryString(null));
-    }
-
-    public function testToStringWithObjectHavingToStringMethod(): void
-    {
-        $object = new class() implements \Stringable {
-            public function __toString(): string
-            {
-                return 'object-string';
-            }
-        };
-
-        self::assertSame('object-string', SafeCast::toString($object));
-    }
-
-    public function testTryStringWithObjectHavingToStringMethod(): void
-    {
-        $object = new class() implements \Stringable {
-            public function __toString(): string
-            {
-                return 'object-string';
-            }
-        };
-
-        self::assertSame('object-string', SafeCast::tryString($object));
     }
 
     /**
