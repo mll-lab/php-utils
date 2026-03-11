@@ -27,8 +27,8 @@ final class CompactRegionTableParserTest extends TestCase
         self::assertSame(200, $first->from);
         self::assertSame(1000, $first->to);
         self::assertSame(505, $first->averageSize);
-        self::assertSame(15.0, $first->concentrationNgPerUl);
-        self::assertSame(46.6, $first->regionMolarityNmolPerL);
+        self::assertSame(15.0, $first->concentration);
+        self::assertSame(46.6, $first->regionMolarity);
         self::assertEqualsWithDelta(87.94, $first->percentOfTotal, 0.01);
         self::assertSame('FLT3-ITD MRD', $first->regionComment);
     }
@@ -49,8 +49,8 @@ final class CompactRegionTableParserTest extends TestCase
         self::assertSame('A8', $record->wellID);
         self::assertSame('22-000001', $record->sampleDescription);
         self::assertSame(320, $record->averageSize);
-        self::assertSame(7.61, $record->concentrationNgPerUl);
-        self::assertSame(36.1, $record->regionMolarityNmolPerL);
+        self::assertSame(7.61, $record->concentration);
+        self::assertSame(36.1, $record->regionMolarity);
     }
 
     public function testParseWithNtUnits(): void
@@ -67,7 +67,7 @@ final class CompactRegionTableParserTest extends TestCase
         $record = $records->first();
         self::assertInstanceOf(CompactRegionTableRecord::class, $record);
         self::assertSame(1800, $record->averageSize);
-        self::assertSame(34.7, $record->concentrationNgPerUl);
+        self::assertSame(34.7, $record->concentration);
     }
 
     public function testParseWithMuAsLatin1Byte(): void
@@ -81,7 +81,7 @@ final class CompactRegionTableParserTest extends TestCase
         self::assertCount(1, $records);
         $record = $records->first();
         self::assertInstanceOf(CompactRegionTableRecord::class, $record);
-        self::assertSame(12.5, $record->concentrationNgPerUl);
+        self::assertSame(12.5, $record->concentration);
     }
 
     public function testSkipsEmptyLines(): void
@@ -126,7 +126,7 @@ final class CompactRegionTableParserTest extends TestCase
         self::assertNull($record->from);
         self::assertSame(550, $record->to);
         self::assertSame(336, $record->averageSize);
-        self::assertSame(7.61, $record->concentrationNgPerUl);
+        self::assertSame(7.61, $record->concentration);
     }
 
     public function testThrowsOnMissingConcentrationColumn(): void
