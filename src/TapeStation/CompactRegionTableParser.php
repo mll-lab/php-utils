@@ -34,6 +34,10 @@ class CompactRegionTableParser
     /** @param array<string, string> $row */
     private static function recordFromRow(array $row): CompactRegionTableRecord
     {
+        if (array_key_exists('Region Molarity [pmol/l]', $row)) {
+            throw new \RuntimeException('High Sensitivity assay detected (pmol/l). This parser only supports standard assays (nmol/l).');
+        }
+
         return new CompactRegionTableRecord(
             $row['FileName'] ?? '',
             $row['WellId'] ?? '',
@@ -52,11 +56,19 @@ class CompactRegionTableParser
      * The concentration column header contains µ which may be corrupted.
      * Match by prefix instead of exact key.
      *
+     * Only standard assays (ng/µl) are supported. High Sensitivity assays
+     * export pg/µl which is 1000× smaller — using those values without
+     * conversion would produce dangerously wrong results.
+     *
      * @param array<string, string> $row
      */
     private static function parseConcentration(array $row): float
     {
         foreach ($row as $key => $value) {
+            if (strpos($key, 'Conc. [pg/') === 0) {
+                throw new \RuntimeException('High Sensitivity assay detected (pg/µl). This parser only supports standard assays (ng/µl).');
+            }
+
             if (strpos($key, self::CONCENTRATION_KEY_PREFIX) === 0) {
                 return self::parseFloat($value);
             }
