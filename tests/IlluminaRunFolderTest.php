@@ -15,7 +15,7 @@ final class IlluminaRunFolderTest extends TestCase
         self::assertSame('2026-02-05', $folder->date->format('Y-m-d'));
         self::assertSame('SH01038', $folder->instrumentID);
         self::assertSame(7, $folder->runNumber);
-        self::assertSame('ASC2139476-SC3', $folder->flowcellID);
+        self::assertSame('SC2139476-SC3', $folder->flowcellID);
     }
 
     public function testParseMiSeqWithZeroPrefixedFlowcell(): void
@@ -28,14 +28,21 @@ final class IlluminaRunFolderTest extends TestCase
         self::assertSame('AGKG7', $folder->flowcellID);
     }
 
-    public function testParseNextSeq(): void
+    public function testParseNextSeqStripsSidePrefix(): void
     {
         $folder = IlluminaRunFolder::parse('160205_NB501352_0003_AH7LFFAFXX');
 
         self::assertSame('2016-02-05', $folder->date->format('Y-m-d'));
         self::assertSame('NB501352', $folder->instrumentID);
         self::assertSame(3, $folder->runNumber);
-        self::assertSame('AH7LFFAFXX', $folder->flowcellID);
+        self::assertSame('H7LFFAFXX', $folder->flowcellID);
+    }
+
+    public function testParseNextSeqSideB(): void
+    {
+        $folder = IlluminaRunFolder::parse('160205_NB501352_0003_BH7LFFAFXX');
+
+        self::assertSame('H7LFFAFXX', $folder->flowcellID);
     }
 
     public function testParseMiSeqNanoFlowcell(): void
@@ -57,7 +64,7 @@ final class IlluminaRunFolderTest extends TestCase
         $folder = IlluminaRunFolder::parse('/path/to/20260205_SH01038_0007_ASC2139476-SC3');
 
         self::assertSame('SH01038', $folder->instrumentID);
-        self::assertSame('ASC2139476-SC3', $folder->flowcellID);
+        self::assertSame('SC2139476-SC3', $folder->flowcellID);
     }
 
     public function testParseFromBackslashPath(): void
