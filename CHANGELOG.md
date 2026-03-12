@@ -1,3 +1,9 @@
+## [6.6.0](https://github.com/mll-lab/php-utils/compare/v6.5.1...v6.6.0) (2026-03-12)
+
+### Features
+
+* add class SafeCast ([30ae56b](https://github.com/mll-lab/php-utils/commit/30ae56b43736581bf56fce21597aad91526881f6))
+
 ## [6.5.1](https://github.com/mll-lab/php-utils/compare/v6.5.0...v6.5.1) (2026-03-11)
 
 ### Bug Fixes
