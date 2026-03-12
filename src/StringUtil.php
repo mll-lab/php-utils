@@ -171,11 +171,18 @@ class StringUtil
      */
     public static function leftPadNumber($number, int $length): string
     {
-        if (is_string($number) && ! is_numeric($number)) {
-            throw new \InvalidArgumentException("Expected numeric string, got: {$number}");
+        if (is_string($number)) {
+            $number = trim($number);
+            if (! is_numeric($number)
+                || \Safe\preg_match('/^[+-]?0[xXbB]/', $number) === 1
+            ) {
+                throw new \InvalidArgumentException("String value \"{$number}\" is not a valid numeric format");
+            }
+
+            return str_pad($number, $length, '0', STR_PAD_LEFT);
         }
 
-        return str_pad((string) $number, $length, '0', STR_PAD_LEFT);
+        return str_pad(SafeCast::toString($number), $length, '0', STR_PAD_LEFT);
     }
 
     /** Remove forbidden chars (<,>,:,",/,\,|,?,*) from file name. */

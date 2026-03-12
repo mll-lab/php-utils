@@ -5,6 +5,7 @@ namespace MLL\Utils\Microplate;
 use Illuminate\Support\Arr;
 use MLL\Utils\Microplate\Enums\FlowDirection;
 use MLL\Utils\Microplate\Exceptions\UnexpectedFlowDirection;
+use MLL\Utils\SafeCast;
 
 use function Safe\preg_match;
 
@@ -89,7 +90,7 @@ class Coordinates
         }
         /** @var array{1: string, 2: string} $matches */
 
-        return new static($matches[1], (int) $matches[2], $coordinateSystem);
+        return new static($matches[1], SafeCast::toInt($matches[2]), $coordinateSystem);
     }
 
     /**
