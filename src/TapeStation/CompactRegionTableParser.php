@@ -4,6 +4,8 @@ namespace MLL\Utils\TapeStation;
 
 use Illuminate\Support\Collection;
 use MLL\Utils\CSVArray;
+use MLL\Utils\Microplate\Coordinates;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
 use MLL\Utils\StringUtil;
 
 /**
@@ -37,7 +39,7 @@ class CompactRegionTableParser
 
         return new CompactRegionTableRecord(
             $row['FileName'] ?? '',
-            $row['WellId'] ?? '',
+            Coordinates::fromString($row['WellId'] ?? '', new CoordinateSystem12x8()),
             $row['Sample Description'] ?? '',
             self::parseNullableInt($row, 'From [bp]', 'From [nt]'),
             self::parseInt($row, 'To [bp]', 'To [nt]'),

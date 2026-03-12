@@ -2,11 +2,15 @@
 
 namespace MLL\Utils\TapeStation;
 
+use MLL\Utils\Microplate\Coordinates;
+use MLL\Utils\Microplate\CoordinateSystem12x8;
+
 class CompactRegionTableRecord
 {
     public string $fileName;
 
-    public string $wellID;
+    /** @var Coordinates<CoordinateSystem12x8> */
+    public Coordinates $wellID;
 
     public string $sampleDescription;
 
@@ -26,9 +30,10 @@ class CompactRegionTableRecord
 
     public string $regionComment;
 
+    /** @param Coordinates<CoordinateSystem12x8> $wellID */
     public function __construct(
         string $fileName,
-        string $wellID,
+        Coordinates $wellID,
         string $sampleDescription,
         ?int $from,
         int $to,
