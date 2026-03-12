@@ -1,3 +1,9 @@
+## [6.6.1](https://github.com/mll-lab/php-utils/compare/v6.6.0...v6.6.1) (2026-03-12)
+
+### Bug Fixes
+
+* **IlluminaRunFolder:** strip A/B side prefix from flowcell segment ([#82](https://github.com/mll-lab/php-utils/issues/82)) ([ce8bbaf](https://github.com/mll-lab/php-utils/commit/ce8bbaf2b3025c287b1434de4641958327060a34))
+
 ## [6.6.0](https://github.com/mll-lab/php-utils/compare/v6.5.1...v6.6.0) (2026-03-12)
 
 ### Features
