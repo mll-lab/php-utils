@@ -22,7 +22,7 @@ final class CompactRegionTableParserTest extends TestCase
 
         $first = $records->first();
         self::assertInstanceOf(CompactRegionTableRecord::class, $first);
-        self::assertSame('A1', $first->wellID);
+        self::assertSame('A1', $first->wellID->toString());
         self::assertSame('Poko_FLT3-ITD_A1', $first->sampleDescription);
         self::assertSame(200, $first->from);
         self::assertSame(1000, $first->to);
@@ -46,7 +46,7 @@ final class CompactRegionTableParserTest extends TestCase
 
         $record = $records->first();
         self::assertInstanceOf(CompactRegionTableRecord::class, $record);
-        self::assertSame('A8', $record->wellID);
+        self::assertSame('A8', $record->wellID->toString());
         self::assertSame('22-000001', $record->sampleDescription);
         self::assertSame(320, $record->averageSize);
         self::assertSame(7.61, $record->concentrationNgPerUl);
