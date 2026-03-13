@@ -1,3 +1,9 @@
+## [6.7.0](https://github.com/mll-lab/php-utils/compare/v6.6.1...v6.7.0) (2026-03-13)
+
+### Features
+
+* Use a software version for local used illumina sequencer ([#83](https://github.com/mll-lab/php-utils/issues/83)) ([bb4df9a](https://github.com/mll-lab/php-utils/commit/bb4df9a80b77d904c3df5a54ce33f196d47cf370))
+
 ## [6.6.1](https://github.com/mll-lab/php-utils/compare/v6.6.0...v6.6.1) (2026-03-12)
 
 ### Bug Fixes
