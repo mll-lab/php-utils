@@ -5,6 +5,7 @@ namespace MLL\Utils\IlluminaSampleSheet\V2;
 class BclConvertSoftwareVersion
 {
     public const V4_1_23 = '4.1.23';
+    const V4_4_6 = '4.4.6';
 
     public string $value;
 
