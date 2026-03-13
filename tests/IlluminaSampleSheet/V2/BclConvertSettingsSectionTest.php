@@ -27,6 +27,7 @@ CSV;
 
         $expected = <<<'CSV'
 FastqCompressionFormat,gzip
+SoftwareVersion,4.4.6
 GenerateFastqcMetrics,true
 
 CSV;

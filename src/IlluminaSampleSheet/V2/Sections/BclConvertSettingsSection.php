@@ -34,6 +34,7 @@ final class BclConvertSettingsSection extends SimpleKeyValueSection
 
     private function performAnalysisOnLocalMachine(): void
     {
+        $this->keyValues['SoftwareVersion'] = BclConvertSoftwareVersion::V4_4_6;
         $this->keyValues['GenerateFastqcMetrics'] = 'true';
     }
 
