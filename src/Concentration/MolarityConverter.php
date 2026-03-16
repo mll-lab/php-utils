@@ -4,27 +4,36 @@ namespace MLL\Utils\Concentration;
 
 class MolarityConverter
 {
-    /** Average molar mass of a single base pair in double-stranded DNA (g/mol). */
-    public const AVERAGE_DALTONS_PER_BASE_PAIR = 660.0;
+    public const DALTONS_PER_BASE_PAIR_DSDNA = 660.0;
+    public const DALTONS_PER_NUCLEOTIDE_SSDNA = 330.0;
+    public const DALTONS_PER_NUCLEOTIDE_RNA = 340.0;
 
-    public static function ngPerUlToNmolPerL(float $concentrationNgPerUl, float $averageFragmentSize): float
-    {
-        self::assertPositiveFragmentSize($averageFragmentSize);
+    public static function concentrationToMolarity(
+        float $concentrationNgPerUl,
+        float $averageFragmentSize,
+        float $averageDaltonsPerUnit
+    ): float {
+        self::assertPositive($averageFragmentSize, 'Fragment size');
+        self::assertPositive($averageDaltonsPerUnit, 'Daltons per unit');
 
-        return ($concentrationNgPerUl / (self::AVERAGE_DALTONS_PER_BASE_PAIR * $averageFragmentSize)) * 1_000_000;
+        return ($concentrationNgPerUl / ($averageDaltonsPerUnit * $averageFragmentSize)) * 1_000_000;
     }
 
-    public static function nmolPerLToNgPerUl(float $molarityNmolPerL, float $averageFragmentSize): float
-    {
-        self::assertPositiveFragmentSize($averageFragmentSize);
+    public static function molarityToConcentration(
+        float $molarityNmolPerL,
+        float $averageFragmentSize,
+        float $averageDaltonsPerUnit
+    ): float {
+        self::assertPositive($averageFragmentSize, 'Fragment size');
+        self::assertPositive($averageDaltonsPerUnit, 'Daltons per unit');
 
-        return ($molarityNmolPerL * self::AVERAGE_DALTONS_PER_BASE_PAIR * $averageFragmentSize) / 1_000_000;
+        return ($molarityNmolPerL * $averageDaltonsPerUnit * $averageFragmentSize) / 1_000_000;
     }
 
-    private static function assertPositiveFragmentSize(float $averageFragmentSize): void
+    private static function assertPositive(float $value, string $name): void
     {
-        if ($averageFragmentSize <= 0.0) {
-            throw new \InvalidArgumentException("Fragment size must be positive, got {$averageFragmentSize}");
+        if ($value <= 0.0) {
+            throw new \InvalidArgumentException("{$name} must be positive, got {$value}");
         }
     }
 }

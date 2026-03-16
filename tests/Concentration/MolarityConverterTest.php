@@ -10,9 +10,9 @@ final class MolarityConverterTest extends TestCase
 {
     /** @dataProvider conversionPairs */
     #[DataProvider('conversionPairs')]
-    public function testNgPerUlToNmolPerL(float $expectedNmolPerL, float $ngPerUl, int $fragmentSizeBp): void
+    public function testConcentrationToMolarity(float $expectedNmolPerL, float $ngPerUl, int $fragmentSizeBp): void
     {
-        $result = MolarityConverter::ngPerUlToNmolPerL($ngPerUl, $fragmentSizeBp);
+        $result = MolarityConverter::concentrationToMolarity($ngPerUl, $fragmentSizeBp, MolarityConverter::DALTONS_PER_BASE_PAIR_DSDNA);
         self::assertEqualsWithDelta($expectedNmolPerL, $result, 0.1);
     }
 
@@ -20,8 +20,8 @@ final class MolarityConverterTest extends TestCase
     #[DataProvider('conversionPairs')]
     public function testRoundTrip(float $expectedNmolPerL, float $ngPerUl, int $fragmentSizeBp): void
     {
-        $nmolPerL = MolarityConverter::ngPerUlToNmolPerL($ngPerUl, $fragmentSizeBp);
-        $backToNgPerUl = MolarityConverter::nmolPerLToNgPerUl($nmolPerL, $fragmentSizeBp);
+        $nmolPerL = MolarityConverter::concentrationToMolarity($ngPerUl, $fragmentSizeBp, MolarityConverter::DALTONS_PER_BASE_PAIR_DSDNA);
+        $backToNgPerUl = MolarityConverter::molarityToConcentration($nmolPerL, $fragmentSizeBp, MolarityConverter::DALTONS_PER_BASE_PAIR_DSDNA);
         self::assertEqualsWithDelta($ngPerUl, $backToNgPerUl, 0.001);
     }
 
@@ -30,7 +30,7 @@ final class MolarityConverterTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Fragment size must be positive');
 
-        MolarityConverter::ngPerUlToNmolPerL(10.0, 0);
+        MolarityConverter::concentrationToMolarity(10.0, 0, MolarityConverter::DALTONS_PER_BASE_PAIR_DSDNA);
     }
 
     public function testThrowsOnNegativeFragmentSize(): void
@@ -38,7 +38,15 @@ final class MolarityConverterTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Fragment size must be positive');
 
-        MolarityConverter::nmolPerLToNgPerUl(10.0, -100);
+        MolarityConverter::molarityToConcentration(10.0, -100, MolarityConverter::DALTONS_PER_BASE_PAIR_DSDNA);
+    }
+
+    public function testThrowsOnZeroDaltonsPerUnit(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Daltons per unit must be positive');
+
+        MolarityConverter::concentrationToMolarity(10.0, 400, 0.0);
     }
 
     /** @return iterable<string, array{float, float, int}> */
