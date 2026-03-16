@@ -8,7 +8,7 @@ class MolarityConverter
     public const DALTONS_PER_NUCLEOTIDE_SSDNA = 330.0;
     public const DALTONS_PER_NUCLEOTIDE_RNA = 340.0;
 
-    public static function concentrationToMolarity(
+    public static function massConcentrationToMolarity(
         float $concentrationNgPerUl,
         float $averageFragmentSize,
         float $averageDaltonsPerUnit
@@ -19,7 +19,7 @@ class MolarityConverter
         return ($concentrationNgPerUl / ($averageDaltonsPerUnit * $averageFragmentSize)) * 1_000_000;
     }
 
-    public static function molarityToConcentration(
+    public static function molarityToMassConcentration(
         float $molarityNmolPerL,
         float $averageFragmentSize,
         float $averageDaltonsPerUnit
