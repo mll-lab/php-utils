@@ -10,7 +10,7 @@ class CompactRegionTableRecord
     public string $fileName;
 
     /** @var Coordinates<CoordinateSystem12x8> */
-    public Coordinates $wellID;
+    public Coordinates $coordinates;
 
     public string $sampleDescription;
 
@@ -30,10 +30,10 @@ class CompactRegionTableRecord
 
     public string $regionComment;
 
-    /** @param Coordinates<CoordinateSystem12x8> $wellID */
+    /** @param Coordinates<CoordinateSystem12x8> $coordinates */
     public function __construct(
         string $fileName,
-        Coordinates $wellID,
+        Coordinates $coordinates,
         string $sampleDescription,
         ?int $from,
         int $to,
@@ -44,7 +44,7 @@ class CompactRegionTableRecord
         string $regionComment
     ) {
         $this->fileName = $fileName;
-        $this->wellID = $wellID;
+        $this->coordinates = $coordinates;
         $this->sampleDescription = $sampleDescription;
         $this->from = $from;
         $this->to = $to;

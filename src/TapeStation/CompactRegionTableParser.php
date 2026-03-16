@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use MLL\Utils\CSVArray;
 use MLL\Utils\Microplate\Coordinates;
 use MLL\Utils\Microplate\CoordinateSystem12x8;
+use MLL\Utils\SafeCast;
 use MLL\Utils\StringUtil;
 
 /**
@@ -45,8 +46,8 @@ class CompactRegionTableParser
             self::parseInt($row, 'To [bp]', 'To [nt]'),
             self::parseInt($row, 'Average Size [bp]', 'Average Size [nt]'),
             self::parseConcentration($row),
-            self::parseFloat($row[self::MOLARITY_KEY] ?? '0'),
-            self::parseFloat($row['% of Total'] ?? '0'),
+            SafeCast::tryFloat($row[self::MOLARITY_KEY] ?? '0') ?? 0.0,
+            SafeCast::tryFloat($row['% of Total'] ?? '0') ?? 0.0,
             $row['Region Comment'] ?? ''
         );
     }
@@ -75,7 +76,7 @@ class CompactRegionTableParser
     {
         foreach ($row as $key => $value) {
             if (strpos($key, self::CONCENTRATION_KEY_PREFIX) === 0) {
-                return self::parseFloat($value);
+                return SafeCast::tryFloat($value) ?? 0.0;
             }
         }
 
@@ -91,7 +92,7 @@ class CompactRegionTableParser
 
         $value = $row[$primaryKey] ?? $row[$fallbackKey] ?? '';
 
-        return $value === '' ? null : (int) round(self::parseFloat($value));
+        return $value === '' ? null : (int) round(SafeCast::tryFloat($value) ?? 0.0);
     }
 
     /** @param array<string, string> $row */
@@ -102,17 +103,7 @@ class CompactRegionTableParser
             return 0;
         }
 
-        return (int) round(self::parseFloat($value));
-    }
-
-    private static function parseFloat(string $value): float
-    {
-        $trimmed = trim($value);
-        if ($trimmed === '' || ! is_numeric($trimmed)) {
-            return 0.0;
-        }
-
-        return (float) $trimmed;
+        return (int) round(SafeCast::tryFloat($value) ?? 0.0);
     }
 
     private static function detectDelimiter(string $csvContent): string
