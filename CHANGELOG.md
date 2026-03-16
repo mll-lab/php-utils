@@ -1,3 +1,9 @@
+## [6.8.0](https://github.com/mll-lab/php-utils/compare/v6.7.0...v6.8.0) (2026-03-16)
+
+### Features
+
+* add MolarityConverter and TapeStation CompactRegionTable parser ([98a9600](https://github.com/mll-lab/php-utils/commit/98a96009b08e4b1037e55c323ae3b879d66cf000))
+
 ## [6.7.0](https://github.com/mll-lab/php-utils/compare/v6.6.1...v6.7.0) (2026-03-13)
 
 ### Features
