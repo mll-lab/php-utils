@@ -132,8 +132,8 @@ final class CompactRegionTableParserTest extends TestCase
     public function testThrowsOnMissingConcentrationColumn(): void
     {
         $csv = <<<'CSV'
-            FileName;WellId;Sample Description
-            2026-02-25.D1000;A1;Sample1
+            FileName;WellId;Sample Description;From [bp];To [bp];Average Size [bp];Region Molarity [nmol/l];% of Total;Region Comment
+            2026-02-25.D1000;A1;Sample1;200;1000;500;38.0;90.0;MRD
             CSV;
 
         $this->expectException(\RuntimeException::class);

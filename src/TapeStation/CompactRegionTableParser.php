@@ -43,11 +43,11 @@ class CompactRegionTableParser
             Coordinates::fromString($row['WellId'] ?? '', new CoordinateSystem12x8()),
             $row['Sample Description'] ?? '',
             self::parseNullableInt($row, 'From [bp]', 'From [nt]'),
-            self::parseInt($row, 'To [bp]', 'To [nt]'),
-            self::parseInt($row, 'Average Size [bp]', 'Average Size [nt]'),
+            SafeCast::toInt($row['To [bp]'] ?? $row['To [nt]'] ?? ''),
+            SafeCast::toInt($row['Average Size [bp]'] ?? $row['Average Size [nt]'] ?? ''),
             self::parseConcentration($row),
-            SafeCast::tryFloat($row[self::MOLARITY_KEY] ?? '0') ?? 0.0,
-            SafeCast::tryFloat($row['% of Total'] ?? '0') ?? 0.0,
+            SafeCast::toFloat($row[self::MOLARITY_KEY] ?? ''),
+            SafeCast::toFloat($row['% of Total'] ?? ''),
             $row['Region Comment'] ?? ''
         );
     }
@@ -76,7 +76,7 @@ class CompactRegionTableParser
     {
         foreach ($row as $key => $value) {
             if (strpos($key, self::CONCENTRATION_KEY_PREFIX) === 0) {
-                return SafeCast::tryFloat($value) ?? 0.0;
+                return SafeCast::toFloat($value);
             }
         }
 
@@ -92,26 +92,12 @@ class CompactRegionTableParser
 
         $value = $row[$primaryKey] ?? $row[$fallbackKey] ?? '';
 
-        return $value === '' ? null : (int) round(SafeCast::tryFloat($value) ?? 0.0);
-    }
-
-    /** @param array<string, string> $row */
-    private static function parseInt(array $row, string $primaryKey, string $fallbackKey): int
-    {
-        $value = $row[$primaryKey] ?? $row[$fallbackKey] ?? null;
-        if ($value === null || $value === '') {
-            return 0;
-        }
-
-        return (int) round(SafeCast::tryFloat($value) ?? 0.0);
+        return $value === '' ? null : SafeCast::toInt($value);
     }
 
     private static function detectDelimiter(string $csvContent): string
     {
-        $firstLine = strtok($csvContent, "\n");
-        if ($firstLine === false) {
-            $firstLine = '';
-        }
+        $firstLine = explode("\n", $csvContent, 2)[0];
 
         $semicolonCount = substr_count($firstLine, ';');
         $commaCount = substr_count($firstLine, ',');
