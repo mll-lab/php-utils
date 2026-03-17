@@ -28,14 +28,16 @@ class GenomicRegion
 
     public static function parseOneBased(string $value): self
     {
-        if (preg_match('/^([^:]+):(g\.|)(\d+)(-(\d+)|)$/', $value, $matches) === 0) {
+        if (preg_match('/^([^:]+):(?:g\.)?(\d+)(?:-(\d+))?$/', $value, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid genomic region format: {$value}. Expected format: chr1:123-456.");
         }
 
+        assert(isset($matches[1], $matches[2]));
+
         return new self(
             new Chromosome($matches[1]),
-            NucleotidePosition::fromOneBased((int) $matches[3]),
-            NucleotidePosition::fromOneBased((int) ($matches[5] ?? $matches[3]))
+            NucleotidePosition::fromOneBased(SafeCast::toInt($matches[2])),
+            NucleotidePosition::fromOneBased(SafeCast::toInt($matches[3] ?? $matches[2]))
         );
     }
 

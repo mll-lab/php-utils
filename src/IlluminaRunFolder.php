@@ -94,10 +94,14 @@ class IlluminaRunFolder
     private static function extractFlowcellID(string $flowcellSegment): string
     {
         if (preg_match(self::ZERO_PREFIXED_PATTERN, $flowcellSegment, $matches) === 1) {
+            assert(isset($matches[1]));
+
             return $matches[1];
         }
 
         if (preg_match(self::SIDE_PREFIXED_PATTERN, $flowcellSegment, $matches) === 1) {
+            assert(isset($matches[1]));
+
             return $matches[1];
         }
 

@@ -19,11 +19,13 @@ class GenomicPosition
     /** @example GenomicPosition::parseOneBased('chr1:123456') */
     public static function parseOneBased(string $value): self
     {
-        if (preg_match('/^([^:]+):(g\.|)(\d+)$/', $value, $matches) === 0) {
+        if (preg_match('/^([^:]+):(?:g\.)?(\d+)$/', $value, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid genomic position format: {$value}. Expected format: chr1:123456.");
         }
 
-        return new self(new Chromosome($matches[1]), NucleotidePosition::fromOneBased((int) $matches[3]));
+        assert(isset($matches[1], $matches[2]));
+
+        return new self(new Chromosome($matches[1]), NucleotidePosition::fromOneBased(SafeCast::toInt($matches[2])));
     }
 
     public function equals(self $other): bool
