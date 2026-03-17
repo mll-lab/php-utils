@@ -20,7 +20,9 @@ class Chromosome
 
         assert(isset($matches[1]));
         $value = strtoupper($matches[1]);
-        $this->value = $value === self::MITOCHONDRIAL_ENSEMBL ? self::MITOCHONDRIAL : $value;
+        $this->value = $value === self::MITOCHONDRIAL_ENSEMBL
+            ? self::MITOCHONDRIAL
+            : $value;
     }
 
     public function value(): string
