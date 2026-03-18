@@ -10,14 +10,10 @@ class GenomicPosition
 
     public int $position;
 
-    public function __construct(Chromosome $chromosome, int $position)
+    public function __construct(Chromosome $chromosome, NucleotidePosition $position)
     {
-        if ($position < 1) {
-            throw new \InvalidArgumentException("Position must be positive, got: {$position}.");
-        }
-
         $this->chromosome = $chromosome;
-        $this->position = $position;
+        $this->position = $position->value;
     }
 
     /** @example GenomicPosition::parse('chr1:123456') */
@@ -27,7 +23,7 @@ class GenomicPosition
             throw new \InvalidArgumentException("Invalid genomic position format: {$value}. Expected format: chr1:123456.");
         }
 
-        return new self(new Chromosome($matches[1]), (int) $matches[3]);
+        return new self(new Chromosome($matches[1]), new NucleotidePosition($matches[3]));
     }
 
     public function equals(self $other): bool

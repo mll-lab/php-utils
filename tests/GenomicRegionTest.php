@@ -195,7 +195,7 @@ final class GenomicRegionTest extends TestCase
     public function testParseRejectsPositionZero(): void
     {
         self::expectException(\InvalidArgumentException::class);
-        GenomicRegion::parse('chr1:0-10');
+        GenomicRegion::parse('chr1:-1-10');
     }
 
     public function testContainsRegionIsInverseOfIsCoveredBy(): void

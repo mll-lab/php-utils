@@ -14,24 +14,17 @@ class GenomicRegion
 
     public function __construct(
         Chromosome $chromosome,
-        int $start,
-        int $end
+        NucleotidePosition $start,
+        NucleotidePosition $end
     ) {
-        if ($start < 1) {
-            throw new \InvalidArgumentException("Start must be positive, got: {$start}.");
-        }
 
-        if ($end < 1) {
-            throw new \InvalidArgumentException("End must be positive, got: {$end}.");
-        }
-
-        if ($start > $end) {
-            throw new \InvalidArgumentException("End ({$end}) must not be less than start ({$start}).");
+        if ($start->value > $end->value) {
+            throw new \InvalidArgumentException("End ({$end->value}) must not be less than start ({$start->value}).");
         }
 
         $this->chromosome = $chromosome;
-        $this->start = $start;
-        $this->end = $end;
+        $this->start = $start->value;
+        $this->end = $end->value;
     }
 
     public static function parse(string $value): self
@@ -42,8 +35,8 @@ class GenomicRegion
 
         return new self(
             new Chromosome($matches[1]),
-            (int) $matches[3],
-            (int) ($matches[5] ?? $matches[3])
+            new NucleotidePosition($matches[3]),
+            new NucleotidePosition($matches[5] ?? $matches[3])
         );
     }
 
@@ -98,8 +91,8 @@ class GenomicRegion
 
         return new self(
             $this->chromosome,
-            max($this->start, $other->start),
-            min($this->end, $other->end)
+            new NucleotidePosition(max($this->start, $other->start)),
+            new NucleotidePosition(min($this->end, $other->end))
         );
     }
 

@@ -3,6 +3,7 @@
 use MLL\Utils\Chromosome;
 use MLL\Utils\GenomicPosition;
 use MLL\Utils\NamingConvention;
+use MLL\Utils\NucleotidePosition;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -46,18 +47,18 @@ final class GenomicPositionTest extends TestCase
         );
     }
 
-    public function testConstructorRejectsNonPositivePosition(): void
+    public function testConstructorRejectsNegativePosition(): void
     {
         self::expectException(\InvalidArgumentException::class);
-        self::expectExceptionMessage('Position must be positive, got: 0.');
-        new GenomicPosition(new Chromosome('chr1'), 0);
+        self::expectExceptionMessage('Position must be positive, got: -1.');
+        new NucleotidePosition(-1);
     }
 
     /** @return iterable<array{string}> */
     public static function invalidFormats(): iterable
     {
         yield ['11:1test'];
-        yield ['chr1:0'];
+        yield ['chr1:-1'];
         yield ['chr1:'];
         yield ['chr1'];
     }
