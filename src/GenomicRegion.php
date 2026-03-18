@@ -17,7 +17,6 @@ class GenomicRegion
         NucleotidePosition $start,
         NucleotidePosition $end
     ) {
-
         if ($start->value > $end->value) {
             throw new \InvalidArgumentException("End ({$end->value}) must not be less than start ({$start->value}).");
         }
