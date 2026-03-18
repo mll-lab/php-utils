@@ -95,6 +95,22 @@ class GenomicRegion
         );
     }
 
+    /** Constructs a 1-based closed region from 0-based half-open coordinates (BED, BAM, bigWig). */
+    public static function fromZeroBasedHalfOpen(string $chromosome, int $start, int $end): self
+    {
+        return new self(
+            new Chromosome($chromosome),
+            new NucleotidePosition($start + 1),
+            new NucleotidePosition($end)
+        );
+    }
+
+    /** @return array{Chromosome, int, int} Chromosome, 0-based start, half-open end. */
+    public function toZeroBasedHalfOpen(): array
+    {
+        return [$this->chromosome, $this->start - 1, $this->end];
+    }
+
     private function containsCoordinate(int $position): bool
     {
         return $position >= $this->start && $position <= $this->end;

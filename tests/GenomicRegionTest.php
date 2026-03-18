@@ -195,7 +195,7 @@ final class GenomicRegionTest extends TestCase
     public function testParseRejectsPositionZero(): void
     {
         self::expectException(\InvalidArgumentException::class);
-        GenomicRegion::parse('chr1:-1-10');
+        GenomicRegion::parse('chr1:0-10');
     }
 
     public function testContainsRegionIsInverseOfIsCoveredBy(): void
@@ -217,6 +217,49 @@ final class GenomicRegionTest extends TestCase
     {
         $region = GenomicRegion::parse('chr11:10-20');
         self::assertFalse($region->isCoveredBy(GenomicRegion::parse('chr12:1-100')));
+    }
+
+    public function testFromZeroBasedHalfOpenConvertsToOneBased(): void
+    {
+        // BED: chr7  55249070  55249171 (EGFR Exon 19, 0-based half-open)
+        $region = GenomicRegion::fromZeroBasedHalfOpen('chr7', 55249070, 55249171);
+
+        self::assertSame(55249071, $region->start);
+        self::assertSame(55249171, $region->end);
+        self::assertSame(101, $region->length());
+    }
+
+    public function testFromZeroBasedHalfOpenSingleBase(): void
+    {
+        // BED single base: chr1  99  100 → 1-based chr1:100-100
+        $region = GenomicRegion::fromZeroBasedHalfOpen('chr1', 99, 100);
+
+        self::assertSame(100, $region->start);
+        self::assertSame(100, $region->end);
+        self::assertSame(1, $region->length());
+    }
+
+    public function testToZeroBasedHalfOpenRoundTrips(): void
+    {
+        $region = GenomicRegion::fromZeroBasedHalfOpen('chr7', 55249070, 55249171);
+
+        [$chromosome, $start, $end] = $region->toZeroBasedHalfOpen();
+
+        self::assertSame('7', $chromosome->value());
+        self::assertSame(55249070, $start);
+        self::assertSame(55249171, $end);
+    }
+
+    public function testFromZeroBasedHalfOpenLengthMatchesBedFormula(): void
+    {
+        $bedStart = 1000;
+        $bedEnd = 2000;
+
+        $region = GenomicRegion::fromZeroBasedHalfOpen('chr1', $bedStart, $bedEnd);
+
+        // BED length = end - start; 1-based length = end - start + 1
+        // Both must agree on the actual number of bases
+        self::assertSame($bedEnd - $bedStart, $region->length());
     }
 
     public function testIntersectionIsCommutative(): void

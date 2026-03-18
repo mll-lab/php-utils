@@ -10,7 +10,7 @@ class NucleotidePosition
     public function __construct($positionAsMixed)
     {
         $position = SafeCast::toInt($positionAsMixed);
-        if ($position < 0) {
+        if ($position < 1) {
             throw new \InvalidArgumentException("Position must be positive, got: {$position}.");
         }
         $this->value = $position;

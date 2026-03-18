@@ -46,6 +46,13 @@ final class GenomicPositionTest extends TestCase
         );
     }
 
+    public function testConstructorRejectsZeroPosition(): void
+    {
+        self::expectException(\InvalidArgumentException::class);
+        self::expectExceptionMessage('Position must be positive, got: 0.');
+        new NucleotidePosition(0);
+    }
+
     public function testConstructorRejectsNegativePosition(): void
     {
         self::expectException(\InvalidArgumentException::class);
@@ -57,6 +64,7 @@ final class GenomicPositionTest extends TestCase
     public static function invalidFormats(): iterable
     {
         yield ['11:1test'];
+        yield ['chr1:0'];
         yield ['chr1:-1'];
         yield ['chr1:'];
         yield ['chr1'];
