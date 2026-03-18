@@ -50,14 +50,14 @@ final class GenomicPositionTest extends TestCase
     {
         self::expectException(\InvalidArgumentException::class);
         self::expectExceptionMessage('Position must be positive, got: 0.');
-        new NucleotidePosition(0);
+        NucleotidePosition::fromOneBased(0);
     }
 
     public function testConstructorRejectsNegativePosition(): void
     {
         self::expectException(\InvalidArgumentException::class);
         self::expectExceptionMessage('Position must be positive, got: -1.');
-        new NucleotidePosition(-1);
+        NucleotidePosition::fromOneBased(-1);
     }
 
     /** @return iterable<array{string}> */

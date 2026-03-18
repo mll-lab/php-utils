@@ -23,7 +23,7 @@ class GenomicPosition
             throw new \InvalidArgumentException("Invalid genomic position format: {$value}. Expected format: chr1:123456.");
         }
 
-        return new self(new Chromosome($matches[1]), new NucleotidePosition($matches[3]));
+        return new self(new Chromosome($matches[1]), NucleotidePosition::fromOneBased((int) $matches[3]));
     }
 
     public function equals(self $other): bool

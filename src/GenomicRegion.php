@@ -34,8 +34,8 @@ class GenomicRegion
 
         return new self(
             new Chromosome($matches[1]),
-            new NucleotidePosition($matches[3]),
-            new NucleotidePosition($matches[5] ?? $matches[3])
+            NucleotidePosition::fromOneBased((int) $matches[3]),
+            NucleotidePosition::fromOneBased((int) ($matches[5] ?? $matches[3]))
         );
     }
 
@@ -90,8 +90,8 @@ class GenomicRegion
 
         return new self(
             $this->chromosome,
-            new NucleotidePosition(max($this->start, $other->start)),
-            new NucleotidePosition(min($this->end, $other->end))
+            NucleotidePosition::fromOneBased(max($this->start, $other->start)),
+            NucleotidePosition::fromOneBased(min($this->end, $other->end))
         );
     }
 
@@ -100,8 +100,8 @@ class GenomicRegion
     {
         return new self(
             new Chromosome($chromosome),
-            new NucleotidePosition($start + 1),
-            new NucleotidePosition($end)
+            NucleotidePosition::fromZeroBased($start),
+            NucleotidePosition::fromOneBased($end)
         );
     }
 
