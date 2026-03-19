@@ -116,15 +116,14 @@ class GenomicRegion
         return $position >= $this->start && $position <= $this->end;
     }
 
-    /**
-     * @return array<int, GenomicPosition>
-     */
+    /** @return array<int, GenomicPosition> */
     public function genomicPositions(): array
     {
         $items = [];
         for ($genomicPosition = $this->start; $genomicPosition <= $this->end; ++$genomicPosition) {
             $items[] = new GenomicPosition($this->chromosome, NucleotidePosition::fromOneBased($genomicPosition));
         }
+
         return $items;
     }
 }
