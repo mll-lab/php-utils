@@ -1,3 +1,9 @@
+## [6.9.0](https://github.com/mll-lab/php-utils/compare/v6.8.0...v6.9.0) (2026-03-19)
+
+### Features
+
+* use NucleotidePosition value object, add 0-based coordinate conversion ([#85](https://github.com/mll-lab/php-utils/issues/85)) ([c4eb253](https://github.com/mll-lab/php-utils/commit/c4eb253f4ab0c07492e96a97aa1840586ecee1d0))
+
 ## [6.8.0](https://github.com/mll-lab/php-utils/compare/v6.7.0...v6.8.0) (2026-03-16)
 
 ### Features
