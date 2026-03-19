@@ -16,8 +16,8 @@ class GenomicPosition
         $this->position = $position->value;
     }
 
-    /** @example GenomicPosition::parse('chr1:123456') */
-    public static function parse(string $value): self
+    /** @example GenomicPosition::parseOneBased('chr1:123456') */
+    public static function parseOneBased(string $value): self
     {
         if (preg_match('/^([^:]+):(g\.|)(\d+)$/', $value, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid genomic position format: {$value}. Expected format: chr1:123456.");

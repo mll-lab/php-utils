@@ -26,7 +26,7 @@ class GenomicRegion
         $this->end = $end->value;
     }
 
-    public static function parse(string $value): self
+    public static function parseOneBased(string $value): self
     {
         if (preg_match('/^([^:]+):(g\.|)(\d+)(-(\d+)|)$/', $value, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid genomic region format: {$value}. Expected format: chr1:123-456.");
@@ -114,5 +114,17 @@ class GenomicRegion
     private function containsCoordinate(int $position): bool
     {
         return $position >= $this->start && $position <= $this->end;
+    }
+
+    /**
+     * @return array<int, GenomicPosition>
+     */
+    public function genomicPositions(): array
+    {
+        $items = [];
+        for ($genomicPosition = $this->start; $genomicPosition <= $this->end; ++$genomicPosition) {
+            $items[] = new GenomicPosition($this->chromosome, NucleotidePosition::fromOneBased($genomicPosition));
+        }
+        return $items;
     }
 }
