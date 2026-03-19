@@ -14,27 +14,19 @@ class GenomicRegion
 
     public function __construct(
         Chromosome $chromosome,
-        int $start,
-        int $end
+        NucleotidePosition $start,
+        NucleotidePosition $end
     ) {
-        if ($start < 1) {
-            throw new \InvalidArgumentException("Start must be positive, got: {$start}.");
-        }
-
-        if ($end < 1) {
-            throw new \InvalidArgumentException("End must be positive, got: {$end}.");
-        }
-
-        if ($start > $end) {
-            throw new \InvalidArgumentException("End ({$end}) must not be less than start ({$start}).");
+        if ($start->value > $end->value) {
+            throw new \InvalidArgumentException("End ({$end->value}) must not be less than start ({$start->value}).");
         }
 
         $this->chromosome = $chromosome;
-        $this->start = $start;
-        $this->end = $end;
+        $this->start = $start->value;
+        $this->end = $end->value;
     }
 
-    public static function parse(string $value): self
+    public static function parseOneBased(string $value): self
     {
         if (preg_match('/^([^:]+):(g\.|)(\d+)(-(\d+)|)$/', $value, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid genomic region format: {$value}. Expected format: chr1:123-456.");
@@ -42,8 +34,8 @@ class GenomicRegion
 
         return new self(
             new Chromosome($matches[1]),
-            (int) $matches[3],
-            (int) ($matches[5] ?? $matches[3])
+            NucleotidePosition::fromOneBased((int) $matches[3]),
+            NucleotidePosition::fromOneBased((int) ($matches[5] ?? $matches[3]))
         );
     }
 
@@ -98,13 +90,40 @@ class GenomicRegion
 
         return new self(
             $this->chromosome,
-            max($this->start, $other->start),
-            min($this->end, $other->end)
+            NucleotidePosition::fromOneBased(max($this->start, $other->start)),
+            NucleotidePosition::fromOneBased(min($this->end, $other->end))
         );
+    }
+
+    /** Constructs a 1-based closed region from 0-based half-open coordinates (BED, BAM, bigWig). */
+    public static function fromZeroBasedHalfOpen(string $chromosome, int $start, int $end): self
+    {
+        return new self(
+            new Chromosome($chromosome),
+            NucleotidePosition::fromZeroBased($start),
+            NucleotidePosition::fromOneBased($end)
+        );
+    }
+
+    /** @return array{Chromosome, int, int} Chromosome, 0-based start, half-open end. */
+    public function toZeroBasedHalfOpen(): array
+    {
+        return [$this->chromosome, $this->start - 1, $this->end];
     }
 
     private function containsCoordinate(int $position): bool
     {
         return $position >= $this->start && $position <= $this->end;
+    }
+
+    /** @return array<int, GenomicPosition> */
+    public function genomicPositions(): array
+    {
+        $items = [];
+        for ($genomicPosition = $this->start; $genomicPosition <= $this->end; ++$genomicPosition) {
+            $items[] = new GenomicPosition($this->chromosome, NucleotidePosition::fromOneBased($genomicPosition));
+        }
+
+        return $items;
     }
 }
