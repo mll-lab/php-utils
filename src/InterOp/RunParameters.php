@@ -5,10 +5,36 @@ namespace MLL\Utils\InterOp;
 use Carbon\Carbon;
 
 /**
- * @phpstan-type RFIDTag array{SerialNumber: string, PartNumber: int, ExpirationDate: string}
- * @phpstan-type MiSeqParams array{Setup: array{ApplicationName: string}, RunID: string, MCSVersion: string, RTAVersion: string, RunStartDate: int, FlowcellRFIDTag: RFIDTag, PR2BottleRFIDTag?: RFIDTag, ReagentKitRFIDTag?: RFIDTag}
- * @phpstan-type Consumable array{SerialNumber: string, Type: string, ExpirationDate?: string, LotNumber?: int, PartNumber?: int, Mode?: string|int, Version?: int}
- * @phpstan-type I100Params array{Application: string, RunId: string, SystemSuiteVersion: string, ConsumableInfo: array{ConsumableInfo: array<int, Consumable>}}
+ * @phpstan-type RFIDTag array{
+ *     SerialNumber: string,
+ *     PartNumber: int,
+ *     ExpirationDate: string,
+ * }
+ * @phpstan-type MiSeqParams array{
+ *     Setup: array{ApplicationName: string},
+ *     RunID: string,
+ *     MCSVersion: string,
+ *     RTAVersion: string,
+ *     RunStartDate: int,
+ *     FlowcellRFIDTag: RFIDTag,
+ *     PR2BottleRFIDTag?: RFIDTag,
+ *     ReagentKitRFIDTag?: RFIDTag,
+ * }
+ * @phpstan-type Consumable array{
+ *     SerialNumber: string,
+ *     Type: string,
+ *     ExpirationDate?: string,
+ *     LotNumber?: int,
+ *     PartNumber?: int,
+ *     Mode?: string|int,
+ *     Version?: int,
+ * }
+ * @phpstan-type I100Params array{
+ *     Application: string,
+ *     RunId: string,
+ *     SystemSuiteVersion: string,
+ *     ConsumableInfo: array{ConsumableInfo: array<int, Consumable>},
+ * }
  */
 class RunParameters
 {
