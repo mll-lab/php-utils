@@ -32,23 +32,23 @@ class LaneResult
     public static function fromInterOpRow(array $row): self
     {
         $density = DeviationValue::parse($row['Density']);
-        assert($density instanceof DeviationValue, "Expected parseable Density, got: {$row['Density']}");
+        assert($density instanceof DeviationValue, "Expected parseable Density, got: {$row['Density']}.");
 
         $clusterPF = DeviationValue::parse($row['Cluster PF']);
-        assert($clusterPF instanceof DeviationValue, "Expected parseable Cluster PF, got: {$row['Cluster PF']}");
+        assert($clusterPF instanceof DeviationValue, "Expected parseable Cluster PF, got: {$row['Cluster PF']}.");
 
         $aligned = DeviationValue::parse($row['Aligned']);
-        assert($aligned instanceof DeviationValue, "Expected parseable Aligned, got: {$row['Aligned']}");
+        assert($aligned instanceof DeviationValue, "Expected parseable Aligned, got: {$row['Aligned']}.");
 
         $error = DeviationValue::parse($row['Error']);
-        assert($error instanceof DeviationValue, "Expected parseable Error, got: {$row['Error']}");
+        assert($error instanceof DeviationValue, "Expected parseable Error, got: {$row['Error']}.");
 
         $intensityCycle = DeviationValue::parse($row['Intensity C1']);
-        assert($intensityCycle instanceof DeviationValue, "Expected parseable Intensity C1, got: {$row['Intensity C1']}");
+        assert($intensityCycle instanceof DeviationValue, "Expected parseable Intensity C1, got: {$row['Intensity C1']}.");
 
         $phasingParts = explode(' / ', $row['Legacy Phasing/Prephasing Rate']);
-        assert(count($phasingParts) === 2, "Expected 'phasing / prephasing' format, got: {$row['Legacy Phasing/Prephasing Rate']}");
-        assert($phasingParts[0] !== 'nan', 'Unexpected nan phasing rate for data read');
+        assert(count($phasingParts) === 2, "Expected 'phasing / prephasing' format, got: {$row['Legacy Phasing/Prephasing Rate']}.");
+        assert($phasingParts[0] !== 'nan', 'Unexpected nan phasing rate for data read.');
 
         $clusterStatistic = new ClusterStatistic(
             $density,

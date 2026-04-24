@@ -23,12 +23,12 @@ class InterOpResult
 
         $read1Rows = $reads[$firstDataRead] ?? null;
         if ($read1Rows === null) {
-            throw new InterOpException("Reads data missing for '{$firstDataRead}'.");
+            throw new InterOpException("Reads data missing for: {$firstDataRead}.");
         }
 
         $read2Rows = $reads[$lastDataRead] ?? null;
         if ($read2Rows === null) {
-            throw new InterOpException("Reads data missing for '{$lastDataRead}'.");
+            throw new InterOpException("Reads data missing for: {$lastDataRead}.");
         }
 
         $this->resultsForRead1 = LaneResult::fromInterOpRow($read1Rows[0]);

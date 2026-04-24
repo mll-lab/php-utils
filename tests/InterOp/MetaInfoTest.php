@@ -3,7 +3,6 @@
 namespace MLL\Utils\Tests\InterOp;
 
 use MLL\Utils\InterOp\MetaInfo;
-use MLL\Utils\InterOp\RunParameters;
 use PHPUnit\Framework\TestCase;
 
 use function Safe\file_get_contents;
@@ -15,7 +14,7 @@ final class MetaInfoTest extends TestCase
         $json = file_get_contents(__DIR__ . '/meta-info-miseq.json');
         $metaInfo = new MetaInfo($json);
 
-        self::assertSame(RunParameters::APPLICATION_MISEQ, $metaInfo->runParameters->application);
+        self::assertSame('MiSeq Control Software', $metaInfo->runParameters->application);
         self::assertSame('2023-04-21', $metaInfo->runParameters->runDate->format('Y-m-d'));
         self::assertSame('KT6CY', $metaInfo->runParameters->flowcell);
         self::assertSame('2023-09-27', $metaInfo->runParameters->flowcellExpirationDate);
@@ -60,7 +59,7 @@ final class MetaInfoTest extends TestCase
         $json = file_get_contents(__DIR__ . '/meta-info-i100.json');
         $metaInfo = new MetaInfo($json);
 
-        self::assertSame(RunParameters::APPLICATION_MISEQ_I100, $metaInfo->runParameters->application);
+        self::assertSame('MiSeqi100Series Control Software', $metaInfo->runParameters->application);
         self::assertSame('2026-02-05', $metaInfo->runParameters->runDate->format('Y-m-d'));
         self::assertSame('SC2139476-SC3', $metaInfo->runParameters->flowcell);
         self::assertSame('2026-07-29', $metaInfo->runParameters->flowcellExpirationDate);
