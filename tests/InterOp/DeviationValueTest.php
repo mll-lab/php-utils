@@ -25,12 +25,12 @@ final class DeviationValueTest extends TestCase
         self::assertSame($expectedDeviation, $result->deviation);
     }
 
-    /** @return iterable<string, array{string, float|null, float|null}> */
+    /** @return iterable<string, array{input: string, expectedValue: float|null, expectedDeviation: float|null}> */
     public static function parseProvider(): iterable
     {
-        yield 'integer values' => ['851 +/- 32', 851.0, 32.0];
-        yield 'decimal values' => ['96.54 +/- 0.25', 96.54, 0.25];
-        yield 'nan returns null' => ['nan +/- nan', null, null];
-        yield 'small decimal values' => ['0.085 +/- 0.020', 0.085, 0.02];
+        yield 'integer values' => ['input' => '851 +/- 32', 'expectedValue' => 851.0, 'expectedDeviation' => 32.0];
+        yield 'decimal values' => ['input' => '96.54 +/- 0.25', 'expectedValue' => 96.54, 'expectedDeviation' => 0.25];
+        yield 'nan returns null' => ['input' => 'nan +/- nan', 'expectedValue' => null, 'expectedDeviation' => null];
+        yield 'small decimal values' => ['input' => '0.085 +/- 0.020', 'expectedValue' => 0.085, 'expectedDeviation' => 0.02];
     }
 }
