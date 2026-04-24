@@ -2,19 +2,18 @@
 
 namespace MLL\Utils\InterOp;
 
+use MLL\Utils\SafeCast;
+
 class LaneResult
 {
-    /** @var ClusterStatistic */
-    public $clusterStatistic;
+    public ClusterStatistic $clusterStatistic;
 
-    /** @var SequencingQualityControl */
-    public $sequencingQualityControl;
+    public SequencingQualityControl $sequencingQualityControl;
 
-    /** @var int Intensity at cycle 1. */
-    public $intensityCycle;
+    public int $intensityCycle;
 
-    /** @var int Yield in bases (JSON float in gigabases * 1_000_000). */
-    public $yield;
+    /** Yield in kilobases (JSON float in gigabases * 1_000_000). */
+    public int $yield;
 
     public function __construct(ClusterStatistic $clusterStatistic, SequencingQualityControl $sequencingQualityControl, int $intensityCycle, int $yield)
     {
@@ -49,72 +48,53 @@ class LaneResult
         $phasingParts = explode(' / ', $row['Legacy Phasing/Prephasing Rate']);
         assert(count($phasingParts) === 2, "Expected 'phasing / prephasing' format, got: {$row['Legacy Phasing/Prephasing Rate']}.");
         assert($phasingParts[0] !== 'nan', 'Unexpected nan phasing rate for data read.');
+        assert($phasingParts[1] !== 'nan', 'Unexpected nan prephasing rate for data read.');
 
         $clusterStatistic = new ClusterStatistic(
-            $density,
-            $clusterPF,
-            (float) $row['Reads'],
-            (float) $row['Reads PF']
+            density: $density,
+            clusterPF: $clusterPF,
+            clusterCount: SafeCast::toFloat($row['Reads']),
+            clusterCountPF: SafeCast::toFloat($row['Reads PF'])
         );
 
         $sequencingQualityControl = new SequencingQualityControl(
-            (float) $row['%>=Q30'],
-            (float) $phasingParts[0],
-            (float) $phasingParts[1],
-            $aligned,
-            $error
+            q30: SafeCast::toFloat($row['%>=Q30']),
+            phasing: SafeCast::toFloat($phasingParts[0]),
+            prephasing: SafeCast::toFloat($phasingParts[1]),
+            aligned: $aligned,
+            error: $error
         );
 
         return new self(
-            $clusterStatistic,
-            $sequencingQualityControl,
-            (int) $intensityCycle->value,
-            (int) ((float) $row['Yield'] * 1000000)
+            clusterStatistic: $clusterStatistic,
+            sequencingQualityControl: $sequencingQualityControl,
+            intensityCycle: SafeCast::toInt($intensityCycle->value),
+            yield: SafeCast::toInt(SafeCast::toFloat($row['Yield']) * 1000000)
         );
     }
 
     public static function aggregate(self $a, self $b): self
     {
-        $density = new DeviationValue(
-            ($a->clusterStatistic->density->value + $b->clusterStatistic->density->value) / 2,
-            ($a->clusterStatistic->density->deviation + $b->clusterStatistic->density->deviation) / 2
-        );
-
-        $clusterPF = new DeviationValue(
-            ($a->clusterStatistic->clusterPF->value + $b->clusterStatistic->clusterPF->value) / 2,
-            ($a->clusterStatistic->clusterPF->deviation + $b->clusterStatistic->clusterPF->deviation) / 2
-        );
-
         $clusterStatistic = new ClusterStatistic(
-            $density,
-            $clusterPF,
-            $a->clusterStatistic->clusterCount + $b->clusterStatistic->clusterCount,
-            $a->clusterStatistic->clusterCountPF + $b->clusterStatistic->clusterCountPF
-        );
-
-        $aligned = new DeviationValue(
-            ($a->sequencingQualityControl->aligned->value + $b->sequencingQualityControl->aligned->value) / 2,
-            ($a->sequencingQualityControl->aligned->deviation + $b->sequencingQualityControl->aligned->deviation) / 2
-        );
-
-        $error = new DeviationValue(
-            ($a->sequencingQualityControl->error->value + $b->sequencingQualityControl->error->value) / 2,
-            ($a->sequencingQualityControl->error->deviation + $b->sequencingQualityControl->error->deviation) / 2
+            density: DeviationValue::average($a->clusterStatistic->density, $b->clusterStatistic->density),
+            clusterPF: DeviationValue::average($a->clusterStatistic->clusterPF, $b->clusterStatistic->clusterPF),
+            clusterCount: $a->clusterStatistic->clusterCount + $b->clusterStatistic->clusterCount,
+            clusterCountPF: $a->clusterStatistic->clusterCountPF + $b->clusterStatistic->clusterCountPF
         );
 
         $sequencingQualityControl = new SequencingQualityControl(
-            ($a->sequencingQualityControl->q30 + $b->sequencingQualityControl->q30) / 2,
-            ($a->sequencingQualityControl->phasing + $b->sequencingQualityControl->phasing) / 2,
-            ($a->sequencingQualityControl->prephasing + $b->sequencingQualityControl->prephasing) / 2,
-            $aligned,
-            $error
+            q30: ($a->sequencingQualityControl->q30 + $b->sequencingQualityControl->q30) / 2,
+            phasing: ($a->sequencingQualityControl->phasing + $b->sequencingQualityControl->phasing) / 2,
+            prephasing: ($a->sequencingQualityControl->prephasing + $b->sequencingQualityControl->prephasing) / 2,
+            aligned: DeviationValue::average($a->sequencingQualityControl->aligned, $b->sequencingQualityControl->aligned),
+            error: DeviationValue::average($a->sequencingQualityControl->error, $b->sequencingQualityControl->error)
         );
 
         return new self(
-            $clusterStatistic,
-            $sequencingQualityControl,
-            (int) (($a->intensityCycle + $b->intensityCycle) / 2),
-            $a->yield + $b->yield
+            clusterStatistic: $clusterStatistic,
+            sequencingQualityControl: $sequencingQualityControl,
+            intensityCycle: intdiv($a->intensityCycle + $b->intensityCycle, 2),
+            yield: $a->yield + $b->yield
         );
     }
 }

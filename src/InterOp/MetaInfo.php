@@ -10,18 +10,24 @@ use function Safe\json_decode;
  */
 class MetaInfo
 {
-    /** @var RunParameters */
-    public $runParameters;
+    public RunParameters $runParameters;
 
-    /** @var InterOpResult */
-    public $interOpResult;
+    public InterOpResult $interOpResult;
 
-    /** @var string */
-    public $uncPath;
+    public string $uncPath;
 
     public function __construct(string $json)
     {
-        /** @var array{runParameters: array{RunParameters: MiSeqParams|I100Params}, interop: array{summary: array<int, array<string, string>>, reads: array<string, array<int, array<string, string>>>}, uncPath: string} $data */
+        /**
+         * @var array{
+         *     runParameters: array{RunParameters: MiSeqParams|I100Params},
+         *     interop: array{
+         *         summary: array<int, array<string, string>>,
+         *         reads: array<string, array<int, array<string, string>>>,
+         *     },
+         *     uncPath: string,
+         * } $data
+         */
         $data = json_decode($json, true);
 
         $this->runParameters = new RunParameters($data['runParameters']['RunParameters']);

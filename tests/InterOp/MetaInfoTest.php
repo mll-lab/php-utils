@@ -51,7 +51,7 @@ final class MetaInfoTest extends TestCase
         self::assertEqualsWithDelta(83.195, $runQC->q30, 0.001);
         self::assertEqualsWithDelta(0.065, $runQC->phasing, 0.001);
 
-        self::assertSame('mllsrv20/miseq_active\\230421_M02074_0859_000000000-KT6CY\\meta-info.json', $metaInfo->uncPath);
+        self::assertSame('example-server/miseq_active\\230421_M02074_0859_000000000-KT6CY\\meta-info.json', $metaInfo->uncPath);
     }
 
     public function testParseMiSeqI100(): void
@@ -63,7 +63,7 @@ final class MetaInfoTest extends TestCase
         self::assertSame('2026-02-05', $metaInfo->runParameters->runDate->format('Y-m-d'));
         self::assertSame('SC2139476-SC3', $metaInfo->runParameters->flowcell);
         self::assertSame('2026-07-29', $metaInfo->runParameters->flowcellExpirationDate);
-        self::assertSame('', $metaInfo->runParameters->rta);
+        self::assertNull($metaInfo->runParameters->rta);
         self::assertSame('1.1.0.26158', $metaInfo->runParameters->mcs);
         self::assertSame('20260205_SH01038_0007_ASC2139476-SC3', $metaInfo->runParameters->info);
 
@@ -87,6 +87,6 @@ final class MetaInfoTest extends TestCase
         self::assertSame(3486, $metaInfo->interOpResult->resultsForRead2->intensityCycle);
         self::assertSame(1490000, $metaInfo->interOpResult->resultsForRead2->yield);
 
-        self::assertSame('mllsrv20/miseq_active\\miSeqi100\\20260205_SH01038_0007_ASC2139476-SC3\\meta-info.json', $metaInfo->uncPath);
+        self::assertSame('example-server/miseq_active\\miSeqi100\\20260205_SH01038_0007_ASC2139476-SC3\\meta-info.json', $metaInfo->uncPath);
     }
 }

@@ -15,29 +15,22 @@ class RunParameters
     public const APPLICATION_MISEQ = 'MiSeq Control Software';
     public const APPLICATION_MISEQ_I100 = 'MiSeqi100Series Control Software';
 
-    /** @var string */
-    public $application;
+    public string $application;
 
-    /** @var Carbon */
-    public $runDate;
+    public Carbon $runDate;
 
-    /** @var string */
-    public $flowcell;
+    public string $flowcell;
 
-    /** @var string */
-    public $flowcellExpirationDate;
+    public ?string $flowcellExpirationDate = null;
 
-    /** @var string */
-    public $rta;
+    public ?string $rta = null;
 
-    /** @var string RunID / RunId. */
-    public $info;
+    public string $info;
 
-    /** @var string MCS / system suite version. */
-    public $mcs;
+    public string $mcs;
 
     /** @var array<int, array{name: string, expire_date: string}> */
-    public $reagents;
+    public array $reagents;
 
     /** @param MiSeqParams|I100Params $params */
     public function __construct(array $params)
@@ -90,28 +83,20 @@ class RunParameters
         $this->application = $params['Application'];
         $this->info = $params['RunId'];
         $this->mcs = $params['SystemSuiteVersion'];
-        $this->rta = '';
+        $this->rta = null;
 
-        $runID = $params['RunId'];
-        $dateString = substr($runID, 0, 8);
+        $dateString = substr($this->info, 0, 8);
         $date = Carbon::createFromFormat('!Ymd', $dateString);
-        assert($date instanceof Carbon, "Failed to parse i100 run date from RunId: {$runID}.");
+        assert($date instanceof Carbon, "Failed to parse i100 run date from RunId: {$this->info}.");
         $this->runDate = $date;
 
         $consumables = $params['ConsumableInfo']['ConsumableInfo'];
         $this->flowcell = '';
-        $this->flowcellExpirationDate = '';
+        $this->flowcellExpirationDate = null;
         $this->reagents = [];
 
         foreach ($consumables as $consumable) {
             $type = $consumable['Type'];
-
-            if ($type === 'DryCartridge') {
-                $this->flowcell = $consumable['SerialNumber'];
-                if (isset($consumable['ExpirationDate'])) {
-                    $this->flowcellExpirationDate = $this->formatExpirationDate($consumable['ExpirationDate']);
-                }
-            }
 
             if ($type === 'DryCartridge' || $type === 'WetCartridge') {
                 $this->reagents[] = [
@@ -120,6 +105,13 @@ class RunParameters
                         ? $this->formatExpirationDate($consumable['ExpirationDate'])
                         : '',
                 ];
+
+                if ($type === 'DryCartridge') {
+                    $this->flowcell = $consumable['SerialNumber'];
+                    if (isset($consumable['ExpirationDate'])) {
+                        $this->flowcellExpirationDate = $this->formatExpirationDate($consumable['ExpirationDate']);
+                    }
+                }
             }
         }
     }

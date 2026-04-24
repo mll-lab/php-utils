@@ -2,15 +2,15 @@
 
 namespace MLL\Utils\InterOp;
 
+use MLL\Utils\SafeCast;
+
 use function Safe\preg_match;
 
 class DeviationValue
 {
-    /** @var float */
-    public $value;
+    public float $value;
 
-    /** @var float */
-    public $deviation;
+    public float $deviation;
 
     public function __construct(float $value, float $deviation)
     {
@@ -29,6 +29,17 @@ class DeviationValue
             return null;
         }
 
-        return new self((float) $matches[1], (float) $matches[2]);
+        return new self(
+            SafeCast::toFloat($matches[1]),
+            SafeCast::toFloat($matches[2])
+        );
+    }
+
+    public static function average(self $a, self $b): self
+    {
+        return new self(
+            ($a->value + $b->value) / 2,
+            ($a->deviation + $b->deviation) / 2
+        );
     }
 }

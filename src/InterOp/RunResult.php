@@ -4,11 +4,9 @@ namespace MLL\Utils\InterOp;
 
 class RunResult
 {
-    /** @var ClusterStatistic */
-    public $clusterStatistic;
+    public ClusterStatistic $clusterStatistic;
 
-    /** @var SequencingQualityControl */
-    public $sequencingQualityControl;
+    public SequencingQualityControl $sequencingQualityControl;
 
     public function __construct(ClusterStatistic $clusterStatistic, SequencingQualityControl $sequencingQualityControl)
     {

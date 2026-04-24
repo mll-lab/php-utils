@@ -4,14 +4,11 @@ namespace MLL\Utils\InterOp;
 
 class InterOpResult
 {
-    /** @var LaneResult */
-    public $resultsForRead1;
+    public LaneResult $resultsForRead1;
 
-    /** @var LaneResult */
-    public $resultsForRead2;
+    public LaneResult $resultsForRead2;
 
-    /** @var RunResult */
-    public $resultsForRun;
+    public RunResult $resultsForRun;
 
     /**
      * @param array<int, array<string, string>> $summary interop summary rows
@@ -22,15 +19,16 @@ class InterOpResult
         [$firstDataRead, $lastDataRead] = self::findDataReads($summary);
 
         $read1Rows = $reads[$firstDataRead] ?? null;
-        if ($read1Rows === null) {
-            throw new InterOpException("Reads data missing for: {$firstDataRead}.");
+        if ($read1Rows === null || $read1Rows === []) {
+            throw new InterOpException("Reads data missing or empty for: {$firstDataRead}.");
         }
 
         $read2Rows = $reads[$lastDataRead] ?? null;
-        if ($read2Rows === null) {
-            throw new InterOpException("Reads data missing for: {$lastDataRead}.");
+        if ($read2Rows === null || $read2Rows === []) {
+            throw new InterOpException("Reads data missing or empty for: {$lastDataRead}.");
         }
 
+        // First row per read key is the Surface "-" aggregate across all tiles
         $this->resultsForRead1 = LaneResult::fromInterOpRow($read1Rows[0]);
         $this->resultsForRead2 = LaneResult::fromInterOpRow($read2Rows[0]);
         $this->resultsForRun = RunResult::fromLaneResults($this->resultsForRead1, $this->resultsForRead2);
@@ -64,10 +62,14 @@ class InterOpResult
             }
         }
 
-        if (count($dataReads) < 2) {
-            throw new InterOpException('Expected at least 2 data reads, found ' . count($dataReads) . '.');
+        $count = count($dataReads);
+        if ($count < 2) {
+            throw new InterOpException("Expected at least 2 data reads, found {$count}.");
         }
 
-        return [$dataReads[0], $dataReads[count($dataReads) - 1]];
+        $lastKey = array_key_last($dataReads);
+        assert($lastKey !== null, 'array_key_last() returned null despite count >= 2.');
+
+        return [$dataReads[0], $dataReads[$lastKey]];
     }
 }

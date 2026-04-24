@@ -9,7 +9,7 @@
       "@xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
       "Application": "MiSeqi100Series Control Software",
       "SystemSuiteVersion": "1.1.0.26158",
-      "OutputFolder": "//192.168.0.228/miseq_active/miSeqi100/20260205_SH01038_0007_ASC2139476-SC3",
+      "OutputFolder": "//192.0.2.1/miseq_active/miSeqi100/20260205_SH01038_0007_ASC2139476-SC3",
       "CustomPrimerSelections": {
         "ReadOnePrimer": false,
         "ReadTwoPrimer": false,
@@ -252,5 +252,5 @@
       ]
     }
   },
-  "uncPath": "mllsrv20/miseq_active\\miSeqi100\\20260205_SH01038_0007_ASC2139476-SC3\\meta-info.json"
+  "uncPath": "example-server/miseq_active\\miSeqi100\\20260205_SH01038_0007_ASC2139476-SC3\\meta-info.json"
 }

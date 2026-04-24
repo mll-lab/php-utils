@@ -4,20 +4,15 @@ namespace MLL\Utils\InterOp;
 
 class SequencingQualityControl
 {
-    /** @var float Percentage of bases with quality score >= Q30. */
-    public $q30;
+    public float $q30;
 
-    /** @var float Phasing rate. */
-    public $phasing;
+    public float $phasing;
 
-    /** @var float Prephasing rate. */
-    public $prephasing;
+    public float $prephasing;
 
-    /** @var DeviationValue Alignment percentage. */
-    public $aligned;
+    public DeviationValue $aligned;
 
-    /** @var DeviationValue Error rate. */
-    public $error;
+    public DeviationValue $error;
 
     public function __construct(float $q30, float $phasing, float $prephasing, DeviationValue $aligned, DeviationValue $error)
     {

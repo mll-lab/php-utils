@@ -4,17 +4,13 @@ namespace MLL\Utils\InterOp;
 
 class ClusterStatistic
 {
-    /** @var DeviationValue Cluster density (K/mm²). */
-    public $density;
+    public DeviationValue $density;
 
-    /** @var DeviationValue Percentage of clusters passing filter. */
-    public $clusterPF;
+    public DeviationValue $clusterPF;
 
-    /** @var float Total cluster count (millions). */
-    public $clusterCount;
+    public float $clusterCount;
 
-    /** @var float Clusters passing filter (millions). */
-    public $clusterCountPF;
+    public float $clusterCountPF;
 
     public function __construct(DeviationValue $density, DeviationValue $clusterPF, float $clusterCount, float $clusterCountPF)
     {
