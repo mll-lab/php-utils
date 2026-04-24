@@ -23,11 +23,11 @@ class RunParameters
 
     public ?string $flowcellExpirationDate = null;
 
-    public ?string $rta = null;
+    public ?string $realTimeAnalysisVersion = null;
 
     public string $info;
 
-    public string $mcs;
+    public string $controlSoftwareVersion;
 
     /** @var array<int, array{name: string, expire_date: string}> */
     public array $reagents;
@@ -49,8 +49,8 @@ class RunParameters
     {
         $this->application = $params['Setup']['ApplicationName'];
         $this->info = $params['RunID'];
-        $this->mcs = $params['MCSVersion'];
-        $this->rta = $params['RTAVersion'];
+        $this->controlSoftwareVersion = $params['MCSVersion'];
+        $this->realTimeAnalysisVersion = $params['RTAVersion'];
 
         $runStartDate = (string) $params['RunStartDate'];
         $date = Carbon::createFromFormat('!ymd', $runStartDate);
@@ -82,8 +82,8 @@ class RunParameters
     {
         $this->application = $params['Application'];
         $this->info = $params['RunId'];
-        $this->mcs = $params['SystemSuiteVersion'];
-        $this->rta = null;
+        $this->controlSoftwareVersion = $params['SystemSuiteVersion'];
+        $this->realTimeAnalysisVersion = null;
 
         $dateString = substr($this->info, 0, 8);
         $date = Carbon::createFromFormat('!Ymd', $dateString);

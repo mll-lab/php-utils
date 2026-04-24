@@ -18,8 +18,8 @@ final class MetaInfoTest extends TestCase
         self::assertSame('2023-04-21', $metaInfo->runParameters->runDate->format('Y-m-d'));
         self::assertSame('KT6CY', $metaInfo->runParameters->flowcell);
         self::assertSame('2023-09-27', $metaInfo->runParameters->flowcellExpirationDate);
-        self::assertSame('1.18.54', $metaInfo->runParameters->rta);
-        self::assertSame('2.6.2.2', $metaInfo->runParameters->mcs);
+        self::assertSame('1.18.54', $metaInfo->runParameters->realTimeAnalysisVersion);
+        self::assertSame('2.6.2.2', $metaInfo->runParameters->controlSoftwareVersion);
         self::assertSame('230421_M02074_0859_000000000-KT6CY', $metaInfo->runParameters->info);
 
         self::assertCount(2, $metaInfo->runParameters->reagents);
@@ -30,9 +30,9 @@ final class MetaInfoTest extends TestCase
 
         self::assertSame(851.0, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->density->value);
         self::assertSame(32.0, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->density->deviation);
-        self::assertSame(96.54, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterPF->value);
+        self::assertSame(96.54, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterPassingFilter->value);
         self::assertSame(21.22, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterCount);
-        self::assertSame(20.48, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterCountPF);
+        self::assertSame(20.48, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterCountPassingFilter);
 
         self::assertSame(88.2, $metaInfo->interOpResult->resultsForRead1->sequencingQualityControl->q30);
         self::assertSame(0.085, $metaInfo->interOpResult->resultsForRead1->sequencingQualityControl->phasing);
@@ -63,8 +63,8 @@ final class MetaInfoTest extends TestCase
         self::assertSame('2026-02-05', $metaInfo->runParameters->runDate->format('Y-m-d'));
         self::assertSame('SC2139476-SC3', $metaInfo->runParameters->flowcell);
         self::assertSame('2026-07-29', $metaInfo->runParameters->flowcellExpirationDate);
-        self::assertNull($metaInfo->runParameters->rta);
-        self::assertSame('1.1.0.26158', $metaInfo->runParameters->mcs);
+        self::assertNull($metaInfo->runParameters->realTimeAnalysisVersion);
+        self::assertSame('1.1.0.26158', $metaInfo->runParameters->controlSoftwareVersion);
         self::assertSame('20260205_SH01038_0007_ASC2139476-SC3', $metaInfo->runParameters->info);
 
         self::assertCount(2, $metaInfo->runParameters->reagents);
@@ -74,7 +74,7 @@ final class MetaInfoTest extends TestCase
         self::assertSame('2026-10-17', $metaInfo->runParameters->reagents[1]['expire_date']);
 
         self::assertSame(1000.0, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->density->value);
-        self::assertSame(62.27, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterPF->value);
+        self::assertSame(62.27, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterPassingFilter->value);
         self::assertSame(95.35, $metaInfo->interOpResult->resultsForRead1->sequencingQualityControl->q30);
         self::assertSame(0.075, $metaInfo->interOpResult->resultsForRead1->sequencingQualityControl->phasing);
         self::assertSame(0.042, $metaInfo->interOpResult->resultsForRead1->sequencingQualityControl->prephasing);

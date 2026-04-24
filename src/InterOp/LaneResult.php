@@ -33,8 +33,8 @@ class LaneResult
         $density = DeviationValue::parse($row['Density']);
         assert($density instanceof DeviationValue, "Expected parseable Density, got: {$row['Density']}.");
 
-        $clusterPF = DeviationValue::parse($row['Cluster PF']);
-        assert($clusterPF instanceof DeviationValue, "Expected parseable Cluster PF, got: {$row['Cluster PF']}.");
+        $clusterPassingFilter = DeviationValue::parse($row['Cluster PF']);
+        assert($clusterPassingFilter instanceof DeviationValue, "Expected parseable Cluster PF, got: {$row['Cluster PF']}.");
 
         $aligned = DeviationValue::parse($row['Aligned']);
         assert($aligned instanceof DeviationValue, "Expected parseable Aligned, got: {$row['Aligned']}.");
@@ -52,9 +52,9 @@ class LaneResult
 
         $clusterStatistic = new ClusterStatistic(
             density: $density,
-            clusterPF: $clusterPF,
+            clusterPassingFilter: $clusterPassingFilter,
             clusterCount: SafeCast::toFloat($row['Reads']),
-            clusterCountPF: SafeCast::toFloat($row['Reads PF'])
+            clusterCountPassingFilter: SafeCast::toFloat($row['Reads PF'])
         );
 
         $sequencingQualityControl = new SequencingQualityControl(
@@ -77,9 +77,9 @@ class LaneResult
     {
         $clusterStatistic = new ClusterStatistic(
             density: DeviationValue::average($a->clusterStatistic->density, $b->clusterStatistic->density),
-            clusterPF: DeviationValue::average($a->clusterStatistic->clusterPF, $b->clusterStatistic->clusterPF),
+            clusterPassingFilter: DeviationValue::average($a->clusterStatistic->clusterPassingFilter, $b->clusterStatistic->clusterPassingFilter),
             clusterCount: $a->clusterStatistic->clusterCount + $b->clusterStatistic->clusterCount,
-            clusterCountPF: $a->clusterStatistic->clusterCountPF + $b->clusterStatistic->clusterCountPF
+            clusterCountPassingFilter: $a->clusterStatistic->clusterCountPassingFilter + $b->clusterStatistic->clusterCountPassingFilter
         );
 
         $sequencingQualityControl = new SequencingQualityControl(
