@@ -57,7 +57,7 @@ class InterOpResult
                 continue;
             }
 
-            if (substr($level, -3) !== '(I)') {
+            if (substr($level, -3) !== '(I)') { // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
                 $dataReads[] = $level;
             }
         }
