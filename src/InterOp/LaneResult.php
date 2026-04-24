@@ -51,50 +51,50 @@ class LaneResult
         assert($phasingParts[1] !== 'nan', 'Unexpected nan prephasing rate for data read.');
 
         $clusterStatistic = new ClusterStatistic(
-            density: $density,
-            clusterPassingFilter: $clusterPassingFilter,
-            clusterCount: SafeCast::toFloat($row['Reads']),
-            clusterCountPassingFilter: SafeCast::toFloat($row['Reads PF'])
+            $density,
+            $clusterPassingFilter,
+            SafeCast::toFloat($row['Reads']),
+            SafeCast::toFloat($row['Reads PF'])
         );
 
         $sequencingQualityControl = new SequencingQualityControl(
-            q30: SafeCast::toFloat($row['%>=Q30']),
-            phasing: SafeCast::toFloat($phasingParts[0]),
-            prephasing: SafeCast::toFloat($phasingParts[1]),
-            aligned: $aligned,
-            error: $error
+            SafeCast::toFloat($row['%>=Q30']),
+            SafeCast::toFloat($phasingParts[0]),
+            SafeCast::toFloat($phasingParts[1]),
+            $aligned,
+            $error
         );
 
         return new self(
-            clusterStatistic: $clusterStatistic,
-            sequencingQualityControl: $sequencingQualityControl,
-            intensityCycle: SafeCast::toInt($intensityCycle->value),
-            yield: SafeCast::toInt(SafeCast::toFloat($row['Yield']) * 1000000)
+            $clusterStatistic,
+            $sequencingQualityControl,
+            SafeCast::toInt($intensityCycle->value),
+            SafeCast::toInt(SafeCast::toFloat($row['Yield']) * 1000000)
         );
     }
 
     public static function aggregate(self $a, self $b): self
     {
         $clusterStatistic = new ClusterStatistic(
-            density: DeviationValue::average($a->clusterStatistic->density, $b->clusterStatistic->density),
-            clusterPassingFilter: DeviationValue::average($a->clusterStatistic->clusterPassingFilter, $b->clusterStatistic->clusterPassingFilter),
-            clusterCount: $a->clusterStatistic->clusterCount + $b->clusterStatistic->clusterCount,
-            clusterCountPassingFilter: $a->clusterStatistic->clusterCountPassingFilter + $b->clusterStatistic->clusterCountPassingFilter
+            DeviationValue::average($a->clusterStatistic->density, $b->clusterStatistic->density),
+            DeviationValue::average($a->clusterStatistic->clusterPassingFilter, $b->clusterStatistic->clusterPassingFilter),
+            $a->clusterStatistic->clusterCount + $b->clusterStatistic->clusterCount,
+            $a->clusterStatistic->clusterCountPassingFilter + $b->clusterStatistic->clusterCountPassingFilter
         );
 
         $sequencingQualityControl = new SequencingQualityControl(
-            q30: ($a->sequencingQualityControl->q30 + $b->sequencingQualityControl->q30) / 2,
-            phasing: ($a->sequencingQualityControl->phasing + $b->sequencingQualityControl->phasing) / 2,
-            prephasing: ($a->sequencingQualityControl->prephasing + $b->sequencingQualityControl->prephasing) / 2,
-            aligned: DeviationValue::average($a->sequencingQualityControl->aligned, $b->sequencingQualityControl->aligned),
-            error: DeviationValue::average($a->sequencingQualityControl->error, $b->sequencingQualityControl->error)
+            ($a->sequencingQualityControl->q30 + $b->sequencingQualityControl->q30) / 2,
+            ($a->sequencingQualityControl->phasing + $b->sequencingQualityControl->phasing) / 2,
+            ($a->sequencingQualityControl->prephasing + $b->sequencingQualityControl->prephasing) / 2,
+            DeviationValue::average($a->sequencingQualityControl->aligned, $b->sequencingQualityControl->aligned),
+            DeviationValue::average($a->sequencingQualityControl->error, $b->sequencingQualityControl->error)
         );
 
         return new self(
-            clusterStatistic: $clusterStatistic,
-            sequencingQualityControl: $sequencingQualityControl,
-            intensityCycle: intdiv($a->intensityCycle + $b->intensityCycle, 2),
-            yield: $a->yield + $b->yield
+            $clusterStatistic,
+            $sequencingQualityControl,
+            intdiv($a->intensityCycle + $b->intensityCycle, 2),
+            $a->yield + $b->yield
         );
     }
 }
