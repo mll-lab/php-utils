@@ -63,7 +63,7 @@ class RunParameters
     {
         if (isset($params['Setup']['ApplicationName'])) {
             $this->parseMiSeq($params);
-        } elseif (isset($params['Application'])) {
+        } elseif (isset($params['Application'])) { // @phpstan-ignore isset.offset (runtime guard for unexpected input)
             $this->parseMiSeqI100($params);
         } else {
             throw new InterOpException('Unable to determine device type from RunParameters.');

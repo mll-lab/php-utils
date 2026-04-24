@@ -67,9 +67,6 @@ class InterOpResult
             throw new InterOpException("Expected at least 2 data reads, found {$count}.");
         }
 
-        $lastKey = array_key_last($dataReads);
-        assert($lastKey !== null, 'array_key_last() returned null despite count >= 2.');
-
-        return [$dataReads[0], $dataReads[$lastKey]];
+        return [$dataReads[0], $dataReads[count($dataReads) - 1]];
     }
 }
