@@ -1,0 +1,256 @@
+{
+  "runParameters": {
+    "xml": {
+      "@version": 1,
+      "@encoding": "utf-8"
+    },
+    "RunParameters": {
+      "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+      "@xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
+      "Application": "MiSeqi100Series Control Software",
+      "SystemSuiteVersion": "1.1.0.26158",
+      "OutputFolder": "//192.168.0.228/miseq_active/miSeqi100/20260205_SH01038_0007_ASC2139476-SC3",
+      "CustomPrimerSelections": {
+        "ReadOnePrimer": false,
+        "ReadTwoPrimer": false,
+        "IndexOnePrimer": false,
+        "IndexTwoPrimer": false
+      },
+      "CloudUploadMode": "InstrumentPerformance",
+      "RunSetupMode": "Manual",
+      "SecondaryAnalysisMode": "ManualModeLocalAnalysis",
+      "InstrumentType": "MiSeqi100Plus",
+      "InstrumentSerialNumber": "SH01038",
+      "RunId": "20260205_SH01038_0007_ASC2139476-SC3",
+      "SampleSheetName": "SampleSheet.csv",
+      "ConsumableInfo": {
+        "ConsumableInfo": [
+          {
+            "SerialNumber": "SC2139476-SC3",
+            "LotNumber": 20987817,
+            "PartNumber": 20115216,
+            "ExpirationDate": "2026-07-29T00:00:00+02:00",
+            "Type": "DryCartridge",
+            "Mode": "5M",
+            "Version": 1
+          },
+          {
+            "SerialNumber": "SC2157208-SC2",
+            "LotNumber": 20994302,
+            "PartNumber": 20079747,
+            "ExpirationDate": "2026-10-17T00:00:00+02:00",
+            "Type": "WetCartridge",
+            "Mode": "B",
+            "Version": 1
+          },
+          {
+            "SerialNumber": "BXA23202-0617",
+            "Type": "FlowCell_1",
+            "Mode": 1,
+            "Version": 1
+          }
+        ]
+      },
+      "PlannedReads": {
+        "Read": [
+          {
+            "@ReadName": "Index1",
+            "@Cycles": 6,
+            "#text": null
+          },
+          {
+            "@ReadName": "Index2",
+            "@Cycles": 8,
+            "#text": null
+          },
+          {
+            "@ReadName": "Read1",
+            "@Cycles": 301,
+            "#text": null
+          },
+          {
+            "@ReadName": "Read2",
+            "@Cycles": 301,
+            "#text": null
+          }
+        ]
+      },
+      "SecondaryAnalysisInfo": {
+        "SecondaryAnalysisInfo": {
+          "SecondaryAnalysisPlatformVersion": "4.4.6",
+          "SecondaryAnalysisWorkflow": {
+            "string": "DRAGEN BCL Convert"
+          }
+        }
+      },
+      "RunCounter": 7,
+      "RecipeName": "5M/600_B_Recipe",
+      "RecipeVersion": "2.2_IF",
+      "ExperimentName": "Run9619",
+      "PurgeReagentCartridge": true
+    }
+  },
+  "interop": {
+    "summary": [
+      {
+        "Level": "Read 1 (I)",
+        "Yield": "0.02",
+        "Projected Yield": "0.02",
+        "Aligned": "0.00",
+        "Error Rate": "nan",
+        "Intensity C1": "3031",
+        "%>=Q30": "92.66",
+        "% Occupied": "74.22"
+      },
+      {
+        "Level": "Read 2 (I)",
+        "Yield": "0.03",
+        "Projected Yield": "0.03",
+        "Aligned": "0.00",
+        "Error Rate": "nan",
+        "Intensity C1": "2979",
+        "%>=Q30": "92.00",
+        "% Occupied": "74.22"
+      },
+      {
+        "Level": "Read 3",
+        "Yield": "1.49",
+        "Projected Yield": "1.49",
+        "Aligned": "28.66",
+        "Error Rate": "0.27",
+        "Intensity C1": "3534",
+        "%>=Q30": "95.35",
+        "% Occupied": "74.22"
+      },
+      {
+        "Level": "Read 4",
+        "Yield": "1.49",
+        "Projected Yield": "1.49",
+        "Aligned": "28.27",
+        "Error Rate": "0.32",
+        "Intensity C1": "3486",
+        "%>=Q30": "96.32",
+        "% Occupied": "74.22"
+      },
+      {
+        "Level": "Non-indexed",
+        "Yield": "2.97",
+        "Projected Yield": "2.97",
+        "Aligned": "28.47",
+        "Error Rate": "0.29",
+        "Intensity C1": "3510",
+        "%>=Q30": "95.83",
+        "% Occupied": "74.22"
+      },
+      {
+        "Level": "Total",
+        "Yield": "3.03",
+        "Projected Yield": "3.03",
+        "Aligned": "28.47",
+        "Error Rate": "0.29",
+        "Intensity C1": "3257",
+        "%>=Q30": "95.76",
+        "% Occupied": "74.22"
+      }
+    ],
+    "reads": {
+      "Read 1 (I)": [
+        {
+          "Lane": "1",
+          "Surface": "-",
+          "Tiles": "18",
+          "Density": "1000 +/- 0",
+          "Cluster PF": "62.27 +/- 0.43",
+          "Legacy Phasing/Prephasing Rate": "nan / nan",
+          "Phasing  slope/offset": "nan / nan",
+          "Prephasing slope/offset": "nan / nan",
+          "Reads": "7.91",
+          "Reads PF": "4.92",
+          "%>=Q30": "92.66",
+          "Yield": "0.02",
+          "Cycles Error": "0",
+          "Aligned": "nan +/- nan",
+          "Error": "nan +/- nan",
+          "Error (35)": "nan +/- nan",
+          "Error (75)": "nan +/- nan",
+          "Error (100)": "nan +/- nan",
+          "% Occupied": "74.22 +/- 0.34",
+          "Intensity C1": "3031 +/- 83"
+        }
+      ],
+      "Read 2 (I)": [
+        {
+          "Lane": "1",
+          "Surface": "-",
+          "Tiles": "18",
+          "Density": "1000 +/- 0",
+          "Cluster PF": "62.27 +/- 0.43",
+          "Legacy Phasing/Prephasing Rate": "nan / nan",
+          "Phasing  slope/offset": "nan / nan",
+          "Prephasing slope/offset": "nan / nan",
+          "Reads": "7.91",
+          "Reads PF": "4.92",
+          "%>=Q30": "92.00",
+          "Yield": "0.03",
+          "Cycles Error": "0",
+          "Aligned": "nan +/- nan",
+          "Error": "nan +/- nan",
+          "Error (35)": "nan +/- nan",
+          "Error (75)": "nan +/- nan",
+          "Error (100)": "nan +/- nan",
+          "% Occupied": "74.22 +/- 0.34",
+          "Intensity C1": "2978 +/- 61"
+        }
+      ],
+      "Read 3": [
+        {
+          "Lane": "1",
+          "Surface": "-",
+          "Tiles": "18",
+          "Density": "1000 +/- 0",
+          "Cluster PF": "62.27 +/- 0.43",
+          "Legacy Phasing/Prephasing Rate": "0.075 / 0.042",
+          "Phasing  slope/offset": "0.060 / -0.469",
+          "Prephasing slope/offset": "0.023 / 0.863",
+          "Reads": "7.91",
+          "Reads PF": "4.92",
+          "%>=Q30": "95.35",
+          "Yield": "1.49",
+          "Cycles Error": "300",
+          "Aligned": "28.66 +/- 0.56",
+          "Error": "0.27 +/- 0.01",
+          "Error (35)": "0.09 +/- 0.01",
+          "Error (75)": "0.08 +/- 0.00",
+          "Error (100)": "0.11 +/- 0.00",
+          "% Occupied": "74.22 +/- 0.34",
+          "Intensity C1": "3534 +/- 79"
+        }
+      ],
+      "Read 4": [
+        {
+          "Lane": "1",
+          "Surface": "-",
+          "Tiles": "18",
+          "Density": "1000 +/- 0",
+          "Cluster PF": "62.27 +/- 0.43",
+          "Legacy Phasing/Prephasing Rate": "0.025 / 0.001",
+          "Phasing  slope/offset": "0.065 / -0.990",
+          "Prephasing slope/offset": "0.029 / 0.350",
+          "Reads": "7.91",
+          "Reads PF": "4.92",
+          "%>=Q30": "96.32",
+          "Yield": "1.49",
+          "Cycles Error": "300",
+          "Aligned": "28.27 +/- 0.56",
+          "Error": "0.32 +/- 0.01",
+          "Error (35)": "0.09 +/- 0.00",
+          "Error (75)": "0.21 +/- 0.01",
+          "Error (100)": "0.26 +/- 0.01",
+          "% Occupied": "74.22 +/- 0.34",
+          "Intensity C1": "3486 +/- 89"
+        }
+      ]
+    }
+  },
+  "uncPath": "mllsrv20/miseq_active\\miSeqi100\\20260205_SH01038_0007_ASC2139476-SC3\\meta-info.json"
+}
