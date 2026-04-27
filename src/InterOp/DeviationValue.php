@@ -28,6 +28,7 @@ class DeviationValue
         if (preg_match('/^([\d.]+)\s*\+\/-\s*([\d.]+)$/', $raw, $matches) !== 1) {
             return null;
         }
+        assert(isset($matches[1], $matches[2]));
 
         return new self(
             SafeCast::toFloat($matches[1]),
