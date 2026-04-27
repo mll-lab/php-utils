@@ -29,8 +29,6 @@ class DeviationValue
             return null;
         }
 
-        assert(isset($matches[1], $matches[2]), "Regex matched but captures missing in: {$raw}.");
-
         return new self(
             SafeCast::toFloat($matches[1]),
             SafeCast::toFloat($matches[2])

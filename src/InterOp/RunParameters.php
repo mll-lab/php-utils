@@ -3,6 +3,7 @@
 namespace MLL\Utils\InterOp;
 
 use Carbon\Carbon;
+use MLL\Utils\SafeCast;
 
 /**
  * @phpstan-type RFIDTag array{
@@ -71,14 +72,14 @@ class RunParameters
     }
 
     /** @param MiSeqParams $params */
-    private function parseMiSeq(array $params): void
+    protected function parseMiSeq(array $params): void
     {
         $this->application = $params['Setup']['ApplicationName'];
         $this->info = $params['RunID'];
         $this->controlSoftwareVersion = $params['MCSVersion'];
         $this->realTimeAnalysisVersion = $params['RTAVersion'];
 
-        $runStartDate = (string) $params['RunStartDate'];
+        $runStartDate = str_pad(SafeCast::toString($params['RunStartDate']), 6, '0', STR_PAD_LEFT);
         $date = Carbon::createFromFormat('!ymd', $runStartDate);
         assert($date instanceof Carbon, "Failed to parse MiSeq RunStartDate: {$runStartDate}.");
         $this->runDate = $date;
@@ -104,14 +105,14 @@ class RunParameters
     }
 
     /** @param I100Params $params */
-    private function parseMiSeqI100(array $params): void
+    protected function parseMiSeqI100(array $params): void
     {
         $this->application = $params['Application'];
         $this->info = $params['RunId'];
         $this->controlSoftwareVersion = $params['SystemSuiteVersion'];
         $this->realTimeAnalysisVersion = null;
 
-        $dateString = substr($this->info, 0, 8); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
+        $dateString = substr($this->info, 0, 8); // @phpstan-ignore theCodingMachineSafe.function (safe from PHP 8.0)
         $date = Carbon::createFromFormat('!Ymd', $dateString);
         assert($date instanceof Carbon, "Failed to parse i100 run date from RunId: {$this->info}.");
         $this->runDate = $date;
@@ -125,42 +126,55 @@ class RunParameters
             $type = $consumable['Type'];
 
             if ($type === 'DryCartridge' || $type === 'WetCartridge') {
+                $expireDate = isset($consumable['ExpirationDate'])
+                    ? $this->formatExpirationDate($consumable['ExpirationDate'])
+                    : '';
+
                 $this->reagents[] = [
                     'name' => $consumable['SerialNumber'],
-                    'expire_date' => isset($consumable['ExpirationDate'])
-                        ? $this->formatExpirationDate($consumable['ExpirationDate'])
-                        : '',
+                    'expire_date' => $expireDate,
                 ];
 
                 if ($type === 'DryCartridge') {
                     $this->flowcell = $consumable['SerialNumber'];
-                    if (isset($consumable['ExpirationDate'])) {
-                        $this->flowcellExpirationDate = $this->formatExpirationDate($consumable['ExpirationDate']);
+                    if ($expireDate !== '') {
+                        $this->flowcellExpirationDate = $expireDate;
                     }
                 }
             }
         }
     }
 
-    private function stripZeroPrefix(string $serial): string
+    protected function stripZeroPrefix(string $serial): string
     {
         $pos = strpos($serial, '-');
         if ($pos === false) {
             return $serial;
         }
 
-        $prefix = substr($serial, 0, $pos); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
+        $prefix = substr($serial, 0, $pos); // @phpstan-ignore theCodingMachineSafe.function (safe from PHP 8.0)
         if ($prefix !== '' && trim($prefix, '0') === '') {
-            return substr($serial, $pos + 1); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
+            return substr($serial, $pos + 1); // @phpstan-ignore theCodingMachineSafe.function (safe from PHP 8.0)
         }
 
         return $serial;
     }
 
-    private function formatExpirationDate(string $dateTime): string
+    protected function formatExpirationDate(string $dateTime): string
     {
-        $date = Carbon::parse($dateTime);
+        $formats = [DATE_ATOM, 'Y-m-d\TH:i:s'];
 
-        return $date->format('Y-m-d');
+        foreach ($formats as $format) {
+            try {
+                $date = Carbon::createFromFormat($format, $dateTime);
+                if ($date instanceof Carbon) {
+                    return $date->format('Y-m-d');
+                }
+            } catch (\Carbon\Exceptions\InvalidFormatException $e) {
+                continue;
+            }
+        }
+
+        throw new InterOpException("Failed to parse expiration date: {$dateTime}.");
     }
 }

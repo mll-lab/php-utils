@@ -57,7 +57,7 @@ class InterOpResult
                 continue;
             }
 
-            if (substr($level, -3) !== '(I)') { // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
+            if (substr($level, -3) !== '(I)') { // @phpstan-ignore theCodingMachineSafe.function (safe from PHP 8.0)
                 $dataReads[] = $level;
             }
         }
@@ -67,6 +67,6 @@ class InterOpResult
             throw new InterOpException("Expected at least 2 data reads, found {$count}.");
         }
 
-        return [$dataReads[0], $dataReads[count($dataReads) - 1]];
+        return [$dataReads[0], $dataReads[$count - 1]];
     }
 }
