@@ -14,12 +14,15 @@ class Chromosome
     public function __construct(string $value)
     {
         /** Matches human chromosomes with or without "chr" prefix: chr1-chr22, chrX, chrY, chrM, chrMT, or 1-22, X, Y, M, MT. */
-        if (preg_match('/^(chr)?(1[0-9]|[1-9]|2[0-2]|X|Y|M|MT)$/i', $value, $matches) === 0) {
+        if (preg_match('/^(?:chr)?(1[0-9]|[1-9]|2[0-2]|X|Y|M|MT)$/i', $value, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid chromosome: {$value}. Expected format: chr1-chr22, chrX, chrY, chrM, or without chr prefix.");
         }
 
-        $value = strtoupper($matches[2]);
-        $this->value = $value === self::MITOCHONDRIAL_ENSEMBL ? self::MITOCHONDRIAL : $value;
+        assert(isset($matches[1]));
+        $value = strtoupper($matches[1]);
+        $this->value = $value === self::MITOCHONDRIAL_ENSEMBL
+            ? self::MITOCHONDRIAL
+            : $value;
     }
 
     public function value(): string

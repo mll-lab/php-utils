@@ -1,3 +1,9 @@
+## [6.9.1](https://github.com/mll-lab/php-utils/compare/v6.9.0...v6.9.1) (2026-04-27)
+
+### Bug Fixes
+
+* **phpstan:** resolve preg_match offset access errors ([dedee45](https://github.com/mll-lab/php-utils/commit/dedee4576e43946066c6b38bed065ba2eb4cfd91))
+
 ## [6.9.0](https://github.com/mll-lab/php-utils/compare/v6.8.0...v6.9.0) (2026-03-19)
 
 ### Features
