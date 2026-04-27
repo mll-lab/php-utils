@@ -112,7 +112,7 @@ class RunParameters
         $this->controlSoftwareVersion = $params['SystemSuiteVersion'];
         $this->realTimeAnalysisVersion = null;
 
-        $dateString = substr($this->info, 0, 8); // @phpstan-ignore theCodingMachineSafe.function (safe from PHP 8.0)
+        $dateString = substr($this->info, 0, 8); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
         $date = Carbon::createFromFormat('!Ymd', $dateString);
         assert($date instanceof Carbon, "Failed to parse i100 run date from RunId: {$this->info}.");
         $this->runDate = $date;
@@ -152,9 +152,9 @@ class RunParameters
             return $serial;
         }
 
-        $prefix = substr($serial, 0, $pos); // @phpstan-ignore theCodingMachineSafe.function (safe from PHP 8.0)
+        $prefix = substr($serial, 0, $pos); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
         if ($prefix !== '' && trim($prefix, '0') === '') {
-            return substr($serial, $pos + 1); // @phpstan-ignore theCodingMachineSafe.function (safe from PHP 8.0)
+            return substr($serial, $pos + 1); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
         }
 
         return $serial;
