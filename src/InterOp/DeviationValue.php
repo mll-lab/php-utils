@@ -4,8 +4,6 @@ namespace MLL\Utils\InterOp;
 
 use MLL\Utils\SafeCast;
 
-use function Safe\preg_match;
-
 class DeviationValue
 {
     public float $value;
@@ -25,10 +23,9 @@ class DeviationValue
      */
     public static function parse(string $raw): ?self
     {
-        if (preg_match('/^([\d.]+)\s*\+\/-\s*([\d.]+)$/', $raw, $matches) !== 1) {
+        if (preg_match('/^([\d.]+)\s*\+\/-\s*([\d.]+)$/', $raw, $matches) !== 1) { // @phpstan-ignore-line theCodingMachineSafe.function (native preg_match needed for PHPStan 2.x capture type narrowing)
             return null;
         }
-        assert(isset($matches[1], $matches[2]));
 
         return new self(
             SafeCast::toFloat($matches[1]),
