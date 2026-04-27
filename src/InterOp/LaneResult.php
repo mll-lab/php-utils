@@ -31,24 +31,37 @@ class LaneResult
     public static function fromInterOpRow(array $row): self
     {
         $density = DeviationValue::parse($row['Density']);
-        assert($density instanceof DeviationValue, "Expected parseable Density, got: {$row['Density']}.");
+        if (! $density instanceof DeviationValue) {
+            throw new InterOpException("Expected parseable Density, got: {$row['Density']}.");
+        }
 
         $clusterPassingFilter = DeviationValue::parse($row['Cluster PF']);
-        assert($clusterPassingFilter instanceof DeviationValue, "Expected parseable Cluster PF, got: {$row['Cluster PF']}.");
+        if (! $clusterPassingFilter instanceof DeviationValue) {
+            throw new InterOpException("Expected parseable Cluster PF, got: {$row['Cluster PF']}.");
+        }
 
         $aligned = DeviationValue::parse($row['Aligned']);
-        assert($aligned instanceof DeviationValue, "Expected parseable Aligned, got: {$row['Aligned']}.");
+        if (! $aligned instanceof DeviationValue) {
+            throw new InterOpException("Expected parseable Aligned, got: {$row['Aligned']}.");
+        }
 
         $error = DeviationValue::parse($row['Error']);
-        assert($error instanceof DeviationValue, "Expected parseable Error, got: {$row['Error']}.");
+        if (! $error instanceof DeviationValue) {
+            throw new InterOpException("Expected parseable Error, got: {$row['Error']}.");
+        }
 
         $intensityCycle = DeviationValue::parse($row['Intensity C1']);
-        assert($intensityCycle instanceof DeviationValue, "Expected parseable Intensity C1, got: {$row['Intensity C1']}.");
+        if (! $intensityCycle instanceof DeviationValue) {
+            throw new InterOpException("Expected parseable Intensity C1, got: {$row['Intensity C1']}.");
+        }
 
         $phasingParts = explode(' / ', $row['Legacy Phasing/Prephasing Rate']);
-        assert(count($phasingParts) === 2, "Expected 'phasing / prephasing' format, got: {$row['Legacy Phasing/Prephasing Rate']}.");
-        assert($phasingParts[0] !== 'nan', 'Unexpected nan phasing rate for data read.');
-        assert($phasingParts[1] !== 'nan', 'Unexpected nan prephasing rate for data read.');
+        if (count($phasingParts) !== 2) {
+            throw new InterOpException("Expected 'phasing / prephasing' format, got: {$row['Legacy Phasing/Prephasing Rate']}.");
+        }
+        if ($phasingParts[0] === 'nan' || $phasingParts[1] === 'nan') {
+            throw new InterOpException('Unexpected nan phasing rate for data read.');
+        }
 
         $clusterStatistic = new ClusterStatistic(
             $density,

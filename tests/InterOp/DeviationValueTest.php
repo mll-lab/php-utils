@@ -25,6 +25,17 @@ final class DeviationValueTest extends TestCase
         self::assertSame($expectedDeviation, $result->deviation);
     }
 
+    public function testAverage(): void
+    {
+        $a = new DeviationValue(100.0, 10.0);
+        $b = new DeviationValue(200.0, 30.0);
+
+        $avg = DeviationValue::average($a, $b);
+
+        self::assertSame(150.0, $avg->value);
+        self::assertSame(20.0, $avg->deviation);
+    }
+
     /** @return iterable<string, array{input: string, expectedValue: float|null, expectedDeviation: float|null}> */
     public static function parseProvider(): iterable
     {

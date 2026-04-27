@@ -81,7 +81,9 @@ class RunParameters
 
         $runStartDate = str_pad(SafeCast::toString($params['RunStartDate']), 6, '0', STR_PAD_LEFT);
         $date = Carbon::createFromFormat('!ymd', $runStartDate);
-        assert($date instanceof Carbon, "Failed to parse MiSeq RunStartDate: {$runStartDate}.");
+        if (! $date instanceof Carbon) {
+            throw new InterOpException("Failed to parse MiSeq RunStartDate: {$runStartDate}.");
+        }
         $this->runDate = $date;
 
         $this->flowcell = $this->stripZeroPrefix($params['FlowcellRFIDTag']['SerialNumber']);
@@ -114,7 +116,9 @@ class RunParameters
 
         $dateString = substr($this->info, 0, 8); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
         $date = Carbon::createFromFormat('!Ymd', $dateString);
-        assert($date instanceof Carbon, "Failed to parse i100 run date from RunId: {$this->info}.");
+        if (! $date instanceof Carbon) {
+            throw new InterOpException("Failed to parse i100 run date from RunId: {$this->info}.");
+        }
         $this->runDate = $date;
 
         $consumables = $params['ConsumableInfo']['ConsumableInfo'];
