@@ -30,6 +30,12 @@ class LaneResult
      */
     public static function fromInterOpRow(array $row): self
     {
+        $requiredKeys = ['Density', 'Cluster PF', 'Aligned', 'Error', 'Intensity C1', 'Legacy Phasing/Prephasing Rate', 'Reads', 'Reads PF', '%>=Q30', 'Yield'];
+        $missingKeys = array_diff($requiredKeys, array_keys($row));
+        if ($missingKeys !== []) {
+            throw new InterOpException('Missing InterOp row keys: ' . implode(', ', $missingKeys) . '.');
+        }
+
         $density = DeviationValue::parse($row['Density']);
         if (! $density instanceof DeviationValue) {
             throw new InterOpException("Expected parseable Density, got: {$row['Density']}.");
