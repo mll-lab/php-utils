@@ -7,6 +7,7 @@ use function Safe\json_decode;
 /**
  * @phpstan-import-type MiSeqParams from RunParameters
  * @phpstan-import-type I100Params from RunParameters
+ *
  * @phpstan-type MetaInfoPayload array{
  *     runParameters: array{RunParameters: MiSeqParams|I100Params},
  *     interop: array{
