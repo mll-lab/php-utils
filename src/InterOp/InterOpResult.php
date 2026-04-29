@@ -65,11 +65,11 @@ class InterOpResult
         }
 
         $count = count($dataReads);
-        if ($count === 0 || $count > 2){
+        if ($count === 0 || $count > 2) {
             throw new InterOpException("Unlogic behaviour. Expect 2 data reads, found {$count}.");
         }
-        if($count === 1){
-            throw new InterOpException("Single-End Sequencing results are not implemented.");
+        if ($count === 1) {
+            throw new InterOpException('Single-End Sequencing results are not implemented.');
         }
 
         return [$dataReads[0], $dataReads[1]];
