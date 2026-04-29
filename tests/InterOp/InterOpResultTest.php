@@ -2,6 +2,7 @@
 
 namespace MLL\Utils\Tests\InterOp;
 
+use MLL\Utils\InterOp\InterOpException;
 use MLL\Utils\InterOp\InterOpResult;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -20,6 +21,60 @@ final class InterOpResultTest extends TestCase
 
         self::assertSame($expectedFirst, $first, "{$description}: first data read");
         self::assertSame($expectedLast, $last, "{$description}: last data read");
+    }
+
+    public function testThrowsOnNoDataReads(): void
+    {
+        $this->expectException(InterOpException::class);
+
+        InterOpResult::findDataReads([
+            ['Level' => 'Read 1 (I)'],
+            ['Level' => 'Read 2 (I)'],
+            ['Level' => 'Non-indexed'],
+            ['Level' => 'Total'],
+        ]);
+    }
+
+    public function testThrowsOnSingleDataRead(): void
+    {
+        $this->expectException(InterOpException::class);
+
+        InterOpResult::findDataReads([
+            ['Level' => 'Read 1'],
+            ['Level' => 'Read 2 (I)'],
+            ['Level' => 'Non-indexed'],
+            ['Level' => 'Total'],
+        ]);
+    }
+
+    public function testThrowsOnMissingReadData(): void
+    {
+        $summary = [
+            ['Level' => 'Read 1'],
+            ['Level' => 'Read 2 (I)'],
+            ['Level' => 'Read 3'],
+            ['Level' => 'Non-indexed'],
+            ['Level' => 'Total'],
+        ];
+
+        $this->expectException(InterOpException::class);
+
+        new InterOpResult($summary, []);
+    }
+
+    public function testThrowsOnEmptyReadRows(): void
+    {
+        $summary = [
+            ['Level' => 'Read 1'],
+            ['Level' => 'Read 2 (I)'],
+            ['Level' => 'Read 3'],
+            ['Level' => 'Non-indexed'],
+            ['Level' => 'Total'],
+        ];
+
+        $this->expectException(InterOpException::class);
+
+        new InterOpResult($summary, ['Read 1' => [], 'Read 3' => []]);
     }
 
     /** @return iterable<string, array{description: string, summary: array<int, array<string, string>>, expectedFirst: string, expectedLast: string}> */

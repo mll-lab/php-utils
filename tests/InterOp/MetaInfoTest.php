@@ -31,8 +31,8 @@ final class MetaInfoTest extends TestCase
         self::assertSame(851.0, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->density->value);
         self::assertSame(32.0, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->density->deviation);
         self::assertSame(96.54, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterPassingFilter->value);
-        self::assertSame(21.22, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterCount);
-        self::assertSame(20.48, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterCountPassingFilter);
+        self::assertSame(21.22, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterCountMillions);
+        self::assertSame(20.48, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterCountPassingFilterMillions);
 
         self::assertSame(88.2, $metaInfo->interOpResult->resultsForRead1->sequencingQualityControl->q30);
         self::assertSame(0.085, $metaInfo->interOpResult->resultsForRead1->sequencingQualityControl->phasing);
@@ -74,7 +74,10 @@ final class MetaInfoTest extends TestCase
         self::assertSame('2026-10-17', $metaInfo->runParameters->reagents[1]['expire_date']);
 
         self::assertSame(1000.0, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->density->value);
+        self::assertSame(0.0, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->density->deviation);
         self::assertSame(62.27, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterPassingFilter->value);
+        self::assertSame(7.91, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterCountMillions);
+        self::assertSame(4.92, $metaInfo->interOpResult->resultsForRead1->clusterStatistic->clusterCountPassingFilterMillions);
         self::assertSame(95.35, $metaInfo->interOpResult->resultsForRead1->sequencingQualityControl->q30);
         self::assertSame(0.075, $metaInfo->interOpResult->resultsForRead1->sequencingQualityControl->phasing);
         self::assertSame(0.042, $metaInfo->interOpResult->resultsForRead1->sequencingQualityControl->prephasing);

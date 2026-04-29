@@ -97,8 +97,8 @@ class LaneResult
         $clusterStatistic = new ClusterStatistic(
             DeviationValue::average($a->clusterStatistic->density, $b->clusterStatistic->density),
             DeviationValue::average($a->clusterStatistic->clusterPassingFilter, $b->clusterStatistic->clusterPassingFilter),
-            $a->clusterStatistic->clusterCount + $b->clusterStatistic->clusterCount,
-            $a->clusterStatistic->clusterCountPassingFilter + $b->clusterStatistic->clusterCountPassingFilter
+            $a->clusterStatistic->clusterCountMillions + $b->clusterStatistic->clusterCountMillions,
+            $a->clusterStatistic->clusterCountPassingFilterMillions + $b->clusterStatistic->clusterCountPassingFilterMillions
         );
 
         $sequencingQualityControl = new SequencingQualityControl(

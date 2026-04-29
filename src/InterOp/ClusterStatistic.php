@@ -8,15 +8,15 @@ class ClusterStatistic
 
     public DeviationValue $clusterPassingFilter;
 
-    public float $clusterCount;
+    public float $clusterCountMillions;
 
-    public float $clusterCountPassingFilter;
+    public float $clusterCountPassingFilterMillions;
 
-    public function __construct(DeviationValue $density, DeviationValue $clusterPassingFilter, float $clusterCount, float $clusterCountPassingFilter)
+    public function __construct(DeviationValue $density, DeviationValue $clusterPassingFilter, float $clusterCountMillions, float $clusterCountPassingFilterMillions)
     {
         $this->density = $density;
         $this->clusterPassingFilter = $clusterPassingFilter;
-        $this->clusterCount = $clusterCount;
-        $this->clusterCountPassingFilter = $clusterCountPassingFilter;
+        $this->clusterCountMillions = $clusterCountMillions;
+        $this->clusterCountPassingFilterMillions = $clusterCountPassingFilterMillions;
     }
 }
