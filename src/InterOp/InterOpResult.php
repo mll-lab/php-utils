@@ -50,6 +50,7 @@ class InterOpResult
      */
     public static function findDataReads(array $summary): array
     {
+        // Summary count depends on indexing type (Sinlge or Dual) and sequencing type (Single-End or Paired-End). Possible reads are: Read 1, Read 2, Read 3, Non-indexed or Total
         $dataReads = [];
         foreach ($summary as $entry) {
             $level = $entry['Level'];
@@ -57,16 +58,20 @@ class InterOpResult
                 continue;
             }
 
+            // Identify index reads
             if (substr($level, -3) !== '(I)') { // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
                 $dataReads[] = $level;
             }
         }
 
         $count = count($dataReads);
-        if ($count < 2) {
-            throw new InterOpException("Expected at least 2 data reads, found {$count}.");
+        if ($count === 0 || $count > 2){
+            throw new InterOpException("Unlogic behaviour. Expect 2 data reads, found {$count}.");
+        }
+        if($count === 1){
+            throw new InterOpException("Single-End Sequencing results are not implemented.");
         }
 
-        return [$dataReads[0], $dataReads[$count - 1]];
+        return [$dataReads[0], $dataReads[1]];
     }
 }
