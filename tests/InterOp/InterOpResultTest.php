@@ -17,7 +17,7 @@ final class InterOpResultTest extends TestCase
     #[DataProvider('dataReadDetectionProvider')]
     public function testFindDataReads(string $description, array $summary, string $expectedFirst, string $expectedLast): void
     {
-        [$first, $last] = InterOpResult::findDataReads($summary);
+        [$first, $last] = InterOpResult::findDataReadTags($summary);
 
         self::assertSame($expectedFirst, $first, "{$description}: first data read");
         self::assertSame($expectedLast, $last, "{$description}: last data read");
@@ -27,7 +27,7 @@ final class InterOpResultTest extends TestCase
     {
         $this->expectException(InterOpException::class);
 
-        InterOpResult::findDataReads([
+        InterOpResult::findDataReadTags([
             ['Level' => 'Read 1 (I)'],
             ['Level' => 'Read 2 (I)'],
             ['Level' => 'Non-indexed'],
@@ -39,7 +39,7 @@ final class InterOpResultTest extends TestCase
     {
         $this->expectException(InterOpException::class);
 
-        InterOpResult::findDataReads([
+        InterOpResult::findDataReadTags([
             ['Level' => 'Read 1'],
             ['Level' => 'Read 2 (I)'],
             ['Level' => 'Non-indexed'],

@@ -16,16 +16,16 @@ class InterOpResult
      */
     public function __construct(array $summary, array $reads)
     {
-        [$firstDataRead, $lastDataRead] = self::findDataReads($summary);
+        [$dataRead1Tag, $dataRead2Tag] = self::findDataReadTags($summary);
 
-        $read1Rows = $reads[$firstDataRead] ?? null;
+        $read1Rows = $reads[$dataRead1Tag] ?? null;
         if ($read1Rows === null || $read1Rows === []) {
-            throw new InterOpException("Reads data missing or empty for: {$firstDataRead}.");
+            throw new InterOpException("Reads data missing or empty for: {$dataRead1Tag}.");
         }
 
-        $read2Rows = $reads[$lastDataRead] ?? null;
+        $read2Rows = $reads[$dataRead2Tag] ?? null;
         if ($read2Rows === null || $read2Rows === []) {
-            throw new InterOpException("Reads data missing or empty for: {$lastDataRead}.");
+            throw new InterOpException("Reads data missing or empty for: {$dataRead2Tag}.");
         }
 
         $nonIndexedRow = self::findNonIndexedRow($summary);
@@ -50,10 +50,10 @@ class InterOpResult
      *
      * @return array{0: string, 1: string}
      */
-    public static function findDataReads(array $summary): array
+    public static function findDataReadTags(array $summary): array
     {
         // Summary count depends on indexing type (Sinlge or Dual) and sequencing type (Single-End or Paired-End). Possible reads are: Read 1, Read 2, Read 3, Non-indexed or Total
-        $dataReads = [];
+        $dataReadTags = [];
         foreach ($summary as $entry) {
             $level = $entry['Level'];
             if ($level === 'Non-indexed' || $level === 'Total') {
@@ -62,11 +62,11 @@ class InterOpResult
 
             // Identify index reads
             if (substr($level, -3) !== '(I)') { // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
-                $dataReads[] = $level;
+                $dataReadTags[] = $level;
             }
         }
 
-        $count = count($dataReads);
+        $count = count($dataReadTags);
         if ($count === 0 || $count > 2) {
             throw new InterOpException("Unlogic behaviour. Expect 2 data reads, found {$count}.");
         }
@@ -74,7 +74,7 @@ class InterOpResult
             throw new InterOpException('Single-End Sequencing results are not implemented.');
         }
 
-        return [$dataReads[0], $dataReads[1]];
+        return [$dataReadTags[0], $dataReadTags[1]];
     }
 
     /**
