@@ -268,7 +268,7 @@ final class GenomicRegionTest extends TestCase
         $positions = $region->genomicPositions();
 
         self::assertCount(4, $positions);
-        self::assertEquals($region->length(), count($positions));
+        self::assertCount($region->length(), $positions);
 
         self::assertTrue($positions[0]->equals(GenomicPosition::parseOneBased('chr11:10')));
         self::assertTrue($positions[1]->equals(GenomicPosition::parseOneBased('chr11:11')));

@@ -34,3 +34,5 @@ parameters:
     # Existing code with @phpstan-ignore that older versions don't understand
     - message: '#Cannot access property \$name on SimpleXMLElement\|null\.#'
       path: ../src/LightcyclerExportSheet/LightcyclerXmlParser.php
+    - message: '#array\{UnknownKey: .* given\.#'
+      path: ../tests/InterOp/RunParametersTest.php
