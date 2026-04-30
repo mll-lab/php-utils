@@ -1,3 +1,9 @@
+## [6.10.0](https://github.com/mll-lab/php-utils/compare/v6.9.1...v6.10.0) (2026-04-30)
+
+### Features
+
+* Interop ([#87](https://github.com/mll-lab/php-utils/issues/87)) ([b06ce79](https://github.com/mll-lab/php-utils/commit/b06ce79572cb74985e70306d2189c4207ae7a49c))
+
 ## [6.9.1](https://github.com/mll-lab/php-utils/compare/v6.9.0...v6.9.1) (2026-04-27)
 
 ### Bug Fixes
