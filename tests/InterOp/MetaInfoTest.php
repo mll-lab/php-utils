@@ -48,7 +48,8 @@ final class MetaInfoTest extends TestCase
         self::assertSame(6140000, $metaInfo->interOpResult->resultsForRead2->yield);
 
         $runQC = $metaInfo->interOpResult->resultsForRun->sequencingQualityControl;
-        self::assertEqualsWithDelta(83.195, $runQC->q30, 0.001);
+        self::assertSame(83.2, $runQC->q30);
+        self::assertSame(6.11, $runQC->aligned->value);
         self::assertEqualsWithDelta(0.065, $runQC->phasing, 0.001);
 
         self::assertSame('example-server/miseq_active\\230421_M02074_0859_000000000-KT6CY\\meta-info.json', $metaInfo->uncPath);

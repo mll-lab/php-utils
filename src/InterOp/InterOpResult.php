@@ -28,10 +28,12 @@ class InterOpResult
             throw new InterOpException("Reads data missing or empty for: {$lastDataRead}.");
         }
 
+        $nonIndexedRow = self::findNonIndexedRow($summary);
+
         // First row per read key is the Surface "-" aggregate across all tiles
         $this->resultsForRead1 = LaneResult::fromInterOpRow($read1Rows[0]);
         $this->resultsForRead2 = LaneResult::fromInterOpRow($read2Rows[0]);
-        $this->resultsForRun = RunResult::fromLaneResults($this->resultsForRead1, $this->resultsForRead2);
+        $this->resultsForRun = RunResult::fromLaneResults($this->resultsForRead1, $this->resultsForRead2, $nonIndexedRow);
     }
 
     /**
@@ -73,5 +75,21 @@ class InterOpResult
         }
 
         return [$dataReads[0], $dataReads[1]];
+    }
+
+    /**
+     * @param array<int, array<string, string>> $summary
+     *
+     * @return array<string, string>
+     */
+    public static function findNonIndexedRow(array $summary): array
+    {
+        foreach ($summary as $entry) {
+            if ($entry['Level'] === 'Non-indexed') {
+                return $entry;
+            }
+        }
+
+        throw new InterOpException('No "Non-indexed" summary row found.');
     }
 }
