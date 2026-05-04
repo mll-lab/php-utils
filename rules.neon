@@ -14,6 +14,10 @@ parameters:
   - function: 'clock()'
     message: 'it is just meant for debugging.'
     errorTip: 'remove debugging code.'
+  disallowedClasses:
+  - class: 'Carbon\CarbonImmutable'
+    message: 'mixing mutable and immutable Carbon semantics makes code hard to reason about.'
+    errorTip: 'use Carbon\Carbon instead. See https://gitlab.mll/documentation/coding-guidelines/-/issues/313'
   disallowedStaticCalls:
   - method: 'Carbon\Carbon::create()'
     message: 'it ignores errors.'
