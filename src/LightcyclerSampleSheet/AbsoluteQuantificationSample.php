@@ -19,7 +19,7 @@ class AbsoluteQuantificationSample
     /** Key used to determine replication grouping - samples with the same key will replicate to the first occurrence */
     public string $replicationOfKey;
 
-    public ?int $concentration;
+    public ?float $concentration;
 
     public function __construct(
         string $sampleName,
@@ -27,7 +27,7 @@ class AbsoluteQuantificationSample
         string $hexColor,
         string $sampleType,
         string $replicationOfKey,
-        ?int $concentration
+        ?float $concentration
     ) {
         $this->sampleName = $sampleName;
         $this->filterCombination = $filterCombination;
@@ -37,18 +37,28 @@ class AbsoluteQuantificationSample
         $this->concentration = $concentration;
     }
 
-    public static function formatConcentration(?int $concentration): ?string
+    public static function formatConcentration(?float $concentration): ?string
     {
         if ($concentration === null) {
             return null;
         }
 
-        if ($concentration === 0) {
+        if (! is_finite($concentration)) {
+            throw new \InvalidArgumentException('Concentration must be finite, got: ' . var_export($concentration, true));
+        }
+
+        if ($concentration === 0.0) {
             return '0.00E0';
         }
 
         $exponent = SafeCast::toInt(floor(log10(abs($concentration))));
         $mantissa = $concentration / (10 ** $exponent);
+        $mantissa = round($mantissa, 2);
+
+        if (abs($mantissa) >= 10) {
+            $mantissa /= 10;
+            ++$exponent;
+        }
 
         return number_format($mantissa, 2) . 'E' . $exponent;
     }
