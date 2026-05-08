@@ -16,6 +16,7 @@ final class QpcrXmlParserTest extends TestCase
             <root>
                 <analyses>
                     <analysis>
+                        <prop name="shortname">Abs Quant/2nd Der</prop>
                         <AnalysisSamples>
                             <AnalysisSample>
                                 <prop name="Position">A1</prop>
@@ -32,6 +33,33 @@ final class QpcrXmlParserTest extends TestCase
 
         $parser = new LightcyclerXmlParser();
         $parser->parse($xmlWithMissingName);
+    }
+
+    public function testParseXmlIgnoresAnalysesWithDifferentShortname(): void
+    {
+        $xml = /* @lang XML */ <<<XML
+            <?xml version="1.0" encoding="UTF-8"?>
+            <root>
+                <analyses>
+                    <analysis>
+                        <prop name="shortname">Tm Calling</prop>
+                        <AnalysisSamples>
+                            <AnalysisSample>
+                                <prop name="name">ShouldBeIgnored</prop>
+                                <prop name="Position">A1</prop>
+                                <prop name="CalcConc">100.0</prop>
+                                <prop name="CrossingPoint">25.0</prop>
+                            </AnalysisSample>
+                        </AnalysisSamples>
+                    </analysis>
+                </analyses>
+            </root>
+            XML;
+
+        $parser = new LightcyclerXmlParser();
+        $result = $parser->parse($xml);
+
+        self::assertTrue($result->isEmpty());
     }
 
     public function testParseXmlReturnsEmptyCollectionForInvalidXml(): void
@@ -54,6 +82,7 @@ final class QpcrXmlParserTest extends TestCase
             <root>
                 <analyses>
                     <analysis>
+                        <prop name="shortname">Abs Quant/2nd Der</prop>
                         <AnalysisSamples>
                             <AnalysisSample>
                                 <prop name="name">XX-XXXXXX</prop>
@@ -77,6 +106,7 @@ final class QpcrXmlParserTest extends TestCase
             <root>
                 <analyses>
                     <analysis>
+                        <prop name="shortname">Abs Quant/2nd Der</prop>
                         <AnalysisSamples>
                             <AnalysisSample>
                                 <prop name="name">STANDARD-400</prop>
@@ -102,6 +132,7 @@ final class QpcrXmlParserTest extends TestCase
             <root>
                 <analyses>
                     <analysis>
+                        <prop name="shortname">Abs Quant/2nd Der</prop>
                         <AnalysisSamples>
                             <AnalysisSample>
                                 <prop name="name">CONTROL</prop>
@@ -131,6 +162,7 @@ final class QpcrXmlParserTest extends TestCase
             <root>
                 <analyses>
                     <analysis>
+                        <prop name="shortname">Abs Quant/2nd Der</prop>
                         <AnalysisSamples>
                             <AnalysisSample>
                                 <prop name="name">P123</prop>
@@ -157,6 +189,7 @@ final class QpcrXmlParserTest extends TestCase
             <root>
                 <analyses>
                     <analysis>
+                        <prop name="shortname">Abs Quant/2nd Der</prop>
                         <AnalysisSamples>
                             <AnalysisSample>
                                 <prop name="name">Control-Empty</prop>
@@ -181,6 +214,7 @@ final class QpcrXmlParserTest extends TestCase
             <root>
                 <analyses>
                     <analysis>
+                        <prop name="shortname">Abs Quant/2nd Der</prop>
                         <AnalysisSamples>
                             <AnalysisSample>
                                 <prop name="name">NTC-Control</prop>
@@ -206,6 +240,7 @@ final class QpcrXmlParserTest extends TestCase
             <root>
                 <analyses>
                     <analysis>
+                        <prop name="shortname">Abs Quant/2nd Der</prop>
                         <AnalysisSamples>
                             <AnalysisSample>
                                 <prop name="name">Test</prop>

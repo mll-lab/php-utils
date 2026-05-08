@@ -17,6 +17,22 @@ final class AbsoluteQuantificationSampleTest extends TestCase
         self::assertSame($expected, $result);
     }
 
+    /** @return iterable<array{float}> */
+    public static function nonFiniteConcentrationProvider(): iterable
+    {
+        yield 'INF' => [INF];
+        yield '-INF' => [-INF];
+        yield 'NAN' => [NAN];
+    }
+
+    #[DataProvider('nonFiniteConcentrationProvider')]
+    public function testFormatConcentrationThrowsForNonFiniteValues(float $input): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        AbsoluteQuantificationSample::formatConcentration($input);
+    }
+
     /** @return iterable<array{int|float|null, ?string}> */
     public static function concentrationFormattingProvider(): iterable
     {

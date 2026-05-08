@@ -28,12 +28,18 @@ class LightcyclerXmlParser
         return $this->extractAnalysisSamples($analyses);
     }
 
+    private const ANALYSIS_SHORTNAME = 'Abs Quant/2nd Der';
+
     /** @return Collection<array-key, LightcyclerSample> */
     private function extractAnalysisSamples(\SimpleXMLElement $analyses): Collection
     {
         $samples = [];
 
         foreach ($analyses->analysis as $analysis) {
+            if (! $this->isAbsoluteQuantificationAnalysis($analysis)) {
+                continue;
+            }
+
             if (property_exists($analysis, 'AnalysisSamples')
                 && $analysis->AnalysisSamples !== null
             ) {
@@ -44,6 +50,17 @@ class LightcyclerXmlParser
         }
 
         return $this->validateUniqueCoordinates(new Collection($samples));
+    }
+
+    private function isAbsoluteQuantificationAnalysis(\SimpleXMLElement $analysis): bool
+    {
+        foreach ($analysis->prop as $prop) {
+            if ((string) $prop['name'] === 'shortname') {
+                return (string) $prop === self::ANALYSIS_SHORTNAME;
+            }
+        }
+
+        return false;
     }
 
     private function createSampleFromXml(\SimpleXMLElement $xmlSample): LightcyclerSample

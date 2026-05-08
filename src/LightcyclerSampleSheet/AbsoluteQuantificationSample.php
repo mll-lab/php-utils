@@ -44,7 +44,8 @@ class AbsoluteQuantificationSample
         }
 
         if (! is_finite($concentration)) {
-            throw new \InvalidArgumentException('Concentration must be finite, got: ' . var_export($concentration, true));
+            $exported = var_export($concentration, true);
+            throw new \InvalidArgumentException("Concentration must be finite, got: {$exported}.");
         }
 
         if ($concentration === 0.0) {
@@ -52,8 +53,8 @@ class AbsoluteQuantificationSample
         }
 
         $exponent = SafeCast::toInt(floor(log10(abs($concentration))));
-        $mantissa = $concentration / (10 ** $exponent);
-        $mantissa = round($mantissa, 2);
+        $rawMantissa = $concentration / (10 ** $exponent);
+        $mantissa = round($rawMantissa, 2);
 
         if (abs($mantissa) >= 10) {
             $mantissa /= 10;
