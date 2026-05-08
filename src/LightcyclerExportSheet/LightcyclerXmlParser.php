@@ -52,7 +52,7 @@ class LightcyclerXmlParser
         return $this->validateUniqueCoordinates(new Collection($samples));
     }
 
-    private function isAbsoluteQuantificationAnalysis(\SimpleXMLElement $analysis): bool
+    protected function isAbsoluteQuantificationAnalysis(\SimpleXMLElement $analysis): bool
     {
         foreach ($analysis->prop as $prop) {
             if ((string) $prop['name'] === 'shortname') {

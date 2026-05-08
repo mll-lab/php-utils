@@ -44,8 +44,7 @@ class AbsoluteQuantificationSample
         }
 
         if (! is_finite($concentration)) {
-            $exported = var_export($concentration, true);
-            throw new \InvalidArgumentException("Concentration must be finite, got: {$exported}.");
+            throw new \InvalidArgumentException("Concentration must be finite, got: {$concentration}.");
         }
 
         if ($concentration === 0.0) {
