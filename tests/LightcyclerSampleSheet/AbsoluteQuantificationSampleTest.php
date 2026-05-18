@@ -25,6 +25,7 @@ final class AbsoluteQuantificationSampleTest extends TestCase
         yield 'NaN is rejected' => [NAN];
     }
 
+    /** @dataProvider nonFiniteConcentrationProvider */
     #[DataProvider('nonFiniteConcentrationProvider')]
     public function testFormatConcentrationThrowsForNonFiniteValues(float $input): void
     {
