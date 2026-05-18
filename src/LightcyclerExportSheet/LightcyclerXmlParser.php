@@ -28,7 +28,7 @@ class LightcyclerXmlParser
         return $this->extractAnalysisSamples($analyses);
     }
 
-    private const ANALYSIS_SHORTNAME = 'Abs Quant/2nd Der';
+    private const QUANTIFICATION_SHORTNAME = 'Abs Quant/2nd Der';
 
     /** @return Collection<array-key, LightcyclerSample> */
     private function extractAnalysisSamples(\SimpleXMLElement $analyses): Collection
