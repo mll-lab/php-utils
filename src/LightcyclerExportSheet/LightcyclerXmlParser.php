@@ -15,6 +15,8 @@ class LightcyclerXmlParser
 
     public const FLOAT_ZERO = 0.0;
 
+    private const QUANTIFICATION_SHORTNAME = 'Abs Quant/2nd Der';
+
     /** @return Collection<array-key, LightcyclerSample> */
     public function parse(string $xmlContent): Collection
     {
@@ -27,8 +29,6 @@ class LightcyclerXmlParser
 
         return $this->extractAnalysisSamples($analyses);
     }
-
-    private const QUANTIFICATION_SHORTNAME = 'Abs Quant/2nd Der';
 
     /** @return Collection<array-key, LightcyclerSample> */
     private function extractAnalysisSamples(\SimpleXMLElement $analyses): Collection
@@ -56,7 +56,7 @@ class LightcyclerXmlParser
     {
         foreach ($analysis->prop as $prop) {
             if ((string) $prop['name'] === 'shortname') {
-                return (string) $prop === self::ANALYSIS_SHORTNAME;
+                return (string) $prop === self::QUANTIFICATION_SHORTNAME;
             }
         }
 
