@@ -1,3 +1,9 @@
+## [6.11.0](https://github.com/mll-lab/php-utils/compare/v6.10.0...v6.11.0) (2026-05-20)
+
+### Features
+
+* allow float concentrations in AbsoluteQuantificationSample ([#88](https://github.com/mll-lab/php-utils/issues/88)) ([ebe0663](https://github.com/mll-lab/php-utils/commit/ebe0663f8968c77bdc29b436b5388c07dc203624))
+
 ## [6.10.0](https://github.com/mll-lab/php-utils/compare/v6.9.1...v6.10.0) (2026-04-30)
 
 ### Features
