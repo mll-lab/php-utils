@@ -10,18 +10,37 @@ final class AbsoluteQuantificationSampleTest extends TestCase
 {
     /** @dataProvider concentrationFormattingProvider */
     #[DataProvider('concentrationFormattingProvider')]
-    public function testFormatConcentration(?int $input, ?string $expected): void
+    public function testFormatConcentration(?float $input, ?string $expected): void
     {
         $result = AbsoluteQuantificationSample::formatConcentration($input);
 
         self::assertSame($expected, $result);
     }
 
-    /** @return iterable<array{?int, ?string}> */
+    /** @return iterable<array{float}> */
+    public static function nonFiniteConcentrationProvider(): iterable
+    {
+        yield 'positive infinity is rejected' => [INF];
+        yield 'negative infinity is rejected' => [-INF];
+        yield 'NaN is rejected' => [NAN];
+    }
+
+    /** @dataProvider nonFiniteConcentrationProvider */
+    #[DataProvider('nonFiniteConcentrationProvider')]
+    public function testFormatConcentrationThrowsForNonFiniteValues(float $input): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Concentration must be finite, got: {$input}.");
+
+        AbsoluteQuantificationSample::formatConcentration($input);
+    }
+
+    /** @return iterable<array{float|null, ?string}> */
     public static function concentrationFormattingProvider(): iterable
     {
         yield 'null concentration returns null' => [null, null];
         yield 'zero concentration' => [0, '0.00E0'];
+        yield 'zero float concentration' => [0.0, '0.00E0'];
         yield 'small positive number' => [1, '1.00E0'];
         yield 'ten' => [10, '1.00E1'];
         yield 'hundred' => [100, '1.00E2'];
@@ -30,5 +49,12 @@ final class AbsoluteQuantificationSampleTest extends TestCase
         yield 'ten thousand' => [10000, '1.00E4'];
         yield 'million' => [1000000, '1.00E6'];
         yield 'large number' => [12345678, '1.23E7'];
+        yield 'two-digit whole-number float' => [20.0, '2.00E1'];
+        yield 'single-digit whole-number float' => [2.0, '2.00E0'];
+        yield 'sub-one float' => [0.2, '2.00E-1'];
+        yield 'small float' => [0.02, '2.00E-2'];
+        yield 'very small float' => [0.002, '2.00E-3'];
+        yield 'tiny float' => [0.0002, '2.00E-4'];
+        yield 'triggers mantissa normalization' => [9995.0, '1.00E4'];
     }
 }

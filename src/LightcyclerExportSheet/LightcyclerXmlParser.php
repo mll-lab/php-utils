@@ -15,6 +15,8 @@ class LightcyclerXmlParser
 
     public const FLOAT_ZERO = 0.0;
 
+    private const QUANTIFICATION_SHORTNAME = 'Abs Quant/2nd Der';
+
     /** @return Collection<array-key, LightcyclerSample> */
     public function parse(string $xmlContent): Collection
     {
@@ -34,6 +36,10 @@ class LightcyclerXmlParser
         $samples = [];
 
         foreach ($analyses->analysis as $analysis) {
+            if (! $this->isAbsoluteQuantificationAnalysis($analysis)) {
+                continue;
+            }
+
             if (property_exists($analysis, 'AnalysisSamples')
                 && $analysis->AnalysisSamples !== null
             ) {
@@ -44,6 +50,17 @@ class LightcyclerXmlParser
         }
 
         return $this->validateUniqueCoordinates(new Collection($samples));
+    }
+
+    protected function isAbsoluteQuantificationAnalysis(\SimpleXMLElement $analysis): bool
+    {
+        foreach ($analysis->prop as $prop) {
+            if ((string) $prop['name'] === 'shortname') {
+                return (string) $prop === self::QUANTIFICATION_SHORTNAME;
+            }
+        }
+
+        return false;
     }
 
     private function createSampleFromXml(\SimpleXMLElement $xmlSample): LightcyclerSample
