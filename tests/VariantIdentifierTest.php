@@ -60,6 +60,7 @@ final class VariantIdentifierTest extends TestCase
         );
     }
 
+    /** @dataProvider parseVCFProvider */
     #[DataProvider('parseVCFProvider')]
     public function testParseVCF(string $input, string $expectedChromosome, int $expectedPosition, string $expectedRef, string $expectedAlt): void
     {
@@ -82,6 +83,7 @@ final class VariantIdentifierTest extends TestCase
         yield 'mitochondrial' => ['chrM-8000-T-C', 'M', 8000, 'T', 'C'];
     }
 
+    /** @dataProvider parseCanonicalProvider */
     #[DataProvider('parseCanonicalProvider')]
     public function testParseCanonical(string $input, string $expectedChromosome, int $expectedPosition, string $expectedRef, string $expectedAlt): void
     {
