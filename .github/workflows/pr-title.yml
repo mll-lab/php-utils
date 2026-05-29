@@ -18,7 +18,6 @@ jobs:
         with:
           types: |
             feat
-            Feat
             fix
             docs
             style
