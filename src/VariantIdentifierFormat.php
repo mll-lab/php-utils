@@ -6,6 +6,7 @@ class VariantIdentifierFormat
 {
     public const VCF = 'VCF';
     public const CANONICAL = 'CANONICAL';
+    public const TAB = 'TAB';
 
     public string $value;
 

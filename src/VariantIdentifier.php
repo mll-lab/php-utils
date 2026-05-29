@@ -40,6 +40,8 @@ class VariantIdentifier
                 return "{$chromosome}-{$position}-{$ref}-{$alt}";
             case VariantIdentifierFormat::CANONICAL:
                 return "{$chromosome}-{$position}-{$ref}/{$alt}";
+            case VariantIdentifierFormat::TAB:
+                return "{$chromosome}\t{$position}\t{$ref}\t{$alt}";
             default:
                 throw new \InvalidArgumentException("No toString logic implemented for format: {$format->value}.");
         }
