@@ -4,7 +4,7 @@ namespace MLL\Utils;
 
 class VariantIdentifierFormat
 {
-    public const VCF = 'VCF';
+    public const DASH = 'DASH';
     public const CANONICAL = 'CANONICAL';
     public const TAB = 'TAB';
 
@@ -13,8 +13,9 @@ class VariantIdentifierFormat
     public function __construct(string $value)
     {
         switch ($value) {
-            case self::VCF:
+            case self::DASH:
             case self::CANONICAL:
+            case self::TAB:
                 $this->value = $value;
                 break;
             default:

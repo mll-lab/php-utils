@@ -25,7 +25,7 @@ class VariantIdentifier
             return self::parseCanonical($value);
         }
 
-        return self::parseVCF($value);
+        return self::parseDash($value);
     }
 
     public function toString(VariantIdentifierFormat $format, NamingConvention $namingConvention): string
@@ -36,7 +36,7 @@ class VariantIdentifier
         $alt = $this->alternate->toString();
 
         switch ($format->value) {
-            case VariantIdentifierFormat::VCF:
+            case VariantIdentifierFormat::DASH:
                 return "{$chromosome}-{$position}-{$ref}-{$alt}";
             case VariantIdentifierFormat::CANONICAL:
                 return "{$chromosome}-{$position}-{$ref}/{$alt}";
@@ -62,7 +62,7 @@ class VariantIdentifier
         );
     }
 
-    private static function parseVCF(string $value): self
+    private static function parseDash(string $value): self
     {
         if (preg_match('/^(.+)-(\d+)-([ATGC]+)-([ATGC]+)$/i', $value, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid VCF variant identifier format: {$value}.");

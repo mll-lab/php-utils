@@ -24,7 +24,7 @@ final class VariantIdentifierTest extends TestCase
 
         self::assertSame(
             'chr1-12345-A-T',
-            $variant->toString(new VariantIdentifierFormat(VariantIdentifierFormat::VCF), new NamingConvention(NamingConvention::UCSC))
+            $variant->toString(new VariantIdentifierFormat(VariantIdentifierFormat::DASH), new NamingConvention(NamingConvention::UCSC))
         );
     }
 
@@ -52,7 +52,7 @@ final class VariantIdentifierTest extends TestCase
 
         self::assertSame(
             'X-99999-GC-A',
-            $variant->toString(new VariantIdentifierFormat(VariantIdentifierFormat::VCF), new NamingConvention(NamingConvention::ENSEMBL))
+            $variant->toString(new VariantIdentifierFormat(VariantIdentifierFormat::DASH), new NamingConvention(NamingConvention::ENSEMBL))
         );
         self::assertSame(
             'X-99999-GC/A',
@@ -122,7 +122,7 @@ final class VariantIdentifierTest extends TestCase
 
         self::assertSame(
             $input,
-            $variant->toString(new VariantIdentifierFormat(VariantIdentifierFormat::VCF), new NamingConvention(NamingConvention::UCSC))
+            $variant->toString(new VariantIdentifierFormat(VariantIdentifierFormat::DASH), new NamingConvention(NamingConvention::UCSC))
         );
     }
 
