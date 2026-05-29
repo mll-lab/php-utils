@@ -1,3 +1,9 @@
+## [6.12.0](https://github.com/mll-lab/php-utils/compare/v6.11.0...v6.12.0) (2026-05-29)
+
+### Features
+
+* Variant Identifier is a useful object. It contains already exis… ([#89](https://github.com/mll-lab/php-utils/issues/89)) ([32e08c5](https://github.com/mll-lab/php-utils/commit/32e08c567a59f87e4447929d17e81bcc7478b0ff))
+
 ## [6.11.0](https://github.com/mll-lab/php-utils/compare/v6.10.0...v6.11.0) (2026-05-20)
 
 ### Features
