@@ -1,3 +1,9 @@
+## [6.13.0](https://github.com/mll-lab/php-utils/compare/v6.12.0...v6.13.0) (2026-06-16)
+
+### Features
+
+* Prevent printing a column in BclConvertDataSection if no data exists ([#90](https://github.com/mll-lab/php-utils/issues/90)) ([2a09580](https://github.com/mll-lab/php-utils/commit/2a0958037673951d7e72b2007f947bc154985c9f))
+
 ## [6.12.0](https://github.com/mll-lab/php-utils/compare/v6.11.0...v6.12.0) (2026-05-29)
 
 ### Features
