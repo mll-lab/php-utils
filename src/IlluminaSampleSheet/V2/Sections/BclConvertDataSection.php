@@ -11,9 +11,6 @@ use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycles;
 
 class BclConvertDataSection implements Section
 {
-    /** @var string */
-    public const HEADER_ROW = 'Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2,BarcodeMismatchesIndex1,BarcodeMismatchesIndex2';
-
     /** @var Collection<int, BclSample> */
     public Collection $bclSampleList;
 
@@ -31,12 +28,50 @@ class BclConvertDataSection implements Section
     public function convertSectionToString(): string
     {
         $this->assertNotEmpty();
+        $this->assertConsistentBarcodeMismatchesIndex2();
+
+        $includeBarcodeMismatchesIndex2 = $this->hasBarcodeMismatchesIndex2();
 
         return
-            self::HEADER_ROW . PHP_EOL
+            self::headerRow($includeBarcodeMismatchesIndex2) . PHP_EOL
             . $this->bclSampleList
-                ->map(fn (BclSample $bclSample): string => $bclSample->toString($this->overrideCycleCounter))
+                ->map(fn (BclSample $bclSample): string => $bclSample->toString($this->overrideCycleCounter, $includeBarcodeMismatchesIndex2))
                 ->join(PHP_EOL) . PHP_EOL;
+    }
+
+    private function hasBarcodeMismatchesIndex2(): bool
+    {
+        return $this->bclSampleList->contains(fn (BclSample $bclSample): bool => $bclSample->barcodeMismatchesIndex2 !== null);
+    }
+
+    private function assertConsistentBarcodeMismatchesIndex2(): void
+    {
+        $withIndex2 = $this->bclSampleList->contains(fn (BclSample $bclSample): bool => $bclSample->barcodeMismatchesIndex2 !== null);
+        $withoutIndex2 = $this->bclSampleList->contains(fn (BclSample $bclSample): bool => $bclSample->barcodeMismatchesIndex2 === null);
+
+        if ($withIndex2 && $withoutIndex2) {
+            throw new IlluminaSampleSheetException('Either all or no samples must have a barcodeMismatchesIndex2.');
+        }
+    }
+
+    private static function headerRow(bool $includeBarcodeMismatchesIndex2): string
+    {
+        $columns = [
+            'Lane',
+            'Sample_ID',
+            'Index',
+            'Index2',
+            'OverrideCycles',
+            'AdapterRead1',
+            'AdapterRead2',
+            'BarcodeMismatchesIndex1',
+        ];
+
+        if ($includeBarcodeMismatchesIndex2) {
+            $columns[] = 'BarcodeMismatchesIndex2';
+        }
+
+        return implode(',', $columns);
     }
 
     public function assertNotEmpty(): void

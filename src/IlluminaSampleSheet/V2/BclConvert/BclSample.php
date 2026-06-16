@@ -46,20 +46,27 @@ class BclSample
         $this->barcodeMismatchesIndex2 = $barcodeMismatchesIndex2;
     }
 
-    public function toString(OverrideCycleCounter $overrideCycleCounter): string
+    public function toString(OverrideCycleCounter $overrideCycleCounter, bool $includeBarcodeMismatchesIndex2): string
     {
         $lines = array_map(
-            fn (int $lane): string => implode(',', [
-                $lane,
-                $this->sampleID,
-                $this->indexRead1,
-                $this->indexRead2 ?? '',
-                $this->overrideCycles->toString($overrideCycleCounter),
-                $this->adapterRead1,
-                $this->adapterRead2,
-                $this->barcodeMismatchesIndex1,
-                $this->barcodeMismatchesIndex2 ?? '',
-            ]),
+            function (int $lane) use ($overrideCycleCounter, $includeBarcodeMismatchesIndex2): string {
+                $fields = [
+                    $lane,
+                    $this->sampleID,
+                    $this->indexRead1,
+                    $this->indexRead2 ?? '',
+                    $this->overrideCycles->toString($overrideCycleCounter),
+                    $this->adapterRead1,
+                    $this->adapterRead2,
+                    $this->barcodeMismatchesIndex1,
+                ];
+
+                if ($includeBarcodeMismatchesIndex2) {
+                    $fields[] = $this->barcodeMismatchesIndex2 ?? '';
+                }
+
+                return implode(',', $fields);
+            },
             $this->flowcellType->lanes
         );
 
