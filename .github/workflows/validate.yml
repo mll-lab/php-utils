@@ -116,6 +116,10 @@ jobs:
   code-coverage:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      code-quality: write
+
     steps:
       - uses: actions/checkout@v4
 
@@ -127,7 +131,11 @@ jobs:
 
       - uses: ramsey/composer-install@v3
 
-      - run: vendor/bin/phpunit --coverage-clover=.build/logs/clover.xml
+      - run: vendor/bin/phpunit --coverage-cobertura=coverage.xml
 
-      # Not using v4 due to the breaking changes described in https://github.com/codecov/codecov-action/releases/tag/v4.0.0
-      - uses: codecov/codecov-action@v3
+      - if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/upload-code-coverage@v1
+        with:
+          file: coverage.xml
+          language: PHP
+          label: code-coverage/phpunit
