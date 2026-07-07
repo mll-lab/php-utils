@@ -127,4 +127,4 @@ jobs:
 
       - uses: ramsey/composer-install@v3
 
-      - run: vendor/bin/phpunit --coverage-text | tee $GITHUB_STEP_SUMMARY
+      - run: vendor/bin/phpunit --coverage-text --colors=never | tee $GITHUB_STEP_SUMMARY
