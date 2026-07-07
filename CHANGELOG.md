@@ -1,3 +1,9 @@
+## [6.13.1](https://github.com/mll-lab/php-utils/compare/v6.13.0...v6.13.1) (2026-07-07)
+
+### Bug Fixes
+
+* ignore security advisories for legacy laravel/framework versions in dev matrix ([#92](https://github.com/mll-lab/php-utils/issues/92)) ([3517b7f](https://github.com/mll-lab/php-utils/commit/3517b7f8cde86f84f2bfe7a36a2137864e1d5791))
+
 ## [6.13.0](https://github.com/mll-lab/php-utils/compare/v6.12.0...v6.13.0) (2026-06-16)
 
 ### Features
