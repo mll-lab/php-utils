@@ -70,6 +70,13 @@
       ],
       "abandoned": "ignore"
     },
+    "policy": {
+      "advisories": {
+        "ignore": [
+          "laravel/framework"
+        ]
+      }
+    },
     "block-insecure": false,
     "sort-packages": true
   },
