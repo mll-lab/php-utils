@@ -63,11 +63,11 @@ final class CoordinateSystemTest extends TestCase
         self::assertTrue($coordinateSystem6x8->equals($coordinateSystem6x8AnotherInstance));
         self::assertTrue($coordinateSystem6x8AnotherInstance->equals($coordinateSystem6x8));
 
-        $coordinateSystem6x8Child = new class() extends CoordinateSystem6x8 {};
+        $coordinateSystem6x8Child = new class extends CoordinateSystem6x8 {};
         self::assertTrue($coordinateSystem6x8->equals($coordinateSystem6x8Child));
         self::assertTrue($coordinateSystem6x8Child->equals($coordinateSystem6x8));
 
-        $coordinateSystem8x8ModifiedChild = new class() extends CoordinateSystem6x8 {
+        $coordinateSystem8x8ModifiedChild = new class extends CoordinateSystem6x8 {
             public function columns(): array
             {
                 return range(1, 8);

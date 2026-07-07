@@ -149,13 +149,13 @@ final class SafeCastTest extends TestCase
         yield ['0', 0];
         yield ['3.14', 3.14];
         yield ['-2.5', -2.5];
-        yield ['object-string-with-stringable-interface', new class() implements \Stringable {
+        yield ['object-string-with-stringable-interface', new class implements \Stringable {
             public function __toString(): string
             {
                 return 'object-string-with-stringable-interface';
             }
         }];
-        yield ['object-string-without-stringable-interface', new class() {
+        yield ['object-string-without-stringable-interface', new class {
             public function __toString(): string
             {
                 return 'object-string-without-stringable-interface';
