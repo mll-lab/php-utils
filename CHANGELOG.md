@@ -1,3 +1,9 @@
+## [6.13.2](https://github.com/mll-lab/php-utils/compare/v6.13.1...v6.13.2) (2026-07-07)
+
+### Bug Fixes
+
+* replace Codecov upload with GitHub Job Summary for coverage ([#91](https://github.com/mll-lab/php-utils/issues/91)) ([5ce81cf](https://github.com/mll-lab/php-utils/commit/5ce81cf94fc64386624cb228cc9043e5882f7d8e))
+
 ## [6.13.1](https://github.com/mll-lab/php-utils/compare/v6.13.0...v6.13.1) (2026-07-07)
 
 ### Bug Fixes
