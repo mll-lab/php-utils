@@ -1,3 +1,9 @@
+## [6.13.3](https://github.com/mll-lab/php-utils/compare/v6.13.2...v6.13.3) (2026-08-13)
+
+### Bug Fixes
+
+* **interop:** round yield before casting to int ([#93](https://github.com/mll-lab/php-utils/issues/93)) ([454cd46](https://github.com/mll-lab/php-utils/commit/454cd46eb7e2f2d4ebd4d2195079cf22995b92ad))
+
 ## [6.13.2](https://github.com/mll-lab/php-utils/compare/v6.13.1...v6.13.2) (2026-07-07)
 
 ### Bug Fixes
