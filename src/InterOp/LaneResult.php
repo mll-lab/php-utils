@@ -88,7 +88,8 @@ class LaneResult
             $clusterStatistic,
             $sequencingQualityControl,
             SafeCast::toInt($intensityCycle->value),
-            SafeCast::toInt(SafeCast::toFloat($row['Yield']) * 1000000)
+            // Rounding because float multiplication is inexact, e.g. 8.04 * 1000000 = 8039999.999999999
+            SafeCast::toInt(round(SafeCast::toFloat($row['Yield']) * 1000000))
         );
     }
 
