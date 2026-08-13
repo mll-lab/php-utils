@@ -50,4 +50,3 @@ parameters:
   - message: '#Fetching class constant class of deprecated class PhpParser\\Node\\Stmt\\PropertyProperty#'
     paths:
     - src/PHPStan/Rules/PropertyNameIdToIDRule.php
-

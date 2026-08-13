@@ -1,0 +1,21 @@
+default_stages: [pre-commit]
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=2048]
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+        # Same files as end-of-file-fixer: byte-exact content.
+        exclude: ^tests/StringUtilTestData/
+      - id: end-of-file-fixer
+        # Byte-exact fixtures, incl. UTF-16 which a raw LF would corrupt.
+        exclude: ^tests/StringUtilTestData/
+      - id: check-json
+      - id: check-case-conflict
+      - id: check-illegal-windows-names
