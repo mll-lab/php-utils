@@ -4,6 +4,7 @@ rules:
 #- MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
 #- MLL\Utils\PHPStan\Rules\PropertyNameIdToIDRule
 #- MLL\Utils\PHPStan\Rules\MissingClosureParameterTypehintRule
+#- MLL\Utils\PHPStan\Rules\MissingClosureReturnTypehintRule
 parameters:
   # https://github.com/spaze/phpstan-disallowed-calls/blob/main/docs/custom-rules.md
   disallowedFunctionCalls:

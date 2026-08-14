@@ -4,6 +4,8 @@ use function MLL\PhpCsFixerConfig\risky;
 
 $finder = PhpCsFixer\Finder::create()
     ->notPath('vendor')
+    // Fixtures intentionally violate the rules under test
+    ->exclude('tests/PHPStan/data')
     ->in(__DIR__)
     ->name('*.php')
     ->ignoreDotFiles(true)
