@@ -12,6 +12,13 @@ $typedClosureParameter = static function (int $factor): int {
 
 $typedArrowParameter = static fn (int $factor): int => 2 * $factor;
 
+$missingMultiLineParameters = static function (
+    $first,
+    $second
+): int {
+    return 2;
+};
+
 // Only closures are in scope - these must not be reported.
 function plainFunctionWithoutParameterType($factor): int
 {

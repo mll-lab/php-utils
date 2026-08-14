@@ -32,6 +32,7 @@ final class MissingClosureParameterTypehintRule extends ClosureTypehintRule
 
             $errors[] = RuleErrorBuilder::message("{$kind} parameter {$varName} is missing a native type hint.")
                 ->identifier('missingType.parameter')
+                ->line($param->getStartLine())
                 ->build();
         }
 

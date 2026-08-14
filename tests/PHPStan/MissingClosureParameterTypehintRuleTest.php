@@ -21,6 +21,8 @@ final class MissingClosureParameterTypehintRuleTest extends RuleTestCase
         $this->analyse([__DIR__ . '/data/closure-parameter-types.php'], [
             ['Closure parameter factor is missing a native type hint.', 3],
             ['Arrow function parameter factor is missing a native type hint.', 7],
+            ['Closure parameter first is missing a native type hint.', 16],
+            ['Closure parameter second is missing a native type hint.', 17],
         ]);
     }
 }
