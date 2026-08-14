@@ -4,7 +4,7 @@ parameters:
     - '#Unknown PHPDoc tag: @phpstan-ignore#'
 
     # Older PHPStan has stricter/different closure parameter typehint checking
-    - '#Closure parameter .* is missing a native type hint\.#'
+    - '#(Closure|Arrow function) parameter .* is missing a native type hint\.#'
 
     # Differences in type inference between PHPStan versions
     - '#Cannot access property .* on mixed\.#'
@@ -29,7 +29,7 @@ parameters:
     - '#PHPDoc tag @param has invalid value.*covariant.*#'
 
     # Return type differences in older PHPStan rule interfaces
-    - '#Method MLL\\Utils\\PHPStan\\Rules\\MissingClosureParameterTypehintRule::processNode\(\) should return array<int, PHPStan\\Rules\\IdentifierRuleError> but returns array<int, PHPStan\\Rules\\RuleError>\.#'
+    - '#Method MLL\\Utils\\PHPStan\\Rules\\MissingClosure(Parameter|Return)TypehintRule::processClosure\(\) should return array<int, PHPStan\\Rules\\IdentifierRuleError> but returns array<int, PHPStan\\Rules\\RuleError>\.#'
 
     # Existing code with @phpstan-ignore that older versions don't understand
     - message: '#Cannot access property \$name on SimpleXMLElement\|null\.#'
