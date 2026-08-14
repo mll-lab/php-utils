@@ -37,8 +37,11 @@ parameters:
     paths:
     - tests/PHPStan/data/
 
-  # Test fixtures intentionally omit closure return type hints
+  # Test fixtures intentionally omit closure type hints
   - message: '#is missing a native return type hint\.#'
+    paths:
+    - tests/PHPStan/data/
+  - message: '#is missing a native type hint\.#'
     paths:
     - tests/PHPStan/data/
 

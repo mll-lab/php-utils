@@ -59,6 +59,10 @@ This library ships custom PHPStan rules (`src/PHPStan/Rules/`) and disallowed ca
 Consumer projects get these automatically via `phpstan/extension-installer`.
 
 The `phpstan.neon` in this repo includes additional rules enabled only for this project itself.
+A rule enabled there needs an `ignoreErrors` entry scoped to `tests/PHPStan/data/`, since fixtures violate rules on purpose.
+
+Test new rules with PHPStan's `RuleTestCase` against a fixture in `tests/PHPStan/data/`.
+That directory is excluded from rector and php-cs-fixer — both would otherwise normalize away the violations under test.
 
 ## Conventions
 
