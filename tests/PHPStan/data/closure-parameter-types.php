@@ -19,7 +19,6 @@ $missingMultiLineParameters = static function (
     return 2;
 };
 
-// Only closures are in scope - these must not be reported.
 function plainFunctionWithoutParameterType($factor): int
 {
     return 2;
