@@ -11,3 +11,17 @@ $typedClosure = static function (int $value): int {
 };
 
 $typedArrow = static fn (int $value): int => $value * 2;
+
+// Only closures are in scope - these must not be reported.
+function plainFunctionWithoutReturnType()
+{
+    return 1;
+}
+
+class MethodWithoutReturnType
+{
+    public function untyped()
+    {
+        return 1;
+    }
+}

@@ -10,6 +10,8 @@ final class MissingClosureParameterTypehintRule extends ClosureTypehintRule
 {
     protected function processClosure(Node\FunctionLike $closure): array
     {
+        $kind = $this->closureKind($closure);
+
         $errors = [];
         foreach ($closure->getParams() as $param) {
             if ($param->type !== null) {
@@ -28,7 +30,7 @@ final class MissingClosureParameterTypehintRule extends ClosureTypehintRule
 
             $varName = $paramVar->name;
 
-            $errors[] = RuleErrorBuilder::message("Closure parameter {$varName} is missing a native type hint.")
+            $errors[] = RuleErrorBuilder::message("{$kind} parameter {$varName} is missing a native type hint.")
                 ->identifier('missingType.parameter')
                 ->build();
         }

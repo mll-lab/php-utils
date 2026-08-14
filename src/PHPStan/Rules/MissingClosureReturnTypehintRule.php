@@ -3,9 +3,13 @@
 namespace MLL\Utils\PHPStan\Rules;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\ArrowFunction;
 use PHPStan\Rules\RuleErrorBuilder;
 
+/**
+ * Assumes PHP 8.0+, where every return type is natively expressible.
+ * On PHP 7.4 a closure returning `mixed` has no native type to declare,
+ * which is why `phpstan/include-by-php-version.php` gates `rules.neon`.
+ */
 final class MissingClosureReturnTypehintRule extends ClosureTypehintRule
 {
     protected function processClosure(Node\FunctionLike $closure): array
@@ -14,7 +18,7 @@ final class MissingClosureReturnTypehintRule extends ClosureTypehintRule
             return [];
         }
 
-        $kind = $closure instanceof ArrowFunction ? 'Arrow function' : 'Closure';
+        $kind = $this->closureKind($closure);
 
         return [
             RuleErrorBuilder::message("{$kind} is missing a native return type hint.")

@@ -21,6 +21,14 @@ abstract class ClosureTypehintRule implements Rule
      */
     abstract protected function processClosure(Node\FunctionLike $closure): array;
 
+    /** @param Closure|ArrowFunction $closure */
+    protected function closureKind(Node\FunctionLike $closure): string
+    {
+        return $closure instanceof ArrowFunction
+            ? 'Arrow function'
+            : 'Closure';
+    }
+
     /** @return class-string<Node\FunctionLike> */
     public function getNodeType(): string
     {

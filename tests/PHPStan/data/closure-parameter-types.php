@@ -11,3 +11,17 @@ $typedClosureParameter = static function (int $factor): int {
 };
 
 $typedArrowParameter = static fn (int $factor): int => 2 * $factor;
+
+// Only closures are in scope - these must not be reported.
+function plainFunctionWithoutParameterType($factor): int
+{
+    return 2;
+}
+
+class MethodWithoutParameterType
+{
+    public function untyped($factor): int
+    {
+        return 2;
+    }
+}

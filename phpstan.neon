@@ -45,6 +45,14 @@ parameters:
     paths:
     - tests/PHPStan/data/
 
+  # Test fixtures include untyped functions and methods to prove the closure rules ignore them
+  - message: '#has no return type specified\.#'
+    paths:
+    - tests/PHPStan/data/
+  - message: '#with no type specified\.#'
+    paths:
+    - tests/PHPStan/data/
+
   # PHPStan internal API usage is acceptable in tests
   - message: '#is not covered by backward compatibility promise#'
     paths:
