@@ -10,7 +10,7 @@ use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 
 /**
- * @implements Rule<Node\Expr>
+ * @implements Rule<Node\FunctionLike>
  */
 abstract class ClosureTypehintRule implements Rule
 {
@@ -21,14 +21,14 @@ abstract class ClosureTypehintRule implements Rule
      */
     abstract protected function processClosure(Node\FunctionLike $closure): array;
 
-    /** @return class-string<Node\Expr> */
+    /** @return class-string<Node\FunctionLike> */
     public function getNodeType(): string
     {
-        return Node\Expr::class;
+        return Node\FunctionLike::class;
     }
 
     /**
-     * @param Node\Expr $node
+     * @param Node\FunctionLike $node
      *
      * @return list<IdentifierRuleError>
      */
