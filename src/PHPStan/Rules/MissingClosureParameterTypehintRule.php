@@ -24,11 +24,11 @@ final class MissingClosureParameterTypehintRule extends ClosureTypehintRule
                 continue;
             }
 
-            if (! is_string($paramVar->name)) {
+            $varName = $paramVar->name;
+
+            if (! is_string($varName)) {
                 continue;
             }
-
-            $varName = $paramVar->name;
 
             $errors[] = RuleErrorBuilder::message("{$kind} parameter {$varName} is missing a native type hint.")
                 ->identifier('missingType.parameter')
