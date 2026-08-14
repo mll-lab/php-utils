@@ -6,6 +6,7 @@ rules:
 #- MLL\Utils\PHPStan\Rules\ThrowableClassNameRule
 - MLL\Utils\PHPStan\Rules\VariableNameIdToIDRule
 - MLL\Utils\PHPStan\Rules\MissingClosureParameterTypehintRule
+- MLL\Utils\PHPStan\Rules\MissingClosureReturnTypehintRule
 parameters:
   level: max
   paths:
@@ -33,6 +34,11 @@ parameters:
 
   # Test fixtures intentionally contain ID capitalization violations
   - message: '#should use "ID" instead of "Id"#'
+    paths:
+    - tests/PHPStan/data/
+
+  # Test fixtures intentionally omit closure return type hints
+  - message: '#is missing a native return type hint\.#'
     paths:
     - tests/PHPStan/data/
 
