@@ -1,3 +1,9 @@
+## [6.14.0](https://github.com/mll-lab/php-utils/compare/v6.13.3...v6.14.0) (2026-08-18)
+
+### Features
+
+* **phpstan:** add MissingClosureReturnTypehintRule ([#94](https://github.com/mll-lab/php-utils/issues/94)) ([cb69248](https://github.com/mll-lab/php-utils/commit/cb69248f500b2d110640e8070a0e7bcf32844883))
+
 ## [6.13.3](https://github.com/mll-lab/php-utils/compare/v6.13.2...v6.13.3) (2026-08-13)
 
 ### Bug Fixes
