@@ -24,6 +24,7 @@ return RectorConfig::configure()
         Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector::class,
     ])
     ->withSkip([
+        __DIR__ . '/tests/PHPStan/data', // fixtures intentionally violate the rules under test
         Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector::class, // breaks tests
         Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class => [
             __DIR__ . '/tests/CSVArrayTest.php', // keep `\r\n` for readability

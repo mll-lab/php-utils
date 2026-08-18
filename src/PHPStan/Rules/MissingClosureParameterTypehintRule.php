@@ -3,38 +3,17 @@
 namespace MLL\Utils\PHPStan\Rules;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\ArrowFunction;
-use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Variable;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\IdentifierRuleError;
-use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
-/**
- * @implements Rule<Node\Expr>
- */
-final class MissingClosureParameterTypehintRule implements Rule
+final class MissingClosureParameterTypehintRule extends ClosureTypehintRule
 {
-    /** @return class-string<Node\Expr> */
-    public function getNodeType(): string
+    protected function processClosure(Node\FunctionLike $closure): array
     {
-        return Node\Expr::class;
-    }
-
-    /**
-     * @param Node\Expr $node
-     *
-     * @return list<IdentifierRuleError>
-     */
-    public function processNode(Node $node, Scope $scope): array
-    {
-        if (! $node instanceof Closure && ! $node instanceof ArrowFunction) {
-            return [];
-        }
+        $kind = $this->closureKind($closure);
 
         $errors = [];
-        foreach ($node->params as $param) {
+        foreach ($closure->getParams() as $param) {
             if ($param->type !== null) {
                 continue;
             }
@@ -45,14 +24,15 @@ final class MissingClosureParameterTypehintRule implements Rule
                 continue;
             }
 
-            if (! is_string($paramVar->name)) {
+            $varName = $paramVar->name;
+
+            if (! is_string($varName)) {
                 continue;
             }
 
-            $varName = $paramVar->name;
-
-            $errors[] = RuleErrorBuilder::message("Closure parameter {$varName} is missing a native type hint.")
+            $errors[] = RuleErrorBuilder::message("{$kind} parameter {$varName} is missing a native type hint.")
                 ->identifier('missingType.parameter')
+                ->line($param->getStartLine())
                 ->build();
         }
 
