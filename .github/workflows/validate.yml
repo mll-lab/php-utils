@@ -55,7 +55,10 @@ jobs:
           spaze/phpstan-disallowed-calls
 
       - if: matrix.php-version == '8.0'
-        run: composer remove --dev --no-update rector/rector
+        run: >
+          composer remove --dev --no-update
+          rector/rector
+          spaze/phpstan-disallowed-calls
 
       - if: matrix.php-version == '7.4' || matrix.php-version == '8.0'
         run: rm -rf src/Enum tests/Enum src/FluidXPlate/Scalars src/Microplate/Scalars tests/FluidXPlate/Scalars tests/Microplate/Scalars
@@ -102,7 +105,10 @@ jobs:
           spaze/phpstan-disallowed-calls
 
       - if: matrix.php-version == '8.0'
-        run: composer remove --dev --no-update rector/rector
+        run: >
+          composer remove --dev --no-update
+          rector/rector
+          spaze/phpstan-disallowed-calls
 
       - if: matrix.php-version == '7.4' || matrix.php-version == '8.0'
         run: rm -rf src/Enum tests/Enum src/FluidXPlate/Scalars src/Microplate/Scalars tests/FluidXPlate/Scalars tests/Microplate/Scalars
