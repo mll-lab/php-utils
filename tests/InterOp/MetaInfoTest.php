@@ -51,6 +51,7 @@ final class MetaInfoTest extends TestCase
         self::assertSame(83.2, $runQC->q30);
         self::assertSame(6.11, $runQC->aligned->value);
         self::assertEqualsWithDelta(0.065, $runQC->phasing, 0.001);
+        self::assertNull($metaInfo->interOpResult->resultsForRun->percentOccupied);
 
         self::assertSame('example-server/miseq_active\\230421_M02074_0859_000000000-KT6CY\\meta-info.json', $metaInfo->uncPath);
     }
@@ -90,6 +91,8 @@ final class MetaInfoTest extends TestCase
         self::assertSame(96.32, $metaInfo->interOpResult->resultsForRead2->sequencingQualityControl->q30);
         self::assertSame(3486, $metaInfo->interOpResult->resultsForRead2->intensityCycle);
         self::assertSame(1490000, $metaInfo->interOpResult->resultsForRead2->yield);
+
+        self::assertSame(74.22, $metaInfo->interOpResult->resultsForRun->percentOccupied);
 
         self::assertSame('example-server/miseq_active\\miSeqi100\\20260205_SH01038_0007_ASC2139476-SC3\\meta-info.json', $metaInfo->uncPath);
     }

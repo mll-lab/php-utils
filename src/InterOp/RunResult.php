@@ -10,10 +10,20 @@ class RunResult
 
     public SequencingQualityControl $sequencingQualityControl;
 
-    public function __construct(ClusterStatistic $clusterStatistic, SequencingQualityControl $sequencingQualityControl)
+    /**
+     * Share of flowcell wells occupied by a cluster, null on unpatterned flowcells.
+     *
+     * Patterned flowcells (NovaSeq X Plus, MiSeq i100) prescribe cluster locations,
+     * so occupancy replaces density as the measure of flowcell loading.
+     * Unpatterned flowcells report "nan".
+     */
+    public ?float $percentOccupied;
+
+    public function __construct(ClusterStatistic $clusterStatistic, SequencingQualityControl $sequencingQualityControl, ?float $percentOccupied)
     {
         $this->clusterStatistic = $clusterStatistic;
         $this->sequencingQualityControl = $sequencingQualityControl;
+        $this->percentOccupied = $percentOccupied;
     }
 
     /** @param array<string, string> $nonIndexedRow */
@@ -35,6 +45,10 @@ class RunResult
             $aggregated->sequencingQualityControl->error
         );
 
-        return new self($aggregated->clusterStatistic, $sequencingQualityControl);
+        return new self(
+            $aggregated->clusterStatistic,
+            $sequencingQualityControl,
+            SafeCast::tryFloat($nonIndexedRow['% Occupied'] ?? null)
+        );
     }
 }
