@@ -1,3 +1,9 @@
+## [6.15.0](https://github.com/mll-lab/php-utils/compare/v6.14.0...v6.15.0) (2026-09-14)
+
+### Features
+
+* **interop:** expose percent occupied of patterned flowcells ([#95](https://github.com/mll-lab/php-utils/issues/95)) ([e256f1d](https://github.com/mll-lab/php-utils/commit/e256f1dad1c8f13784fb0c306e194b1642f7e8ad))
+
 ## [6.14.0](https://github.com/mll-lab/php-utils/compare/v6.13.3...v6.14.0) (2026-08-18)
 
 ### Features
