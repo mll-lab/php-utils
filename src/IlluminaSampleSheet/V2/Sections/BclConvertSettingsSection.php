@@ -29,7 +29,7 @@ final class BclConvertSettingsSection extends SimpleKeyValueSection
 
     private function performAnalysisOnCloud(): void
     {
-        $this->keyValues['SoftwareVersion'] = BclConvertSoftwareVersion::V4_1_23;
+        $this->keyValues['SoftwareVersion'] = BclConvertSoftwareVersion::V4_4_10;
     }
 
     private function performAnalysisOnLocalMachine(): void

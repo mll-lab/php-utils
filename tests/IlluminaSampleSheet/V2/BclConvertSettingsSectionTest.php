@@ -14,7 +14,7 @@ final class BclConvertSettingsSectionTest extends TestCase
         $bclConvertSettingsSection->performAnalysisOn(AnalysisLocation::CLOUD());
         $expected = <<<'CSV'
 FastqCompressionFormat,gzip
-SoftwareVersion,4.1.23
+SoftwareVersion,4.4.10
 
 CSV;
         self::assertSame($expected, $bclConvertSettingsSection->convertSectionToString());

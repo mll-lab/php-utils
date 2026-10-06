@@ -6,6 +6,7 @@ class BclConvertSoftwareVersion
 {
     public const V4_1_23 = '4.1.23';
     public const V4_4_6 = '4.4.6';
+    public const V4_4_10 = '4.4.10';
 
     public string $value;
 
