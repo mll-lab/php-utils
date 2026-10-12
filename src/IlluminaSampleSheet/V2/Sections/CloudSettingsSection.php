@@ -9,10 +9,8 @@ final class CloudSettingsSection extends SimpleKeyValueSection
     /** @var string */
     public const GENERATED_VERSION = '2.6.0.202308300002';
     public const CLOUD_WORKFLOW = 'ica_workflow_1';
-    public const BCL_CONVERT_PIPELINE = 'urn:ilmn:ica:pipeline:d5c7e407-d439-48c8-bce5-b7aec225f6a7#BclConvert_v4_1_23_patch1';
-    public const BCL_CONVERT_PIPELINE_V4_4_10 = 'urn:ilmn:ica:pipeline:4bdae602-abe4-4230-b0c6-f886af563b26#BclConvert_v4_4_10';
 
-    public function __construct(string $bclConvertPipeline = self::BCL_CONVERT_PIPELINE)
+    public function __construct(string $bclConvertPipeline)
     {
         parent::__construct(new Collection([
             'GeneratedVersion' => self::GENERATED_VERSION,

@@ -2,7 +2,6 @@
 
 namespace MLL\Utils\Tests\IlluminaSampleSheet\V2;
 
-use MLL\Utils\IlluminaSampleSheet\V2\BclConvertSoftwareVersion;
 use MLL\Utils\IlluminaSampleSheet\V2\Sections\AnalysisLocation;
 use MLL\Utils\IlluminaSampleSheet\V2\Sections\BclConvertSettingsSection;
 use PHPUnit\Framework\TestCase;
@@ -11,19 +10,7 @@ final class BclConvertSettingsSectionTest extends TestCase
 {
     public function testToStringOnCloud(): void
     {
-        $bclConvertSettingsSection = new BclConvertSettingsSection();
-        $bclConvertSettingsSection->performAnalysisOn(AnalysisLocation::CLOUD());
-        $expected = <<<'CSV'
-FastqCompressionFormat,gzip
-SoftwareVersion,4.1.23
-
-CSV;
-        self::assertSame($expected, $bclConvertSettingsSection->convertSectionToString());
-    }
-
-    public function testToStringOnCloudWithSoftwareVersion(): void
-    {
-        $bclConvertSettingsSection = new BclConvertSettingsSection(BclConvertSoftwareVersion::V4_4_10);
+        $bclConvertSettingsSection = new BclConvertSettingsSection('4.4.10');
         $bclConvertSettingsSection->performAnalysisOn(AnalysisLocation::CLOUD());
         $expected = <<<'CSV'
 FastqCompressionFormat,gzip
@@ -35,7 +22,7 @@ CSV;
 
     public function testToStringLocal(): void
     {
-        $bclConvertSettingsSection = new BclConvertSettingsSection();
+        $bclConvertSettingsSection = new BclConvertSettingsSection('4.4.6');
         $bclConvertSettingsSection->performAnalysisOn(AnalysisLocation::LOCAL_MACHINE());
 
         $expected = <<<'CSV'

@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use MLL\Utils\Flowcells\NovaSeqX1_5B;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\BclSample;
 use MLL\Utils\IlluminaSampleSheet\V2\BclConvert\OverrideCycles;
-use MLL\Utils\IlluminaSampleSheet\V2\BclConvertSoftwareVersion;
 use MLL\Utils\IlluminaSampleSheet\V2\IlluminaSampleSheetVersion2;
 use MLL\Utils\IlluminaSampleSheet\V2\IndexOrientation;
 use MLL\Utils\IlluminaSampleSheet\V2\InstrumentPlatform;
@@ -92,7 +91,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
             null
         );
 
-        $bclConvertSettingsSection = new BclConvertSettingsSection(BclConvertSoftwareVersion::V4_4_10);
+        $bclConvertSettingsSection = new BclConvertSettingsSection('4.4.10');
 
         $bclConvertDataSection = new BclConvertDataSection($bclSampleList);
 
@@ -103,7 +102,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
             $readsSection,
             $bclConvertSettingsSection,
             $bclConvertDataSection,
-            new CloudSettingsSection(CloudSettingsSection::BCL_CONVERT_PIPELINE_V4_4_10),
+            new CloudSettingsSection('urn:ilmn:ica:pipeline:4bdae602-abe4-4230-b0c6-f886af563b26#BclConvert_v4_4_10'),
             new CloudDataSection(new Collection([
                 new CloudDataItem($bclSample0->sampleID, 'test', 'foo'),
                 new CloudDataItem($bclSample1->sampleID, 'test', 'foo'),
