@@ -3,17 +3,17 @@
 namespace MLL\Utils\IlluminaSampleSheet\V2\Sections;
 
 use Illuminate\Support\Collection;
-use MLL\Utils\IlluminaSampleSheet\V2\BclConvertSoftwareVersion;
 use MLL\Utils\IlluminaSampleSheet\V2\Enums\FastQCompressionFormat;
 
 final class BclConvertSettingsSection extends SimpleKeyValueSection
 {
     use RequiresAnalysisLocationToBeSet;
 
-    public function __construct()
+    public function __construct(string $softwareVersion)
     {
         $fields = new Collection([
             'FastqCompressionFormat' => FastQCompressionFormat::GZIP,
+            'SoftwareVersion' => $softwareVersion,
         ]);
 
         parent::__construct($fields);
@@ -22,20 +22,9 @@ final class BclConvertSettingsSection extends SimpleKeyValueSection
     public function performAnalysisOn(AnalysisLocation $analysisLocation): void
     {
         $this->analysisLocation = $analysisLocation;
-        $analysisLocation->value === AnalysisLocation::LOCAL_MACHINE
-            ? $this->performAnalysisOnLocalMachine()
-            : $this->performAnalysisOnCloud();
-    }
-
-    private function performAnalysisOnCloud(): void
-    {
-        $this->keyValues['SoftwareVersion'] = BclConvertSoftwareVersion::V4_1_23;
-    }
-
-    private function performAnalysisOnLocalMachine(): void
-    {
-        $this->keyValues['SoftwareVersion'] = BclConvertSoftwareVersion::V4_4_6;
-        $this->keyValues['GenerateFastqcMetrics'] = 'true';
+        if ($analysisLocation->value === AnalysisLocation::LOCAL_MACHINE) {
+            $this->keyValues['GenerateFastqcMetrics'] = 'true';
+        }
     }
 
     public function sectionName(): string

@@ -10,11 +10,11 @@ final class BclConvertSettingsSectionTest extends TestCase
 {
     public function testToStringOnCloud(): void
     {
-        $bclConvertSettingsSection = new BclConvertSettingsSection();
+        $bclConvertSettingsSection = new BclConvertSettingsSection('4.4.10');
         $bclConvertSettingsSection->performAnalysisOn(AnalysisLocation::CLOUD());
         $expected = <<<'CSV'
 FastqCompressionFormat,gzip
-SoftwareVersion,4.1.23
+SoftwareVersion,4.4.10
 
 CSV;
         self::assertSame($expected, $bclConvertSettingsSection->convertSectionToString());
@@ -22,7 +22,7 @@ CSV;
 
     public function testToStringLocal(): void
     {
-        $bclConvertSettingsSection = new BclConvertSettingsSection();
+        $bclConvertSettingsSection = new BclConvertSettingsSection('4.4.6');
         $bclConvertSettingsSection->performAnalysisOn(AnalysisLocation::LOCAL_MACHINE());
 
         $expected = <<<'CSV'

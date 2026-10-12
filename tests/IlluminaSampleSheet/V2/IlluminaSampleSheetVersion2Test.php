@@ -91,7 +91,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
             null
         );
 
-        $bclConvertSettingsSection = new BclConvertSettingsSection();
+        $bclConvertSettingsSection = new BclConvertSettingsSection('4.4.10');
 
         $bclConvertDataSection = new BclConvertDataSection($bclSampleList);
 
@@ -102,7 +102,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
             $readsSection,
             $bclConvertSettingsSection,
             $bclConvertDataSection,
-            new CloudSettingsSection(),
+            new CloudSettingsSection('urn:ilmn:ica:pipeline:4bdae602-abe4-4230-b0c6-f886af563b26#BclConvert_v4_4_10'),
             new CloudDataSection(new Collection([
                 new CloudDataItem($bclSample0->sampleID, 'test', 'foo'),
                 new CloudDataItem($bclSample1->sampleID, 'test', 'foo'),
@@ -126,7 +126,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
 
             [BCLConvert_Settings]
             FastqCompressionFormat,gzip
-            SoftwareVersion,4.1.23
+            SoftwareVersion,4.4.10
 
             [BCLConvert_Data]
             Lane,Sample_ID,Index,Index2,OverrideCycles,AdapterRead1,AdapterRead2,BarcodeMismatchesIndex1,BarcodeMismatchesIndex2
@@ -140,7 +140,7 @@ final class IlluminaSampleSheetVersion2Test extends TestCase
             [Cloud_Settings]
             GeneratedVersion,2.6.0.202308300002
             Cloud_Workflow,ica_workflow_1
-            BCLConvert_Pipeline,urn:ilmn:ica:pipeline:d5c7e407-d439-48c8-bce5-b7aec225f6a7#BclConvert_v4_1_23_patch1
+            BCLConvert_Pipeline,urn:ilmn:ica:pipeline:4bdae602-abe4-4230-b0c6-f886af563b26#BclConvert_v4_4_10
 
             [Cloud_Data]
             Sample_ID,ProjectName,LibraryName

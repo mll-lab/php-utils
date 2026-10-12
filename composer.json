@@ -74,7 +74,9 @@
     "policy": {
       "advisories": {
         "ignore": [
-          "laravel/framework"
+          "laravel/framework",
+          "league/flysystem",
+          "zbateson/mail-mime-parser"
         ]
       }
     },
