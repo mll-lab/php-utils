@@ -10,8 +10,12 @@ final class BclConvertSettingsSection extends SimpleKeyValueSection
 {
     use RequiresAnalysisLocationToBeSet;
 
-    public function __construct()
+    private string $cloudSoftwareVersion;
+
+    public function __construct(string $cloudSoftwareVersion = BclConvertSoftwareVersion::V4_1_23)
     {
+        $this->cloudSoftwareVersion = $cloudSoftwareVersion;
+
         $fields = new Collection([
             'FastqCompressionFormat' => FastQCompressionFormat::GZIP,
         ]);
@@ -29,7 +33,7 @@ final class BclConvertSettingsSection extends SimpleKeyValueSection
 
     private function performAnalysisOnCloud(): void
     {
-        $this->keyValues['SoftwareVersion'] = BclConvertSoftwareVersion::V4_4_10;
+        $this->keyValues['SoftwareVersion'] = $this->cloudSoftwareVersion;
     }
 
     private function performAnalysisOnLocalMachine(): void
