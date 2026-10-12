@@ -1,3 +1,9 @@
+## [6.16.0](https://github.com/mll-lab/php-utils/compare/v6.15.0...v6.16.0) (2026-10-12)
+
+### Features
+
+* **illumina-sample-sheet:** require BCL Convert version and pipeline from the caller ([#96](https://github.com/mll-lab/php-utils/issues/96)) ([f3a4190](https://github.com/mll-lab/php-utils/commit/f3a41901988c269376bc34bbe291f8bab831edad))
+
 ## [6.15.0](https://github.com/mll-lab/php-utils/compare/v6.14.0...v6.15.0) (2026-09-14)
 
 ### Features
