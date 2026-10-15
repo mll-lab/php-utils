@@ -2,9 +2,7 @@
 
 $includes = [];
 
-// PHP 8.0+ can use rules.neon (requires spaze/phpstan-disallowed-calls)
-// PHP 7.4 has this package removed via composer, so skip rules.neon
-if (version_compare(PHP_VERSION, '8.0', '>=')) {
+if (class_exists(\Spaze\PHPStan\Rules\Disallowed\DisallowedHelper::class)) {
     $includes[] = __DIR__ . '/../rules.neon';
 }
 
