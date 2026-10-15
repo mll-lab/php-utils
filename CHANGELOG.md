@@ -1,3 +1,38 @@
+# Changelog
+
+## [7.0.0](https://github.com/mll-lab/php-utils/compare/v6.16.0...v7.0.0) (2026-10-15)
+
+### ⚠ BREAKING CHANGES
+
+* Requires `spaze/phpstan-disallowed-calls` ^4.4 (dropped ^2).
+The `rules.neon` is only loaded on PHP 8.0+ anyway, where ^4.4 applies.
+
+https://gitlab.mll/documentation/coding-guidelines/-/issues/313
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+* fix(ci): remove spaze from PHP 8.0 CI to fix dependency resolution
+
+spaze/phpstan-disallowed-calls ^4.4 requires phpstan ^1.12.6,
+which conflicts with larastan 1.0.4 (phpstan <1.9) on PHP 8.0.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+* fix(ci): remove spaze from PHP 8.0 CI to fix dependency resolution
+
+spaze/phpstan-disallowed-calls ^4.4 requires phpstan ^1.12.6,
+which conflicts with larastan 1.0.4 (phpstan <1.9) on PHP 8.0.
+
+Include rules.neon based on whether spaze is installed rather than
+checking the PHP version, so it works regardless of which PHP versions
+have spaze removed in CI.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+### Features
+
+* ban `CarbonImmutable` via PHPStan ([#80](https://github.com/mll-lab/php-utils/issues/80)) ([8a1aafd](https://github.com/mll-lab/php-utils/commit/8a1aafd15142123a8cf5367a61705eb47082f204))
+
 ## [6.16.0](https://github.com/mll-lab/php-utils/compare/v6.15.0...v6.16.0) (2026-10-12)
 
 ### Features
