@@ -75,7 +75,7 @@ class CSVArray
                     }
                 }
             } elseif ($character === "\r" || $character === "\n") {
-                $records[] = substr($csv, $recordStart, $position - $recordStart);
+                $records[] = substr($csv, $recordStart, $position - $recordStart); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
                 if ($character === "\r" && ($csv[$position + 1] ?? '') === "\n") {
                     ++$position;
                 }
@@ -90,7 +90,7 @@ class CSVArray
             }
         }
 
-        $records[] = substr($csv, $recordStart);
+        $records[] = substr($csv, $recordStart); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
 
         return $records;
     }
