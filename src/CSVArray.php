@@ -11,39 +11,38 @@ class CSVArray
 {
     public const DEFAULT_EMPTY_VALUE = '';
 
-    /**
-     * TODO: fix parsing multiline-content in csv.
-     *
-     * @return array<int, array<string, string>>
-     */
+    /** @return array<int, array<string, string>> */
     public static function toArray(string $csv, string $delimiter = ';', string $enclosure = '"', string $escape = '\\'): array
     {
-        /** @var array<int, array<string, string>> $result */
-        $result = [];
-
-        $lines = StringUtil::splitLines($csv);
+        $stream = \Safe\fopen('php://memory', 'r+');
+        \Safe\fwrite($stream, $csv);
+        \Safe\rewind($stream);
 
         // The first row of the CSV usually contains the column headers
         // We remove it so it does not show up in the result
-        $firstLine = array_shift($lines);
-        if (is_null($firstLine)) {
-            throw new \Exception('Missing column headers.');
+        $columnHeaders = fgetcsv($stream, 0, $delimiter, $enclosure, $escape); // @phpstan-ignore-line theCodingMachineSafe.function (Safe\fgetcsv is missing in Safe 1.x)
+        if ($columnHeaders === false) {
+            \Safe\fclose($stream);
+
+            return [];
         }
 
-        /** @var array<int, string> $columnHeaders */
-        $columnHeaders = str_getcsv($firstLine, $delimiter, $enclosure, $escape);
+        /** @var array<int, array<string, string>> $result */
+        $result = [];
 
-        foreach ($lines as $index => $line) {
-            if (! StringUtil::hasContent($line)) {
+        $index = 0;
+        while (($entries = fgetcsv($stream, 0, $delimiter, $enclosure, $escape)) !== false) { // @phpstan-ignore-line theCodingMachineSafe.function (Safe\fgetcsv is missing in Safe 1.x)
+            ++$index;
+            if (count($entries) === 1 && ! StringUtil::hasContent($entries[0])) {
                 continue;
             }
 
-            /** @var array<int, string> $entries */
-            $entries = str_getcsv($line, $delimiter, $enclosure, $escape);
             foreach ($columnHeaders as $columnIndex => $columnName) {
-                $result[$index + 1][$columnName] = $entries[$columnIndex] ?? self::DEFAULT_EMPTY_VALUE;
+                $result[$index][$columnName] = $entries[$columnIndex] ?? self::DEFAULT_EMPTY_VALUE;
             }
         }
+
+        \Safe\fclose($stream);
 
         return $result;
     }

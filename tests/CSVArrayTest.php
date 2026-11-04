@@ -163,6 +163,11 @@ final class CSVArrayTest extends TestCase
         );
     }
 
+    public function testToArrayReturnsEmptyArrayForEmptyCSV(): void
+    {
+        self::assertSame([], CSVArray::toArray(''));
+    }
+
     public function testHandlesMultilineStrings(): void
     {
         $multilineCsv = <<<CSV
@@ -195,8 +200,6 @@ final class CSVArrayTest extends TestCase
 
         self::assertSame($multilineCsv, CSVArray::toCSV($multilineArray));
 
-        self::markTestIncomplete('This does not work correctly yet');
-        // @phpstan-ignore-next-line https://github.com/phpstan/phpstan-phpunit/issues/52
         self::assertSame($multilineArray, CSVArray::toArray($multilineCsv));
     }
 }
