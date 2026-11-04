@@ -1,24 +1,15 @@
 <?php declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\SetList;
 
-return RectorConfig::configure()
+$config = RectorConfig::configure()
     ->withSets([
         SetList::CODE_QUALITY,
         SetList::TYPE_DECLARATION,
         SetList::RECTOR_PRESET,
-        PHPUnitSetList::PHPUNIT_40,
-        PHPUnitSetList::PHPUNIT_50,
-        PHPUnitSetList::PHPUNIT_60,
-        PHPUnitSetList::PHPUNIT_70,
-        PHPUnitSetList::PHPUNIT_80,
-        PHPUnitSetList::PHPUNIT_90,
-        PHPUnitSetList::PHPUNIT_100,
-        PHPUnitSetList::PHPUNIT_110,
-        PHPUnitSetList::PHPUNIT_CODE_QUALITY,
     ])
+    ->withPreparedSets(phpunitCodeQuality: true)
     ->withPhpSets()
     ->withRules([
         Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector::class,
@@ -40,3 +31,15 @@ return RectorConfig::configure()
         __DIR__ . '/vendor/larastan/larastan/extension.neon',
         __DIR__ . '/vendor/spaze/phpstan-disallowed-calls/extension.neon',
     ]);
+
+// TODO remove after the rector/rector constraint drops ^1
+if (method_exists($config, 'withComposerBased')) {
+    $config = $config->withComposerBased(phpunit: true);
+} else {
+    $config = $config->withSets(array_map(
+        'constant',
+        array_map(fn (int $version): string => 'Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_' . $version, [40, 50, 60, 70, 80, 90, 100, 110]),
+    ));
+}
+
+return $config;
