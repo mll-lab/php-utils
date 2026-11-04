@@ -11,13 +11,18 @@ class CSVArray
 {
     public const DEFAULT_EMPTY_VALUE = '';
 
+    private const FIELD_START = 0;
+    private const FIELD_UNENCLOSED = 1;
+    private const FIELD_ENCLOSED = 2;
+    private const FIELD_AFTER_ENCLOSURE = 3;
+
     /** @return array<int, array<string, string>> */
     public static function toArray(string $csv, string $delimiter = ';', string $enclosure = '"', string $escape = '\\'): array
     {
         /** @var array<int, array<string, string>> $result */
         $result = [];
 
-        $records = self::splitRecords($csv, $enclosure, $escape);
+        $records = self::splitRecords($csv, $delimiter, $enclosure, $escape);
 
         // The first row of the CSV usually contains the column headers
         // We remove it so it does not show up in the result
@@ -45,26 +50,27 @@ class CSVArray
     }
 
     /** @return array<int, string> */
-    private static function splitRecords(string $csv, string $enclosure, string $escape): array
+    private static function splitRecords(string $csv, string $delimiter, string $enclosure, string $escape): array
     {
         $records = [];
         $record = '';
-        $isInsideEnclosure = false;
+        $fieldState = self::FIELD_START;
 
         foreach (\Safe\preg_split("/(\r\n|\n|\r)/", $csv, -1, PREG_SPLIT_DELIM_CAPTURE) as $index => $part) {
-            assert(is_string($part));
+            assert(is_string($part), 'preg_split returns strings.');
 
             $isLineBreak = $index % 2 === 1;
-            if ($isLineBreak && ! $isInsideEnclosure) {
+            if ($isLineBreak && $fieldState !== self::FIELD_ENCLOSED) {
                 $records[] = $record;
                 $record = '';
+                $fieldState = self::FIELD_START;
 
                 continue;
             }
 
             $record .= $part;
             if (! $isLineBreak) {
-                $isInsideEnclosure = self::isInsideEnclosureAfter($part, $isInsideEnclosure, $enclosure, $escape);
+                $fieldState = self::fieldStateAfter($part, $fieldState, $delimiter, $enclosure, $escape);
             }
         }
 
@@ -73,19 +79,35 @@ class CSVArray
         return $records;
     }
 
-    private static function isInsideEnclosureAfter(string $text, bool $isInsideEnclosure, string $enclosure, string $escape): bool
+    /** Follows the quoting rules of str_getcsv: an enclosure only opens at the start of a field. */
+    private static function fieldStateAfter(string $text, int $fieldState, string $delimiter, string $enclosure, string $escape): int
     {
         $length = strlen($text);
         for ($position = 0; $position < $length; ++$position) {
             $character = $text[$position];
-            if ($isInsideEnclosure && $character === $escape && $escape !== $enclosure) {
-                ++$position;
-            } elseif ($character === $enclosure) {
-                $isInsideEnclosure = ! $isInsideEnclosure;
+
+            if ($fieldState === self::FIELD_ENCLOSED) {
+                if ($character === $escape && $escape !== $enclosure) {
+                    ++$position;
+                } elseif ($character === $enclosure) {
+                    if (($text[$position + 1] ?? '') === $enclosure) {
+                        ++$position;
+                    } else {
+                        $fieldState = self::FIELD_AFTER_ENCLOSURE;
+                    }
+                }
+            } elseif ($character === $delimiter) {
+                $fieldState = self::FIELD_START;
+            } elseif ($fieldState === self::FIELD_START) {
+                if ($character === $enclosure) {
+                    $fieldState = self::FIELD_ENCLOSED;
+                } elseif ($character !== ' ' && $character !== "\t") {
+                    $fieldState = self::FIELD_UNENCLOSED;
+                }
             }
         }
 
-        return $isInsideEnclosure;
+        return $fieldState;
     }
 
     /** @param iterable<array<string, CSVPrimitive>> $data */

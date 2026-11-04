@@ -203,6 +203,54 @@ final class CSVArrayTest extends TestCase
         ];
     }
 
+    /** @return iterable<string, array{string, array<int, array<string, string>>}> */
+    public static function enclosuresOutsideEnclosedFields(): iterable
+    {
+        yield 'inch mark in unenclosed field' => [
+            "size;name\r\n12\";Disk\r\n14;Other\r\n",
+            [
+                1 => ['size' => '12"', 'name' => 'Disk'],
+                2 => ['size' => '14', 'name' => 'Other'],
+            ],
+        ];
+        yield 'text after closing enclosure' => [
+            "a;b\r\n\"x\"y\";z\r\n1;2\r\n",
+            [
+                1 => ['a' => 'xy"', 'b' => 'z'],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+        ];
+        yield 'escaped enclosure in unenclosed field' => [
+            "a;b\r\nx\\\";z\r\n1;2\r\n",
+            [
+                1 => ['a' => 'x\\"', 'b' => 'z'],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider enclosuresOutsideEnclosedFields
+     *
+     * @param array<int, array<string, string>> $array
+     */
+    #[DataProvider('enclosuresOutsideEnclosedFields')]
+    public function testToArrayTreatsEnclosuresOutsideEnclosedFieldsAsText(string $csv, array $array): void
+    {
+        self::assertSame($array, CSVArray::toArray($csv));
+    }
+
+    public function testToArrayWithEscapeEqualToEnclosure(): void
+    {
+        self::assertSame(
+            [
+                1 => ['a' => 'x"y', 'b' => 'z'],
+                2 => ['a' => "m\r\nn", 'b' => '2'],
+            ],
+            CSVArray::toArray("a;b\r\n\"x\"\"y\";z\r\n\"m\r\nn\";2\r\n", ';', '"', '"')
+        );
+    }
+
     /**
      * @dataProvider lineBreakVariants
      *
