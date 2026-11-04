@@ -187,6 +187,12 @@ final class CSVArrayTest extends TestCase
                 2 => ['a' => '1', 'b' => '2'],
             ],
         ];
+        yield 'vertical tab before enclosure' => [
+            "a;b\n\v\"first\nsecond\";x\n",
+            [
+                1 => ['a' => "first\nsecond", 'b' => 'x'],
+            ],
+        ];
         yield 'enclosed empty value in single column' => [
             "name\r\n\"\"\r\nBob\r\n",
             [
@@ -238,6 +244,16 @@ final class CSVArrayTest extends TestCase
     public function testToArrayTreatsEnclosuresOutsideEnclosedFieldsAsText(string $csv, array $array): void
     {
         self::assertSame($array, CSVArray::toArray($csv));
+    }
+
+    public function testToArrayWithLineFeedAsEscape(): void
+    {
+        self::assertSame(
+            [
+                1 => ['a' => 'x', 'b' => "hello\n\"world\nend"],
+            ],
+            CSVArray::toArray("a;b\nx;\"hello\n\"world\nend\"\n", ';', '"', "\n")
+        );
     }
 
     public function testToArrayWithEscapeEqualToEnclosure(): void

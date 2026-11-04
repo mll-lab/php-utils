@@ -49,65 +49,50 @@ class CSVArray
         return $result;
     }
 
-    /** @return array<int, string> */
+    /**
+     * Follows the quoting rules of str_getcsv: an enclosure only opens at the start of a field.
+     *
+     * @return array<int, string>
+     */
     private static function splitRecords(string $csv, string $delimiter, string $enclosure, string $escape): array
     {
         $records = [];
-        $record = '';
+        $recordStart = 0;
         $fieldState = self::FIELD_START;
 
-        foreach (\Safe\preg_split("/(\r\n|\n|\r)/", $csv, -1, PREG_SPLIT_DELIM_CAPTURE) as $index => $part) {
-            assert(is_string($part), 'preg_split returns strings.');
-
-            $isLineBreak = $index % 2 === 1;
-            if ($isLineBreak && $fieldState !== self::FIELD_ENCLOSED) {
-                $records[] = $record;
-                $record = '';
-                $fieldState = self::FIELD_START;
-
-                continue;
-            }
-
-            $record .= $part;
-            if (! $isLineBreak) {
-                $fieldState = self::fieldStateAfter($part, $fieldState, $delimiter, $enclosure, $escape);
-            }
-        }
-
-        $records[] = $record;
-
-        return $records;
-    }
-
-    /** Follows the quoting rules of str_getcsv: an enclosure only opens at the start of a field. */
-    private static function fieldStateAfter(string $text, int $fieldState, string $delimiter, string $enclosure, string $escape): int
-    {
-        $length = strlen($text);
+        $length = strlen($csv);
         for ($position = 0; $position < $length; ++$position) {
-            $character = $text[$position];
+            $character = $csv[$position];
 
             if ($fieldState === self::FIELD_ENCLOSED) {
                 if ($character === $escape && $escape !== $enclosure) {
                     ++$position;
                 } elseif ($character === $enclosure) {
-                    if (($text[$position + 1] ?? '') === $enclosure) {
+                    if (($csv[$position + 1] ?? '') === $enclosure) {
                         ++$position;
                     } else {
                         $fieldState = self::FIELD_AFTER_ENCLOSURE;
                     }
                 }
+            } elseif ($character === "\r" || $character === "\n") {
+                $records[] = substr($csv, $recordStart, $position - $recordStart);
+                if ($character === "\r" && ($csv[$position + 1] ?? '') === "\n") {
+                    ++$position;
+                }
+                $recordStart = $position + 1;
+                $fieldState = self::FIELD_START;
+            } elseif ($fieldState === self::FIELD_START && $character === $enclosure) {
+                $fieldState = self::FIELD_ENCLOSED;
             } elseif ($character === $delimiter) {
                 $fieldState = self::FIELD_START;
-            } elseif ($fieldState === self::FIELD_START) {
-                if ($character === $enclosure) {
-                    $fieldState = self::FIELD_ENCLOSED;
-                } elseif ($character !== ' ' && $character !== "\t") {
-                    $fieldState = self::FIELD_UNENCLOSED;
-                }
+            } elseif ($fieldState === self::FIELD_START && strpos(" \t\v\f", $character) === false) {
+                $fieldState = self::FIELD_UNENCLOSED;
             }
         }
 
-        return $fieldState;
+        $records[] = substr($csv, $recordStart);
+
+        return $records;
     }
 
     /** @param iterable<array<string, CSVPrimitive>> $data */
