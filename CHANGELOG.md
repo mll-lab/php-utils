@@ -1,5 +1,11 @@
 # Changelog
 
+## [7.0.1](https://github.com/mll-lab/php-utils/compare/v7.0.0...v7.0.1) (2026-11-04)
+
+### Bug Fixes
+
+* parse multiline fields in CSVArray::toArray ([#100](https://github.com/mll-lab/php-utils/issues/100)) ([a211c1e](https://github.com/mll-lab/php-utils/commit/a211c1e98c52eeba06f9e6f30f6c244b0fb8fcc6))
+
 ## [7.0.0](https://github.com/mll-lab/php-utils/compare/v6.16.0...v7.0.0) (2026-10-15)
 
 ### ⚠ BREAKING CHANGES
