@@ -163,18 +163,58 @@ final class CSVArrayTest extends TestCase
         );
     }
 
-    public function testToArrayHandlesCarriageReturnLineEndings(): void
+    /** @return iterable<string, array{string, array<int, array<string, string>>}> */
+    public static function lineBreakVariants(): iterable
     {
-        self::assertSame(
+        yield 'carriage return only' => [
+            "a;b\rx;y\r1;2\r",
             [
                 1 => ['a' => 'x', 'b' => 'y'],
                 2 => ['a' => '1', 'b' => '2'],
             ],
-            CSVArray::toArray("a;b\rx;y\r1;2\r")
-        );
+        ];
+        yield 'mixed line breaks' => [
+            "a;b\rx;y\n1;2\r\n",
+            [
+                1 => ['a' => 'x', 'b' => 'y'],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+        ];
+        yield 'carriage return only with line feed in enclosed field' => [
+            "a;b\rx;\"hello\nworld\"\r1;2\r",
+            [
+                1 => ['a' => 'x', 'b' => "hello\nworld"],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+        ];
+        yield 'enclosed empty value in single column' => [
+            "name\r\n\"\"\r\nBob\r\n",
+            [
+                1 => ['name' => ''],
+                2 => ['name' => 'Bob'],
+            ],
+        ];
+        yield 'escaped enclosure in multiline field' => [
+            "a;b\r\nx;\"say \\\"hi\r\nthere\"\r\n1;2\r\n",
+            [
+                1 => ['a' => 'x', 'b' => "say \\\"hi\r\nthere"],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+        ];
     }
 
-    public function testToArrayReturnsEmptyArrayForEmptyCSV(): void
+    /**
+     * @dataProvider lineBreakVariants
+     *
+     * @param array<int, array<string, string>> $array
+     */
+    #[DataProvider('lineBreakVariants')]
+    public function testToArrayHandlesLineBreakVariants(string $csv, array $array): void
+    {
+        self::assertSame($array, CSVArray::toArray($csv));
+    }
+
+    public function testToArrayYieldsNoRecordsForEmptyCSV(): void
     {
         self::assertSame([], CSVArray::toArray(''));
     }
