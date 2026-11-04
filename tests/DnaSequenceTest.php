@@ -56,4 +56,18 @@ final class DnaSequenceTest extends TestCase
         $dnaSequence = new DnaSequence(' GCAT ');
         self::assertSame(4, $dnaSequence->length());
     }
+
+    public function testUnknownBase(): void
+    {
+        $dnaSequence = new DnaSequence('ANGT');
+        self::assertSame('ANGT', $dnaSequence->toString());
+        self::assertSame('TNCA', $dnaSequence->complement());
+        self::assertSame('ACNT', $dnaSequence->reverseComplement());
+    }
+
+    public function testMissingAlleleIsNoDnaSequence(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new DnaSequence('.');
+    }
 }

@@ -9,7 +9,7 @@ class DnaSequence
     public function __construct(string $sequence)
     {
         $sequence = trim(strtoupper($sequence));
-        if (\Safe\preg_match('/^[ATGC]*$/', $sequence) === 0) {
+        if (\Safe\preg_match('/^[ATGCN]*$/', $sequence) === 0) {
             throw new \InvalidArgumentException('Invalid DNA sequence');
         }
         $this->validatedSequence = $sequence;
