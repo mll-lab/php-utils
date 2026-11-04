@@ -20,6 +20,7 @@ class CSVArray
 
         // The first row of the CSV usually contains the column headers
         // We remove it so it does not show up in the result
+        /** @var array<int, string|null>|false $columnHeaders */
         $columnHeaders = fgetcsv($stream, 0, $delimiter, $enclosure, $escape); // @phpstan-ignore-line theCodingMachineSafe.function (Safe\fgetcsv is missing in Safe 1.x)
         if ($columnHeaders === false) {
             \Safe\fclose($stream);
@@ -31,14 +32,20 @@ class CSVArray
         $result = [];
 
         $index = 0;
-        while (($entries = fgetcsv($stream, 0, $delimiter, $enclosure, $escape)) !== false) { // @phpstan-ignore-line theCodingMachineSafe.function (Safe\fgetcsv is missing in Safe 1.x)
+        while (true) {
+            /** @var array<int, string|null>|false $entries */
+            $entries = fgetcsv($stream, 0, $delimiter, $enclosure, $escape); // @phpstan-ignore-line theCodingMachineSafe.function (Safe\fgetcsv is missing in Safe 1.x)
+            if ($entries === false) {
+                break;
+            }
+
             ++$index;
             if (count($entries) === 1 && ! StringUtil::hasContent($entries[0])) {
                 continue;
             }
 
             foreach ($columnHeaders as $columnIndex => $columnName) {
-                $result[$index][$columnName] = $entries[$columnIndex] ?? self::DEFAULT_EMPTY_VALUE;
+                $result[$index][(string) $columnName] = $entries[$columnIndex] ?? self::DEFAULT_EMPTY_VALUE;
             }
         }
 
