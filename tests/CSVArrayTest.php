@@ -163,6 +163,126 @@ final class CSVArrayTest extends TestCase
         );
     }
 
+    /** @return iterable<string, array{string, array<int, array<string, string>>}> */
+    public static function lineBreakVariants(): iterable
+    {
+        yield 'carriage return only' => [
+            "a;b\rx;y\r1;2\r",
+            [
+                1 => ['a' => 'x', 'b' => 'y'],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+        ];
+        yield 'mixed line breaks' => [
+            "a;b\rx;y\n1;2\r\n",
+            [
+                1 => ['a' => 'x', 'b' => 'y'],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+        ];
+        yield 'carriage return only with line feed in enclosed field' => [
+            "a;b\rx;\"hello\nworld\"\r1;2\r",
+            [
+                1 => ['a' => 'x', 'b' => "hello\nworld"],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+        ];
+        yield 'vertical tab before enclosure' => [
+            "a;b\n\v\"first\nsecond\";x\n",
+            [
+                1 => ['a' => "first\nsecond", 'b' => 'x'],
+            ],
+        ];
+        yield 'enclosed empty value in single column' => [
+            "name\r\n\"\"\r\nBob\r\n",
+            [
+                1 => ['name' => ''],
+                2 => ['name' => 'Bob'],
+            ],
+        ];
+        yield 'escaped enclosure in multiline field' => [
+            "a;b\r\nx;\"say \\\"hi\r\nthere\"\r\n1;2\r\n",
+            [
+                1 => ['a' => 'x', 'b' => "say \\\"hi\r\nthere"],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+        ];
+    }
+
+    /** @return iterable<string, array{string, array<int, array<string, string>>}> */
+    public static function enclosuresOutsideEnclosedFields(): iterable
+    {
+        yield 'inch mark in unenclosed field' => [
+            "size;name\r\n12\";Disk\r\n14;Other\r\n",
+            [
+                1 => ['size' => '12"', 'name' => 'Disk'],
+                2 => ['size' => '14', 'name' => 'Other'],
+            ],
+        ];
+        yield 'text after closing enclosure' => [
+            "a;b\r\n\"x\"y\";z\r\n1;2\r\n",
+            [
+                1 => ['a' => 'xy"', 'b' => 'z'],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+        ];
+        yield 'escaped enclosure in unenclosed field' => [
+            "a;b\r\nx\\\";z\r\n1;2\r\n",
+            [
+                1 => ['a' => 'x\\"', 'b' => 'z'],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider enclosuresOutsideEnclosedFields
+     *
+     * @param array<int, array<string, string>> $array
+     */
+    #[DataProvider('enclosuresOutsideEnclosedFields')]
+    public function testToArrayTreatsEnclosuresOutsideEnclosedFieldsAsText(string $csv, array $array): void
+    {
+        self::assertSame($array, CSVArray::toArray($csv));
+    }
+
+    public function testToArrayWithLineFeedAsEscape(): void
+    {
+        self::assertSame(
+            [
+                1 => ['a' => 'x', 'b' => "hello\n\"world\nend"],
+            ],
+            CSVArray::toArray("a;b\nx;\"hello\n\"world\nend\"\n", ';', '"', "\n")
+        );
+    }
+
+    public function testToArrayWithEscapeEqualToEnclosure(): void
+    {
+        self::assertSame(
+            [
+                1 => ['a' => 'x"y', 'b' => 'z'],
+                2 => ['a' => "m\r\nn", 'b' => '2'],
+            ],
+            CSVArray::toArray("a;b\r\n\"x\"\"y\";z\r\n\"m\r\nn\";2\r\n", ';', '"', '"')
+        );
+    }
+
+    /**
+     * @dataProvider lineBreakVariants
+     *
+     * @param array<int, array<string, string>> $array
+     */
+    #[DataProvider('lineBreakVariants')]
+    public function testToArrayHandlesLineBreakVariants(string $csv, array $array): void
+    {
+        self::assertSame($array, CSVArray::toArray($csv));
+    }
+
+    public function testToArrayYieldsNoRecordsForEmptyCSV(): void
+    {
+        self::assertSame([], CSVArray::toArray(''));
+    }
+
     public function testHandlesMultilineStrings(): void
     {
         $multilineCsv = <<<CSV
@@ -195,8 +315,6 @@ final class CSVArrayTest extends TestCase
 
         self::assertSame($multilineCsv, CSVArray::toCSV($multilineArray));
 
-        self::markTestIncomplete('This does not work correctly yet');
-        // @phpstan-ignore-next-line https://github.com/phpstan/phpstan-phpunit/issues/52
         self::assertSame($multilineArray, CSVArray::toArray($multilineCsv));
     }
 }

@@ -11,41 +11,88 @@ class CSVArray
 {
     public const DEFAULT_EMPTY_VALUE = '';
 
-    /**
-     * TODO: fix parsing multiline-content in csv.
-     *
-     * @return array<int, array<string, string>>
-     */
+    private const FIELD_START = 0;
+    private const FIELD_UNENCLOSED = 1;
+    private const FIELD_ENCLOSED = 2;
+    private const FIELD_AFTER_ENCLOSURE = 3;
+
+    /** @return array<int, array<string, string>> */
     public static function toArray(string $csv, string $delimiter = ';', string $enclosure = '"', string $escape = '\\'): array
     {
         /** @var array<int, array<string, string>> $result */
         $result = [];
 
-        $lines = StringUtil::splitLines($csv);
+        $records = self::splitRecords($csv, $delimiter, $enclosure, $escape);
 
         // The first row of the CSV usually contains the column headers
         // We remove it so it does not show up in the result
-        $firstLine = array_shift($lines);
-        if (is_null($firstLine)) {
+        $headerRecord = array_shift($records);
+        if (is_null($headerRecord)) {
             throw new \Exception('Missing column headers.');
         }
 
         /** @var array<int, string> $columnHeaders */
-        $columnHeaders = str_getcsv($firstLine, $delimiter, $enclosure, $escape);
+        $columnHeaders = str_getcsv($headerRecord, $delimiter, $enclosure, $escape);
 
-        foreach ($lines as $index => $line) {
-            if (! StringUtil::hasContent($line)) {
+        foreach ($records as $index => $record) {
+            if (! StringUtil::hasContent($record)) {
                 continue;
             }
 
             /** @var array<int, string> $entries */
-            $entries = str_getcsv($line, $delimiter, $enclosure, $escape);
+            $entries = str_getcsv($record, $delimiter, $enclosure, $escape);
             foreach ($columnHeaders as $columnIndex => $columnName) {
                 $result[$index + 1][$columnName] = $entries[$columnIndex] ?? self::DEFAULT_EMPTY_VALUE;
             }
         }
 
         return $result;
+    }
+
+    /**
+     * Follows the quoting rules of str_getcsv: an enclosure only opens at the start of a field.
+     *
+     * @return array<int, string>
+     */
+    private static function splitRecords(string $csv, string $delimiter, string $enclosure, string $escape): array
+    {
+        $records = [];
+        $recordStart = 0;
+        $fieldState = self::FIELD_START;
+
+        $length = strlen($csv);
+        for ($position = 0; $position < $length; ++$position) {
+            $character = $csv[$position];
+
+            if ($fieldState === self::FIELD_ENCLOSED) {
+                if ($character === $escape && $escape !== $enclosure) {
+                    ++$position;
+                } elseif ($character === $enclosure) {
+                    if (($csv[$position + 1] ?? '') === $enclosure) {
+                        ++$position;
+                    } else {
+                        $fieldState = self::FIELD_AFTER_ENCLOSURE;
+                    }
+                }
+            } elseif ($character === "\r" || $character === "\n") {
+                $records[] = substr($csv, $recordStart, $position - $recordStart); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
+                if ($character === "\r" && ($csv[$position + 1] ?? '') === "\n") {
+                    ++$position;
+                }
+                $recordStart = $position + 1;
+                $fieldState = self::FIELD_START;
+            } elseif ($fieldState === self::FIELD_START && $character === $enclosure) {
+                $fieldState = self::FIELD_ENCLOSED;
+            } elseif ($character === $delimiter) {
+                $fieldState = self::FIELD_START;
+            } elseif ($fieldState === self::FIELD_START && strpos(" \t\v\f", $character) === false) {
+                $fieldState = self::FIELD_UNENCLOSED;
+            }
+        }
+
+        $records[] = substr($csv, $recordStart); // @phpstan-ignore-line theCodingMachineSafe.function (safe from PHP 8.0)
+
+        return $records;
     }
 
     /** @param iterable<array<string, CSVPrimitive>> $data */
