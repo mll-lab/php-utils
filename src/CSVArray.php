@@ -14,6 +14,11 @@ class CSVArray
     /** @return array<int, array<string, string>> */
     public static function toArray(string $csv, string $delimiter = ';', string $enclosure = '"', string $escape = '\\'): array
     {
+        // fgetcsv ends records only at \n
+        if (strpos($csv, "\n") === false) {
+            $csv = str_replace("\r", "\n", $csv);
+        }
+
         $stream = \Safe\fopen('php://memory', 'r+');
         \Safe\fwrite($stream, $csv);
         \Safe\rewind($stream);

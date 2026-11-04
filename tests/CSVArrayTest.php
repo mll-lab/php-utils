@@ -163,6 +163,17 @@ final class CSVArrayTest extends TestCase
         );
     }
 
+    public function testToArrayHandlesCarriageReturnLineEndings(): void
+    {
+        self::assertSame(
+            [
+                1 => ['a' => 'x', 'b' => 'y'],
+                2 => ['a' => '1', 'b' => '2'],
+            ],
+            CSVArray::toArray("a;b\rx;y\r1;2\r")
+        );
+    }
+
     public function testToArrayReturnsEmptyArrayForEmptyCSV(): void
     {
         self::assertSame([], CSVArray::toArray(''));
