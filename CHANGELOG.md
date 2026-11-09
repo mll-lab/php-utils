@@ -1,5 +1,11 @@
 # Changelog
 
+## [7.1.0](https://github.com/mll-lab/php-utils/compare/v7.0.1...v7.1.0) (2026-11-09)
+
+### Features
+
+* add StringUtil::removeZeroWidthCharacters ([#103](https://github.com/mll-lab/php-utils/issues/103)) ([1a7f01a](https://github.com/mll-lab/php-utils/commit/1a7f01a9af5f06b45392e8e024673607e574cbce))
+
 ## [7.0.1](https://github.com/mll-lab/php-utils/compare/v7.0.0...v7.0.1) (2026-11-04)
 
 ### Bug Fixes
