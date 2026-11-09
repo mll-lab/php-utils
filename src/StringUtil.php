@@ -99,6 +99,12 @@ class StringUtil
         return \Safe\preg_replace("/\r\n|\r|\n/", $to, $input);
     }
 
+    /** Removes U+200B to U+200D and U+FEFF, which text pasted from mails or web pages often carries. */
+    public static function removeZeroWidthCharacters(string $input): string
+    {
+        return \Safe\preg_replace('/[\x{200B}-\x{200D}\x{FEFF}]/u', '', $input);
+    }
+
     /** Convert string that could be in different UTF encodings (UTF-8, UTF-16BE, ...) to UTF-8. */
     public static function toUTF8(string $string): string
     {

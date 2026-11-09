@@ -89,6 +89,14 @@ final class StringUtilTest extends TestCase
         );
     }
 
+    public function testRemoveZeroWidthCharacters(): void
+    {
+        self::assertSame(
+            'für dringende Anliegen',
+            StringUtil::removeZeroWidthCharacters("für drin\u{200B}gende\u{200C} An\u{200D}liegen\u{FEFF}")
+        );
+    }
+
     public function testUTF8(): void
     {
         $expectedUTF8 = 'test';
