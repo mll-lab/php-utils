@@ -49,7 +49,7 @@ class VariantIdentifier
 
     private static function parseCanonical(string $value): self
     {
-        if (preg_match('/^(.+)-(\d+)-([ATGC]+)\/([ATGC]+)$/i', $value, $matches) === 0) {
+        if (preg_match('/^(.+)-(\d+)-([ATGCN]+)\/([ATGCN]+|\.)$/i', $value, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid canonical variant identifier format: {$value}.");
         }
 
@@ -58,13 +58,13 @@ class VariantIdentifier
         return new self(
             new GenomicPosition(new Chromosome($matches[1]), NucleotidePosition::fromOneBased(SafeCast::toInt($matches[2]))),
             new DnaSequence($matches[3]),
-            new DnaSequence($matches[4])
+            new AlternateAllele($matches[4])
         );
     }
 
     private static function parseDash(string $value): self
     {
-        if (preg_match('/^(.+)-(\d+)-([ATGC]+)-([ATGC]+)$/i', $value, $matches) === 0) {
+        if (preg_match('/^(.+)-(\d+)-([ATGCN]+)-([ATGCN]+|\.)$/i', $value, $matches) === 0) {
             throw new \InvalidArgumentException("Invalid VCF variant identifier format: {$value}.");
         }
 
@@ -73,7 +73,7 @@ class VariantIdentifier
         return new self(
             new GenomicPosition(new Chromosome($matches[1]), NucleotidePosition::fromOneBased(SafeCast::toInt($matches[2]))),
             new DnaSequence($matches[3]),
-            new DnaSequence($matches[4])
+            new AlternateAllele($matches[4])
         );
     }
 }

@@ -81,6 +81,8 @@ final class VariantIdentifierTest extends TestCase
         yield 'insertion' => ['chrX-99999-A-ATCG', 'X', 99999, 'A', 'ATCG'];
         yield 'chromosome 22' => ['chr22-100-G-C', '22', 100, 'G', 'C'];
         yield 'mitochondrial' => ['chrM-8000-T-C', 'M', 8000, 'T', 'C'];
+        yield 'unknown base' => ['chr17-42288064-TCAGGC-TGGN', '17', 42288064, 'TCAGGC', 'TGGN'];
+        yield 'missing alternate' => ['chr11-5304332-A-.', '11', 5304332, 'A', '.'];
     }
 
     /** @dataProvider parseCanonicalProvider */
@@ -101,12 +103,20 @@ final class VariantIdentifierTest extends TestCase
         yield 'SNV with chr prefix' => ['chr1-12345-A/T', '1', 12345, 'A', 'T'];
         yield 'multi-base alternate' => ['chr1-12345-A/ATT', '1', 12345, 'A', 'ATT'];
         yield 'without chr prefix' => ['12-500-G/CA', '12', 500, 'G', 'CA'];
+        yield 'unknown base' => ['chr19-13054588-AAGACAAGAA/ANT', '19', 13054588, 'AAGACAAGAA', 'ANT'];
+        yield 'missing alternate' => ['chr11-5304332-A/.', '11', 5304332, 'A', '.'];
     }
 
     public function testParseInvalidVCFThrows(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         VariantIdentifier::parse('invalid');
+    }
+
+    public function testParseMissingReferenceThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        VariantIdentifier::parse('chr11-5304332-.-A');
     }
 
     public function testParseInvalidCanonicalThrows(): void
