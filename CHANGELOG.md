@@ -1,5 +1,11 @@
 # Changelog
 
+## [7.2.0](https://github.com/mll-lab/php-utils/compare/v7.1.0...v7.2.0) (2026-11-10)
+
+### Features
+
+* allow N alleles and missing ALT in VariantIdentifier ([#101](https://github.com/mll-lab/php-utils/issues/101)) ([bb0bbe3](https://github.com/mll-lab/php-utils/commit/bb0bbe3f18414f25d5cb6e59f3953de6cb78bd06))
+
 ## [7.1.0](https://github.com/mll-lab/php-utils/compare/v7.0.1...v7.1.0) (2026-11-09)
 
 ### Features
