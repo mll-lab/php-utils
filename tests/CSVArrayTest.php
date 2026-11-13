@@ -3,6 +3,7 @@
 namespace MLL\Utils\Tests;
 
 use MLL\Utils\CSVArray;
+use MLL\Utils\StringUtil;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -156,9 +157,9 @@ final class CSVArrayTest extends TestCase
                 . "Wert11;Wert21\r\n"
                 . "Wert12\r\n"
                 . ";\r\n"
-                . \MLL\Utils\StringUtil::WINDOWS_NEWLINE
+                . StringUtil::WINDOWS_NEWLINE
                 . 'Wert14;Wert24;Wert34'
-                . \MLL\Utils\StringUtil::WINDOWS_NEWLINE
+                . StringUtil::WINDOWS_NEWLINE
             )
         );
     }
