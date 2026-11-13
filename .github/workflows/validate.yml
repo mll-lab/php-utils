@@ -62,6 +62,9 @@ jobs:
           mll-lab/rector-config
           spaze/phpstan-disallowed-calls
 
+      - if: matrix.php-version == '8.1' || matrix.php-version == '8.2'
+        run: composer remove --dev --no-update mll-lab/rector-config
+
       - if: matrix.php-version == '7.4' || matrix.php-version == '8.0'
         run: rm -rf src/Enum tests/Enum src/FluidXPlate/Scalars src/Microplate/Scalars tests/FluidXPlate/Scalars tests/Microplate/Scalars
 
@@ -113,6 +116,9 @@ jobs:
           rector/rector
           mll-lab/rector-config
           spaze/phpstan-disallowed-calls
+
+      - if: matrix.php-version == '8.1' || matrix.php-version == '8.2'
+        run: composer remove --dev --no-update mll-lab/rector-config
 
       - if: matrix.php-version == '7.4' || matrix.php-version == '8.0'
         run: rm -rf src/Enum tests/Enum src/FluidXPlate/Scalars src/Microplate/Scalars tests/FluidXPlate/Scalars tests/Microplate/Scalars
