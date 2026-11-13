@@ -1,5 +1,11 @@
 # Changelog
 
+## [7.3.0](https://github.com/mll-lab/php-utils/compare/v7.2.0...v7.3.0) (2026-11-13)
+
+### Features
+
+* add StringUtil::replaceLineBreaksWithSpaces ([#104](https://github.com/mll-lab/php-utils/issues/104)) ([3c605ad](https://github.com/mll-lab/php-utils/commit/3c605ad87020d868ab5f487ffd078dd1a5ee872f))
+
 ## [7.2.0](https://github.com/mll-lab/php-utils/compare/v7.1.0...v7.2.0) (2026-11-10)
 
 ### Features
