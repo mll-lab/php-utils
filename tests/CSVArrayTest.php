@@ -156,9 +156,9 @@ final class CSVArrayTest extends TestCase
                 . "Wert11;Wert21\r\n"
                 . "Wert12\r\n"
                 . ";\r\n"
-                . "\r\n"
+                . \MLL\Utils\StringUtil::WINDOWS_NEWLINE
                 . 'Wert14;Wert24;Wert34'
-                . "\r\n"
+                . \MLL\Utils\StringUtil::WINDOWS_NEWLINE
             )
         );
     }

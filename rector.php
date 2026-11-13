@@ -3,6 +3,8 @@
 use Rector\Config\RectorConfig;
 use Rector\Set\ValueObject\SetList;
 
+use function MLL\RectorConfig\config;
+
 $config = RectorConfig::configure()
     ->withSets([
         SetList::CODE_QUALITY,
@@ -17,9 +19,6 @@ $config = RectorConfig::configure()
     ->withSkip([
         __DIR__ . '/tests/PHPStan/data', // fixtures intentionally violate the rules under test
         Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector::class, // breaks tests
-        Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class => [
-            __DIR__ . '/tests/CSVArrayTest.php', // keep `\r\n` for readability
-        ],
     ])
     ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
     ->withBootstrapFiles([
@@ -42,4 +41,7 @@ if (method_exists($config, 'withComposerBased')) {
     ));
 }
 
-return $config;
+return static function (RectorConfig $rectorConfig) use ($config): void {
+    config($rectorConfig);
+    $config($rectorConfig);
+};
