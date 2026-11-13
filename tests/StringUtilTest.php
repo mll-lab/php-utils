@@ -97,6 +97,14 @@ final class StringUtilTest extends TestCase
         );
     }
 
+    public function testReplaceLineBreaksWithSpaces(): void
+    {
+        self::assertSame(
+            'Befund: unauffällig Empfehlung: Kontrolle',
+            StringUtil::replaceLineBreaksWithSpaces("Befund:\r\nunauffällig\n\nEmpfehlung:  \rKontrolle")
+        );
+    }
+
     public function testUTF8(): void
     {
         $expectedUTF8 = 'test';

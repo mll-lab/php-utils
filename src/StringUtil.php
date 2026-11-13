@@ -105,6 +105,14 @@ class StringUtil
         return \Safe\preg_replace('/[\x{200B}-\x{200D}\x{FEFF}]/u', '', $input);
     }
 
+    /** Replaces line breaks with spaces and collapses consecutive whitespace into one space. */
+    public static function replaceLineBreaksWithSpaces(string $input): string
+    {
+        $withoutLineBreaks = str_replace([self::WINDOWS_NEWLINE, "\r", "\n"], ' ', $input);
+
+        return \Safe\preg_replace('/\s+/', ' ', $withoutLineBreaks);
+    }
+
     /** Convert string that could be in different UTF encodings (UTF-8, UTF-16BE, ...) to UTF-8. */
     public static function toUTF8(string $string): string
     {
