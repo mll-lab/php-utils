@@ -1,5 +1,11 @@
 # Changelog
 
+## [7.4.0](https://github.com/mll-lab/php-utils/compare/v7.3.0...v7.4.0) (2026-11-18)
+
+### Features
+
+* add AssertsIterableValues::assertIterablesHaveIdenticalValues ([#106](https://github.com/mll-lab/php-utils/issues/106)) ([c0f99b9](https://github.com/mll-lab/php-utils/commit/c0f99b988551ebba00da3f851804578752d0fc58))
+
 ## [7.3.0](https://github.com/mll-lab/php-utils/compare/v7.2.0...v7.3.0) (2026-11-13)
 
 ### Features
