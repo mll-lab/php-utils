@@ -81,6 +81,28 @@ BavarianHolidays::$loadUserDefinedHolidays = static function (int $year): array 
 
 Custom holidays have precedence over the holidays inherent to this library.
 
+### Asserting iterable values
+
+Use the trait `AssertsIterableValues` in a PHPUnit test case to compare the values of two iterables in order, ignoring their keys, like `assertArraysHaveIdenticalValues()` from PHPUnit 13 does for arrays.
+This saves converting a `Collection`, a generator or a filtered array with `->values()->all()` or `array_values()` before `assertSame()`.
+
+```php
+use MLL\Utils\PHPUnit\AssertsIterableValues;
+use PHPUnit\Framework\TestCase;
+
+final class FooTest extends TestCase
+{
+    use AssertsIterableValues;
+
+    public function testFoo(): void
+    {
+        self::assertIterablesHaveIdenticalValues(['a', 'b'], $collection->filter()->unique());
+    }
+}
+```
+
+Requires `phpunit/phpunit`.
+
 ### PHPStan extension
 
 This library provides a PHPStan extension that is either registered through [PHPStan Extension Installer](https://github.com/phpstan/extension-installer)
