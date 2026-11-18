@@ -71,14 +71,9 @@
       ],
       "abandoned": "ignore"
     },
-    "block-insecure": false,
     "policy": {
       "advisories": {
-        "ignore": [
-          "laravel/framework",
-          "league/flysystem",
-          "zbateson/mail-mime-parser"
-        ]
+        "block": false
       }
     },
     "sort-packages": true
